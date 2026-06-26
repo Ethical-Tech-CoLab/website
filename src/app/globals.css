@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+:root {
+  /* Palette mirrors the Lovable design: deep indigo ground, green accent. */
+  --background: oklch(0.16 0.05 295);
+  --surface: oklch(0.21 0.06 295);
+  --secondary: oklch(0.28 0.08 295);
+  --foreground: oklch(0.97 0.01 80);
+  --muted: oklch(0.74 0.03 80);
+  --border: oklch(0.32 0.06 295);
+  --accent: oklch(0.78 0.13 145); /* signature green — buttons, links */
+  --glow: oklch(0.65 0.22 305); /* purple radial glow */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-secondary: var(--secondary);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-glow: var(--glow);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains);
+  --font-serif: var(--font-fraunces);
+  --font-heading: var(--font-jetbrains);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* All headings are set in JetBrains Mono. */
+@layer base {
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-heading), ui-monospace, monospace;
+    letter-spacing: -0.03em;
+  }
+}
+
+/* Emphasis word inside a heading — rendered in the green accent. */
+.display-em {
+  color: var(--accent);
+  font-style: normal;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--background);
+}
