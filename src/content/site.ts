@@ -318,8 +318,9 @@ export const team = {
     initials: "YR",
     name: "Yorke E Rhodes III",
     role: "Founder",
-    email: "yorker@nyu.edu",
-    body: "Founder of the Ethical Tech CoLab. Convenes the cohort, sets the research agenda, and steers each project from frontier idea to fielded prototype.",
+    email: "yer2001@nyu.edu",
+    photo: "/team/yorke.jpg",
+    body: "Professor Yorke Rhodes is the Microsoft Director of Traceability, Cofounder of Blockchain at Microsoft, and Cofounder of the NYU Ethical Tech CoLab. A visionary technologist and strategic leader at the intersection of blockchain innovation, artificial intelligence, and ethical systems design. As Director of Traceability, he drives transformative initiatives that enhance traceability, transparency, and trust across global ecosystems. Yorke's work spans enterprise architecture, compliance frameworks, and humanitarian tech, with a focus on applying emerging technologies to real-world challenges — from forced labor mitigation to responsible AI deployment. He is also an educator and speaker, shaping the next generation of ethical technologists through hands-on learning and thought leadership.",
   } as {
     initials: string;
     name: string;
@@ -360,16 +361,16 @@ export const team = {
       name: "Melanie MacKew",
       role: "Applied AI Researcher",
       email: "mcm9106@nyu.edu",
-      // photo: "/team/melanie.jpg",
-      bio: "Applied AI researcher in the CoLab's Summer 2026 cohort. Full bio coming soon.",
+      photo: "/team/melanie.jpg",
+      bio: "Melanie is currently working to complete her M.S. in Global Affairs at NYU. Melanie earned her B.A. in Global and International Studies from Western Michigan University in 2021. She is particularly interested in forced migration and refugee integration. Her prior work experience includes facilitating an art program for children in Moria Refugee Camp, working with unaccompanied refugee minors in Michigan, and serving as a community liaison for a refugee employment program. Apart from school and work, Melanie has been a part of the board of a nonprofit concerned with refugee integration in Michigan and volunteered with the Literacy Center of West Michigan, where she worked with an English-learner to improve his literacy skills.",
     },
     {
       initials: "CR",
-      name: "Carlos Ruiz",
+      name: "Carlos D. Ruiz",
       role: "Applied AI Researcher",
       email: "cdr9688@nyu.edu",
-      // photo: "/team/carlos.jpg",
-      bio: "Applied AI researcher in the CoLab's Summer 2026 cohort. Full bio coming soon.",
+      photo: "/team/carlos.jpg",
+      bio: "Carlos D. Ruiz is a Venezuelan-born U.S. Air Force veteran who holds a Master of Science in Global Affairs with a concentration in Global Economy from New York University and a Bachelor of Arts in Economics from Fordham University.",
     },
     {
       initials: "IC",
