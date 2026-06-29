@@ -303,6 +303,10 @@ export interface TeamMember {
   role: string;
   email?: string;
   org?: string;
+  /** Path under /public, e.g. "/team/carolina.jpg". Falls back to initials. */
+  photo?: string;
+  /** One- or two-sentence bio shown under the name. */
+  bio?: string;
 }
 
 export const team = {
@@ -316,6 +320,13 @@ export const team = {
     role: "Founder",
     email: "yorker@nyu.edu",
     body: "Founder of the Ethical Tech CoLab. Convenes the cohort, sets the research agenda, and steers each project from frontier idea to fielded prototype.",
+  } as {
+    initials: string;
+    name: string;
+    role: string;
+    email: string;
+    body: string;
+    photo?: string;
   },
   researchersLabel: "The cohort.",
   researchersCount: "7 researchers",
@@ -325,42 +336,56 @@ export const team = {
       name: "Carolina de Almeida Pernambuco Moron",
       role: "Applied AI Researcher",
       email: "cd3823@nyu.edu",
+      photo: "/team/carolina.jpg",
+      bio: "Carolina is a graduate student at NYU Center for Global Affairs with a concentration in Global Economy and specialization in Data Analysis and the United Nations. Highlights in her professional experience include cross-sector project and partnership management, writing English, Portuguese, and Spanish risk reports in consultancy, and redesigning strategic planning for non-profits.\n\nShe has various field experiences under diverse environments. In 2018 and 2019, Carolina lived in Nairobi, Kenya, working at a grassroots organization called Mama Africa, where she managed micro financing of 30 women entrepreneurs and led a business workshop with techniques to solve social issues. More recently, she has been working to co-develop the MVDC project — the first AI voice-based system to improve early-warning systems embedded in a human-centered approach for data governance, ethically sourced data, and bias mitigation. While she was on the ground in Malawi, she established partnerships with the government, academia, civil society, and private sector.",
     },
     {
       initials: "CL",
       name: "Christine Lumen",
       role: "Applied AI Researcher",
       email: "cl4767@nyu.edu",
+      // photo: "/team/christine.jpg",
+      bio: "Applied AI researcher in the CoLab's Summer 2026 cohort. Full bio coming soon.",
     },
     {
       initials: "AR",
       name: "Alana Robertson",
       role: "Applied AI Researcher",
       email: "ar10166@nyu.edu",
+      // photo: "/team/alana.jpg",
+      bio: "Applied AI researcher in the CoLab's Summer 2026 cohort. Full bio coming soon.",
     },
     {
       initials: "MM",
       name: "Melanie MacKew",
       role: "Applied AI Researcher",
       email: "mcm9106@nyu.edu",
+      // photo: "/team/melanie.jpg",
+      bio: "Applied AI researcher in the CoLab's Summer 2026 cohort. Full bio coming soon.",
     },
     {
       initials: "CR",
       name: "Carlos Ruiz",
       role: "Applied AI Researcher",
       email: "cdr9688@nyu.edu",
+      // photo: "/team/carlos.jpg",
+      bio: "Applied AI researcher in the CoLab's Summer 2026 cohort. Full bio coming soon.",
     },
     {
       initials: "IC",
       name: "India Clarke",
       role: "Applied AI Researcher",
       email: "iac9310@nyu.edu",
+      photo: "/team/india.jpg",
+      bio: "India is a graduate student NYU Center for Global Affairs with a concentration in Global Economy and specialization in Data Analysis. She holds a Bachelor of Arts in International Relations and Political Science from Boston University.\n\nHer professional experience includes an internship at Talis Capital in London, where she conducted due diligence and ESG analysis on early stage startups across fintech, healthtech and consumer sectors. Earlier this year, she served as a graduate consultant to the Strong Cities Network, which included conducting interdisciplinary research on violent extremism prevention, and producing a guide for practitioners and policymakers on how law enforcement and mental health professionals can collaborate in secondary violence prevention.",
     },
     {
       initials: "YR",
       name: "Yago Rocha",
       role: "Applied AI Researcher",
       email: "ydr2006@nyu.edu",
+      photo: "/team/yago.jpg",
+      bio: "Yago is a graduate student at NYU's Center for Global Affairs, concentrating in International Development and Humanitarian Assistance. His professional background spans both the private and international development sectors, with experience in project management, stakeholder engagement, strategic planning, and data-driven decision-making.\n\nBefore joining NYU, Yago held leadership positions in Brazil's financial sector, where he managed investment portfolios, led commercial teams, and developed strategic solutions for clients and organizations. His interest in global development led him to transition into the humanitarian field, gaining field experience in Dzaleka Refugee Camp, Malawi, where he supported initiatives focused on refugee livelihoods and financial inclusion.\n\nYago has also contributed to United Nations initiatives as a UN Volunteer and currently serves as an intern at the United Nations Development Programme (UNDP) in New York. His work and research focus on humanitarian assistance, refugee economic inclusion, international development, and the use of data and technology to support evidence-based policymaking and strengthen cross-sector collaboration. He is particularly interested in how artificial intelligence and innovative digital solutions can improve humanitarian response and sustainable development outcomes.",
     },
   ] as TeamMember[],
   collaboratorsLabel: "Other members.",
