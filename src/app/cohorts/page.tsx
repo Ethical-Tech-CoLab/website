@@ -14,7 +14,7 @@ export default function CohortsPage() {
       <section className="border-b border-border">
         <div className="mx-auto max-w-6xl px-6 py-24">
           <p className="text-xs uppercase tracking-wider text-muted">
-            Projects · 2025 — 2026
+            Projects · 2025-2026
           </p>
           <h1 className="mt-4 text-5xl font-semibold tracking-tight sm:text-6xl">
             Projects.
@@ -22,7 +22,7 @@ export default function CohortsPage() {
           <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted">
             Each cohort of the Ethical Tech CoLab takes on applied research and
             proof-of-concept projects on migration, forced labor, IDPs and
-            refugees — combining desk research, interviews, and technical
+            refugees, combining desk research, interviews, and technical
             interventions.
           </p>
         </div>
@@ -30,7 +30,7 @@ export default function CohortsPage() {
 
       <div className="mx-auto max-w-6xl px-6 py-8">
         <ol className="relative border-l border-border">
-          {cohorts.map((cohort) => (
+          {[...cohorts].reverse().map((cohort) => (
             <li key={cohort.index} className="ml-6 py-10">
               <span
                 aria-hidden
@@ -65,7 +65,7 @@ export default function CohortsPage() {
                 {cohort.items.map((item) => (
                   <li key={item} className="flex gap-2.5">
                     <span aria-hidden className="text-accent">
-                      —
+                      ◦
                     </span>
                     {item}
                   </li>

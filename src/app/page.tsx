@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { cohorts, projects, site } from "@/content/site";
+import { cohorts, researchAreas, site } from "@/content/site";
 import { HeroVisual } from "@/components/HeroVisual";
 
 export default function Home() {
@@ -31,7 +31,7 @@ export default function Home() {
             </p>
             <p className="mt-7 max-w-xl leading-relaxed text-muted">
               A research collaboration between NYU&apos;s Center for Global
-              Affairs and Microsoft Research — exploring tech interventions for
+              Affairs and Microsoft Research, exploring tech interventions for
               migration, forced labor, IDPs and refugees.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-4">
@@ -74,28 +74,28 @@ export default function Home() {
         </div>
 
         <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
-          {projects.map((project) => (
+          {researchAreas.map((area) => (
             <Link
-              key={project.key}
+              key={area.key}
               href="/portfolio"
               className="group flex flex-col gap-3 bg-background p-8 transition-colors hover:bg-surface"
             >
               <span className="font-mono text-xs text-muted">
-                {project.index} / {project.key}
+                {area.index} / {area.key}
               </span>
               <h3 className="text-xl font-semibold tracking-tight group-hover:text-accent">
-                {project.title}
+                {area.question}
               </h3>
               <p className="text-sm leading-relaxed text-muted">
-                {project.summary}
+                {area.summary}
               </p>
               <div className="mt-2 flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
+                {area.tags.map((tag) => (
                   <span
                     key={tag}
                     className="rounded-full border border-border px-2.5 py-0.5 text-xs text-muted"
                   >
-                    {tag}
+                    #{tag.replace(/\s+/g, "")}
                   </span>
                 ))}
               </div>

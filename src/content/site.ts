@@ -8,11 +8,10 @@ export const site = {
   tagline: "Emerging tech, human condition.",
   email: "yorker@nyu.edu",
   linkedin: "https://www.linkedin.com/company/ethical-tech-lab/",
-  summitUrl: "https://blocklive.io/event/ethical-tech-summit",
   partnersLine: "NYU SPS · CGA · Microsoft · New York",
   footerBlurb:
     "Exploring intervention opportunities at the intersection of emerging technologies and the human condition.",
-  cohortRange: "Four cohorts · 2024 — 2026",
+  cohortRange: "Four cohorts · 2024-2026",
 };
 
 export const nav = [
@@ -23,84 +22,144 @@ export const nav = [
   { label: "Team", href: "/team" },
 ];
 
-export interface Project {
+/** A single project that lives under a research question. */
+export interface SubProject {
+  name: string;
+  summary: string;
+  status?: string;
+}
+
+/** A research question that opens to reveal the projects exploring it. */
+export interface ResearchArea {
   index: string;
   key: string;
-  name: string;
+  question: string;
   tags: string[];
-  title: string;
   summary: string;
   detail: string;
   stack: string[];
+  projects: SubProject[];
 }
 
-export const projects: Project[] = [
+export const researchAreas: ResearchArea[] = [
   {
     index: "01",
-    key: "EII",
-    name: "Evacuation Information Index",
+    key: "Evacuation",
+    question: "How can AI inform evacuation decisions?",
     tags: ["Disaster response", "Civic tech", "Information equity"],
-    title: "Evacuation Information Index",
     summary:
-      "A real-time index measuring the quality, accessibility, and equity of evacuation information during crises.",
+      "Turning fragmented crisis signals into decisions, so responders and residents can act before information gaps cost lives.",
     detail:
-      "EII synthesizes signals from public agencies, social networks, and on-the-ground reports to surface where critical information is missing — helping responders close gaps before they cost lives.",
+      "Projects under this question measure and improve the quality, accessibility, and equity of the information people rely on when they have to leave.",
     stack: [
       "Geospatial analytics",
       "LLM signal extraction",
       "Open data pipelines",
       "React dashboards",
     ],
+    projects: [
+      {
+        name: "Evacuation Information Index",
+        summary:
+          "A real-time index measuring the quality, accessibility, and equity of evacuation information during crises. It synthesizes signals from public agencies, social networks, and on-the-ground reports to surface where critical information is missing, helping responders close gaps before they cost lives.",
+        status: "Active",
+      },
+      {
+        name: "Project two",
+        summary:
+          "An additional project exploring the evacuation question. Details coming soon.",
+        status: "Planned",
+      },
+      {
+        name: "Project three",
+        summary:
+          "An additional project exploring the evacuation question. Details coming soon.",
+        status: "Planned",
+      },
+      {
+        name: "Project four",
+        summary:
+          "An additional project exploring the evacuation question. Details coming soon.",
+        status: "Planned",
+      },
+      {
+        name: "Project five",
+        summary:
+          "An additional project exploring the evacuation question. Details coming soon.",
+        status: "Planned",
+      },
+    ],
   },
   {
     index: "02",
-    key: "Digital Art Passport",
-    name: "Arts & Artifacts Repatriation",
+    key: "Cultural heritage",
+    question: "How can technology support the ethical return of cultural artifacts?",
     tags: ["Cultural heritage", "Provenance", "Restorative justice"],
-    title: "Arts & Artifacts Repatriation",
     summary:
-      "A digital provenance passport for cultural artifacts — supporting repatriation, attribution, and ethical stewardship.",
+      "Giving institutions, source communities, and researchers a shared, verifiable record of an artifact's life across borders.",
     detail:
-      "Combining verifiable credentials with collaborative cataloguing, the Digital Art Passport gives institutions, source communities, and researchers a shared record of an object's life across borders.",
+      "Projects under this question pair verifiable credentials with collaborative cataloguing to support repatriation, attribution, and ethical stewardship.",
     stack: [
       "Verifiable credentials",
       "IIIF imaging",
       "Ledger anchoring",
       "Knowledge graphs",
     ],
+    projects: [
+      {
+        name: "Digital Art Passport",
+        summary:
+          "A digital provenance passport for cultural artifacts that supports repatriation, attribution, and ethical stewardship. Combining verifiable credentials with collaborative cataloguing, it gives institutions, source communities, and researchers a shared record of an object's life across borders.",
+        status: "Active",
+      },
+    ],
   },
   {
     index: "03",
     key: "Traceability",
-    name: "Ethical Supply Chain & Traceability",
+    question: "How can ethical claims in supply chains be made verifiable?",
     tags: ["Labor rights", "Climate accountability", "Trust infrastructure"],
-    title: "Ethical Supply Chain & Traceability",
     summary:
-      "Auditable traceability for materials, labor, and impact — from origin to shelf.",
+      "Auditable traceability for materials, labor, and impact, from origin to shelf.",
     detail:
-      "We prototype interoperable trace records that travel with goods, letting buyers and regulators verify ethical claims without exposing sensitive supplier data.",
+      "Projects under this question build interoperable trace records that travel with goods, letting buyers and regulators verify ethical claims without exposing sensitive supplier data.",
     stack: [
       "Zero-knowledge proofs",
       "ERP integrations",
       "Standards (GS1, EPCIS)",
       "Edge attestation",
     ],
+    projects: [
+      {
+        name: "Ethical Supply Chain & Traceability",
+        summary:
+          "Interoperable trace records that travel with goods, letting buyers and regulators verify ethical claims about materials, labor, and impact without exposing sensitive supplier data.",
+        status: "Active",
+      },
+    ],
   },
   {
     index: "04",
-    key: "Simulation",
-    name: "Diplomatic Simulator",
+    key: "Diplomacy",
+    question: "How can AI help practitioners rehearse high-stakes diplomacy?",
     tags: ["Diplomacy", "AI safety", "Pedagogy"],
-    title: "Diplomatic Simulator",
     summary:
       "An AI-mediated environment where negotiators rehearse high-stakes diplomacy with culturally grounded agents.",
     detail:
-      "The simulator pairs domain experts with adaptive agents that model historical context, incentives, and red lines — training practitioners for situations textbooks cannot capture.",
+      "Projects under this question pair domain experts with adaptive agents that model historical context, incentives, and red lines, training practitioners for situations textbooks cannot capture.",
     stack: [
       "Multi-agent LLMs",
       "Scenario authoring tools",
       "Evaluation harnesses",
       "Voice interfaces",
+    ],
+    projects: [
+      {
+        name: "Diplomatic Simulator",
+        summary:
+          "An AI-mediated environment where negotiators rehearse high-stakes diplomacy with culturally grounded agents that model historical context, incentives, and red lines, training practitioners for situations textbooks cannot capture.",
+        status: "Active",
+      },
     ],
   },
 ];
@@ -122,18 +181,18 @@ export const cohorts: Cohort[] = [
     title: "First applied research projects.",
     body: "Two projects took shape: detecting and preventing grooming in online spaces, and standardizing ESG certificates & labels to drive consumer behavior toward sustainability.",
     items: [
-      "Online Grooming Prevention — repurposing existing tech for online safety",
-      "ESG Labels & Certificates Transparency — standardization for consumer trust",
+      "Online Grooming Prevention: repurposing existing tech for online safety",
+      "ESG Labels & Certificates Transparency: standardization for consumer trust",
     ],
-    archive: "Full archive — coming soon",
+    archive: "Full archive coming soon",
   },
   {
     index: "02",
     term: "Fall 2025",
     title: "Prototyping and partner pilots.",
-    body: "Technical spikes — multi-agent harnesses, verifiable credentials, geospatial pipelines — tested against real partner needs.",
+    body: "Technical spikes (multi-agent harnesses, verifiable credentials, geospatial pipelines) tested against real partner needs.",
     items: ["Tech spikes shipped", "Evaluation harnesses", "Partner pilots scoped"],
-    archive: "Full archive — coming soon",
+    archive: "Full archive coming soon",
   },
   {
     index: "03",
@@ -154,18 +213,18 @@ export const about = {
   heading:
     "Exploring tech interventions for migration, forced labor, IDPs and refugees.",
   intro:
-    "The NYU Center for Global Affairs launched the Ethical Tech CoLab to focus on interventions in the human condition using emerging technologies — interdisciplinary applied research that draws on students, faculty, and partners from across NYU and industry.",
+    "The NYU Center for Global Affairs launched the Ethical Tech CoLab to focus on interventions in the human condition using emerging technologies, through interdisciplinary applied research that draws on students, faculty, and partners from across NYU and industry.",
   mission: {
     label: "Mission",
     heading:
       "Explore intervention opportunities at the intersection of emerging technologies and the human condition.",
-    body: "We translate frontier research into prototypes that institutions and communities can actually use — moving from speculative possibilities to deployable interventions on migration, forced labor, and the rights of displaced people.",
+    body: "We translate frontier research into simulations that institutions and communities can actually use, moving from speculative possibilities to deployable interventions on migration, forced labor, and the rights of displaced people.",
   },
   vision: {
     label: "Vision",
     heading:
       "Technology shaped by the people it affects, not the other way around.",
-    body: "Humans should be able to own their digital identity and credentials regardless of regime change — and emerging tech, used well, can measurably reduce the volume of forced labor and the precarity of refugees and IDPs.",
+    body: "Humans should be able to own their digital identity and credentials regardless of regime change, and emerging tech, used well, can measurably reduce the volume of forced labor and the precarity of refugees and IDPs.",
   },
   director: {
     label: "Lab Director",
@@ -174,7 +233,7 @@ export const about = {
       "NYU CGA Global Economy · Cofounder of Blockchain at Microsoft · Teaching at NYU for 12 years.",
     paragraphs: [
       'Professor Rhodes currently teaches "Beyond the Brand: Harnessing Emerging Technology in Ethical Sourcing" at CGA, and works on traceability for forced labor compliance.',
-      "He was an initial funding partner of ID2020, an NGO focused on decentralized humanitarian identity for refugees and displaced people in partnership with UNHCR and the World Food Program — founded during the first Syrian refugee crisis on the premise that people should be able to prove their skills, history, and education across borders.",
+      "He was an initial funding partner of ID2020, an NGO focused on decentralized humanitarian identity for refugees and displaced people in partnership with UNHCR and the World Food Program, founded during the first Syrian refugee crisis on the premise that people should be able to prove their skills, history, and education across borders.",
       "The CoLab brings together his cross-organizational work in Forced Labor and Human Trafficking with Microsoft Tech for Fundamental Rights, and collaborations with Microsoft Research on proof-of-human, AI, web3, censorship-resistant security, and privacy-preserving technologies such as zero-knowledge proofs.",
     ],
   },
@@ -190,7 +249,7 @@ export const about = {
       {
         index: "02",
         title: "Source evaluation",
-        body: "Investigate and prepare data sources for interventions — job postings, online game streams, chat rooms, supply-chain signals.",
+        body: "Investigate and prepare data sources for interventions: job postings, online game streams, chat rooms, supply-chain signals.",
       },
       {
         index: "03",
@@ -216,7 +275,7 @@ export const about = {
       {
         index: "02",
         title: "Prototype-first",
-        body: "We ship working systems, not white papers — and we measure them in real conditions.",
+        body: "We ship working systems, not white papers, and we measure them in real conditions.",
       },
       {
         index: "03",
@@ -228,7 +287,7 @@ export const about = {
   stack: {
     label: "Stack",
     heading: "The technologies we work with.",
-    body: "We compose proven infrastructure with frontier capabilities — staying curious about what's new and rigorous about what's reliable.",
+    body: "We compose proven infrastructure with frontier capabilities, staying curious about what's new and rigorous about what's reliable.",
     groups: [
       {
         name: "AI & ML",
@@ -266,29 +325,29 @@ export const about = {
   collaborators: {
     label: "Collaborators",
     heading: "Confirmed & in conversation.",
-    confirmedLabel: "Confirmed — Spring 2025",
+    confirmedLabel: "Confirmed · Spring 2025",
     confirmed: [
-      "Generative AI for Good — Avatars for human-condition storytelling",
-      "D_ID — Avatars tooling",
-      "Mesur.io — Risk inference in emerging markets on forced labor",
-      "SupplyTrace — Open data platform for risk inference",
-      "Rivr.com — Twitch livestreams, keyword tags, chat-room data source",
-      "Human Generated by BlockApps — Verifiable human attestations in the age of AI",
+      "Generative AI for Good: Avatars for human-condition storytelling",
+      "D_ID: Avatars tooling",
+      "Mesur.io: Risk inference in emerging markets on forced labor",
+      "SupplyTrace: Open data platform for risk inference",
+      "Rivr.com: Twitch livestreams, keyword tags, chat-room data source",
+      "Human Generated by BlockApps: Verifiable human attestations in the age of AI",
     ],
     inConversationLabel: "In conversation",
     inConversation: [
-      "ao & Arweave (Community Labs) — Permanent censorship-resistant storage",
-      "Circle — Payments and financial inclusion",
-      "ConsenSys — Blockchain, identity",
-      "OpenAI — Responsible AI tools",
-      "World Coin — Proof of unique human",
-      "Gaia — Decentralized AI workloads",
+      "ao & Arweave (Community Labs): Permanent censorship-resistant storage",
+      "Circle: Payments and financial inclusion",
+      "ConsenSys: Blockchain, identity",
+      "OpenAI: Responsible AI tools",
+      "World Coin: Proof of unique human",
+      "Gaia: Decentralized AI workloads",
     ],
   },
   summit: {
     label: "Each semester",
     heading:
-      "NYU Ethical Tech Summit — collaborator talks, CoLab reviews, and new partnerships.",
+      "NYU Ethical Tech Summit: collaborator talks, CoLab reviews, and new partnerships.",
   },
   foundingPartners: [
     "NYU School of Professional Studies",
@@ -320,7 +379,7 @@ export const team = {
     role: "Founder",
     email: "yer2001@nyu.edu",
     photo: "/team/yorke.jpg",
-    body: "Professor Yorke Rhodes is the Microsoft Director of Traceability, Cofounder of Blockchain at Microsoft, and Cofounder of the NYU Ethical Tech CoLab. A visionary technologist and strategic leader at the intersection of blockchain innovation, artificial intelligence, and ethical systems design. As Director of Traceability, he drives transformative initiatives that enhance traceability, transparency, and trust across global ecosystems. Yorke's work spans enterprise architecture, compliance frameworks, and humanitarian tech, with a focus on applying emerging technologies to real-world challenges — from forced labor mitigation to responsible AI deployment. He is also an educator and speaker, shaping the next generation of ethical technologists through hands-on learning and thought leadership.",
+    body: "Professor Yorke Rhodes is the Microsoft Director of Traceability, Cofounder of Blockchain at Microsoft, and Cofounder of the NYU Ethical Tech CoLab. A visionary technologist and strategic leader at the intersection of blockchain innovation, artificial intelligence, and ethical systems design. As Director of Traceability, he drives transformative initiatives that enhance traceability, transparency, and trust across global ecosystems. Yorke's work spans enterprise architecture, compliance frameworks, and humanitarian tech, with a focus on applying emerging technologies to real-world challenges, from forced labor mitigation to responsible AI deployment. He is also an educator and speaker, shaping the next generation of ethical technologists through hands-on learning and thought leadership.",
   } as {
     initials: string;
     name: string;
@@ -338,7 +397,7 @@ export const team = {
       role: "Applied AI Researcher",
       email: "cd3823@nyu.edu",
       photo: "/team/carolina.jpg",
-      bio: "Carolina is a graduate student at NYU Center for Global Affairs with a concentration in Global Economy and specialization in Data Analysis and the United Nations. Highlights in her professional experience include cross-sector project and partnership management, writing English, Portuguese, and Spanish risk reports in consultancy, and redesigning strategic planning for non-profits.\n\nShe has various field experiences under diverse environments. In 2018 and 2019, Carolina lived in Nairobi, Kenya, working at a grassroots organization called Mama Africa, where she managed micro financing of 30 women entrepreneurs and led a business workshop with techniques to solve social issues. More recently, she has been working to co-develop the MVDC project — the first AI voice-based system to improve early-warning systems embedded in a human-centered approach for data governance, ethically sourced data, and bias mitigation. While she was on the ground in Malawi, she established partnerships with the government, academia, civil society, and private sector.",
+      bio: "Carolina is a graduate student at NYU Center for Global Affairs with a concentration in Global Economy and specialization in Data Analysis and the United Nations. Highlights in her professional experience include cross-sector project and partnership management, writing English, Portuguese, and Spanish risk reports in consultancy, and redesigning strategic planning for non-profits.\n\nShe has various field experiences under diverse environments. In 2018 and 2019, Carolina lived in Nairobi, Kenya, working at a grassroots organization called Mama Africa, where she managed micro financing of 30 women entrepreneurs and led a business workshop with techniques to solve social issues. More recently, she has been working to co-develop the MVDC project, the first AI voice-based system to improve early-warning systems embedded in a human-centered approach for data governance, ethically sourced data, and bias mitigation. While she was on the ground in Malawi, she established partnerships with the government, academia, civil society, and private sector.",
     },
     {
       initials: "CL",

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { about, site } from "@/content/site";
+import { about } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "About",
@@ -184,14 +184,6 @@ export default function AboutPage() {
           <h2 className="mt-4 max-w-3xl text-2xl font-semibold leading-snug tracking-tight">
             {about.summit.heading}
           </h2>
-          <a
-            href={site.summitUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
-          >
-            Visit the Summit →
-          </a>
 
           <div className="mt-16 border-t border-border pt-10">
             <SectionLabel>Founding partners</SectionLabel>

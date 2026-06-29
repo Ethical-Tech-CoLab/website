@@ -23,11 +23,11 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   metadataBase: new URL("https://ethicaltechlab.org"),
   title: {
-    default: "NYU Ethical Tech CoLab — Emerging Tech, Human Condition",
-    template: "%s — NYU Ethical Tech CoLab",
+    default: "NYU Ethical Tech CoLab · Emerging Tech, Human Condition",
+    template: "%s · NYU Ethical Tech CoLab",
   },
   description:
-    "A research collaboration between NYU's Center for Global Affairs and Microsoft Research — exploring tech interventions for migration, forced labor, IDPs and refugees.",
+    "A research collaboration between NYU's Center for Global Affairs and Microsoft Research, exploring tech interventions for migration, forced labor, IDPs and refugees.",
 };
 
 export default function RootLayout({

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 /**
  * The hero's featured card: a purple gradient panel with an abstract green
- * waveform and the current-cohort overlay — mirrors the Lovable template.
+ * waveform and the current-cohort overlay, mirrors the Lovable template.
  */
 export function HeroVisual({
   term,

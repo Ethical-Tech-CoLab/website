@@ -5,7 +5,7 @@ import { ContactForm } from "@/components/ContactForm";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Partner with the NYU Ethical Tech CoLab — start a conversation about interventions at the edge of technology and society.",
+    "Partner with the NYU Ethical Tech CoLab. Start a conversation about interventions at the edge of technology and society.",
 };
 
 export default function ContactPage() {
@@ -80,7 +80,7 @@ export default function ContactPage() {
             Send a message
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-muted">
-            This opens your email client with the details filled in — or write to{" "}
+            This opens your email client with the details filled in, or write to{" "}
             <a
               href={`mailto:${site.email}`}
               className="text-accent hover:opacity-80"
