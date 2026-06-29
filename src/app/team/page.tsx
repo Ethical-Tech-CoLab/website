@@ -95,12 +95,14 @@ export default function TeamPage() {
               <p className="mt-4 leading-relaxed text-muted">
                 {team.founder.body}
               </p>
-              {team.founder.email && (
+              {team.founder.linkedin && (
                 <a
-                  href={`mailto:${team.founder.email}`}
+                  href={team.founder.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="mt-4 inline-block text-sm text-foreground/90 transition-colors hover:text-accent"
                 >
-                  {team.founder.email} →
+                  LinkedIn ↗
                 </a>
               )}
             </div>
@@ -125,7 +127,7 @@ export default function TeamPage() {
         <div className="mt-12 divide-y divide-border border-y border-border">
           {team.researchers.map((member) => (
             <div
-              key={member.email}
+              key={member.name}
               className="flex flex-col gap-6 py-10 sm:flex-row sm:gap-10"
             >
               <div className="sm:w-52 sm:shrink-0">
@@ -139,12 +141,14 @@ export default function TeamPage() {
                   {member.name}
                 </h3>
                 <p className="mt-1 text-sm text-accent">{member.role}</p>
-                {member.email && (
+                {member.linkedin && (
                   <a
-                    href={`mailto:${member.email}`}
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="mt-2 block truncate text-sm text-muted transition-colors hover:text-accent"
                   >
-                    {member.email}
+                    LinkedIn ↗
                   </a>
                 )}
               </div>

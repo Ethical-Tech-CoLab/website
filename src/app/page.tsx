@@ -116,7 +116,9 @@ export default function Home() {
             interventions that hold up outside the lab.
           </p>
           <a
-            href={`mailto:${site.email}`}
+            href={site.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
             className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-background transition-opacity hover:opacity-90"
           >
             Start a conversation <span aria-hidden>→</span>

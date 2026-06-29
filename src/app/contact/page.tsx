@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { about, site } from "@/content/site";
-import { ContactForm } from "@/components/ContactForm";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -32,16 +31,6 @@ export default function ContactPage() {
 
           <div className="mt-8 space-y-8">
             <div>
-              <p className="text-sm text-muted">Email</p>
-              <a
-                href={`mailto:${site.email}`}
-                className="mt-1 inline-block text-xl font-semibold tracking-tight transition-colors hover:text-accent"
-              >
-                {site.email}
-              </a>
-            </div>
-
-            <div>
               <p className="text-sm text-muted">LinkedIn</p>
               <a
                 href={site.linkedin}
@@ -71,27 +60,27 @@ export default function ContactPage() {
           </div>
         </div>
 
-        {/* Form */}
-        <div className="bg-background px-6 py-16 md:px-10">
+        {/* LinkedIn CTA */}
+        <div className="flex flex-col justify-center bg-background px-6 py-16 md:px-10">
           <p className="text-xs uppercase tracking-wider text-muted">
-            Tell us about it
+            Let&apos;s talk
           </p>
           <h2 className="mt-3 text-2xl font-semibold tracking-tight">
-            Send a message
+            Connect with us on LinkedIn
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted">
-            This opens your email client with the details filled in, or write to{" "}
-            <a
-              href={`mailto:${site.email}`}
-              className="text-accent hover:opacity-80"
-            >
-              {site.email}
-            </a>{" "}
-            directly.
+          <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">
+            Send a message or a connection request and tell us about the problem
+            you&apos;re working on. We read every note and reply to partnership
+            and collaboration inquiries.
           </p>
-          <div className="mt-8">
-            <ContactForm email={site.email} />
-          </div>
+          <a
+            href={site.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-background transition-opacity hover:opacity-90"
+          >
+            Message us on LinkedIn <span aria-hidden>↗</span>
+          </a>
         </div>
       </div>
     </>

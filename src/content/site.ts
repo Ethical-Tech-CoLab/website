@@ -6,7 +6,6 @@
 export const site = {
   name: "Ethical Tech CoLab",
   tagline: "Emerging tech, human condition.",
-  email: "yorker@nyu.edu",
   linkedin: "https://www.linkedin.com/company/ethical-tech-lab/",
   partnersLine: "NYU SPS · CGA · Microsoft · New York",
   footerBlurb:
@@ -360,7 +359,8 @@ export interface TeamMember {
   initials: string;
   name: string;
   role: string;
-  email?: string;
+  /** Full LinkedIn profile URL. Shown as a link under the name. */
+  linkedin?: string;
   org?: string;
   /** Path under /public, e.g. "/team/carolina.jpg". Falls back to initials. */
   photo?: string;
@@ -377,14 +377,14 @@ export const team = {
     initials: "YR",
     name: "Yorke E Rhodes III",
     role: "Founder",
-    email: "yer2001@nyu.edu",
+    linkedin: "https://www.linkedin.com/in/yorkerhodes/",
     photo: "/team/yorke.jpg",
     body: "Professor Yorke Rhodes is the Microsoft Director of Traceability, Cofounder of Blockchain at Microsoft, and Cofounder of the NYU Ethical Tech CoLab. A visionary technologist and strategic leader at the intersection of blockchain innovation, artificial intelligence, and ethical systems design. As Director of Traceability, he drives transformative initiatives that enhance traceability, transparency, and trust across global ecosystems. Yorke's work spans enterprise architecture, compliance frameworks, and humanitarian tech, with a focus on applying emerging technologies to real-world challenges, from forced labor mitigation to responsible AI deployment. He is also an educator and speaker, shaping the next generation of ethical technologists through hands-on learning and thought leadership.",
   } as {
     initials: string;
     name: string;
     role: string;
-    email: string;
+    linkedin?: string;
     body: string;
     photo?: string;
   },
@@ -395,7 +395,7 @@ export const team = {
       initials: "CM",
       name: "Carolina de Almeida Pernambuco Moron",
       role: "Applied AI Researcher",
-      email: "cd3823@nyu.edu",
+      linkedin: "https://www.linkedin.com/in/carolina-pernambuco-moron/",
       photo: "/team/carolina.jpg",
       bio: "Carolina is a graduate student at NYU Center for Global Affairs with a concentration in Global Economy and specialization in Data Analysis and the United Nations. Highlights in her professional experience include cross-sector project and partnership management, writing English, Portuguese, and Spanish risk reports in consultancy, and redesigning strategic planning for non-profits.\n\nShe has various field experiences under diverse environments. In 2018 and 2019, Carolina lived in Nairobi, Kenya, working at a grassroots organization called Mama Africa, where she managed micro financing of 30 women entrepreneurs and led a business workshop with techniques to solve social issues. More recently, she has been working to co-develop the MVDC project, the first AI voice-based system to improve early-warning systems embedded in a human-centered approach for data governance, ethically sourced data, and bias mitigation. While she was on the ground in Malawi, she established partnerships with the government, academia, civil society, and private sector.",
     },
@@ -403,7 +403,7 @@ export const team = {
       initials: "CL",
       name: "Christine Lumen",
       role: "Applied AI Researcher",
-      email: "cl4767@nyu.edu",
+      // linkedin: "",
       // photo: "/team/christine.jpg",
       bio: "Applied AI researcher in the CoLab's Summer 2026 cohort. Full bio coming soon.",
     },
@@ -411,7 +411,7 @@ export const team = {
       initials: "AR",
       name: "Alana Robertson",
       role: "Applied AI Researcher",
-      email: "ar10166@nyu.edu",
+      // linkedin: "",
       // photo: "/team/alana.jpg",
       bio: "Applied AI researcher in the CoLab's Summer 2026 cohort. Full bio coming soon.",
     },
@@ -419,7 +419,7 @@ export const team = {
       initials: "MM",
       name: "Melanie MacKew",
       role: "Applied AI Researcher",
-      email: "mcm9106@nyu.edu",
+      linkedin: "https://www.linkedin.com/in/melanie-mackew",
       photo: "/team/melanie.jpg",
       bio: "Melanie is currently working to complete her M.S. in Global Affairs at NYU. Melanie earned her B.A. in Global and International Studies from Western Michigan University in 2021. She is particularly interested in forced migration and refugee integration. Her prior work experience includes facilitating an art program for children in Moria Refugee Camp, working with unaccompanied refugee minors in Michigan, and serving as a community liaison for a refugee employment program. Apart from school and work, Melanie has been a part of the board of a nonprofit concerned with refugee integration in Michigan and volunteered with the Literacy Center of West Michigan, where she worked with an English-learner to improve his literacy skills.",
     },
@@ -427,7 +427,7 @@ export const team = {
       initials: "CR",
       name: "Carlos D. Ruiz",
       role: "Applied AI Researcher",
-      email: "cdr9688@nyu.edu",
+      linkedin: "https://www.linkedin.com/in/carlos-d-ruiz-b4b26a197/",
       photo: "/team/carlos.jpg",
       bio: "Carlos D. Ruiz is a Venezuelan-born U.S. Air Force veteran who holds a Master of Science in Global Affairs with a concentration in Global Economy from New York University and a Bachelor of Arts in Economics from Fordham University.",
     },
@@ -435,7 +435,7 @@ export const team = {
       initials: "IC",
       name: "India Clarke",
       role: "Applied AI Researcher",
-      email: "iac9310@nyu.edu",
+      linkedin: "https://www.linkedin.com/in/indiaaclarke",
       photo: "/team/india.jpg",
       bio: "India is a graduate student NYU Center for Global Affairs with a concentration in Global Economy and specialization in Data Analysis. She holds a Bachelor of Arts in International Relations and Political Science from Boston University.\n\nHer professional experience includes an internship at Talis Capital in London, where she conducted due diligence and ESG analysis on early stage startups across fintech, healthtech and consumer sectors. Earlier this year, she served as a graduate consultant to the Strong Cities Network, which included conducting interdisciplinary research on violent extremism prevention, and producing a guide for practitioners and policymakers on how law enforcement and mental health professionals can collaborate in secondary violence prevention.",
     },
@@ -443,7 +443,7 @@ export const team = {
       initials: "YR",
       name: "Yago Rocha",
       role: "Applied AI Researcher",
-      email: "ydr2006@nyu.edu",
+      linkedin: "https://www.linkedin.com/in/yagodrocha/",
       photo: "/team/yago.jpg",
       bio: "Yago is a graduate student at NYU's Center for Global Affairs, concentrating in International Development and Humanitarian Assistance. His professional background spans both the private and international development sectors, with experience in project management, stakeholder engagement, strategic planning, and data-driven decision-making.\n\nBefore joining NYU, Yago held leadership positions in Brazil's financial sector, where he managed investment portfolios, led commercial teams, and developed strategic solutions for clients and organizations. His interest in global development led him to transition into the humanitarian field, gaining field experience in Dzaleka Refugee Camp, Malawi, where he supported initiatives focused on refugee livelihoods and financial inclusion.\n\nYago has also contributed to United Nations initiatives as a UN Volunteer and currently serves as an intern at the United Nations Development Programme (UNDP) in New York. His work and research focus on humanitarian assistance, refugee economic inclusion, international development, and the use of data and technology to support evidence-based policymaking and strengthen cross-sector collaboration. He is particularly interested in how artificial intelligence and innovative digital solutions can improve humanitarian response and sustainable development outcomes.",
     },
