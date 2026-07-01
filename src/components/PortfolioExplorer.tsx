@@ -60,7 +60,7 @@ export function PortfolioExplorer() {
       {/* Research questions */}
       <div className="divide-y divide-border">
         {visible.map((area) => {
-          const isOpen = open[area.key];
+          const isOpen = Boolean(open[area.key]);
           return (
             <div key={area.key} className="py-8">
               <button
@@ -137,6 +137,16 @@ export function PortfolioExplorer() {
                           <p className="mt-2 text-sm leading-relaxed text-muted">
                             {project.summary}
                           </p>
+                          {project.repo && (
+                            <a
+                              href={project.repo}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-accent transition-opacity hover:opacity-80"
+                            >
+                              View code <span aria-hidden>↗</span>
+                            </a>
+                          )}
                         </li>
                       ))}
                     </ul>

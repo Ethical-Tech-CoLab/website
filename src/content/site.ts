@@ -26,6 +26,8 @@ export interface SubProject {
   name: string;
   summary: string;
   status?: string;
+  /** Full GitHub repo URL. Renders a "View code" link when present. */
+  repo?: string;
 }
 
 /** A research question that opens to reveal the projects exploring it. */
@@ -62,30 +64,35 @@ export const researchAreas: ResearchArea[] = [
         summary:
           "A real-time index measuring the quality, accessibility, and equity of evacuation information during crises. It synthesizes signals from public agencies, social networks, and on-the-ground reports to surface where critical information is missing, helping responders close gaps before they cost lives.",
         status: "Active",
+        repo: "https://github.com/Ethical-Tech-CoLab/evacuation-inform-index-carolina",
       },
       {
-        name: "Project two",
+        name: "Exodus — Civilian Evacuation Risk Platform",
         summary:
-          "An additional project exploring the evacuation question. Details coming soon.",
-        status: "Planned",
+          "A platform unifying three civilian-evacuation risk tools: a crisis map of the INFORM Severity Index with live news and conflict timelines, a seven-dimension scenario risk model, and an endangerment-and-feasibility risk assessment, sharing one backend and design language.",
+        status: "Active",
+        repo: "https://github.com/Ethical-Tech-CoLab/Exodus",
       },
       {
-        name: "Project three",
+        name: "ERCF — Evacuation Risk & Cost Framework",
         summary:
-          "An additional project exploring the evacuation question. Details coming soon.",
-        status: "Planned",
+          "A decision-support tool that estimates the human and financial cost of civilian evacuation in armed conflict, scoring scenarios across seven risk dimensions and comparing the cost of evacuating against the cost of staying in the zone.",
+        status: "Active",
+        repo: "https://github.com/Ethical-Tech-CoLab/ercf",
       },
       {
-        name: "Project four",
+        name: "Evacuation Behavior Simulator",
         summary:
-          "An additional project exploring the evacuation question. Details coming soon.",
-        status: "Planned",
+          "An interactive, agent-based model of community evacuation behavior, modeling family clusters, information-seeking, neighbor social influence, and elder and child delays across an UNAWARE → SEEKING → MILLING → EVACUATING → DONE lifecycle.",
+        status: "Active",
+        repo: "https://github.com/Ethical-Tech-CoLab/Evac-Sim-Melanie",
       },
       {
-        name: "Project five",
+        name: "Evacuation Routing Simulator",
         summary:
-          "An additional project exploring the evacuation question. Details coming soon.",
-        status: "Planned",
+          "An interactive evacuation simulator that models how routing and assignment choices shape who reaches safety, with shareable scenario state and a built-in explainer walkthrough.",
+        status: "Active",
+        repo: "https://github.com/Ethical-Tech-CoLab/India-EvacSimulation",
       },
     ],
   },
@@ -232,7 +239,7 @@ export const about = {
       "NYU CGA Global Economy · Cofounder of Blockchain at Microsoft · Teaching at NYU for 12 years.",
     paragraphs: [
       'Professor Rhodes currently teaches "Beyond the Brand: Harnessing Emerging Technology in Ethical Sourcing" at CGA, and works on traceability for forced labor compliance.',
-      "He was an initial funding partner of ID2020, an NGO focused on decentralized humanitarian identity for refugees and displaced people in partnership with UNHCR and the World Food Program, founded during the first Syrian refugee crisis on the premise that people should be able to prove their skills, history, and education across borders.",
+      "Earlier in his career, he was an initial funding partner of ID2020, an NGO focused on decentralized humanitarian identity for refugees and displaced people in partnership with UNHCR and the World Food Program, founded during the first Syrian refugee crisis on the premise that people should be able to prove their skills, history, and education across borders.",
       "The CoLab brings together his cross-organizational work in Forced Labor and Human Trafficking with Microsoft Tech for Fundamental Rights, and collaborations with Microsoft Research on proof-of-human, AI, web3, censorship-resistant security, and privacy-preserving technologies such as zero-knowledge proofs.",
     ],
   },
@@ -323,7 +330,7 @@ export const about = {
   },
   collaborators: {
     label: "Collaborators",
-    heading: "Confirmed & in conversation.",
+    heading: "Confirmed collaborators.",
     confirmedLabel: "Confirmed · Spring 2025",
     confirmed: [
       "Generative AI for Good: Avatars for human-condition storytelling",
@@ -332,15 +339,6 @@ export const about = {
       "SupplyTrace: Open data platform for risk inference",
       "Rivr.com: Twitch livestreams, keyword tags, chat-room data source",
       "Human Generated by BlockApps: Verifiable human attestations in the age of AI",
-    ],
-    inConversationLabel: "In conversation",
-    inConversation: [
-      "ao & Arweave (Community Labs): Permanent censorship-resistant storage",
-      "Circle: Payments and financial inclusion",
-      "ConsenSys: Blockchain, identity",
-      "OpenAI: Responsible AI tools",
-      "World Coin: Proof of unique human",
-      "Gaia: Decentralized AI workloads",
     ],
   },
   summit: {

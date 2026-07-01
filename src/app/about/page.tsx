@@ -142,37 +142,20 @@ export default function AboutPage() {
             {about.collaborators.heading}
           </h2>
 
-          <div className="mt-12 grid gap-12 md:grid-cols-2">
-            <div>
-              <p className="text-sm font-semibold text-accent">
-                {about.collaborators.confirmedLabel}
-              </p>
-              <ul className="mt-5 space-y-3">
-                {about.collaborators.confirmed.map((item) => (
-                  <li
-                    key={item}
-                    className="border-b border-border pb-3 text-sm text-foreground/85"
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-muted">
-                {about.collaborators.inConversationLabel}
-              </p>
-              <ul className="mt-5 space-y-3">
-                {about.collaborators.inConversation.map((item) => (
-                  <li
-                    key={item}
-                    className="border-b border-border pb-3 text-sm text-muted"
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="mt-12">
+            <p className="text-sm font-semibold text-accent">
+              {about.collaborators.confirmedLabel}
+            </p>
+            <ul className="mt-5 grid gap-x-12 gap-y-3 sm:grid-cols-2">
+              {about.collaborators.confirmed.map((item) => (
+                <li
+                  key={item}
+                  className="border-b border-border pb-3 text-sm text-foreground/85"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
