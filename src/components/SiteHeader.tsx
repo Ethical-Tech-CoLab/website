@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { nav, site } from "@/content/site";
+import { asset } from "@/lib/asset";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -16,7 +17,7 @@ export function SiteHeader() {
           className="flex items-center gap-2.5 text-sm font-semibold uppercase tracking-[0.18em]"
         >
           <Image
-            src="/etc-logo.png"
+            src={asset("/etc-logo.png")}
             alt={`${site.name} logo`}
             width={32}
             height={32}

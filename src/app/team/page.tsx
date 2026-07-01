@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { team } from "@/content/site";
+import { asset } from "@/lib/asset";
 
 export const metadata: Metadata = {
   title: "Team",
@@ -22,7 +23,7 @@ function Avatar({
   if (photo) {
     return (
       <Image
-        src={photo}
+        src={asset(photo)}
         alt={name ? `${name} headshot` : "headshot"}
         width={size}
         height={size}
