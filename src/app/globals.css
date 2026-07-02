@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
-:root {
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
   /* Palette mirrors the Lovable design: deep indigo ground, green accent. */
   --background: oklch(0.16 0.05 295);
   --surface: oklch(0.21 0.06 295);
@@ -10,6 +12,19 @@
   --border: oklch(0.32 0.06 295);
   --accent: oklch(0.78 0.13 145); /* signature green — buttons, links */
   --glow: oklch(0.65 0.22 305); /* purple radial glow */
+}
+
+/* Light palette: keeps the indigo/green identity, inverted for daylight. */
+[data-theme="light"] {
+  color-scheme: light;
+  --background: oklch(0.98 0.006 295);
+  --surface: oklch(0.95 0.012 295);
+  --secondary: oklch(0.9 0.02 295);
+  --foreground: oklch(0.22 0.05 295);
+  --muted: oklch(0.48 0.03 295);
+  --border: oklch(0.87 0.02 295);
+  --accent: oklch(0.55 0.15 145); /* darker green for contrast on light */
+  --glow: oklch(0.72 0.18 305);
 }
 
 @theme inline {
@@ -32,6 +47,7 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* All headings are set in JetBrains Mono. */
@@ -53,4 +69,10 @@ body {
 ::selection {
   background: var(--accent);
   color: var(--background);
+}
+
+/* Theme toggle: show the icon for the action the click performs. */
+[data-theme="dark"] .theme-icon-moon,
+[data-theme="light"] .theme-icon-sun {
+  display: none;
 }

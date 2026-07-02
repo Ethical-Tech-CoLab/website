@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { nav, site } from "@/content/site";
 import { asset } from "@/lib/asset";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -50,6 +51,7 @@ export function SiteHeader() {
               );
             })}
           </ul>
+          <ThemeToggle />
           <Link
             href="/contact"
             className="ml-2 inline-flex items-center gap-1 rounded-full bg-accent px-4 py-1.5 text-sm font-semibold text-background transition-opacity hover:opacity-90"
