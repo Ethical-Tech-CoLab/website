@@ -19,7 +19,7 @@ export function HeroVisual({
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(150deg, oklch(0.34 0.12 305) 0%, oklch(0.22 0.08 295) 55%, oklch(0.18 0.06 295) 100%)",
+            "linear-gradient(150deg, #3b1878 0%, #241533 55%, #160d1c 100%)",
         }}
       />
 
@@ -41,7 +41,7 @@ export function HeroVisual({
               y1={150 - h / 2}
               x2={x}
               y2={150 + h / 2}
-              stroke="oklch(0.82 0.15 140)"
+              stroke="#b8d400"
               strokeWidth={2.5}
               strokeLinecap="round"
               opacity={0.55 + Math.abs(phase) * 0.25}

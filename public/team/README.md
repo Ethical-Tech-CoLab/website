@@ -11,7 +11,7 @@ Status (founder + Summer 2026 researchers):
 - `carlos.jpg` — Carlos D. Ruiz ✅
 - `india.jpg` — India Clarke ✅
 - `yago.jpg` — Yago Rocha ✅
-- `christine.jpg` — Christine Lumen — _no bio/photo provided yet (placeholder)_
-- `alana.jpg` — Alana Robertson — _only email provided; no bio/photo yet (placeholder)_
+- `christine.jpg` — Christine Lumen ✅
+- `alana.jpg` — Alana Robertson ✅
 
 `.png` works too — just match the extension in the `photo:` path.

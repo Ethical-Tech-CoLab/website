@@ -89,7 +89,7 @@ export default function TeamPage() {
               size={96}
             />
             <div className="max-w-3xl">
-              <h2 className="text-2xl font-semibold tracking-tight">
+              <h2 className="text-3xl font-semibold tracking-tight">
                 {team.founder.name}
               </h2>
               <p className="mt-1 text-sm text-accent">{team.founder.role}</p>
@@ -138,7 +138,7 @@ export default function TeamPage() {
                   name={member.name}
                   size={120}
                 />
-                <h3 className="mt-4 font-semibold leading-tight tracking-tight">
+                <h3 className="mt-4 text-2xl font-semibold leading-tight tracking-tight">
                   {member.name}
                 </h3>
                 <p className="mt-1 text-sm text-accent">{member.role}</p>
@@ -182,7 +182,7 @@ export default function TeamPage() {
                   name={member.name}
                 />
                 <div>
-                  <h3 className="font-semibold leading-tight tracking-tight">
+                  <h3 className="text-xl font-semibold leading-tight tracking-tight">
                     {member.name}
                   </h3>
                   <p className="mt-1 text-sm text-muted">{member.role}</p>

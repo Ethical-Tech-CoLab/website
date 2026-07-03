@@ -1,23 +1,20 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Fraunces } from "next/font/google";
+import { Bebas_Neue, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 
-const inter = Inter({
-  variable: "--font-inter",
+const bebasNeue = Bebas_Neue({
+  variable: "--font-bebas",
   subsets: ["latin"],
+  weight: "400",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains",
+const spaceMono = Space_Mono({
+  variable: "--font-space-mono",
   subsets: ["latin"],
-});
-
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  style: ["italic", "normal"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -40,7 +37,7 @@ export default function RootLayout({
       lang="en"
       data-theme="dark"
       suppressHydrationWarning
-      className={`${inter.variable} ${jetbrainsMono.variable} ${fraunces.variable} h-full antialiased`}
+      className={`${bebasNeue.variable} ${spaceMono.variable} h-full antialiased`}
     >
       <head>
         {/* Apply the saved/system theme before first paint to avoid a flash. */}

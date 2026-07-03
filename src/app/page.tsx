@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { cohorts, researchAreas, site } from "@/content/site";
 import { HeroVisual } from "@/components/HeroVisual";
+import { WaveBackground } from "@/components/WaveBackground";
+import { ProjectDiagram } from "@/components/ProjectDiagram";
 
 export default function Home() {
   const current = cohorts.find((c) => c.current);
@@ -14,18 +16,19 @@ export default function Home() {
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "radial-gradient(70% 60% at 20% 0%, oklch(0.65 0.22 305 / 0.18), transparent 65%)",
+              "radial-gradient(70% 60% at 20% 0%, color-mix(in oklab, var(--glow) 22%, transparent), transparent 65%)",
           }}
         />
+        <WaveBackground className="opacity-[0.18]" />
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-6 py-24 sm:py-28 lg:grid-cols-[1.3fr_1fr]">
           <div>
             <p className="text-xs uppercase tracking-[0.25em] text-accent">
               NYU CGA × Microsoft Research
             </p>
-            <h1 className="mt-6 text-6xl font-semibold leading-[0.98] tracking-tight sm:text-7xl">
+            <h1 className="mt-6 text-7xl font-semibold leading-[0.92] tracking-tight sm:text-8xl lg:text-9xl">
               Ethical Tech CoLab
             </h1>
-            <p className="mt-5 font-serif text-3xl leading-snug text-foreground sm:text-4xl">
+            <p className="mt-6 font-serif text-4xl leading-[1.05] text-foreground sm:text-5xl">
               Emerging tech, <span className="display-em">human</span>{" "}
               condition.
             </p>
@@ -80,13 +83,17 @@ export default function Home() {
               href="/portfolio"
               className="group flex flex-col gap-3 bg-background p-8 transition-colors hover:bg-surface"
             >
+              <ProjectDiagram
+                variant={area.key}
+                className="mb-3 aspect-[16/7] w-full overflow-hidden rounded-xl border border-border bg-surface/60"
+              />
               <span className="font-mono text-xs text-muted">
                 {area.index} / {area.key}
               </span>
-              <h3 className="text-xl font-semibold tracking-tight group-hover:text-accent">
+              <h3 className="text-2xl font-semibold tracking-tight sm:text-3xl group-hover:text-accent">
                 {area.question}
               </h3>
-              <p className="text-sm leading-relaxed text-muted">
+              <p className="text-base leading-relaxed text-muted">
                 {area.summary}
               </p>
               <div className="mt-2 flex flex-wrap gap-2">

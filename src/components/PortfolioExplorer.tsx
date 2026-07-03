@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { researchAreas } from "@/content/site";
+import { ProjectDiagram } from "@/components/ProjectDiagram";
 
 const allTags = Array.from(new Set(researchAreas.flatMap((a) => a.tags)));
 const hashtag = (tag: string) => `#${tag.replace(/\s+/g, "")}`;
@@ -63,6 +64,10 @@ export function PortfolioExplorer() {
           const isOpen = Boolean(open[area.key]);
           return (
             <div key={area.key} className="py-8">
+              <ProjectDiagram
+                variant={area.key}
+                className="mb-6 aspect-[16/7] w-full max-w-xl overflow-hidden rounded-xl border border-border bg-surface/60"
+              />
               <button
                 type="button"
                 onClick={() => toggle(area.key)}
@@ -73,10 +78,10 @@ export function PortfolioExplorer() {
                   <p className="font-mono text-sm text-accent">
                     {area.index} / {area.key}
                   </p>
-                  <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
+                  <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
                     {area.question}
                   </h2>
-                  <p className="mt-3 max-w-2xl leading-relaxed text-muted">
+                  <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">
                     {area.summary}
                   </p>
                 </div>
