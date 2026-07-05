@@ -1,6 +1,6 @@
 # Ethical Tech CoLab — Website
 
-Public website for the **NYU Center for Global Affairs × Microsoft Research Ethical Tech CoLab**. Built with Next.js (App Router).
+Public website for the **NYU Center for Global Affairs × Microsoft Research Ethical Tech CoLab**.
 
 > *Exploring intervention opportunities at the intersection of emerging technologies and the human condition.*
 
