@@ -9,8 +9,8 @@
   --surface: #201428;
   --secondary: #3b1878;
   --foreground: #ffffff;
-  --muted: rgba(255, 255, 255, 0.55);
-  --border: rgba(139, 92, 246, 0.28); /* purple-tinted hairline */
+  --muted: rgba(255, 255, 255, 0.45);
+  --border: rgba(109, 40, 217, 0.32); /* purple-tinted hairline, matches deck's card/panel borders */
   --accent: #b8d400; /* signature lime — buttons, links, emphasis */
   --glow: #6d28d9; /* electric-purple radial glow */
 }

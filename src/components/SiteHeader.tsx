@@ -1,11 +1,31 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { nav, site } from "@/content/site";
-import { asset } from "@/lib/asset";
 import { ThemeToggle } from "@/components/ThemeToggle";
+
+/** CGA badge + Microsoft mark lockup — the founding-partners badge from the Summer '26 deck. */
+function PartnerLockup() {
+  return (
+    <span className="flex items-center gap-1.5" aria-hidden>
+      <span className="flex flex-col items-center justify-center rounded-sm bg-secondary px-1.5 py-1 leading-none">
+        <span className="text-[0.4rem] font-semibold uppercase tracking-wider text-white/75">
+          NYU SPS
+        </span>
+        <span className="text-[0.65rem] font-bold tracking-wide text-white">
+          CGA
+        </span>
+      </span>
+      <svg width="18" height="18" viewBox="0 0 26 26" className="shrink-0">
+        <rect x="0" y="0" width="12" height="12" fill="#f25022" />
+        <rect x="14" y="0" width="12" height="12" fill="#7fba00" />
+        <rect x="0" y="14" width="12" height="12" fill="#00a4ef" />
+        <rect x="14" y="14" width="12" height="12" fill="#ffb900" />
+      </svg>
+    </span>
+  );
+}
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -17,14 +37,7 @@ export function SiteHeader() {
           href="/"
           className="flex items-center gap-2.5 text-sm font-semibold uppercase tracking-[0.18em]"
         >
-          <Image
-            src={asset("/etc-logo.png")}
-            alt={`${site.name} logo`}
-            width={32}
-            height={32}
-            priority
-            className="h-8 w-8 rounded-md object-cover"
-          />
+          <PartnerLockup />
           {site.name}
         </Link>
 

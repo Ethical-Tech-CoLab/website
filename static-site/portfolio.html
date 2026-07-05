@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Portfolio · NYU Ethical Tech CoLab</title>
+<meta name="description" content="Research questions the current cohort is exploring across disaster response, cultural heritage, supply chains, and diplomacy." />
+<link rel="icon" href="../public/etc-logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem("theme");
+      if (!t) t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", t);
+    } catch (e) {}
+  })();
+</script>
+<link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <nav>
+    <a class="brand" href="index.html">
+      <span class="partner-lockup" aria-hidden="true">
+        <span class="cga-badge">
+          <span class="top">NYU SPS</span>
+          <span class="bot">CGA</span>
+        </span>
+        <svg width="18" height="18" viewBox="0 0 26 26">
+          <rect x="0" y="0" width="12" height="12" fill="#f25022" />
+          <rect x="14" y="0" width="12" height="12" fill="#7fba00" />
+          <rect x="0" y="14" width="12" height="12" fill="#00a4ef" />
+          <rect x="14" y="14" width="12" height="12" fill="#ffb900" />
+        </svg>
+      </span>
+      Ethical Tech CoLab
+    </a>
+    <div class="header-right">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="portfolio.html" class="active">Portfolio</a></li>
+        <li><a href="cohorts.html">Cohorts</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="team.html">Team</a></li>
+      </ul>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle light or dark mode" title="Toggle light or dark mode">
+        <svg class="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+        </svg>
+        <svg class="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      </button>
+      <a href="contact.html" class="btn-accent small">Contact <span aria-hidden="true">→</span></a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="page-intro">
+    <div class="page-intro-inner">
+      <p class="section-label">Portfolio · Current cohort</p>
+      <h1 class="page-title">Four questions.<br /><span class="display-em">One frontier.</span></h1>
+      <p class="page-lede">
+        The current cohort is exploring research questions across disaster
+        response, cultural heritage, supply chains, and diplomacy. Open a
+        question to see the projects exploring it, or filter by topic.
+      </p>
+    </div>
+  </section>
+
+  <div class="explorer-wrap">
+    <div class="filter-bar">
+      <span class="filter-label">Filter</span>
+      <button type="button" class="chip all active">All</button>
+      <button type="button" class="chip" data-tag="Disaster response">#Disasterresponse</button>
+      <button type="button" class="chip" data-tag="Civic tech">#Civictech</button>
+      <button type="button" class="chip" data-tag="Information equity">#Informationequity</button>
+      <button type="button" class="chip" data-tag="Cultural heritage">#Culturalheritage</button>
+      <button type="button" class="chip" data-tag="Provenance">#Provenance</button>
+      <button type="button" class="chip" data-tag="Restorative justice">#Restorativejustice</button>
+      <button type="button" class="chip" data-tag="Labor rights">#Laborrights</button>
+      <button type="button" class="chip" data-tag="Climate accountability">#Climateaccountability</button>
+      <button type="button" class="chip" data-tag="Trust infrastructure">#Trustinfrastructure</button>
+      <button type="button" class="chip" data-tag="Diplomacy">#Diplomacy</button>
+      <button type="button" class="chip" data-tag="AI safety">#AIsafety</button>
+      <button type="button" class="chip" data-tag="Pedagogy">#Pedagogy</button>
+    </div>
+
+    <div class="area-list">
+      <!-- 01 Evacuation -->
+      <div class="research-area" data-tags="Disaster response,Civic tech,Information equity">
+        <div class="area-diagram">
+          <svg viewBox="0 0 320 140" role="img" aria-label="Evacuation project diagram">
+            <text x="14" y="16" fill="var(--muted)" font-size="8" letter-spacing="1.4" style="font-family:'Space Mono',monospace; text-transform:uppercase">Information Quality · By Zone</text>
+            <rect x="14" y="26" width="20" height="20" rx="4" fill="var(--accent)" opacity="0.8" />
+            <rect x="40" y="26" width="20" height="20" rx="4" fill="var(--accent)" opacity="0.55" />
+            <rect x="66" y="26" width="20" height="20" rx="4" fill="var(--accent)" opacity="0.75" />
+            <rect x="92" y="26" width="20" height="20" rx="4" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3" />
+            <rect x="118" y="26" width="20" height="20" rx="4" fill="var(--accent)" opacity="0.6" />
+            <rect x="14" y="52" width="20" height="20" rx="4" fill="var(--accent)" opacity="0.5" />
+            <rect x="40" y="52" width="20" height="20" rx="4" fill="var(--accent)" opacity="0.9" />
+            <rect x="66" y="52" width="20" height="20" rx="4" fill="var(--accent)" opacity="0.65" />
+            <rect x="92" y="52" width="20" height="20" rx="4" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3" />
+            <rect x="118" y="52" width="20" height="20" rx="4" fill="var(--accent)" opacity="0.7" />
+            <rect x="14" y="78" width="20" height="20" rx="4" fill="var(--accent)" opacity="0.65" />
+            <rect x="40" y="78" width="20" height="20" rx="4" fill="var(--accent)" opacity="0.45" />
+            <rect x="66" y="78" width="20" height="20" rx="4" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3" />
+            <rect x="92" y="78" width="20" height="20" rx="4" fill="var(--accent)" opacity="0.6" />
+            <rect x="118" y="78" width="20" height="20" rx="4" fill="var(--accent)" opacity="0.85" />
+            <rect x="14" y="104" width="20" height="20" rx="4" fill="var(--accent)" opacity="0.7" />
+            <rect x="40" y="104" width="20" height="20" rx="4" fill="var(--accent)" opacity="0.6" />
+            <rect x="66" y="104" width="20" height="20" rx="4" fill="var(--accent)" opacity="0.4" />
+            <rect x="92" y="104" width="20" height="20" rx="4" fill="var(--accent)" opacity="0.7" />
+            <rect x="118" y="104" width="20" height="20" rx="4" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3" />
+            <path d="M 138 55 C 165 55 175 78 199 84" fill="none" stroke="var(--muted)" stroke-width="1" opacity="0.55" />
+            <path d="M 138 96 C 168 96 178 96 199 92" fill="none" stroke="var(--muted)" stroke-width="1" opacity="0.55" />
+            <path d="M 199 100 A 46 46 0 0 1 291 100" fill="none" stroke="var(--border)" stroke-width="6" stroke-linecap="round" />
+            <path d="M 199 100 A 46 46 0 0 1 266 59" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" />
+            <line x1="245" y1="100" x2="266" y2="61" stroke="var(--foreground)" stroke-width="2" stroke-linecap="round" />
+            <circle cx="245" cy="100" r="3.5" fill="var(--foreground)" />
+            <text x="245" y="52" fill="var(--muted)" font-size="7.5" letter-spacing="1.6" text-anchor="middle" style="font-family:'Space Mono',monospace">INDEX</text>
+            <text x="245" y="122" fill="var(--accent)" font-size="15" font-weight="700" text-anchor="middle" style="font-family:'Space Mono',monospace">EII</text>
+            <text x="245" y="134" fill="var(--muted)" font-size="6.5" letter-spacing="0.8" text-anchor="middle" style="font-family:'Space Mono',monospace">QUALITY · ACCESS · EQUITY</text>
+          </svg>
+        </div>
+        <button type="button" class="area-toggle" aria-expanded="false">
+          <div>
+            <p class="area-index">01 / Evacuation</p>
+            <h2>How can AI inform evacuation decisions?</h2>
+            <p class="summary">Turning fragmented crisis signals into decisions, so responders and residents can act before information gaps cost lives.</p>
+          </div>
+          <span class="area-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="area-tags">
+          <button type="button" class="chip small" data-tag="Disaster response">#Disasterresponse</button>
+          <button type="button" class="chip small" data-tag="Civic tech">#Civictech</button>
+          <button type="button" class="chip small" data-tag="Information equity">#Informationequity</button>
+        </div>
+        <div class="area-expanded">
+          <div>
+            <p class="count">5 projects</p>
+            <ul class="project-list">
+              <li>
+                <div class="row"><h3>Evacuation Information Index</h3><span class="project-status">Active</span></div>
+                <p>A real-time index measuring the quality, accessibility, and equity of evacuation information during crises. It synthesizes signals from public agencies, social networks, and on-the-ground reports to surface where critical information is missing, helping responders close gaps before they cost lives.</p>
+                <a class="view-code" href="https://github.com/Ethical-Tech-CoLab/evacuation-inform-index-carolina" target="_blank" rel="noopener noreferrer">View code <span aria-hidden="true">↗</span></a>
+              </li>
+              <li>
+                <div class="row"><h3>Exodus — Civilian Evacuation Risk Platform</h3><span class="project-status">Active</span></div>
+                <p>A platform unifying three civilian-evacuation risk tools: a crisis map of the INFORM Severity Index with live news and conflict timelines, a seven-dimension scenario risk model, and an endangerment-and-feasibility risk assessment, sharing one backend and design language.</p>
+                <a class="view-code" href="https://github.com/Ethical-Tech-CoLab/Exodus" target="_blank" rel="noopener noreferrer">View code <span aria-hidden="true">↗</span></a>
+              </li>
+              <li>
+                <div class="row"><h3>ERCF — Evacuation Risk &amp; Cost Framework</h3><span class="project-status">Active</span></div>
+                <p>A decision-support tool that estimates the human and financial cost of civilian evacuation in armed conflict, scoring scenarios across seven risk dimensions and comparing the cost of evacuating against the cost of staying in the zone.</p>
+                <a class="view-code" href="https://github.com/Ethical-Tech-CoLab/ercf" target="_blank" rel="noopener noreferrer">View code <span aria-hidden="true">↗</span></a>
+              </li>
+              <li>
+                <div class="row"><h3>Evacuation Behavior Simulator</h3><span class="project-status">Active</span></div>
+                <p>An interactive, agent-based model of community evacuation behavior, modeling family clusters, information-seeking, neighbor social influence, and elder and child delays across an UNAWARE → SEEKING → MILLING → EVACUATING → DONE lifecycle.</p>
+                <a class="view-code" href="https://github.com/Ethical-Tech-CoLab/Evac-Sim-Melanie" target="_blank" rel="noopener noreferrer">View code <span aria-hidden="true">↗</span></a>
+              </li>
+              <li>
+                <div class="row"><h3>Evacuation Routing Simulator</h3><span class="project-status">Active</span></div>
+                <p>An interactive evacuation simulator that models how routing and assignment choices shape who reaches safety, with shareable scenario state and a built-in explainer walkthrough.</p>
+                <a class="view-code" href="https://github.com/Ethical-Tech-CoLab/India-EvacSimulation" target="_blank" rel="noopener noreferrer">View code <span aria-hidden="true">↗</span></a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <p class="count">Stack</p>
+            <ul class="stack-list">
+              <li>Geospatial analytics</li>
+              <li>LLM signal extraction</li>
+              <li>Open data pipelines</li>
+              <li>React dashboards</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 Cultural heritage -->
+      <div class="research-area" data-tags="Cultural heritage,Provenance,Restorative justice">
+        <div class="area-diagram">
+          <svg viewBox="0 0 320 140" role="img" aria-label="Cultural heritage project diagram">
+            <text x="14" y="16" fill="var(--muted)" font-size="8" letter-spacing="1.4" style="font-family:'Space Mono',monospace; text-transform:uppercase">Provenance · Verified Chain</text>
+            <line x1="145" y1="30" x2="145" y2="118" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4" opacity="0.5" />
+            <path d="M 46 72 C 90 42 200 42 244 72" fill="none" stroke="var(--accent)" stroke-width="1" stroke-dasharray="3 3" opacity="0.55" />
+            <line x1="59" y1="97" x2="99" y2="97" stroke="var(--muted)" stroke-width="1" opacity="0.6" />
+            <rect x="33" y="84" width="26" height="26" rx="5" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4" opacity="0.5" />
+            <text x="46" y="121" fill="var(--muted)" font-size="6.5" letter-spacing="0.6" text-anchor="middle" style="font-family:'Space Mono',monospace">ORIGIN</text>
+            <line x1="125" y1="97" x2="165" y2="97" stroke="var(--muted)" stroke-width="1" opacity="0.6" />
+            <rect x="99" y="84" width="26" height="26" rx="5" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4" opacity="0.64" />
+            <text x="112" y="121" fill="var(--muted)" font-size="6.5" letter-spacing="0.6" text-anchor="middle" style="font-family:'Space Mono',monospace">TRANSFER</text>
+            <line x1="191" y1="97" x2="231" y2="97" stroke="var(--muted)" stroke-width="1" opacity="0.6" />
+            <rect x="165" y="84" width="26" height="26" rx="5" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4" opacity="0.78" />
+            <text x="178" y="121" fill="var(--muted)" font-size="6.5" letter-spacing="0.6" text-anchor="middle" style="font-family:'Space Mono',monospace">CUSTODY</text>
+            <rect x="231" y="84" width="26" height="26" rx="5" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4" opacity="0.92" />
+            <text x="244" y="121" fill="var(--muted)" font-size="6.5" letter-spacing="0.6" text-anchor="middle" style="font-family:'Space Mono',monospace">RETURN</text>
+            <g transform="translate(266,44)">
+              <path d="M 0 -14 L 13 -8 L 13 6 C 13 14 7 19 0 22 C -7 19 -13 14 -13 6 L -13 -8 Z" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4" />
+              <path d="M -5 2 L -1.5 6 L 6 -4" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            </g>
+          </svg>
+        </div>
+        <button type="button" class="area-toggle" aria-expanded="false">
+          <div>
+            <p class="area-index">02 / Cultural heritage</p>
+            <h2>How can technology support the ethical return of cultural artifacts?</h2>
+            <p class="summary">Giving institutions, source communities, and researchers a shared, verifiable record of an artifact's life across borders.</p>
+          </div>
+          <span class="area-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="area-tags">
+          <button type="button" class="chip small" data-tag="Cultural heritage">#Culturalheritage</button>
+          <button type="button" class="chip small" data-tag="Provenance">#Provenance</button>
+          <button type="button" class="chip small" data-tag="Restorative justice">#Restorativejustice</button>
+        </div>
+        <div class="area-expanded">
+          <div>
+            <p class="count">1 project</p>
+            <ul class="project-list">
+              <li>
+                <div class="row"><h3>Digital Art Passport</h3><span class="project-status">Active</span></div>
+                <p>A digital provenance passport for cultural artifacts that supports repatriation, attribution, and ethical stewardship. Combining verifiable credentials with collaborative cataloguing, it gives institutions, source communities, and researchers a shared record of an object's life across borders.</p>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <p class="count">Stack</p>
+            <ul class="stack-list">
+              <li>Verifiable credentials</li>
+              <li>IIIF imaging</li>
+              <li>Ledger anchoring</li>
+              <li>Knowledge graphs</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 Traceability -->
+      <div class="research-area" data-tags="Labor rights,Climate accountability,Trust infrastructure">
+        <div class="area-diagram">
+          <svg viewBox="0 0 320 140" role="img" aria-label="Traceability project diagram">
+            <text x="14" y="16" fill="var(--muted)" font-size="8" letter-spacing="1.4" style="font-family:'Space Mono',monospace; text-transform:uppercase">Auditable Traceability · Origin → Shelf</text>
+            <text x="14" y="53" fill="var(--muted)" font-size="6.5" letter-spacing="0.6" style="font-family:'Space Mono',monospace">MATERIALS</text>
+            <circle cx="66" cy="50" r="2.5" fill="var(--accent)" />
+            <path d="M 66 50 C 100 50 108 78 138 78" fill="none" stroke="var(--muted)" stroke-width="1" opacity="0.6" />
+            <text x="14" y="81" fill="var(--muted)" font-size="6.5" letter-spacing="0.6" style="font-family:'Space Mono',monospace">LABOR</text>
+            <circle cx="66" cy="78" r="2.5" fill="var(--accent)" />
+            <path d="M 66 78 C 100 78 108 78 138 78" fill="none" stroke="var(--muted)" stroke-width="1" opacity="0.6" />
+            <text x="14" y="109" fill="var(--muted)" font-size="6.5" letter-spacing="0.6" style="font-family:'Space Mono',monospace">IMPACT</text>
+            <circle cx="66" cy="106" r="2.5" fill="var(--accent)" />
+            <path d="M 66 106 C 100 106 108 78 138 78" fill="none" stroke="var(--muted)" stroke-width="1" opacity="0.6" />
+            <rect x="138" y="66" width="24" height="24" rx="5" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4" />
+            <g transform="translate(150,60)">
+              <circle r="7" fill="var(--background)" stroke="var(--accent)" stroke-width="1.4" />
+              <path d="M -3 0 L -0.8 2.4 L 3.4 -2.6" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </g>
+            <text x="150" y="102" fill="var(--muted)" font-size="6.5" letter-spacing="0.5" text-anchor="middle" style="font-family:'Space Mono',monospace">SOURCE</text>
+            <g stroke="var(--muted)" stroke-width="1" opacity="0.7">
+              <line x1="162" y1="78" x2="188" y2="78" />
+              <path d="M 184 75 L 188 78 L 184 81" fill="none" />
+            </g>
+            <rect x="188" y="66" width="24" height="24" rx="5" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4" />
+            <path d="M 196 74 L 204 78 L 196 82" fill="none" stroke="var(--foreground)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+            <g transform="translate(200,60)">
+              <circle r="7" fill="var(--background)" stroke="var(--accent)" stroke-width="1.4" />
+              <path d="M -3 0 L -0.8 2.4 L 3.4 -2.6" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </g>
+            <text x="200" y="102" fill="var(--muted)" font-size="6.5" letter-spacing="0.5" text-anchor="middle" style="font-family:'Space Mono',monospace">PROCESS</text>
+            <g stroke="var(--muted)" stroke-width="1" opacity="0.7">
+              <line x1="212" y1="78" x2="238" y2="78" />
+              <path d="M 234 75 L 238 78 L 234 81" fill="none" />
+            </g>
+            <rect x="238" y="66" width="24" height="24" rx="5" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4" />
+            <path d="M 246 74 L 254 78 L 246 82" fill="none" stroke="var(--foreground)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+            <g transform="translate(250,60)">
+              <circle r="7" fill="var(--background)" stroke="var(--accent)" stroke-width="1.4" />
+              <path d="M -3 0 L -0.8 2.4 L 3.4 -2.6" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </g>
+            <text x="250" y="102" fill="var(--muted)" font-size="6.5" letter-spacing="0.5" text-anchor="middle" style="font-family:'Space Mono',monospace">TRANSPORT</text>
+            <g stroke="var(--muted)" stroke-width="1" opacity="0.7">
+              <line x1="262" y1="78" x2="288" y2="78" />
+              <path d="M 284 75 L 288 78 L 284 81" fill="none" />
+            </g>
+            <rect x="288" y="66" width="24" height="24" rx="5" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.8" />
+            <g stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round">
+              <line x1="295" y1="75" x2="305" y2="75" />
+              <line x1="295" y1="81" x2="305" y2="81" />
+            </g>
+            <text x="300" y="102" fill="var(--accent)" font-size="6.5" letter-spacing="0.5" text-anchor="middle" style="font-family:'Space Mono',monospace">SHELF</text>
+          </svg>
+        </div>
+        <button type="button" class="area-toggle" aria-expanded="false">
+          <div>
+            <p class="area-index">03 / Traceability</p>
+            <h2>How can ethical claims in supply chains be made verifiable?</h2>
+            <p class="summary">Auditable traceability for materials, labor, and impact, from origin to shelf.</p>
+          </div>
+          <span class="area-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="area-tags">
+          <button type="button" class="chip small" data-tag="Labor rights">#Laborrights</button>
+          <button type="button" class="chip small" data-tag="Climate accountability">#Climateaccountability</button>
+          <button type="button" class="chip small" data-tag="Trust infrastructure">#Trustinfrastructure</button>
+        </div>
+        <div class="area-expanded">
+          <div>
+            <p class="count">1 project</p>
+            <ul class="project-list">
+              <li>
+                <div class="row"><h3>Ethical Supply Chain &amp; Traceability</h3><span class="project-status">Active</span></div>
+                <p>Interoperable trace records that travel with goods, letting buyers and regulators verify ethical claims about materials, labor, and impact without exposing sensitive supplier data.</p>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <p class="count">Stack</p>
+            <ul class="stack-list">
+              <li>Zero-knowledge proofs</li>
+              <li>ERP integrations</li>
+              <li>Standards (GS1, EPCIS)</li>
+              <li>Edge attestation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 04 Diplomacy -->
+      <div class="research-area" data-tags="Diplomacy,AI safety,Pedagogy">
+        <div class="area-diagram">
+          <svg viewBox="0 0 320 140" role="img" aria-label="Diplomacy project diagram">
+            <text x="14" y="16" fill="var(--muted)" font-size="8" letter-spacing="1.4" style="font-family:'Space Mono',monospace; text-transform:uppercase">Scenario · Multi-Agent Rehearsal</text>
+            <line x1="52" y1="44" x2="120" y2="74" stroke="var(--muted)" stroke-width="1" opacity="0.6" />
+            <line x1="52" y1="104" x2="120" y2="74" stroke="var(--muted)" stroke-width="1" opacity="0.6" />
+            <line x1="188" y1="74" x2="120" y2="74" stroke="var(--muted)" stroke-width="1" opacity="0.6" />
+            <circle cx="120" cy="74" r="15" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.6" />
+            <circle cx="120" cy="74" r="4" fill="var(--accent)" />
+            <g>
+              <circle cx="52" cy="44" r="11" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4" />
+              <circle cx="52" cy="42" r="3" fill="var(--accent)" />
+              <path d="M 47 50 C 47 45 57 45 57 50" fill="var(--accent)" />
+              <text x="52" y="66" fill="var(--muted)" font-size="6" letter-spacing="0.5" text-anchor="middle" style="font-family:'Space Mono',monospace">AGENT A</text>
+            </g>
+            <g>
+              <circle cx="52" cy="104" r="11" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4" />
+              <circle cx="52" cy="102" r="3" fill="var(--accent)" />
+              <path d="M 47 110 C 47 105 57 105 57 110" fill="var(--accent)" />
+              <text x="52" y="126" fill="var(--muted)" font-size="6" letter-spacing="0.5" text-anchor="middle" style="font-family:'Space Mono',monospace">AGENT B</text>
+            </g>
+            <g>
+              <circle cx="188" cy="74" r="11" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4" />
+              <circle cx="188" cy="72" r="3" fill="var(--accent)" />
+              <path d="M 183 80 C 183 75 193 75 193 80" fill="var(--accent)" />
+              <text x="188" y="96" fill="var(--muted)" font-size="6" letter-spacing="0.5" text-anchor="middle" style="font-family:'Space Mono',monospace">MEDIATOR</text>
+            </g>
+            <path d="M 199 74 C 230 74 232 42 262 42" fill="none" stroke="var(--muted)" stroke-width="1" opacity="0.55" />
+            <circle cx="266" cy="42" r="4" fill="none" stroke="var(--accent)" stroke-width="1.4" />
+            <path d="M 199 74 C 230 74 232 74 262 74" fill="none" stroke="var(--muted)" stroke-width="1" opacity="0.55" />
+            <circle cx="266" cy="74" r="4" fill="none" stroke="var(--accent)" stroke-width="1.4" />
+            <path d="M 199 74 C 230 74 232 106 262 106" fill="none" stroke="var(--muted)" stroke-width="1" opacity="0.55" />
+            <circle cx="266" cy="106" r="4" fill="none" stroke="var(--accent)" stroke-width="1.4" />
+            <text x="286" y="77" fill="var(--muted)" font-size="6.5" letter-spacing="0.6" text-anchor="middle" transform="rotate(90 286 77)" style="font-family:'Space Mono',monospace">OUTCOMES</text>
+          </svg>
+        </div>
+        <button type="button" class="area-toggle" aria-expanded="false">
+          <div>
+            <p class="area-index">04 / Diplomacy</p>
+            <h2>How can AI help practitioners rehearse high-stakes diplomacy?</h2>
+            <p class="summary">An AI-mediated environment where negotiators rehearse high-stakes diplomacy with culturally grounded agents.</p>
+          </div>
+          <span class="area-plus" aria-hidden="true">+</span>
+        </button>
+        <div class="area-tags">
+          <button type="button" class="chip small" data-tag="Diplomacy">#Diplomacy</button>
+          <button type="button" class="chip small" data-tag="AI safety">#AIsafety</button>
+          <button type="button" class="chip small" data-tag="Pedagogy">#Pedagogy</button>
+        </div>
+        <div class="area-expanded">
+          <div>
+            <p class="count">1 project</p>
+            <ul class="project-list">
+              <li>
+                <div class="row"><h3>Diplomatic Simulator</h3><span class="project-status">Active</span></div>
+                <p>An AI-mediated environment where negotiators rehearse high-stakes diplomacy with culturally grounded agents that model historical context, incentives, and red lines, training practitioners for situations textbooks cannot capture.</p>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <p class="count">Stack</p>
+            <ul class="stack-list">
+              <li>Multi-agent LLMs</li>
+              <li>Scenario authoring tools</li>
+              <li>Evaluation harnesses</li>
+              <li>Voice interfaces</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="empty-note" style="display:none;">No research questions match that filter.</p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <p>Ethical Tech CoLab</p>
+        <p class="blurb">Exploring intervention opportunities at the intersection of emerging technologies and the human condition.</p>
+        <p class="partners">NYU SPS · CGA · Microsoft · New York</p>
+      </div>
+
+      <div class="footer-col">
+        <p class="section-label">Navigate</p>
+        <ul>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="cohorts.html">Cohorts</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <p class="section-label">Connect</p>
+        <ul>
+          <li><a href="https://www.linkedin.com/company/ethical-tech-lab/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span id="footer-year">© 2026 NYU Ethical Tech CoLab</span>
+      <span>Four cohorts · 2024-2026</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>
