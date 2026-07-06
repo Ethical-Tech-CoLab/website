@@ -31,6 +31,16 @@ export default function ContactPage() {
 
           <div className="mt-8 space-y-8">
             <div>
+              <p className="text-sm text-muted">Email</p>
+              <a
+                href={`mailto:${site.email}`}
+                className="mt-1 inline-block text-xl font-semibold tracking-tight transition-colors hover:text-accent"
+              >
+                {site.email}
+              </a>
+            </div>
+
+            <div>
               <p className="text-sm text-muted">LinkedIn</p>
               <a
                 href={site.linkedin}

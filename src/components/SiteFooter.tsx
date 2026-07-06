@@ -39,6 +39,14 @@ export function SiteFooter() {
             <ul className="mt-4 space-y-2 text-sm">
               <li>
                 <a
+                  href={`mailto:${site.email}`}
+                  className="text-foreground/90 transition-colors hover:text-accent"
+                >
+                  {site.email}
+                </a>
+              </li>
+              <li>
+                <a
                   href={site.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"

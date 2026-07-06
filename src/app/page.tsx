@@ -122,14 +122,22 @@ export default function Home() {
             We partner with institutions, agencies, and communities to prototype
             interventions that hold up outside the lab.
           </p>
-          <a
-            href={site.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-background transition-opacity hover:opacity-90"
-          >
-            Start a conversation <span aria-hidden>→</span>
-          </a>
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <a
+              href={site.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-background transition-opacity hover:opacity-90"
+            >
+              Start a conversation <span aria-hidden>→</span>
+            </a>
+            <a
+              href={`mailto:${site.email}`}
+              className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
+            >
+              {site.email}
+            </a>
+          </div>
         </div>
       </section>
     </>

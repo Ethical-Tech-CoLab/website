@@ -7,6 +7,7 @@ export const site = {
   name: "Ethical Tech CoLab",
   tagline: "Emerging tech, human condition.",
   linkedin: "https://www.linkedin.com/company/ethical-tech-lab/",
+  email: "ethical-tech-colab@nyu.edu",
   partnersLine: "NYU SPS · CGA · Microsoft · New York",
   footerBlurb:
     "Exploring intervention opportunities at the intersection of emerging technologies and the human condition.",
