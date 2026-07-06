@@ -34,8 +34,9 @@ export default function Home() {
             </p>
             <p className="mt-7 max-w-xl leading-relaxed text-muted">
               A research collaboration between NYU&apos;s Center for Global
-              Affairs and Microsoft Research, exploring tech interventions for
-              migration, forced labor, IDPs and refugees.
+              Affairs and Microsoft, exploring intervention opportunities at
+              the intersection of emerging technologies and the human
+              condition.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-4">
               <Link
