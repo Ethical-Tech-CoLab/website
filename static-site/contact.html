@@ -24,6 +24,11 @@
 
 <header class="site-header">
   <nav>
+    <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
     <a class="brand" href="index.html">
       <img src="../public/etc-logo.png" alt="" aria-hidden="true" />
       Ethical Tech CoLab
@@ -49,6 +54,19 @@
     </div>
   </nav>
 </header>
+
+<div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+<aside class="mobile-nav-sidebar" id="mobile-nav">
+  <ul class="mobile-nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="cohorts.html">Cohorts</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="team.html">Team</a></li>
+  </ul>
+  <a href="contact.html" class="btn-accent mobile-nav-cta">Contact <span aria-hidden="true">→</span></a>
+  <p class="mobile-nav-partners">NYU SPS · CGA · Microsoft · New York</p>
+</aside>
 
 <main>
   <section class="page-intro">

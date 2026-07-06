@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { nav, site } from "@/content/site";
 import { asset } from "@/lib/asset";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { MobileNavSidebar } from "@/components/MobileNavSidebar";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -13,20 +14,23 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link
-          href="/"
-          className="flex items-center gap-2.5 text-sm font-semibold uppercase tracking-[0.18em]"
-        >
-          <Image
-            src={asset("/etc-logo.png")}
-            alt=""
-            width={32}
-            height={32}
-            className="h-8 w-8 shrink-0 rounded-sm object-cover"
-            aria-hidden
-          />
-          {site.name}
-        </Link>
+        <div className="flex items-center gap-3">
+          <MobileNavSidebar />
+          <Link
+            href="/"
+            className="flex items-center gap-2.5 text-sm font-semibold uppercase tracking-[0.18em]"
+          >
+            <Image
+              src={asset("/etc-logo.png")}
+              alt=""
+              width={32}
+              height={32}
+              className="h-8 w-8 shrink-0 rounded-sm object-cover"
+              aria-hidden
+            />
+            {site.name}
+          </Link>
+        </div>
 
         <div className="flex items-center gap-1">
           <ul className="hidden items-center gap-1 md:flex">

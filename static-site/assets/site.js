@@ -9,6 +9,39 @@
     });
   }
 
+  var menuToggle = document.getElementById("menu-toggle");
+  var mobileNav = document.getElementById("mobile-nav");
+  var mobileNavOverlay = document.getElementById("mobile-nav-overlay");
+  if (menuToggle && mobileNav && mobileNavOverlay) {
+    var closeMobileNav = function () {
+      menuToggle.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Open menu");
+      mobileNav.classList.remove("open");
+      mobileNavOverlay.classList.remove("open");
+      document.body.style.overflow = "";
+    };
+    var openMobileNav = function () {
+      menuToggle.classList.add("open");
+      menuToggle.setAttribute("aria-expanded", "true");
+      menuToggle.setAttribute("aria-label", "Close menu");
+      mobileNav.classList.add("open");
+      mobileNavOverlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+    };
+    menuToggle.addEventListener("click", function () {
+      if (mobileNav.classList.contains("open")) closeMobileNav();
+      else openMobileNav();
+    });
+    mobileNavOverlay.addEventListener("click", closeMobileNav);
+    mobileNav.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", closeMobileNav);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeMobileNav();
+    });
+  }
+
   var year = document.getElementById("footer-year");
   if (year) {
     year.textContent = "© " + new Date().getFullYear() + " NYU Ethical Tech CoLab";
