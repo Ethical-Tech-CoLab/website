@@ -5,7 +5,7 @@ import { cohorts } from "@/content/site";
 export const metadata: Metadata = {
   title: "Cohorts",
   description:
-    "Each cohort of the Ethical Tech CoLab takes on applied research and proof-of-concept projects on migration, forced labor, IDPs and refugees.",
+    "Each cohort of the Ethical Tech CoLab takes on applied research and proof-of-concept projects on intervention opportunities at the intersection of emerging technologies and the human condition.",
 };
 
 export default function CohortsPage() {
@@ -21,9 +21,8 @@ export default function CohortsPage() {
           </h1>
           <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted">
             Each cohort of the Ethical Tech CoLab takes on applied research and
-            proof-of-concept projects on migration, forced labor, IDPs and
-            refugees, combining desk research, interviews, and technical
-            interventions.
+            proof-of-concept projects on intervention opportunities at the
+            intersection of emerging technologies and the human condition.
           </p>
         </div>
       </section>
