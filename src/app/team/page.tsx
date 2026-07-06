@@ -1,60 +1,13 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { team } from "@/content/site";
-import { asset } from "@/lib/asset";
+import { Avatar } from "@/components/TeamAvatar";
+import { ResearchersExplorer } from "@/components/ResearchersExplorer";
 
 export const metadata: Metadata = {
   title: "Team",
   description: team.intro,
 };
-
-function Avatar({
-  initials,
-  photo,
-  name,
-  size = 48,
-}: {
-  initials: string;
-  photo?: string;
-  name?: string;
-  size?: number;
-}) {
-  if (photo) {
-    return (
-      <Image
-        src={asset(photo)}
-        alt={name ? `${name} headshot` : "headshot"}
-        width={size}
-        height={size}
-        style={{ width: size, height: size }}
-        className="shrink-0 rounded-full border border-border object-cover"
-      />
-    );
-  }
-  return (
-    <span
-      aria-hidden
-      style={{ width: size, height: size }}
-      className="grid shrink-0 place-items-center rounded-full border border-border bg-surface text-sm font-semibold text-accent"
-    >
-      {initials}
-    </span>
-  );
-}
-
-/** Renders a bio string, splitting blank-line-separated paragraphs. */
-function Bio({ text, className }: { text: string; className?: string }) {
-  return (
-    <div className={className}>
-      {text.split(/\n\n+/).map((para, i) => (
-        <p key={i} className={i > 0 ? "mt-3" : undefined}>
-          {para}
-        </p>
-      ))}
-    </div>
-  );
-}
 
 export default function TeamPage() {
   return (
@@ -77,11 +30,18 @@ export default function TeamPage() {
         </div>
       </section>
 
-      {/* Founder */}
+      {/* Staff */}
       <section className="border-b border-border bg-surface/40">
-        <div className="mx-auto max-w-6xl px-6 py-16">
-          <p className="text-xs uppercase tracking-wider text-muted">Founder</p>
-          <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-start">
+        <div className="mx-auto max-w-6xl px-6 py-20">
+          <p className="text-xs uppercase tracking-wider text-muted">
+            Team · Staff
+          </p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight">
+            {team.residentFellowsLabel}
+          </h2>
+
+          {/* Founder */}
+          <div className="mt-10 flex flex-col gap-6 sm:flex-row sm:items-start">
             <Avatar
               initials={team.founder.initials}
               photo={team.founder.photo}
@@ -89,9 +49,9 @@ export default function TeamPage() {
               size={96}
             />
             <div className="max-w-3xl">
-              <h2 className="text-3xl font-semibold tracking-tight">
+              <h3 className="text-2xl font-semibold tracking-tight">
                 {team.founder.name}
-              </h2>
+              </h3>
               <p className="mt-1 text-sm text-accent">{team.founder.role}</p>
               <p className="mt-4 leading-relaxed text-muted">
                 {team.founder.body}
@@ -108,61 +68,34 @@ export default function TeamPage() {
               )}
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Researchers */}
-      <section className="mx-auto max-w-6xl px-6 py-20">
-        <div className="flex items-baseline justify-between">
-          <div>
-            <p className="text-xs uppercase tracking-wider text-muted">
-              Applied AI Researchers
-            </p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight">
-              {team.researchersLabel}
-            </h2>
-          </div>
-          <span className="text-sm text-muted">{team.researchersCount}</span>
-        </div>
-
-        <div className="mt-12 divide-y divide-border border-y border-border">
-          {team.researchers.map((member) => (
-            <div
-              key={member.name}
-              className="flex flex-col gap-6 py-10 sm:flex-row sm:gap-10"
-            >
-              <div className="sm:w-52 sm:shrink-0">
+          <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
+            {team.residentFellows.map((member) => (
+              <div key={member.name} className="flex gap-4 bg-background p-6">
                 <Avatar
                   initials={member.initials}
                   photo={member.photo}
                   name={member.name}
-                  size={120}
                 />
-                <h3 className="mt-4 text-2xl font-semibold leading-tight tracking-tight">
-                  {member.name}
-                </h3>
-                <p className="mt-1 text-sm text-accent">{member.role}</p>
-                {member.linkedin && (
-                  <a
-                    href={member.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-2 block truncate text-sm text-muted transition-colors hover:text-accent"
-                  >
-                    LinkedIn ↗
-                  </a>
-                )}
+                <div>
+                  <h3 className="text-xl font-semibold leading-tight tracking-tight">
+                    {member.name}
+                  </h3>
+                  <p className="mt-1 text-sm text-muted">{member.role}</p>
+                  {member.bio && (
+                    <p className="mt-2 text-sm leading-relaxed text-foreground/75">
+                      {member.bio}
+                    </p>
+                  )}
+                </div>
               </div>
-              {member.bio && (
-                <Bio
-                  text={member.bio}
-                  className="max-w-3xl leading-relaxed text-foreground/80"
-                />
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
+
+      {/* Researchers */}
+      <ResearchersExplorer />
 
       {/* Other members */}
       <section className="border-t border-border">

@@ -364,7 +364,12 @@ export interface TeamMember {
   photo?: string;
   /** One- or two-sentence bio shown under the name. */
   bio?: string;
+  /** Cohort term this researcher belongs to, e.g. "Summer 2026". Defaults to the current cohort. */
+  term?: string;
 }
+
+/** Cohort terms shown in the researchers dropdown, oldest first. */
+export const cohortTerms = ["Spring 2025", "Fall 2025", "Summer 2026"];
 
 export const team = {
   eyebrow: "Team · Current cohort",
@@ -386,6 +391,21 @@ export const team = {
     body: string;
     photo?: string;
   },
+  residentFellowsLabel: "Staff",
+  residentFellows: [
+    {
+      initials: "F1",
+      name: "Staff 1",
+      role: "Placeholder",
+      bio: "Bio coming soon.",
+    },
+    {
+      initials: "F2",
+      name: "Staff 2",
+      role: "Placeholder",
+      bio: "Bio coming soon.",
+    },
+  ] as TeamMember[],
   researchersLabel: "The cohort.",
   researchersCount: "7 researchers",
   researchers: [
@@ -393,6 +413,7 @@ export const team = {
       initials: "CM",
       name: "Carolina de Almeida Pernambuco Moron",
       role: "Applied AI Researcher",
+      term: "Summer 2026",
       linkedin: "https://www.linkedin.com/in/carolina-pernambuco-moron/",
       photo: "/team/carolina.jpg",
       bio: "Carolina is a graduate student at NYU Center for Global Affairs with a concentration in Global Economy and specialization in Data Analysis and the United Nations. Highlights in her professional experience include cross-sector project and partnership management, writing English, Portuguese, and Spanish risk reports in consultancy, and redesigning strategic planning for non-profits.\n\nShe has various field experiences under diverse environments. In 2018 and 2019, Carolina lived in Nairobi, Kenya, working at a grassroots organization called Mama Africa, where she managed micro financing of 30 women entrepreneurs and led a business workshop with techniques to solve social issues. More recently, she has been working to co-develop the MVDC project, the first AI voice-based system to improve early-warning systems embedded in a human-centered approach for data governance, ethically sourced data, and bias mitigation. While she was on the ground in Malawi, she established partnerships with the government, academia, civil society, and private sector.",
@@ -401,6 +422,7 @@ export const team = {
       initials: "CL",
       name: "Christine Lumen",
       role: "Applied AI Researcher",
+      term: "Summer 2026",
       // linkedin: "",
       photo: "/team/christine.jpg",
       bio: "Christine Lumen studies the gap between how AI systems are governed on paper and how accountability actually functions in practice. Her work combines NLP, sentiment analysis, and spatial methods to measure where governance frameworks succeed or fail in real-world, often high-stakes settings: humanitarian crises, multilingual populations, and public perception of AI.\n\nHer research includes ForesightHub, a deployed early-warning pipeline for conflict and displacement signals, which she has presented at United Nations headquarters on two occasions. Other work includes a study of AI regulatory frameworks across the US, EU, and China, and research on consumer trust in autonomous vehicles. She has published in International Journal of Organizational Analysis (Emerald) and Journal of Advanced Artificial Intelligence, and will present her NLP and LLM research at an AI conference in Paris. She has also collaborated with Yale University on agricultural policy research.\n\nShe is currently pursuing an MS in Management of Technology at NYU Tandon School of Engineering, following degrees in data analytics (NYU), computer science (Miami Dade College), and international law and relations (Tallinn University of Technology).\n\nOriginally from Estonia, Christine has since lived in 12 countries, including Singapore, Australia, and Canada, and founded the nonprofit EducationX MTÜ, which raised over €100,000 to fund educational access and content in Ukraine.",
@@ -409,6 +431,7 @@ export const team = {
       initials: "AR",
       name: "Alana Robertson",
       role: "Applied AI Researcher",
+      term: "Summer 2026",
       linkedin: "https://www.linkedin.com/in/alana-robertson-55a3b4256/",
       photo: "/team/alana.jpg",
       bio: "Alana is currently completing her Master's at NYU Center for Global Affairs in Human Rights and International Law. She earned her undergraduate degree from the University of Edinburgh with Politics (MA). She is particularly interested in gender and sexuality issues, international humanitarian law, and the introduction of AI into the humanitarian sector.\n\nBefore joining NYU, Alana worked at the Legal Resources Centre, the oldest public interest law firm in South Africa, where she conducted extensive legal research and drafted memoranda on international human rights law spanning numerous focus areas, including anti-homosexuality legislation and sex worker rights. She co-authored an article for the Sur International Journal of Human Rights examining Big Tech's role in fuelling far-right extremism in the Global South, and contributed to two UN submissions on the impact of disinformation on the realisation of human rights in South Africa. She also prepared in-depth country of origin research to support the claims of asylum seeker clients.\n\nAlana has further legal experience in London, having worked at Peters and Peters Solicitors, where she supported casework on complex matters including a high-profile tax investigation, and most recently at Cape Law Chambers, where she gained exposure to barrister work during a multi-day arbitration involving a R25 million loan dispute.",
@@ -417,6 +440,7 @@ export const team = {
       initials: "MM",
       name: "Melanie MacKew",
       role: "Applied AI Researcher",
+      term: "Summer 2026",
       linkedin: "https://www.linkedin.com/in/melanie-mackew",
       photo: "/team/melanie.jpg",
       bio: "Melanie is currently working to complete her M.S. in Global Affairs at NYU. Melanie earned her B.A. in Global and International Studies from Western Michigan University in 2021. She is particularly interested in forced migration and refugee integration. Her prior work experience includes facilitating an art program for children in Moria Refugee Camp, working with unaccompanied refugee minors in Michigan, and serving as a community liaison for a refugee employment program. Apart from school and work, Melanie has been a part of the board of a nonprofit concerned with refugee integration in Michigan and volunteered with the Literacy Center of West Michigan, where she worked with an English-learner to improve his literacy skills.",
@@ -425,6 +449,7 @@ export const team = {
       initials: "CR",
       name: "Carlos D. Ruiz",
       role: "Applied AI Researcher",
+      term: "Summer 2026",
       linkedin: "https://www.linkedin.com/in/carlos-d-ruiz-b4b26a197/",
       photo: "/team/carlos.jpg",
       bio: "Carlos D. Ruiz is a Venezuelan-born U.S. Air Force veteran who holds a Master of Science in Global Affairs with a concentration in Global Economy from New York University and a Bachelor of Arts in Economics from Fordham University.",
@@ -433,6 +458,7 @@ export const team = {
       initials: "IC",
       name: "India Clarke",
       role: "Applied AI Researcher",
+      term: "Summer 2026",
       linkedin: "https://www.linkedin.com/in/indiaaclarke",
       photo: "/team/india.jpg",
       bio: "India is a graduate student NYU Center for Global Affairs with a concentration in Global Economy and specialization in Data Analysis. She holds a Bachelor of Arts in International Relations and Political Science from Boston University.\n\nHer professional experience includes an internship at Talis Capital in London, where she conducted due diligence and ESG analysis on early stage startups across fintech, healthtech and consumer sectors. Earlier this year, she served as a graduate consultant to the Strong Cities Network, which included conducting interdisciplinary research on violent extremism prevention, and producing a guide for practitioners and policymakers on how law enforcement and mental health professionals can collaborate in secondary violence prevention.",
@@ -441,6 +467,7 @@ export const team = {
       initials: "YR",
       name: "Yago Rocha",
       role: "Applied AI Researcher",
+      term: "Summer 2026",
       linkedin: "https://www.linkedin.com/in/yagodrocha/",
       photo: "/team/yago.jpg",
       bio: "Yago is a graduate student at NYU's Center for Global Affairs, concentrating in International Development and Humanitarian Assistance. His professional background spans both the private and international development sectors, with experience in project management, stakeholder engagement, strategic planning, and data-driven decision-making.\n\nBefore joining NYU, Yago held leadership positions in Brazil's financial sector, where he managed investment portfolios, led commercial teams, and developed strategic solutions for clients and organizations. His interest in global development led him to transition into the humanitarian field, gaining field experience in Dzaleka Refugee Camp, Malawi, where he supported initiatives focused on refugee livelihoods and financial inclusion.\n\nYago has also contributed to United Nations initiatives as a UN Volunteer and currently serves as an intern at the United Nations Development Programme (UNDP) in New York. His work and research focus on humanitarian assistance, refugee economic inclusion, international development, and the use of data and technology to support evidence-based policymaking and strengthen cross-sector collaboration. He is particularly interested in how artificial intelligence and innovative digital solutions can improve humanitarian response and sustainable development outcomes.",
@@ -452,6 +479,12 @@ export const team = {
       initials: "AD",
       name: "Alex Dantas",
       role: "Creative Designer",
+      org: "Ethical Tech CoLab",
+    },
+    {
+      initials: "M3",
+      name: "Member 3",
+      role: "Placeholder",
       org: "Ethical Tech CoLab",
     },
   ] as TeamMember[],
