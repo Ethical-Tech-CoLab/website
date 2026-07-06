@@ -395,14 +395,14 @@ export const team = {
   residentFellows: [
     {
       initials: "F1",
-      name: "Staff 1",
-      role: "Placeholder",
+      name: "Alex Du",
+      role: "Marketing & Community Lead",
       bio: "Bio coming soon.",
     },
     {
       initials: "F2",
-      name: "Staff 2",
-      role: "Placeholder",
+      name: "Hannah Zhao",
+      role: "Visual Designer",
       bio: "Bio coming soon.",
     },
   ] as TeamMember[],
@@ -477,14 +477,14 @@ export const team = {
   collaborators: [
     {
       initials: "AD",
-      name: "Alex Dantas",
+      name: "Hannah Zhao",
       role: "Creative Designer",
       org: "Ethical Tech CoLab",
     },
     {
       initials: "M3",
-      name: "Member 3",
-      role: "Placeholder",
+      name: "Kirsten Co",
+      role: "Strategic Advisor",
       org: "Ethical Tech CoLab",
     },
   ] as TeamMember[],
