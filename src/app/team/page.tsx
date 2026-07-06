@@ -61,7 +61,7 @@ export default function TeamPage() {
                   href={team.founder.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 inline-block text-sm text-foreground/90 transition-colors hover:text-accent"
+                  className="mt-4 inline-block text-sm text-muted transition-colors hover:text-accent"
                 >
                   LinkedIn ↗
                 </a>
@@ -71,21 +71,41 @@ export default function TeamPage() {
 
           <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
             {team.residentFellows.map((member) => (
-              <div key={member.name} className="flex gap-4 bg-background p-6">
-                <Avatar
-                  initials={member.initials}
-                  photo={member.photo}
-                  name={member.name}
-                />
+              <div
+                key={member.name}
+                className="flex gap-4 bg-background p-6 transition-colors hover:bg-surface/60"
+              >
+                <Link
+                  href={`/team/${member.slug}`}
+                  aria-label={`View ${member.name}'s profile`}
+                >
+                  <Avatar
+                    initials={member.initials}
+                    photo={member.photo}
+                    name={member.name}
+                  />
+                </Link>
                 <div>
-                  <h3 className="text-xl font-semibold leading-tight tracking-tight">
-                    {member.name}
-                  </h3>
-                  <p className="mt-1 text-sm text-muted">{member.role}</p>
+                  <Link href={`/team/${member.slug}`} className="block">
+                    <h3 className="text-xl font-semibold leading-tight tracking-tight">
+                      {member.name}
+                    </h3>
+                    <p className="mt-1 text-sm text-accent">{member.role}</p>
+                  </Link>
                   {member.bio && (
                     <p className="mt-2 text-sm leading-relaxed text-foreground/75">
                       {member.bio}
                     </p>
+                  )}
+                  {member.linkedin && (
+                    <a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-2 inline-block text-sm text-muted transition-colors hover:text-accent"
+                    >
+                      LinkedIn ↗
+                    </a>
                   )}
                 </div>
               </div>
@@ -106,23 +126,43 @@ export default function TeamPage() {
           <h2 className="mt-3 text-3xl font-semibold tracking-tight">
             {team.collaboratorsLabel}
           </h2>
-          <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
             {team.collaborators.map((member) => (
-              <div key={member.name} className="flex gap-4 bg-background p-6">
-                <Avatar
-                  initials={member.initials}
-                  photo={member.photo}
-                  name={member.name}
-                />
+              <div
+                key={member.name}
+                className="flex gap-4 bg-background p-6 transition-colors hover:bg-surface/60"
+              >
+                <Link
+                  href={`/team/${member.slug}`}
+                  aria-label={`View ${member.name}'s profile`}
+                >
+                  <Avatar
+                    initials={member.initials}
+                    photo={member.photo}
+                    name={member.name}
+                  />
+                </Link>
                 <div>
-                  <h3 className="text-xl font-semibold leading-tight tracking-tight">
-                    {member.name}
-                  </h3>
-                  <p className="mt-1 text-sm text-muted">{member.role}</p>
+                  <Link href={`/team/${member.slug}`} className="block">
+                    <h3 className="text-xl font-semibold leading-tight tracking-tight">
+                      {member.name}
+                    </h3>
+                    <p className="mt-1 text-sm text-accent">{member.role}</p>
+                  </Link>
                   {member.bio && (
                     <p className="mt-2 text-sm leading-relaxed text-foreground/75">
                       {member.bio}
                     </p>
+                  )}
+                  {member.linkedin && (
+                    <a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-2 inline-block text-sm text-muted transition-colors hover:text-accent"
+                    >
+                      LinkedIn ↗
+                    </a>
                   )}
                   {member.org && (
                     <p className="mt-2 text-sm text-foreground/70">

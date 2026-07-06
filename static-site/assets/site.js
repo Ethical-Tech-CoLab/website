@@ -95,7 +95,6 @@
   var cohortSelect = document.getElementById("cohort-filter");
   if (cohortSelect) {
     var rows = document.querySelectorAll(".researcher-row");
-    var countEl = document.getElementById("researchers-count");
     var emptyEl = document.getElementById("researchers-empty");
 
     function applyCohortFilter() {
@@ -106,7 +105,6 @@
         row.classList.toggle("hidden", !show);
         if (show) visibleCount++;
       });
-      if (countEl) countEl.textContent = visibleCount + (visibleCount === 1 ? " researcher" : " researchers");
       if (emptyEl) emptyEl.style.display = visibleCount === 0 ? "block" : "none";
     }
 

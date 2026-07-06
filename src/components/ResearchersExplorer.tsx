@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { cohortTerms, team } from "@/content/site";
 import { Avatar, Bio } from "@/components/TeamAvatar";
 
@@ -24,29 +25,24 @@ export function ResearchersExplorer() {
             {team.researchersLabel}
           </h2>
         </div>
-        <div className="flex flex-col items-end gap-2">
-          <select
-            value={term}
-            onChange={(e) => setTerm(e.target.value)}
-            aria-label="Filter researchers by cohort"
-            className="cursor-pointer appearance-none rounded-full border border-border bg-surface px-4 py-2 pr-8 font-mono text-sm text-foreground transition-colors hover:border-accent focus:border-accent focus:outline-none"
-            style={{
-              backgroundImage: CHEVRON,
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "right 0.75rem center",
-              backgroundSize: "0.875rem",
-            }}
-          >
-            {cohortTerms.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
-            ))}
-          </select>
-          <span className="text-sm text-muted">
-            {visible.length} {visible.length === 1 ? "researcher" : "researchers"}
-          </span>
-        </div>
+        <select
+          value={term}
+          onChange={(e) => setTerm(e.target.value)}
+          aria-label="Filter researchers by cohort"
+          className="cursor-pointer appearance-none rounded-full border border-border bg-surface px-4 py-2 pr-8 font-mono text-sm text-foreground transition-colors hover:border-accent focus:border-accent focus:outline-none"
+          style={{
+            backgroundImage: CHEVRON,
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "right 0.75rem center",
+            backgroundSize: "0.875rem",
+          }}
+        >
+          {cohortTerms.map((t) => (
+            <option key={t} value={t}>
+              {t}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="mt-12 divide-y divide-border border-y border-border">
@@ -56,16 +52,18 @@ export function ResearchersExplorer() {
             className="flex flex-col gap-6 py-10 sm:flex-row sm:gap-10"
           >
             <div className="sm:w-52 sm:shrink-0">
-              <Avatar
-                initials={member.initials}
-                photo={member.photo}
-                name={member.name}
-                size={120}
-              />
-              <h3 className="mt-4 text-2xl font-semibold leading-tight tracking-tight">
-                {member.name}
-              </h3>
-              <p className="mt-1 text-sm text-accent">{member.role}</p>
+              <Link href={`/team/${member.slug}`} aria-label={`View ${member.name}'s profile`}>
+                <Avatar
+                  initials={member.initials}
+                  photo={member.photo}
+                  name={member.name}
+                  size={120}
+                />
+                <h3 className="mt-4 text-2xl font-semibold leading-tight tracking-tight">
+                  {member.name}
+                </h3>
+                <p className="mt-1 text-sm text-accent">{member.role}</p>
+              </Link>
               {member.linkedin && (
                 <a
                   href={member.linkedin}

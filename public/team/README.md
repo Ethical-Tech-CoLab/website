@@ -16,5 +16,11 @@ Status (founder + Summer 2026 researchers):
 - `alex.jpg` — Alex Du (staff) ✅
 - `hannah.jpg` — Hannah Zhao (staff/collaborator) ✅
 - `kirsten.jpeg` — Kirsten Co (collaborator) ✅
+- `alexa.jpeg` — Alexa Shamie (Fall 2025) ✅
+- `mohagani.jpg` — Mohagani Townsend (Fall 2025) ✅
+- `amanda.jpg` — Amanda Lindsey (Fall 2025) ✅
+- `taylor.jpg` — Taylor Badt (Fall 2025) ✅
+- `vedant.png` — Vedant Jain (Fall 2025) ✅
+- `grace.jpg` — Grace Driscoll (Fall 2025) ✅
 
 `.png` works too — just match the extension in the `photo:` path.

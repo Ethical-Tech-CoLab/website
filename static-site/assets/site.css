@@ -543,7 +543,7 @@ p { margin: 0; }
 .founder-text h2, .founder-text h3 { font-size: 1.5rem; letter-spacing: -0.02em; }
 .founder-text .role { margin-top: 0.25rem; font-size: 0.875rem; color: var(--accent); }
 .founder-text .bio { margin-top: 1rem; line-height: 1.6; color: var(--muted); max-width: 48rem; }
-.founder-text a.linkedin { margin-top: 1rem; display: inline-block; font-size: 0.875rem; transition: color 0.15s ease; }
+.founder-text a.linkedin { margin-top: 1rem; display: inline-block; font-size: 0.875rem; color: var(--muted); transition: color 0.15s ease; }
 .founder-text a.linkedin:hover { color: var(--accent); }
 
 .researchers-section { max-width: 72rem; margin: 0 auto; padding: 5rem 1.5rem; }
@@ -603,12 +603,30 @@ p { margin: 0; }
   background: var(--border);
 }
 @media (min-width: 640px) { .collab-grid { grid-template-columns: 1fr 1fr; } }
-@media (min-width: 1024px) { .collab-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 1024px) { .collab-grid.cols-4 { grid-template-columns: repeat(4, 1fr); } }
-.collab-card { display: flex; gap: 1rem; background: var(--background); padding: 1.5rem; }
+.collab-card { display: flex; gap: 1rem; background: var(--background); padding: 1.5rem; transition: background-color 0.15s ease; }
+.collab-card:hover { background: color-mix(in oklab, var(--surface) 60%, transparent); }
 .collab-card h3 { font-size: 1.25rem; letter-spacing: -0.02em; }
-.collab-card .role { margin-top: 0.25rem; font-size: 0.875rem; color: var(--muted); }
+.collab-card .role { margin-top: 0.25rem; font-size: 0.875rem; color: var(--accent); }
 .collab-card .bio { margin-top: 0.5rem; font-size: 0.875rem; line-height: 1.6; color: color-mix(in oklab, var(--foreground) 75%, transparent); }
+.collab-card a.linkedin { margin-top: 0.5rem; display: inline-block; font-size: 0.875rem; color: var(--muted); transition: color 0.15s ease; }
+.collab-card a.linkedin:hover { color: var(--accent); }
+
+.card-link { display: block; color: inherit; text-decoration: none; }
+
+/* ---------- Team member detail page ---------- */
+.member-section { max-width: 48rem; margin: 0 auto; padding: 6rem 1.5rem; }
+.back-link { font-size: 0.875rem; color: var(--muted); transition: color 0.15s ease; }
+.back-link:hover { color: var(--accent); }
+.member-head { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
+@media (min-width: 640px) { .member-head { flex-direction: row; align-items: center; } }
+.member-head h1 { font-size: 2.25rem; letter-spacing: -0.02em; }
+.member-head .role { margin-top: 0.5rem; color: var(--accent); }
+.member-head .org { margin-top: 0.25rem; font-size: 0.875rem; color: var(--foreground); opacity: 0.7; }
+.member-head a.linkedin { margin-top: 0.75rem; display: inline-block; font-size: 0.875rem; color: var(--muted); transition: color 0.15s ease; }
+.member-head a.linkedin:hover { color: var(--accent); }
+.member-bio { margin-top: 2.5rem; max-width: 42rem; line-height: 1.6; color: color-mix(in oklab, var(--foreground) 80%, transparent); }
+.member-bio p + p { margin-top: 0.75rem; }
 
 /* ---------- Portfolio explorer (full page) ---------- */
 .explorer-wrap { max-width: 72rem; margin: 0 auto; padding: 0 1.5rem 6rem; }

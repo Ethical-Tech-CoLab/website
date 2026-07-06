@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Team · NYU Ethical Tech CoLab</title>
+<meta name="description" content="A small, deliberate team pairing applied AI research with design, policy, and field expertise." />
+<link rel="icon" href="../public/etc-logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem("theme");
+      if (!t) t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", t);
+    } catch (e) {}
+  })();
+</script>
+<link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <nav>
+    <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <a class="brand" href="index.html">
+      <img src="../public/etc-logo.png" alt="" aria-hidden="true" />
+      Ethical Tech CoLab
+    </a>
+    <div class="header-right">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="cohorts.html">Cohorts</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="team.html" class="active">Team</a></li>
+      </ul>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle light or dark mode" title="Toggle light or dark mode">
+        <svg class="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+        </svg>
+        <svg class="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      </button>
+      <a href="contact.html" class="btn-accent small">Contact <span aria-hidden="true">→</span></a>
+    </div>
+  </nav>
+</header>
+
+<div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+<aside class="mobile-nav-sidebar" id="mobile-nav">
+  <ul class="mobile-nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="cohorts.html">Cohorts</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="team.html" class="active">Team</a></li>
+  </ul>
+  <a href="contact.html" class="btn-accent mobile-nav-cta">Contact <span aria-hidden="true">→</span></a>
+  <p class="mobile-nav-partners">NYU SPS · CGA · Microsoft · New York</p>
+</aside>
+
+<main>
+  <section class="member-section">
+    <div class="member-inner">
+      <a href="team.html" class="back-link">← Back to team</a>
+
+      <div class="member-head" id="member-head">
+        <img class="avatar" id="member-photo" width="120" height="120" style="width:120px;height:120px;" alt="" />
+        <div>
+          <h1 id="member-name"></h1>
+          <p class="role" id="member-role"></p>
+          <p class="org" id="member-org" style="display:none;"></p>
+          <a class="linkedin" id="member-linkedin" target="_blank" rel="noopener noreferrer" style="display:none;">LinkedIn ↗</a>
+        </div>
+      </div>
+
+      <div class="member-bio" id="member-bio"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <p>Ethical Tech CoLab</p>
+        <p class="blurb">Exploring intervention opportunities at the intersection of emerging technologies and the human condition.</p>
+        <p class="partners">NYU SPS · CGA · Microsoft · New York</p>
+      </div>
+
+      <div class="footer-col">
+        <p class="section-label">Navigate</p>
+        <ul>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="cohorts.html">Cohorts</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <p class="section-label">Connect</p>
+        <ul>
+          <li><a href="mailto:ethical-tech-colab@nyu.edu">ethical-tech-colab@nyu.edu</a></li>
+          <li><a href="https://www.linkedin.com/company/ethical-tech-lab/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span id="footer-year">© 2026 NYU Ethical Tech CoLab</span>
+      <span>Four cohorts · 2024-2026</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/team-data.js"></script>
+<script src="assets/site.js" defer></script>
+<script src="assets/team-member.js" defer></script>
+</body>
+</html>
