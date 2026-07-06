@@ -13,5 +13,8 @@ Status (founder + Summer 2026 researchers):
 - `yago.jpg` — Yago Rocha ✅
 - `christine.jpg` — Christine Lumen ✅
 - `alana.jpg` — Alana Robertson ✅
+- `alex.jpg` — Alex Du (staff) ✅
+- `hannah.jpg` — Hannah Zhao (staff/collaborator) ✅
+- `kirsten.jpeg` — Kirsten Co (collaborator) ✅
 
 `.png` works too — just match the extension in the `photo:` path.
