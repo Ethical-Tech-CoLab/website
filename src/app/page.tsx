@@ -23,7 +23,7 @@ export default function Home() {
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-6 py-24 sm:py-28 lg:grid-cols-[1.3fr_1fr]">
           <div>
             <p className="text-xs uppercase tracking-[0.25em] text-accent">
-              NYU CGA × Microsoft Research
+              NYU CGA × Microsoft
             </p>
             <h1 className="mt-6 text-7xl font-semibold leading-[0.92] tracking-tight sm:text-8xl lg:text-9xl">
               Ethical Tech CoLab
@@ -32,7 +32,7 @@ export default function Home() {
               Emerging tech, <span className="display-em">human</span>{" "}
               condition.
             </p>
-            <p className="mt-7 max-w-xl leading-relaxed text-muted">
+            <p className="mt-7 max-w-xl leading-relaxed text-foreground/85">
               A research collaboration between NYU&apos;s Center for Global
               Affairs and Microsoft, exploring intervention opportunities at
               the intersection of emerging technologies and the human
@@ -43,13 +43,13 @@ export default function Home() {
                 href="/portfolio"
                 className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-background transition-opacity hover:opacity-90"
               >
-                See the portfolio <span aria-hidden>→</span>
+                Portfolio <span aria-hidden>→</span>
               </Link>
               <Link
                 href="/cohorts"
                 className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
               >
-                {site.cohortRange.replace("· ", "")}
+                GET TO KNOW THE LAB
               </Link>
             </div>
           </div>

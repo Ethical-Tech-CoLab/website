@@ -283,7 +283,7 @@ p { margin: 0; }
   margin-top: 1.75rem;
   max-width: 36rem;
   line-height: 1.6;
-  color: var(--muted);
+  color: color-mix(in oklab, var(--foreground) 85%, transparent);
 }
 .hero-ctas { margin-top: 2.25rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
 
