@@ -137,9 +137,11 @@ export function PortfolioExplorer() {
                     </p>
                     <ul className="mt-4 space-y-4">
                       {area.projects.map((project) => {
-                        const demo = project.repo
-                          ? demoByRepo.get(project.repo)
-                          : undefined;
+                        const demo =
+                          project.demo ??
+                          (project.repo
+                            ? demoByRepo.get(project.repo)
+                            : undefined);
                         return (
                           <li
                             key={project.name}

@@ -55,6 +55,12 @@ export interface SubProject {
   status?: string;
   /** Full GitHub repo URL. Renders a "View code" link when present. */
   repo?: string;
+  /**
+   * Live, running URL for this project (GitHub Pages, Vercel, etc.). When set,
+   * the card shows a "▶ Launch live demo" button and a LIVE badge. This lets any
+   * project carry its own demo without needing to appear in the `products` list.
+   */
+  demo?: string;
 }
 
 /** A research question that opens to reveal the projects exploring it. */
@@ -159,6 +165,7 @@ export const researchAreas: ResearchArea[] = [
           "A mobile-style digital passport for art experiences: scan a QR code or enter an artwork's code to collect a stamp — a vintage illustration of the piece with the artist, venue, and date. Stamps persist across sessions, with a collector bio and passport number, and a fully multilingual interface (English, French, Italian).",
         status: "Active",
         repo: "https://github.com/Ethical-Tech-CoLab/VANGO",
+        demo: "https://ethical-tech-colab.github.io/VANGO/",
       },
       {
         name: "3D Online Gallery",
