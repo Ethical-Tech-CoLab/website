@@ -49,23 +49,35 @@ export default async function TeamMemberPage({
             size={120}
           />
           <div>
-            <h1 className="text-4xl font-semibold tracking-tight">
+            <h1 className="font-sans text-4xl font-semibold tracking-tight">
               {member.name}
             </h1>
             <p className="mt-2 text-accent">{member.role}</p>
             {member.org && (
               <p className="mt-1 text-sm text-foreground/70">{member.org}</p>
             )}
-            {member.linkedin && (
-              <a
-                href={member.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 inline-block text-sm text-muted transition-colors hover:text-accent"
-              >
-                LinkedIn ↗
-              </a>
-            )}
+            <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+              {member.linkedin && (
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-sm text-muted transition-colors hover:text-accent"
+                >
+                  LinkedIn ↗
+                </a>
+              )}
+              {member.website && (
+                <a
+                  href={member.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-sm text-muted transition-colors hover:text-accent"
+                >
+                  Website ↗
+                </a>
+              )}
+            </div>
           </div>
         </div>
 

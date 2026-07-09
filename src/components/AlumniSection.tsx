@@ -33,7 +33,7 @@ export function AlumniSection() {
   if (byTerm.length === 0) return null;
 
   return (
-    <section className="border-t border-border bg-surface/40">
+    <section id="alumni" className="border-t border-border bg-surface/40">
       <div className="mx-auto max-w-6xl px-6 py-20">
         <p className="text-xs uppercase tracking-wider text-muted">
           Team · Previous cohorts

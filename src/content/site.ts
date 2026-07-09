@@ -732,6 +732,8 @@ export interface TeamMember {
   role: string;
   /** Full LinkedIn profile URL. Shown as a link under the name. */
   linkedin?: string;
+  /** An external profile/faculty page. Shown as a "Website ↗" link. */
+  website?: string;
   org?: string;
   /** Path under /public, e.g. "/team/carolina.jpg". Falls back to initials. */
   photo?: string;
@@ -769,8 +771,20 @@ export const team = {
       role: "Advisor · Civilian Protection & IHL",
       org: "PhD Candidate, UC3M · Adjunct Professor, IE University",
       linkedin: "https://www.linkedin.com/in/teresacantero/",
+      photo: "/team/teresa.jpg",
       slug: "teresa-cantero",
       bio: "Teresa Cantero is a PhD Candidate at Universidad Carlos III de Madrid, where her doctoral research is based at the Human Rights Institute “Gregorio Peces-Barba.” She is also an Adjunct Professor at IE University and a Visiting Scholar at NYU's Center for Global Affairs, and she holds an M.S. in Global Affairs from New York University. Earlier in her career she worked at Human Rights Watch in Washington, DC, and in journalism and editing.\n\nHer doctoral research examines how artificial intelligence can and should be used to enhance the protection and evacuation of civilians during armed conflict — and how such tools support or challenge existing obligations under International Humanitarian Law (IHL). The work is deliberately multidisciplinary, bridging technical AI capabilities, IHL and legal obligations, and humanitarian operational practice, and draws on evacuation case studies from Srebrenica (1995) to the siege of Mariupol (2022).\n\nAt the Ethical Tech CoLab she advises on civilian protection, forced displacement, and the responsible use of AI for the human condition — work that sits directly alongside the lab's research on evacuation, migration, and internally displaced people.",
+    },
+    {
+      initials: "SM",
+      name: "Sylvia G. Maier",
+      role: "Advisor · Principal Investigator, Refugee Project",
+      org: "Clinical Professor, NYU SPS Center for Global Affairs",
+      website:
+        "https://www.sps.nyu.edu/faculty-directory/12308-sylvia-g-maier.html",
+      photo: "/team/sylvia.jpg",
+      slug: "sylvia-maier",
+      bio: "Dr. Sylvia G. Maier is a Clinical Professor at NYU's Center for Global Affairs (SPS), where she serves as Academic Director of the MS in Global Affairs concentration in Global Gender Studies. She holds a PhD in Political Science and an MA from the University of Southern California.\n\nHer research and teaching center on women's rights and gender equality, LGBT rights, and gender-inclusive urban planning and design, with fieldwork spanning Western Europe, Latin America, the UAE and the GCC, Iraqi Kurdistan, and Afghanistan. She has examined the politics of gendered integration and multiculturalism in Western Europe, including legal responses to honor-based violence against women. She is co-founder and deputy editor-in-chief of Women Across Frontiers, has served as VP and Director of Education Programs for The Peace Project, and previously chaired the SPS Faculty Council.\n\nAt the Ethical Tech CoLab she is Principal Investigator (PI) for the refugee project, guiding its research on displacement and the human condition.",
     },
   ] as TeamMember[],
   residentFellowsLabel: "Staff",

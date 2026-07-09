@@ -1,4 +1,6 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
 import { asset } from "@/lib/asset";
 
 export function Avatar({
@@ -12,13 +14,20 @@ export function Avatar({
   name?: string;
   size?: number;
 }) {
-  if (photo) {
+  // Fall back to initials if there's no photo, or the photo file fails to load
+  // (so a not-yet-added headshot never renders as a broken image).
+  const [failed, setFailed] = useState(false);
+
+  if (photo && !failed) {
     return (
-      <Image
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
         src={asset(photo)}
         alt={name ? `${name} headshot` : "headshot"}
         width={size}
         height={size}
+        loading="lazy"
+        onError={() => setFailed(true)}
         style={{ width: size, height: size }}
         className="shrink-0 rounded-full border border-border object-cover"
       />

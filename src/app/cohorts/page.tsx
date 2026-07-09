@@ -107,22 +107,22 @@ export default function CohortsPage() {
                     {cohort.archive}
                   </p>
                 )}
-                {cohort.current && (
-                  <div className="flex flex-wrap gap-3">
+                <div className="mt-3 flex flex-wrap gap-3">
+                  {cohort.current && (
                     <Link
                       href="/portfolio"
                       className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-background transition-opacity hover:opacity-90"
                     >
                       Portfolio →
                     </Link>
-                    <Link
-                      href="/team"
-                      className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
-                    >
-                      Meet the cohort
-                    </Link>
-                  </div>
-                )}
+                  )}
+                  <Link
+                    href={cohort.current ? "/team#researchers" : "/team#alumni"}
+                    className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
+                  >
+                    Meet the cohort →
+                  </Link>
+                </div>
               </div>
             </article>
             </Tilt3D>

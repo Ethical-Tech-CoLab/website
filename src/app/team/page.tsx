@@ -78,7 +78,7 @@ export default function TeamPage() {
               size={128}
             />
             <div className="max-w-3xl">
-              <h3 className="text-2xl font-semibold tracking-tight">
+              <h3 className="font-sans text-2xl font-semibold tracking-tight">
                 {team.founder.name}
               </h3>
               <p className="mt-1 text-sm text-accent">{team.founder.role}</p>
@@ -111,7 +111,7 @@ export default function TeamPage() {
                 </Link>
                 <div>
                   <Link href={`/team/${member.slug}`} className="block">
-                    <h3 className="text-xl font-semibold leading-tight tracking-tight">
+                    <h3 className="font-sans text-lg font-semibold leading-tight tracking-tight">
                       {member.name}
                     </h3>
                     <p className="mt-1 text-sm text-accent">{member.role}</p>
@@ -130,6 +130,16 @@ export default function TeamPage() {
                       className="mt-2 inline-block text-sm text-muted transition-colors hover:text-accent"
                     >
                       LinkedIn ↗
+                    </a>
+                  )}
+                  {member.website && (
+                    <a
+                      href={member.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ml-4 mt-2 inline-block text-sm text-muted transition-colors hover:text-accent"
+                    >
+                      Website ↗
                     </a>
                   )}
                 </div>
@@ -172,7 +182,7 @@ export default function TeamPage() {
                 </Link>
                 <div>
                   <Link href={`/team/${member.slug}`} className="block">
-                    <h3 className="text-xl font-semibold leading-tight tracking-tight">
+                    <h3 className="font-sans text-lg font-semibold leading-tight tracking-tight">
                       {member.name}
                     </h3>
                     <p className="mt-1 text-sm text-accent">{member.role}</p>
@@ -196,6 +206,16 @@ export default function TeamPage() {
                       className="mt-2 inline-block text-sm text-muted transition-colors hover:text-accent"
                     >
                       LinkedIn ↗
+                    </a>
+                  )}
+                  {member.website && (
+                    <a
+                      href={member.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ml-4 mt-2 inline-block text-sm text-muted transition-colors hover:text-accent"
+                    >
+                      Website ↗
                     </a>
                   )}
                 </div>
@@ -232,7 +252,7 @@ export default function TeamPage() {
                 </Link>
                 <div>
                   <Link href={`/team/${member.slug}`} className="block">
-                    <h3 className="text-xl font-semibold leading-tight tracking-tight">
+                    <h3 className="font-sans text-lg font-semibold leading-tight tracking-tight">
                       {member.name}
                     </h3>
                     <p className="mt-1 text-sm text-accent">{member.role}</p>

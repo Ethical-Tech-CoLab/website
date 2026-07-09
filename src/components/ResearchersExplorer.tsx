@@ -11,7 +11,7 @@ export function ResearchersExplorer() {
   );
 
   return (
-    <section className="mx-auto max-w-6xl px-6 py-20">
+    <section id="researchers" className="mx-auto max-w-6xl px-6 py-20">
       <div className="flex flex-wrap items-baseline justify-between gap-4">
         <div>
           <p className="text-xs uppercase tracking-wider text-muted">
@@ -36,7 +36,7 @@ export function ResearchersExplorer() {
               name={member.name}
               size={112}
             />
-            <h3 className="mt-4 text-xl font-semibold leading-tight tracking-tight">
+            <h3 className="mt-4 font-sans text-lg font-semibold leading-tight tracking-tight">
               {member.name}
             </h3>
             <p className="mt-1 text-sm text-accent">{member.role}</p>
