@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { asset } from "@/lib/asset";
@@ -16,6 +16,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
  */
 export function IntroCurtain() {
   const [show, setShow] = useState(false);
+  const dismissed = useRef(false);
   const reduce = useReducedMotion();
   const pathname = usePathname();
 
@@ -33,9 +34,22 @@ export function IntroCurtain() {
     };
   }, [show]);
 
-  function dismiss() {
+  // Idempotent — a tap can fire both pointerup and click, and this must never
+  // run twice.
+  const dismiss = useCallback(() => {
+    if (dismissed.current) return;
+    dismissed.current = true;
     setShow(false);
-  }
+  }, []);
+
+  // Failsafe: never trap a visitor. If a tap somehow fails to register (some
+  // mobile browsers swallow synthetic clicks on non-native elements), the
+  // curtain lifts on its own so the site is always reachable.
+  useEffect(() => {
+    if (!show) return;
+    const t = setTimeout(dismiss, 5000);
+    return () => clearTimeout(t);
+  }, [show, dismiss]);
 
   return (
     <AnimatePresence>
@@ -45,6 +59,7 @@ export function IntroCurtain() {
           role="button"
           tabIndex={0}
           aria-label="Enter the Ethical Tech CoLab site"
+          onPointerUp={dismiss}
           onClick={dismiss}
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") {
@@ -84,7 +99,7 @@ export function IntroCurtain() {
               Ethical Tech CoLab
             </p>
             <p className="mt-3 text-[11px] uppercase tracking-[0.35em] text-muted animate-pulse">
-              Click to enter
+              Tap to enter
             </p>
           </motion.div>
         </motion.div>
