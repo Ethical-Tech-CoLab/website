@@ -472,6 +472,8 @@ export const cohorts: Cohort[] = [
     items: [
       "Online Grooming Prevention: repurposing existing tech for online safety",
       "ESG Labels & Certificates Transparency: standardization for consumer trust",
+      "AI's Carbon Footprint",
+      "Generative AI for Good — Avatar storytelling",
     ],
     archive: "Full archive coming soon",
   },
@@ -485,6 +487,7 @@ export const cohorts: Cohort[] = [
         label: "Forced Labor Structural Risk Index — live demo",
         href: "https://aml1045.github.io/forced-labor-structural-risk-index/",
       },
+      "Academic Research Tool — LLM prompting",
       "Evaluation harnesses",
       "Partner pilots scoped",
     ],
@@ -500,6 +503,7 @@ export const cohorts: Cohort[] = [
       "8 applied researchers",
       "4 active projects",
       "3 institutional partners (NYU SPS · CGA · Microsoft)",
+      "Synthetic Data Guidelines for Beginners",
     ],
   },
 ];
