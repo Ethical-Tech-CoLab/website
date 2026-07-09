@@ -766,11 +766,11 @@ export const team = {
     {
       initials: "TC",
       name: "Teresa Cantero",
-      role: "Advisor · Migration",
-      org: "PhD candidate",
-      // linkedin: "", // TODO: Teresa Cantero LinkedIn URL
+      role: "Advisor · Civilian Protection & IHL",
+      org: "PhD Candidate, UC3M · Adjunct Professor, IE University",
+      linkedin: "https://www.linkedin.com/in/teresacantero/",
       slug: "teresa-cantero",
-      bio: "Teresa is completing her PhD on migration and advises the Ethical Tech CoLab on its research going forward, bringing a scholarly lens on displacement and the human condition to the lab's applied work.",
+      bio: "Teresa Cantero is a PhD Candidate at Universidad Carlos III de Madrid, where her doctoral research is based at the Human Rights Institute “Gregorio Peces-Barba.” She is also an Adjunct Professor at IE University and a Visiting Scholar at NYU's Center for Global Affairs, and she holds an M.S. in Global Affairs from New York University. Earlier in her career she worked at Human Rights Watch in Washington, DC, and in journalism and editing.\n\nHer doctoral research examines how artificial intelligence can and should be used to enhance the protection and evacuation of civilians during armed conflict — and how such tools support or challenge existing obligations under International Humanitarian Law (IHL). The work is deliberately multidisciplinary, bridging technical AI capabilities, IHL and legal obligations, and humanitarian operational practice, and draws on evacuation case studies from Srebrenica (1995) to the siege of Mariupol (2022).\n\nAt the Ethical Tech CoLab she advises on civilian protection, forced displacement, and the responsible use of AI for the human condition — work that sits directly alongside the lab's research on evacuation, migration, and internally displaced people.",
     },
   ] as TeamMember[],
   residentFellowsLabel: "Staff",
