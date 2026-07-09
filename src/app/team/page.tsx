@@ -5,6 +5,7 @@ import { team } from "@/content/site";
 import { asset } from "@/lib/asset";
 import { Avatar } from "@/components/TeamAvatar";
 import { ResearchersExplorer } from "@/components/ResearchersExplorer";
+import { AlumniSection } from "@/components/AlumniSection";
 import { Reveal } from "@/components/motion/Reveal";
 
 export const metadata: Metadata = {
@@ -138,8 +139,11 @@ export default function TeamPage() {
         </div>
       </section>
 
-      {/* Researchers */}
+      {/* Researchers — current cohort */}
       <ResearchersExplorer />
+
+      {/* Alumni — previous cohorts */}
+      <AlumniSection />
 
       {/* Advisors */}
       <section className="border-t border-border bg-surface/40">

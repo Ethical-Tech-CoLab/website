@@ -1,17 +1,13 @@
-"use client";
-
-import { useState } from "react";
 import { Link } from "next-view-transitions";
 import { cohortTerms, team } from "@/content/site";
 import { Avatar } from "@/components/TeamAvatar";
 
-const CHEVRON =
-  "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b8d400' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>\")";
+const CURRENT_TERM = cohortTerms[cohortTerms.length - 1];
 
 export function ResearchersExplorer() {
-  const [term, setTerm] = useState(cohortTerms[cohortTerms.length - 1]);
+  // Current cohort only — previous cohorts live in the Alumni section.
   const visible = team.researchers.filter(
-    (member) => (member.term ?? cohortTerms[cohortTerms.length - 1]) === term,
+    (member) => (member.term ?? CURRENT_TERM) === CURRENT_TERM,
   );
 
   return (
@@ -19,30 +15,12 @@ export function ResearchersExplorer() {
       <div className="flex flex-wrap items-baseline justify-between gap-4">
         <div>
           <p className="text-xs uppercase tracking-wider text-muted">
-            Applied AI Researchers
+            Applied AI Researchers · {CURRENT_TERM}
           </p>
           <h2 className="mt-3 fluid-h2 font-heading uppercase">
             {team.researchersLabel}
           </h2>
         </div>
-        <select
-          value={term}
-          onChange={(e) => setTerm(e.target.value)}
-          aria-label="Filter researchers by cohort"
-          className="cursor-pointer appearance-none rounded-full border border-border bg-surface px-4 py-2 pr-8 font-mono text-sm text-foreground transition-colors hover:border-accent focus:border-accent focus:outline-none"
-          style={{
-            backgroundImage: CHEVRON,
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "right 0.75rem center",
-            backgroundSize: "0.875rem",
-          }}
-        >
-          {cohortTerms.map((t) => (
-            <option key={t} value={t}>
-              {t}
-            </option>
-          ))}
-        </select>
       </div>
 
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
