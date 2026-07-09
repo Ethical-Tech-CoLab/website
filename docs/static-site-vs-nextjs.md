@@ -32,4 +32,15 @@ Switching GitHub Pages' **Source** setting to **"GitHub Actions"** is *not* requ
 
 ## Status
 
-No decision made yet — this doc captures the discussion for reference. Next step is to decide between options 1–4 above.
+**Decision: Option 3 — `static-site/` is now a generated snapshot of the Next.js export.**
+
+The Next.js app in `src/` is the single source of truth. Running
+`npm run sync:static` (script: `scripts/sync-static-site.sh`) runs `next build`
+and mirrors the resulting `out/` into `static-site/`, so the two can no longer
+drift. `static-site/` is no longer hand-edited — a `static-site/GENERATED.md`
+marker records this. Re-run the script after changing `src/` if you want the
+mirror refreshed.
+
+GitHub Pages continues to deploy the Next.js export via
+`.github/workflows/deploy.yml` (Source = GitHub Actions), so `static-site/`
+remains a convenience copy, not the deployed artifact.
