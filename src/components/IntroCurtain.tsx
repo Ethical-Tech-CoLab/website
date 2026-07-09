@@ -2,27 +2,27 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { asset } from "@/lib/asset";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 /**
- * Intro "curtain": the ETC logo covers the site on the first visit of a
- * session. Click (or keyboard) lifts the curtain away to reveal the page
- * behind it. Shown once per session; instant + non-animated under reduced
- * motion.
+ * Intro "curtain": the ETC logo covers the site as its entrance. It appears on
+ * every fresh load of the home page (not on client-side navigation, since this
+ * component mounts once per full load). Click (or keyboard) lifts it away to
+ * reveal the page behind. Instant + non-animated under reduced motion.
  */
 export function IntroCurtain() {
   const [show, setShow] = useState(false);
   const reduce = useReducedMotion();
+  const pathname = usePathname();
 
   useEffect(() => {
-    try {
-      if (!sessionStorage.getItem("etc-intro-seen")) setShow(true);
-    } catch {
-      /* private mode — just skip the curtain */
-    }
+    // Only greet on the home page, once per full page load.
+    if (pathname === "/") setShow(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -34,11 +34,6 @@ export function IntroCurtain() {
   }, [show]);
 
   function dismiss() {
-    try {
-      sessionStorage.setItem("etc-intro-seen", "1");
-    } catch {
-      /* ignore */
-    }
     setShow(false);
   }
 
