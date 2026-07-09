@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
+import { Link } from "next-view-transitions";
 import { PortfolioExplorer } from "@/components/PortfolioExplorer";
-import { RepoShowcase } from "@/components/RepoShowcase";
 import { archivedProjects } from "@/content/site";
 import { Reveal } from "@/components/motion/Reveal";
 
@@ -40,24 +40,32 @@ export default function PortfolioPage() {
         <PortfolioExplorer />
       </div>
 
-      {/* Live demos + source — the products, folded in under Portfolio */}
+      {/* Shortcut to the Live Demos tab */}
       <section id="products" className="scroll-mt-24 border-t border-border">
-        <div className="mx-auto max-w-6xl px-6 pt-20">
+        <div className="mx-auto max-w-6xl px-6 py-16">
           <Reveal>
-            <p className="text-xs uppercase tracking-wider text-muted">
-              Live demos · Open source
-            </p>
-            <h2 className="mt-3 fluid-h2 font-heading uppercase">
-              Run the <span className="display-em">research</span>.
-            </h2>
-            <p className="mt-4 max-w-2xl leading-relaxed text-muted">
-              Each project ships as an open repository — most run live in your
-              browser. Read the description, press play on the demo, or open the
-              source.
-            </p>
+            <Link
+              href="/demos"
+              className="group card-glow flex flex-col justify-between gap-6 rounded-2xl border border-border bg-card p-8 transition-colors hover:border-border-strong sm:flex-row sm:items-center"
+            >
+              <div>
+                <p className="text-xs uppercase tracking-wider text-muted">
+                  Live demos · Open source
+                </p>
+                <h2 className="mt-3 fluid-h2 font-heading uppercase">
+                  Run the <span className="display-em">research</span>.
+                </h2>
+                <p className="mt-3 max-w-xl leading-relaxed text-muted">
+                  Every project ships as an open repository — most run live in
+                  your browser. Press play on any demo, or read the source.
+                </p>
+              </div>
+              <span className="btn-sweep inline-flex shrink-0 items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-ink transition-transform group-hover:scale-[1.03]">
+                See live demos <span aria-hidden>→</span>
+              </span>
+            </Link>
           </Reveal>
         </div>
-        <RepoShowcase />
       </section>
 
       {/* Archive — previous portfolios */}

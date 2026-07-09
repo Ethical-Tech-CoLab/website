@@ -42,6 +42,7 @@ export const newsletter = {
 export const nav = [
   { label: "Home", href: "/" },
   { label: "Portfolio", href: "/portfolio" },
+  { label: "Live Demos", href: "/demos" },
   { label: "Cohorts", href: "/cohorts" },
   { label: "About", href: "/about" },
   { label: "Team", href: "/team" },

@@ -48,7 +48,7 @@ export default function Home() {
                 </Link>
               </Magnetic>
               <Link
-                href="/portfolio#products"
+                href="/demos"
                 className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
               >
                 See live demos
