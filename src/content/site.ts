@@ -151,6 +151,7 @@ export const researchAreas: ResearchArea[] = [
           "An x402-native agent that traces the provenance of artworks and artifacts, flags looting, repatriation, and valuation risk, and issues a cryptographically signed, tamper-evident Passport (a JSON-LD Verifiable Credential) for each object. Every claim is grounded in an allowlist of authoritative sources — the Met, UNESCO, ICOM, the Art Loss Register — so a fact without a citation is never produced. Includes a dashboard for tracing where an object has been, its risk score, and repatriation status.",
         status: "Active",
         repo: "https://github.com/Ethical-Tech-CoLab/arts-provenance-agent",
+        demo: "https://ethical-tech-colab.github.io/arts-provenance-agent/",
       },
       {
         name: "Provenance Search — Provenance Intelligence",
@@ -196,6 +197,13 @@ export const researchAreas: ResearchArea[] = [
         summary:
           "Interoperable trace records that travel with goods, letting buyers and regulators verify ethical claims about materials, labor, and impact without exposing sensitive supplier data.",
         status: "Active",
+      },
+      {
+        name: "Forced Labor Structural Risk Index",
+        summary:
+          "An interactive index that scores structural forced-labor risk across regions and sectors, turning scattered supply-chain and labor signals into a comparable measure buyers and regulators can act on. Built by Amanda Lindsey in the Fall 2025 cohort.",
+        status: "Active",
+        demo: "https://aml1045.github.io/forced-labor-structural-risk-index/",
       },
     ],
   },
