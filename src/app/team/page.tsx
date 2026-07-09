@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Link } from "next-view-transitions";
 import { team } from "@/content/site";
+import { asset } from "@/lib/asset";
 import { Avatar } from "@/components/TeamAvatar";
 import { ResearchersExplorer } from "@/components/ResearchersExplorer";
 
@@ -12,15 +14,31 @@ export const metadata: Metadata = {
 export default function TeamPage() {
   return (
     <>
-      <section className="border-b border-border">
-        <div className="mx-auto max-w-6xl px-6 py-24">
-          <p className="text-xs uppercase tracking-wider text-muted">
+      <section className="relative overflow-hidden border-b border-border">
+        {/* Background: NYU subway station */}
+        <Image
+          src={asset("/nyu-subway.jpg")}
+          alt="Commuters passing the New York University subway station sign"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[70%_35%]"
+        />
+        {/* Legibility overlays: darken overall + fade heavier on the left where the text sits */}
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/45"
+        />
+        <div aria-hidden className="absolute inset-0 bg-background/30" />
+
+        <div className="relative z-10 mx-auto max-w-6xl px-6 py-32">
+          <p className="text-xs uppercase tracking-wider text-accent">
             {team.eyebrow}
           </p>
           <h1 className="mt-4 text-5xl font-semibold tracking-tight sm:text-6xl">
             The people <span className="display-em">building</span> this.
           </h1>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted">
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-foreground/85">
             {team.intro} Past cohorts are listed in the{" "}
             <Link href="/cohorts" className="text-accent hover:opacity-80">
               timeline
