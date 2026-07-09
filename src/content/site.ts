@@ -610,9 +610,9 @@ export const about = {
     {
       name: "Microsoft",
       about:
-        "Research and technology partner across proof-of-human, AI, web3, and privacy-preserving systems such as zero-knowledge proofs.",
-      url: "https://www.microsoft.com/research",
-      logo: "",
+        "Technology partner across proof-of-human, AI, web3, and privacy-preserving systems such as zero-knowledge proofs.",
+      url: "https://www.microsoft.com",
+      logo: "/logos/microsoft.svg",
     },
   ] as PartnerOrg[],
 };

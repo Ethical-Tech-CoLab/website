@@ -1,7 +1,6 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { asset } from "@/lib/asset";
 import type { PartnerOrg } from "@/content/site";
@@ -12,14 +11,42 @@ function monogram(name: string) {
   return (letters || name.slice(0, 2)).toUpperCase();
 }
 
+/** Org name -> file slug, e.g. "Mesur.io" -> "mesur-io". Matches public/logos/README. */
+function slug(name: string) {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+/**
+ * Candidate logo paths for an org. If it has an explicit `logo`, that's it.
+ * Otherwise we try /logos/<slug>.<ext> for common extensions, so a file dropped
+ * into public/logos/ appears with no code change. Falls back to a monogram when
+ * none of the candidates load.
+ */
+function logoCandidates(org: PartnerOrg): string[] {
+  if (org.logo) return [org.logo];
+  const s = slug(org.name);
+  return [".svg", ".png", ".webp", ".jpg"].map((ext) => `/logos/${s}${ext}`);
+}
+
 function Logo({ org, size }: { org: PartnerOrg; size: number }) {
-  if (org.logo) {
+  const candidates = logoCandidates(org);
+  // Walk the candidate list on each load error; show the monogram once exhausted.
+  const [idx, setIdx] = useState(0);
+  const src = idx < candidates.length ? candidates[idx] : null;
+
+  if (src) {
     return (
-      <Image
-        src={asset(org.logo)}
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={asset(src)}
         alt={`${org.name} logo`}
         width={size}
         height={size}
+        loading="lazy"
+        onError={() => setIdx((i) => i + 1)}
         style={{ width: size, height: size }}
         className="shrink-0 rounded-xl border border-border bg-white object-contain p-2"
       />
