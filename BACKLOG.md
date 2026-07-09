@@ -1,0 +1,97 @@
+# Website backlog — what's still missing
+
+Living checklist of open items. Everything not listed here is done and live at
+<https://ethical-tech-colab.github.io/website/>. After adding any asset below,
+run `npm run sync:static`, then commit + push (or ask me to).
+
+Last updated: 2026-07-09.
+
+---
+
+## 1. Team headshots
+
+Drop each file into `public/team/`. Until then the card shows clean initials
+(no broken image). Filenames must match exactly.
+
+- [ ] `teresa.jpg` — Teresa Cantero *(pasted in chat; needs to be saved to disk)*
+- [ ] `smita.jpg` — Smita Samanta (Spring 2025)
+- [ ] `elizabeth.jpg` — Elizabeth Matthews (Spring 2025)
+- [ ] `renata.jpg` — Renata Gladkikh (Spring 2025)
+- [ ] `jennifer.jpg` — Jennifer Hofmann (Spring 2025)
+- [ ] `emily.jpg` — Emily Harrington (Spring 2025)
+- [ ] `natasha.jpg` — Natasha Nagarajan (Spring 2025)
+
+*Done:* Sylvia Maier (downloaded from NYU), plus all Summer 2026 and Fall 2025
+researchers, staff, founder, and collaborators.
+
+> The six Spring 2025 headshots exist in the **Ethical Tech Summit deck**. If
+> that PDF is saved to `~/Downloads/`, the headshots may be extractable
+> automatically — otherwise crop + save them with the names above.
+
+## 2. Client & partner logos
+
+Drop into `public/logos/` (auto-discovered by filename; falls back to a
+monogram). See `public/logos/README.md`.
+
+Clients:
+- [ ] `generative-ai-for-good.png`
+- [ ] `d-id.png`
+- [ ] `mesur-io.png`
+- [ ] `supplytrace.png`
+- [ ] `rivr.png`
+- [ ] `human-generated-by-blockapps.png`
+
+Partners:
+- [ ] `100x.png`
+- [ ] `apne-aap-women-worldwide.png`
+- [ ] `gaia.png`
+- [ ] `grid-bank.png`
+
+*Done:* Microsoft (`microsoft.svg`), NYU SPS + CGA (`nyu-sps-cga-logo.jpg`).
+
+## 3. Client / partner details (`src/content/site.ts`)
+
+- [ ] Website URLs for clients still blank: **Generative AI for Good**,
+      **SupplyTrace**, **Rivr**. (D_ID, Mesur.io, BlockApps already linked.)
+- [ ] Short "what we do together" blurbs + URLs for partners: **100x**,
+      **Apne Aap Women Worldwide** (url set), **Gaia**, **Grid Bank**.
+
+## 4. Live demos / project links
+
+- [ ] **3D Online Gallery** — needs a hosted URL (Cultural-heritage project).
+- [ ] **Arts Provenance Agent** — a static mock demo is live. PR
+      [arts-provenance-agent#1](https://github.com/Ethical-Tech-CoLab/arts-provenance-agent/pull/1)
+      is still open if you want the *full* server version (real SSE stream) on
+      Render instead.
+- [ ] **Provenance Search** — repo is public now, but it's a server app with no
+      live demo yet (needs hosting).
+
+## 5. Publications (`src/content/site.ts` → `publications`)
+
+Four academic-report cards are placeholders ("coming soon"). Add a `url` to each
+as reports are published — the card auto-switches to a "Read report" button.
+- [ ] Evacuation — *AI-Informed Evacuation Decision-Making*
+- [ ] Cultural heritage — *Verifiable Provenance for the Ethical Return…*
+- [ ] Traceability — *Making Ethical Supply-Chain Claims Verifiable*
+- [ ] Diplomacy — *Rehearsing High-Stakes Diplomacy with Culturally Grounded AI Agents*
+
+## 6. Social & newsletter
+
+- [ ] **Newsletter** — real Mailchimp (or other) embed/URL to replace the
+      placeholder in `newsletter`.
+- [ ] **Instagram** — handle appears to be `@NYUSPS_ETHICALTECH_LAB` (from the
+      summit deck); confirm and wire into `site.social`.
+- [ ] **X / Twitter** — handle to confirm + wire (currently placeholder).
+- [ ] **LinkedIn URLs** for collaborators **Adeline Daab** and **Susan DeMinil**.
+
+## 7. Content polish / open decisions
+
+- [ ] **Fall 2025 alumni bios** are short placeholders ("NYU student and Applied
+      AI Researcher…") — swap in real bios when available.
+- [ ] **Cohort project placeholders** (Spring 2025: AI's Carbon Footprint,
+      Generative AI for Good; Fall 2025: Academic Research Tool — LLM prompting;
+      Summer 2026: Synthetic Data Guidelines for Beginners) — add descriptions
+      or links if you want them to be more than name-only bullets.
+- [ ] **Alex Du & Hannah Zhao** were Spring 2025 fellows but are listed in their
+      current roles (Staff / Collaborator), not under Spring 2025 Alumni. Decide
+      whether to also list them there.
