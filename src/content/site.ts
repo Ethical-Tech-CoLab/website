@@ -156,7 +156,7 @@ export const researchAreas: ResearchArea[] = [
         name: "Provenance Search — Provenance Intelligence",
         summary:
           "Looks up an artwork's ownership history across free public sources — Tavily search (restricted to the Met, Getty, INTERPOL, UNESCO, Art Loss Register and more), the Met and Art Institute of Chicago APIs, MoMA, Wikidata, and Europeana — and emits a provenance passport with a confidence score computed by a fixed algorithm, not the AI. Supports text, image upload, and live camera capture for use inside a museum.",
-        status: "Private · In development",
+        status: "In development",
         repo: "https://github.com/Ethical-Tech-CoLab/provenance-search",
       },
       {
@@ -358,13 +358,17 @@ export const products: Product[] = [
   },
 ];
 
+/** A cohort highlight. A plain string is a static bullet; an object with an
+ * href renders as a link (e.g. a live project or researcher's demo). */
+export type CohortItem = string | { label: string; href: string };
+
 export interface Cohort {
   index: string;
   term: string;
   current?: boolean;
   title: string;
   body: string;
-  items: string[];
+  items: CohortItem[];
   archive?: string;
 }
 
@@ -385,7 +389,14 @@ export const cohorts: Cohort[] = [
     term: "Fall 2025",
     title: "Prototyping and partner pilots.",
     body: "Technical spikes (multi-agent harnesses, verifiable credentials, geospatial pipelines) tested against real partner needs.",
-    items: ["Tech spikes shipped", "Evaluation harnesses", "Partner pilots scoped"],
+    items: [
+      {
+        label: "Forced Labor Structural Risk Index — live demo",
+        href: "https://aml1045.github.io/forced-labor-structural-risk-index/",
+      },
+      "Evaluation harnesses",
+      "Partner pilots scoped",
+    ],
     archive: "Full archive coming soon",
   },
   {

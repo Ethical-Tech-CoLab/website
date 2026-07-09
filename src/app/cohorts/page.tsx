@@ -76,14 +76,29 @@ export default function CohortsPage() {
               </p>
 
               <ul className="mt-5 space-y-2 text-sm text-foreground/85">
-                {cohort.items.map((item) => (
-                  <li key={item} className="flex gap-2.5">
-                    <span aria-hidden className="mt-1 text-accent">
-                      ◦
-                    </span>
-                    <span>{item}</span>
-                  </li>
-                ))}
+                {cohort.items.map((item) => {
+                  const isLink = typeof item !== "string";
+                  const key = isLink ? item.label : item;
+                  return (
+                    <li key={key} className="flex gap-2.5">
+                      <span aria-hidden className="mt-1 text-accent">
+                        ◦
+                      </span>
+                      {isLink ? (
+                        <a
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-medium text-accent underline-offset-4 transition-opacity hover:underline hover:opacity-80"
+                        >
+                          {item.label} <span aria-hidden>↗</span>
+                        </a>
+                      ) : (
+                        <span>{item}</span>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
 
               <div className="mt-auto pt-6">
