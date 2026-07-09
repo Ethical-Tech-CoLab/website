@@ -19,7 +19,7 @@ export function HeroTitle() {
   });
 
   return (
-    <div>
+    <div className="text-center">
       <p className="text-xs uppercase tracking-[0.25em] text-accent">
         NYU CGA × Microsoft
       </p>

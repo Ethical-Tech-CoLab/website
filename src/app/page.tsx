@@ -28,39 +28,36 @@ export default function Home() {
           }}
         />
         <HeroField />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-6 py-24 sm:py-28 lg:grid-cols-[1.3fr_1fr]">
-          <div>
-            <HeroTitle />
-            <Reveal delay={0.5} className="mt-7 max-w-xl leading-relaxed text-foreground/85">
-              <p>
-                A research collaboration between NYU&apos;s Center for Global
-                Affairs and Microsoft — changing the conversation on how
-                people are informed, and how emerging technology can be used for
-                good.
-              </p>
-            </Reveal>
-            <Reveal delay={0.6}>
-              <div className="mt-9 flex flex-wrap items-center gap-4">
-                <Magnetic>
-                  <Link
-                    href="/portfolio"
-                    className="btn-sweep inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.02]"
-                  >
-                    Explore the portfolio <span aria-hidden>→</span>
-                  </Link>
-                </Magnetic>
+        <div className="relative mx-auto flex max-w-4xl flex-col items-center px-6 py-24 text-center sm:py-28">
+          <HeroTitle />
+          <Reveal delay={0.5} className="mt-7 max-w-2xl leading-relaxed text-foreground/85">
+            <p>
+              A research collaboration between NYU&apos;s Center for Global
+              Affairs and Microsoft — changing the conversation on how people are
+              informed, and how emerging technology can be used for good.
+            </p>
+          </Reveal>
+          <Reveal delay={0.6}>
+            <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
+              <Magnetic>
                 <Link
-                  href="/portfolio#products"
-                  className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
+                  href="/portfolio"
+                  className="btn-sweep inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.02]"
                 >
-                  See live demos
+                  Explore the portfolio <span aria-hidden>→</span>
                 </Link>
-              </div>
-            </Reveal>
-          </div>
+              </Magnetic>
+              <Link
+                href="/portfolio#products"
+                className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
+              >
+                See live demos
+              </Link>
+            </div>
+          </Reveal>
 
           {current && (
-            <Reveal delay={0.35}>
+            <Reveal delay={0.35} className="mt-16 w-full max-w-sm">
               <Tilt3D max={7}>
                 <HeroVisual term={current.term} caption={current.title} />
               </Tilt3D>
@@ -71,12 +68,12 @@ export default function Home() {
 
       {/* Mission strip */}
       <section className="border-b border-border bg-surface/40">
-        <div className="mx-auto max-w-6xl px-6 py-16">
+        <div className="mx-auto max-w-6xl px-6 py-16 text-center">
           <Reveal>
             <p className="text-xs uppercase tracking-wider text-muted">Mission</p>
           </Reveal>
           <Reveal delay={0.05}>
-            <p className="mt-4 max-w-4xl fluid-h2 font-heading uppercase leading-[1.02]">
+            <p className="mx-auto mt-4 max-w-4xl fluid-h2 font-heading uppercase leading-[1.02]">
               Achieving <span className="display-em">full human potential</span>{" "}
               through technology — changing how people are informed, and how tech
               is used for good.
