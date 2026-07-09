@@ -5,6 +5,7 @@ import { team } from "@/content/site";
 import { asset } from "@/lib/asset";
 import { Avatar } from "@/components/TeamAvatar";
 import { ResearchersExplorer } from "@/components/ResearchersExplorer";
+import { Reveal } from "@/components/motion/Reveal";
 
 export const metadata: Metadata = {
   title: "Team",
@@ -32,19 +33,25 @@ export default function TeamPage() {
         <div aria-hidden className="absolute inset-0 bg-background/30" />
 
         <div className="relative z-10 mx-auto max-w-6xl px-6 py-32">
-          <p className="text-xs uppercase tracking-wider text-accent">
-            {team.eyebrow}
-          </p>
-          <h1 className="mt-4 text-5xl font-semibold tracking-tight sm:text-6xl">
-            The people <span className="display-em">building</span> this.
-          </h1>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-foreground/85">
-            {team.intro} Past cohorts are listed in the{" "}
-            <Link href="/cohorts" className="text-accent hover:opacity-80">
-              timeline
-            </Link>
-            .
-          </p>
+          <Reveal>
+            <p className="text-xs uppercase tracking-wider text-accent">
+              {team.eyebrow}
+            </p>
+          </Reveal>
+          <Reveal delay={0.05}>
+            <h1 className="mt-4 fluid-hero font-heading uppercase leading-[0.9]">
+              The people <span className="display-em">building</span> this.
+            </h1>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-foreground/85">
+              {team.intro} Past cohorts are listed in the{" "}
+              <Link href="/cohorts" className="text-accent hover:opacity-80">
+                timeline
+              </Link>
+              .
+            </p>
+          </Reveal>
         </div>
       </section>
 
@@ -54,7 +61,7 @@ export default function TeamPage() {
           <p className="text-xs uppercase tracking-wider text-muted">
             Team · Staff
           </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight">
+          <h2 className="mt-3 fluid-h2 font-heading uppercase">
             {team.residentFellowsLabel}
           </h2>
 
@@ -140,7 +147,7 @@ export default function TeamPage() {
           <p className="text-xs uppercase tracking-wider text-muted">
             Advisors &amp; partners
           </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight">
+          <h2 className="mt-3 fluid-h2 font-heading uppercase">
             {team.advisorsLabel}
           </h2>
           <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
@@ -200,7 +207,7 @@ export default function TeamPage() {
           <p className="text-xs uppercase tracking-wider text-muted">
             Collaborators
           </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight">
+          <h2 className="mt-3 fluid-h2 font-heading uppercase">
             {team.collaboratorsLabel}
           </h2>
           <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">

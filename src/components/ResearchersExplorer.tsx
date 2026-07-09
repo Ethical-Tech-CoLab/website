@@ -21,7 +21,7 @@ export function ResearchersExplorer() {
           <p className="text-xs uppercase tracking-wider text-muted">
             Applied AI Researchers
           </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight">
+          <h2 className="mt-3 fluid-h2 font-heading uppercase">
             {team.researchersLabel}
           </h2>
         </div>
