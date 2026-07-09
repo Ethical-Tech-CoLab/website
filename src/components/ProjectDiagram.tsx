@@ -4,8 +4,16 @@
  * a dark panel. Everything is drawn with `currentColor`/CSS variables so the
  * art tracks the active theme (lime-on-purple in dark, olive on light).
  *
+ * The diagrams are the lab's signature asset, so they animate: strokes tagged
+ * `data-draw` draw themselves in when the card scrolls into view, nodes tagged
+ * `data-pop` scale in, and elements in `.diagram-runner` pulse while the card
+ * is hovered/focused. All gated by the `.in-view` class and prefers-reduced-motion.
+ *
  * viewBox is a shared 320×140; each variant is keyed by ResearchArea.key.
  */
+"use client";
+
+import { useEffect, useRef } from "react";
 
 const VB = "0 0 320 140";
 const FONT = "var(--font-space-mono), ui-monospace, monospace";
@@ -91,14 +99,16 @@ function Evacuation() {
       })}
 
       {/* connectors from grid to gauge */}
-      <path d="M 138 55 C 165 55 175 78 199 84" fill="none" stroke="var(--muted)" strokeWidth="1" opacity="0.55" />
-      <path d="M 138 96 C 168 96 178 96 199 92" fill="none" stroke="var(--muted)" strokeWidth="1" opacity="0.55" />
+      <path data-draw d="M 138 55 C 165 55 175 78 199 84" fill="none" stroke="var(--muted)" strokeWidth="1" opacity="0.55" />
+      <path data-draw d="M 138 96 C 168 96 178 96 199 92" fill="none" stroke="var(--muted)" strokeWidth="1" opacity="0.55" />
 
       {/* gauge */}
       <path d="M 199 100 A 46 46 0 0 1 291 100" fill="none" stroke="var(--border)" strokeWidth="6" strokeLinecap="round" />
-      <path d="M 199 100 A 46 46 0 0 1 266 59" fill="none" stroke="var(--accent)" strokeWidth="6" strokeLinecap="round" />
-      <line x1="245" y1="100" x2="266" y2="61" stroke="var(--foreground)" strokeWidth="2" strokeLinecap="round" />
-      <circle cx="245" cy="100" r="3.5" fill="var(--foreground)" />
+      <path data-draw d="M 199 100 A 46 46 0 0 1 266 59" fill="none" stroke="var(--accent)" strokeWidth="6" strokeLinecap="round" />
+      <g className="diagram-runner">
+        <line x1="245" y1="100" x2="266" y2="61" stroke="var(--foreground)" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="245" cy="100" r="3.5" fill="var(--foreground)" />
+      </g>
       <text x="245" y="52" fill="var(--muted)" fontSize="7.5" letterSpacing="1.6" textAnchor="middle" style={{ fontFamily: FONT }}>
         INDEX
       </text>
@@ -130,7 +140,7 @@ function CulturalHeritage() {
       <line x1="145" y1="30" x2="145" y2="118" stroke="var(--muted)" strokeWidth="1" strokeDasharray="4 4" opacity="0.5" />
 
       {/* provenance arc linking first → last block */}
-      <path d="M 46 72 C 90 42 200 42 244 72" fill="none" stroke="var(--accent)" strokeWidth="1" strokeDasharray="3 3" opacity="0.55" />
+      <path data-draw d="M 46 72 C 90 42 200 42 244 72" fill="none" stroke="var(--accent)" strokeWidth="1" strokeDasharray="3 3" opacity="0.55" />
 
       {/* ledger blocks + connectors */}
       {blocks.map((b, i) => (
@@ -156,7 +166,7 @@ function CulturalHeritage() {
       {/* passport / credential shield with a verified check */}
       <g transform="translate(266,44)">
         <path d="M 0 -14 L 13 -8 L 13 6 C 13 14 7 19 0 22 C -7 19 -13 14 -13 6 L -13 -8 Z" fill="var(--surface)" stroke="var(--accent)" strokeWidth="1.4" />
-        <path d="M -5 2 L -1.5 6 L 6 -4" fill="none" stroke="var(--accent)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <path className="diagram-runner" data-draw d="M -5 2 L -1.5 6 L 6 -4" fill="none" stroke="var(--accent)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
       </g>
     </>
   );
@@ -188,7 +198,7 @@ function Traceability() {
             {inp.label}
           </text>
           <circle cx="66" cy={inp.y} r="2.5" fill="var(--accent)" />
-          <path d={`M 66 ${inp.y} C 100 ${inp.y} 108 ${ny} 138 ${ny}`} fill="none" stroke="var(--muted)" strokeWidth="1" opacity="0.6" />
+          <path data-draw d={`M 66 ${inp.y} C 100 ${inp.y} 108 ${ny} 138 ${ny}`} fill="none" stroke="var(--muted)" strokeWidth="1" opacity="0.6" />
         </g>
       ))}
 
@@ -214,7 +224,7 @@ function Traceability() {
             <path d={`M ${n.cx - 4} ${ny - 4} L ${n.cx + 4} ${ny} L ${n.cx - 4} ${ny + 4}`} fill="none" stroke="var(--foreground)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
           )}
           {n.kind === "shelf" && (
-            <g stroke="var(--accent)" strokeWidth="1.4" strokeLinecap="round">
+            <g className="diagram-runner" stroke="var(--accent)" strokeWidth="1.4" strokeLinecap="round">
               <line x1={n.cx - 5} y1={ny - 3} x2={n.cx + 5} y2={ny - 3} />
               <line x1={n.cx - 5} y1={ny + 3} x2={n.cx + 5} y2={ny + 3} />
             </g>
@@ -252,12 +262,12 @@ function Diplomacy() {
 
       {/* links agents → table */}
       {agents.map((a) => (
-        <line key={a.label} x1={a.x} y1={a.y} x2={table.x} y2={table.y} stroke="var(--muted)" strokeWidth="1" opacity="0.6" />
+        <line data-draw key={a.label} x1={a.x} y1={a.y} x2={table.x} y2={table.y} stroke="var(--muted)" strokeWidth="1" opacity="0.6" />
       ))}
 
       {/* central negotiation table */}
       <circle cx={table.x} cy={table.y} r="15" fill="var(--surface)" stroke="var(--accent)" strokeWidth="1.6" />
-      <circle cx={table.x} cy={table.y} r="4" fill="var(--accent)" />
+      <circle className="diagram-runner" cx={table.x} cy={table.y} r="4" fill="var(--accent)" />
 
       {/* agent nodes */}
       {agents.map((a) => (
@@ -300,8 +310,26 @@ export function ProjectDiagram({
   className?: string;
 }) {
   const Art = VARIANTS[variant];
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add("in-view");
+          io.disconnect();
+        }
+      },
+      { threshold: 0.25 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <div className={className}>
+    <div ref={ref} className={className}>
       <svg viewBox={VB} className="h-full w-full" role="img" aria-label={`${variant} project diagram`}>
         {Art ? <Art /> : null}
       </svg>

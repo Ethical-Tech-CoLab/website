@@ -1,6 +1,6 @@
 /**
  * All site copy lives here so pages stay presentational. Mirrors the structure
- * of the Ethical Tech CoLab site (NYU CGA × Microsoft Research).
+ * of the Ethical Tech CoLab site (NYU CGA × Microsoft).
  */
 
 export const site = {
@@ -12,6 +12,31 @@ export const site = {
   footerBlurb:
     "Exploring intervention opportunities at the intersection of emerging technologies and the human condition.",
   cohortRange: "Four cohorts · 2024-2026",
+  // Social links. GitHub is the real org; instagram/twitter are placeholders —
+  // swap in the real handles once the accounts exist. Set to "" to hide a link.
+  social: {
+    github: "https://github.com/Ethical-Tech-CoLab",
+    instagram: "https://instagram.com/", // TODO: real Instagram handle
+    twitter: "https://twitter.com/", // TODO: real X/Twitter handle (account not created yet)
+  },
+  // Legal disclaimers shown in the footer footnote.
+  legal: [
+    "The Ethical Tech CoLab is a research initiative of the NYU School of Professional Studies Center for Global Affairs, conducted in collaboration with Microsoft. Views and findings expressed on this site are those of the researchers and do not represent the official positions of New York University, Microsoft, or any partner institution.",
+    "Projects and prototypes are experimental applied research, provided “as is” without warranty of any kind. Nothing on this site constitutes legal, financial, or professional advice. Third-party names, logos, and trademarks are the property of their respective owners.",
+  ],
+};
+
+// Newsletter signup — Mailchimp embedded form.
+// Paste the `action` URL from your Mailchimp embedded-form code, and the hidden
+// bot-protection field name Mailchimp generates (the `b_xxxx_yyyy` input `name`).
+// Until these are filled the form renders in a disabled "coming soon" state.
+export const newsletter = {
+  eyebrow: "Stay in the loop",
+  heading: "Join the Ethical Tech CoLab newsletter.",
+  body: "Cohort openings, project launches, event invites, and research from the frontier of emerging tech and the human condition — a few times a semester, no noise.",
+  action: "", // TODO: Mailchimp form action URL, e.g. https://nyu.us1.list-manage.com/subscribe/post?u=XXXX&id=YYYY
+  hiddenField: "", // TODO: Mailchimp anti-bot hidden field name, e.g. b_XXXX_YYYY
+  cta: "Subscribe",
 };
 
 export const nav = [
@@ -171,6 +196,139 @@ export const researchAreas: ResearchArea[] = [
   },
 ];
 
+/** Past projects from earlier cohorts — the portfolio archive. */
+export interface ArchivedProject {
+  name: string;
+  term: string;
+  summary: string;
+  tags: string[];
+}
+
+export const archivedProjects: ArchivedProject[] = [
+  {
+    name: "Online Grooming Prevention",
+    term: "Spring 2025",
+    summary:
+      "Repurposing existing detection technology to identify and interrupt grooming behavior in online spaces, protecting minors on platforms where predators operate.",
+    tags: ["Online safety", "Child protection", "NLP"],
+  },
+  {
+    name: "ESG Labels & Certificates Transparency",
+    term: "Spring 2025",
+    summary:
+      "Standardizing ESG certificates and labels into a comparable, trustworthy signal so consumers can steer their behavior toward genuinely sustainable products.",
+    tags: ["Sustainability", "Consumer trust", "Standardization"],
+  },
+];
+
+/** A shipped repository/product, shown on the Repositories page. */
+export interface Product {
+  name: string;
+  repoName: string;
+  repo: string;
+  /** Live deployed URL, if the product is running somewhere embeddable. */
+  demo?: string;
+  blurb: string;
+  language: string;
+  theme: string;
+  featured?: boolean;
+}
+
+export const productThemes = ["Evacuation", "Cultural heritage", "Tooling"];
+
+export const products: Product[] = [
+  {
+    name: "Exodus — Civilian Evacuation Risk Platform",
+    repoName: "Exodus",
+    repo: "https://github.com/Ethical-Tech-CoLab/Exodus",
+    demo: "https://exodus-ruddy.vercel.app",
+    blurb:
+      "Three civilian-evacuation risk tools behind one backend and design language: a crisis map of the INFORM Severity Index with live news and conflict timelines, a seven-dimension scenario risk model, and an endangerment-and-feasibility assessment.",
+    language: "TypeScript",
+    theme: "Evacuation",
+    featured: true,
+  },
+  {
+    name: "Evacuation Information Index",
+    repoName: "evacuation-inform-index-carolina",
+    repo: "https://github.com/Ethical-Tech-CoLab/evacuation-inform-index-carolina",
+    demo: "https://ethical-tech-colab.github.io/evacuation-inform-index-carolina/",
+    blurb:
+      "A real-time index measuring the quality, accessibility, and equity of evacuation information during crises — synthesizing agency, social, and on-the-ground signals to surface where critical information is missing.",
+    language: "HTML",
+    theme: "Evacuation",
+    featured: true,
+  },
+  {
+    name: "Evacuation Routing Simulator",
+    repoName: "India-EvacSimulation",
+    repo: "https://github.com/Ethical-Tech-CoLab/India-EvacSimulation",
+    demo: "https://ethical-tech-colab.github.io/India-EvacSimulation/",
+    blurb:
+      "An interactive simulator modeling how routing and assignment choices shape who reaches safety, with shareable scenario state and a built-in explainer walkthrough.",
+    language: "HTML",
+    theme: "Evacuation",
+  },
+  {
+    name: "Evacuation Behavior Simulator",
+    repoName: "Evac-Sim-Melanie",
+    repo: "https://github.com/Ethical-Tech-CoLab/Evac-Sim-Melanie",
+    demo: "https://ethical-tech-colab.github.io/Evac-Sim-Melanie/",
+    blurb:
+      "An agent-based model of community evacuation behavior — family clusters, information-seeking, neighbor influence, and elder and child delays across an UNAWARE → SEEKING → MILLING → EVACUATING → DONE lifecycle.",
+    language: "JavaScript",
+    theme: "Evacuation",
+  },
+  {
+    name: "Digital Art Passport (VANGO)",
+    repoName: "VANGO",
+    repo: "https://github.com/Ethical-Tech-CoLab/VANGO",
+    demo: "https://ethical-tech-colab.github.io/VANGO/",
+    blurb:
+      "A digital provenance passport for cultural artifacts, pairing verifiable credentials with collaborative cataloguing to support repatriation, attribution, and ethical stewardship.",
+    language: "HTML",
+    theme: "Cultural heritage",
+  },
+  {
+    name: "Evacuation Model",
+    repoName: "evacmodel",
+    repo: "https://github.com/Ethical-Tech-CoLab/evacmodel",
+    demo: "https://ethical-tech-colab.github.io/evacmodel/",
+    blurb:
+      "An evacuation-modeling prototype exploring population movement and decision dynamics under crisis constraints.",
+    language: "HTML",
+    theme: "Evacuation",
+  },
+  {
+    name: "Grant Valuation Tool",
+    repoName: "grant-valuation-tool",
+    repo: "https://github.com/Ethical-Tech-CoLab/grant-valuation-tool",
+    demo: "https://ethical-tech-colab.github.io/grant-valuation-tool/",
+    blurb:
+      "A tool for valuing and comparing grants, helping the lab and its partners weigh funding decisions with a consistent framework.",
+    language: "TypeScript",
+    theme: "Tooling",
+  },
+  {
+    name: "ERCF — Evacuation Risk & Cost Framework",
+    repoName: "ercf",
+    repo: "https://github.com/Ethical-Tech-CoLab/ercf",
+    blurb:
+      "A decision-support framework estimating the human and financial cost of civilian evacuation in armed conflict, scoring scenarios across seven risk dimensions and comparing evacuating against staying.",
+    language: "Python",
+    theme: "Evacuation",
+  },
+  {
+    name: "Arts Provenance Agent",
+    repoName: "arts-provenance-agent",
+    repo: "https://github.com/Ethical-Tech-CoLab/arts-provenance-agent",
+    blurb:
+      "An AI agent for researching and reconstructing the provenance of artworks and artifacts, supporting attribution and ethical return.",
+    language: "TypeScript",
+    theme: "Cultural heritage",
+  },
+];
+
 export interface Cohort {
   index: string;
   term: string;
@@ -218,14 +376,14 @@ export const cohorts: Cohort[] = [
 export const about = {
   eyebrow: "About",
   heading:
-    "Exploring tech interventions for migration, forced labor, IDPs and refugees.",
+    "Exploring technology to improve the human condition.",
   intro:
     "The NYU Center for Global Affairs launched the Ethical Tech CoLab to focus on interventions in the human condition using emerging technologies, through interdisciplinary applied research that draws on students, faculty, and partners from across NYU and industry.",
   mission: {
     label: "Mission",
     heading:
-      "Explore intervention opportunities at the intersection of emerging technologies and the human condition.",
-    body: "We translate frontier research into simulations that institutions and communities can actually use, moving from speculative possibilities to deployable interventions on migration, forced labor, and the rights of displaced people.",
+      "Achieving full human potential through technology.",
+    body: "We change the conversation on how people are informed and how emerging technology is used for good — translating frontier research into working tools that institutions and communities can actually use, from speculative possibility to deployable intervention on migration, forced labor, and the rights of displaced people.",
   },
   vision: {
     label: "Vision",
@@ -241,7 +399,7 @@ export const about = {
     paragraphs: [
       'Professor Rhodes currently teaches "Beyond the Brand: Harnessing Emerging Technology in Ethical Sourcing" at CGA, and works on traceability for forced labor compliance.',
       "Earlier in his career, he was an initial funding partner of ID2020, an NGO focused on decentralized humanitarian identity for refugees and displaced people in partnership with UNHCR and the World Food Program, founded during the first Syrian refugee crisis on the premise that people should be able to prove their skills, history, and education across borders.",
-      "The CoLab brings together his cross-organizational work in Forced Labor and Human Trafficking with Microsoft Tech for Fundamental Rights, and collaborations with Microsoft Research on proof-of-human, AI, web3, censorship-resistant security, and privacy-preserving technologies such as zero-knowledge proofs.",
+      "The CoLab brings together his cross-organizational work in Forced Labor and Human Trafficking with Microsoft Tech for Fundamental Rights, and collaborations with Microsoft on proof-of-human, AI, web3, censorship-resistant security, and privacy-preserving technologies such as zero-knowledge proofs.",
     ],
   },
   whatWeDo: {
@@ -350,7 +508,7 @@ export const about = {
   foundingPartners: [
     "NYU School of Professional Studies",
     "Center for Global Affairs (CGA)",
-    "Microsoft Research",
+    "Microsoft",
   ],
 };
 
@@ -382,18 +540,25 @@ export const team = {
   founder: {
     initials: "YR",
     name: "Yorke E Rhodes III",
-    role: "Founder",
+    role: "Founder · Lab Director",
+    org: "Microsoft Director of Traceability · Cofounder, Blockchain at Microsoft",
     linkedin: "https://www.linkedin.com/in/yorkerhodes/",
     photo: "/team/yorke.jpg",
-    body: "Professor Yorke Rhodes is the Microsoft Director of Traceability, Cofounder of Blockchain at Microsoft, and Cofounder of the NYU Ethical Tech CoLab. A visionary technologist and strategic leader at the intersection of blockchain innovation, artificial intelligence, and ethical systems design. As Director of Traceability, he drives transformative initiatives that enhance traceability, transparency, and trust across global ecosystems. Yorke's work spans enterprise architecture, compliance frameworks, and humanitarian tech, with a focus on applying emerging technologies to real-world challenges, from forced labor mitigation to responsible AI deployment. He is also an educator and speaker, shaping the next generation of ethical technologists through hands-on learning and thought leadership.",
-  } as {
-    initials: string;
-    name: string;
-    role: string;
-    linkedin?: string;
-    body: string;
-    photo?: string;
-  },
+    slug: "yorke-rhodes",
+    bio: "Professor Yorke Rhodes is the Microsoft Director of Traceability, Cofounder of Blockchain at Microsoft, and Cofounder of the NYU Ethical Tech CoLab. A visionary technologist and strategic leader at the intersection of blockchain innovation, artificial intelligence, and ethical systems design. As Director of Traceability, he drives transformative initiatives that enhance traceability, transparency, and trust across global ecosystems. Yorke's work spans enterprise architecture, compliance frameworks, and humanitarian tech, with a focus on applying emerging technologies to real-world challenges, from forced labor mitigation to responsible AI deployment. He is also an educator and speaker, shaping the next generation of ethical technologists through hands-on learning and thought leadership.",
+  } as TeamMember,
+  advisorsLabel: "Advisors",
+  advisors: [
+    {
+      initials: "TC",
+      name: "Teresa Cantero",
+      role: "Advisor · Migration",
+      org: "PhD candidate",
+      // linkedin: "", // TODO: Teresa Cantero LinkedIn URL
+      slug: "teresa-cantero",
+      bio: "Teresa is completing her PhD on migration and advises the Ethical Tech CoLab on its research going forward, bringing a scholarly lens on displacement and the human condition to the lab's applied work.",
+    },
+  ] as TeamMember[],
   residentFellowsLabel: "Staff",
   residentFellows: [
     {
@@ -553,6 +718,22 @@ export const team = {
       linkedin: "https://www.linkedin.com/in/kirsten-co/",
       photo: "/team/kirsten.jpeg",
       slug: "kirsten-co",
+    },
+    {
+      initials: "AD",
+      name: "Adeline Daab",
+      role: "Collaborator",
+      org: "NYU Gallatin",
+      // linkedin: "", // TODO: Adeline Daab LinkedIn URL
+      slug: "adeline-daab",
+    },
+    {
+      initials: "SD",
+      name: "Susan DeMinil",
+      role: "Collaborator",
+      org: "AABC",
+      // linkedin: "", // TODO: Susan DeMinil LinkedIn URL
+      slug: "susan-deminil",
     },
   ] as TeamMember[],
 };

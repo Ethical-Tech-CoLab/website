@@ -1,13 +1,19 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { nav, site } from "@/content/site";
 
 export function MobileNavSidebar() {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     setOpen(false);
@@ -28,32 +34,12 @@ export function MobileNavSidebar() {
     };
   }, [open]);
 
-  return (
+  // The overlay and panel are rendered through a portal to <body> so their
+  // `position: fixed` resolves against the viewport. If they stayed inside the
+  // header (which has `backdrop-blur`, a containing block for fixed descendants)
+  // they'd be clipped to the header's height instead of filling the screen.
+  const drawer = (
     <>
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-label={open ? "Close menu" : "Open menu"}
-        aria-expanded={open}
-        className="relative z-50 flex h-9 w-9 shrink-0 flex-col items-center justify-center gap-1.5 rounded-full border border-border text-foreground transition-colors hover:border-foreground/40 md:hidden"
-      >
-        <span
-          className={`h-0.5 w-4 rounded-full bg-current transition-transform duration-200 ${
-            open ? "translate-y-2 rotate-45" : ""
-          }`}
-        />
-        <span
-          className={`h-0.5 w-4 rounded-full bg-current transition-opacity duration-200 ${
-            open ? "opacity-0" : "opacity-100"
-          }`}
-        />
-        <span
-          className={`h-0.5 w-4 rounded-full bg-current transition-transform duration-200 ${
-            open ? "-translate-y-2 -rotate-45" : ""
-          }`}
-        />
-      </button>
-
       <div
         aria-hidden={!open}
         onClick={() => setOpen(false)}
@@ -97,6 +83,36 @@ export function MobileNavSidebar() {
         </Link>
         <p className="mt-4 text-center text-xs text-muted">{site.partnersLine}</p>
       </aside>
+    </>
+  );
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-label={open ? "Close menu" : "Open menu"}
+        aria-expanded={open}
+        className="relative z-50 flex h-9 w-9 shrink-0 flex-col items-center justify-center gap-1.5 rounded-full border border-border text-foreground transition-colors hover:border-foreground/40 md:hidden"
+      >
+        <span
+          className={`h-0.5 w-4 rounded-full bg-current transition-transform duration-200 ${
+            open ? "translate-y-2 rotate-45" : ""
+          }`}
+        />
+        <span
+          className={`h-0.5 w-4 rounded-full bg-current transition-opacity duration-200 ${
+            open ? "opacity-0" : "opacity-100"
+          }`}
+        />
+        <span
+          className={`h-0.5 w-4 rounded-full bg-current transition-transform duration-200 ${
+            open ? "-translate-y-2 -rotate-45" : ""
+          }`}
+        />
+      </button>
+
+      {mounted ? createPortal(drawer, document.body) : null}
     </>
   );
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { team } from "@/content/site";
 import { Avatar } from "@/components/TeamAvatar";
 import { ResearchersExplorer } from "@/components/ResearchersExplorer";
@@ -41,33 +41,31 @@ export default function TeamPage() {
           </h2>
 
           {/* Founder */}
-          <div className="mt-10 flex flex-col gap-6 sm:flex-row sm:items-start">
+          <Link
+            href={`/team/${team.founder.slug}`}
+            className="group card-glow mt-10 flex flex-col gap-6 rounded-2xl border border-border bg-card p-7 transition-colors hover:border-border-strong sm:flex-row sm:items-center"
+          >
             <Avatar
               initials={team.founder.initials}
               photo={team.founder.photo}
               name={team.founder.name}
-              size={96}
+              size={128}
             />
             <div className="max-w-3xl">
               <h3 className="text-2xl font-semibold tracking-tight">
                 {team.founder.name}
               </h3>
               <p className="mt-1 text-sm text-accent">{team.founder.role}</p>
-              <p className="mt-4 leading-relaxed text-muted">
-                {team.founder.body}
-              </p>
-              {team.founder.linkedin && (
-                <a
-                  href={team.founder.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 inline-block text-sm text-muted transition-colors hover:text-accent"
-                >
-                  LinkedIn ↗
-                </a>
+              {team.founder.org && (
+                <p className="mt-1 text-sm text-foreground/70">
+                  {team.founder.org}
+                </p>
               )}
+              <span className="mt-3 inline-block text-sm text-muted transition-colors group-hover:text-accent">
+                Read full bio →
+              </span>
             </div>
-          </div>
+          </Link>
 
           <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
             {team.residentFellows.map((member) => (
@@ -92,11 +90,12 @@ export default function TeamPage() {
                     </h3>
                     <p className="mt-1 text-sm text-accent">{member.role}</p>
                   </Link>
-                  {member.bio && (
-                    <p className="mt-2 text-sm leading-relaxed text-foreground/75">
-                      {member.bio}
-                    </p>
-                  )}
+                  <Link
+                    href={`/team/${member.slug}`}
+                    className="mt-2 inline-block text-sm text-muted transition-colors hover:text-accent"
+                  >
+                    View profile →
+                  </Link>
                   {member.linkedin && (
                     <a
                       href={member.linkedin}
@@ -116,6 +115,66 @@ export default function TeamPage() {
 
       {/* Researchers */}
       <ResearchersExplorer />
+
+      {/* Advisors */}
+      <section className="border-t border-border bg-surface/40">
+        <div className="mx-auto max-w-6xl px-6 py-20">
+          <p className="text-xs uppercase tracking-wider text-muted">
+            Advisors &amp; partners
+          </p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight">
+            {team.advisorsLabel}
+          </h2>
+          <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
+            {team.advisors.map((member) => (
+              <div
+                key={member.name}
+                className="flex gap-4 bg-background p-6 transition-colors hover:bg-surface/60"
+              >
+                <Link
+                  href={`/team/${member.slug}`}
+                  aria-label={`View ${member.name}'s profile`}
+                >
+                  <Avatar
+                    initials={member.initials}
+                    photo={member.photo}
+                    name={member.name}
+                  />
+                </Link>
+                <div>
+                  <Link href={`/team/${member.slug}`} className="block">
+                    <h3 className="text-xl font-semibold leading-tight tracking-tight">
+                      {member.name}
+                    </h3>
+                    <p className="mt-1 text-sm text-accent">{member.role}</p>
+                  </Link>
+                  {member.org && (
+                    <p className="mt-1 text-sm text-foreground/70">
+                      {member.org}
+                    </p>
+                  )}
+                  <Link
+                    href={`/team/${member.slug}`}
+                    className="mt-2 inline-block text-sm text-muted transition-colors hover:text-accent"
+                  >
+                    View profile →
+                  </Link>
+                  {member.linkedin && (
+                    <a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-2 inline-block text-sm text-muted transition-colors hover:text-accent"
+                    >
+                      LinkedIn ↗
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Other members */}
       <section className="border-t border-border">
@@ -149,11 +208,12 @@ export default function TeamPage() {
                     </h3>
                     <p className="mt-1 text-sm text-accent">{member.role}</p>
                   </Link>
-                  {member.bio && (
-                    <p className="mt-2 text-sm leading-relaxed text-foreground/75">
-                      {member.bio}
-                    </p>
-                  )}
+                  <Link
+                    href={`/team/${member.slug}`}
+                    className="mt-2 inline-block text-sm text-muted transition-colors hover:text-accent"
+                  >
+                    View profile →
+                  </Link>
                   {member.linkedin && (
                     <a
                       href={member.linkedin}

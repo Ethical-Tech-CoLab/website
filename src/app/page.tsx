@@ -1,8 +1,15 @@
-import Link from "next/link";
-import { cohorts, researchAreas, site } from "@/content/site";
+import { Link } from "next-view-transitions";
+import { researchAreas, site } from "@/content/site";
 import { HeroVisual } from "@/components/HeroVisual";
-import { WaveBackground } from "@/components/WaveBackground";
+import { HeroField } from "@/components/HeroField";
+import { HeroTitle } from "@/components/HeroTitle";
 import { ProjectDiagram } from "@/components/ProjectDiagram";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
+import { Magnetic } from "@/components/motion/Magnetic";
+import { Tilt3D } from "@/components/motion/Tilt3D";
+import { WireframeGlobe } from "@/components/WireframeGlobe";
+import { cohorts } from "@/content/site";
 
 export default function Home() {
   const current = cohorts.find((c) => c.current);
@@ -11,136 +18,169 @@ export default function Home() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border">
+        <span className="aura" />
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "radial-gradient(70% 60% at 20% 0%, color-mix(in oklab, var(--glow) 22%, transparent), transparent 65%)",
+              "radial-gradient(70% 60% at 20% 0%, color-mix(in oklab, var(--glow) 26%, transparent), transparent 65%)",
           }}
         />
-        <WaveBackground className="opacity-[0.18]" />
+        <HeroField />
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-6 py-24 sm:py-28 lg:grid-cols-[1.3fr_1fr]">
           <div>
-            <p className="text-xs uppercase tracking-[0.25em] text-accent">
-              NYU CGA × Microsoft
-            </p>
-            <h1 className="mt-6 text-7xl font-semibold leading-[0.92] tracking-tight sm:text-8xl lg:text-9xl">
-              Ethical Tech CoLab
-            </h1>
-            <p className="mt-6 font-serif text-4xl leading-[1.05] text-foreground sm:text-5xl">
-              Emerging tech, <span className="display-em">human</span>{" "}
-              condition.
-            </p>
-            <p className="mt-7 max-w-xl leading-relaxed text-foreground/85">
-              A research collaboration between NYU&apos;s Center for Global
-              Affairs and Microsoft, exploring intervention opportunities at
-              the intersection of emerging technologies and the human
-              condition.
-            </p>
-            <div className="mt-9 flex flex-wrap items-center gap-4">
-              <Link
-                href="/portfolio"
-                className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-background transition-opacity hover:opacity-90"
-              >
-                Portfolio <span aria-hidden>→</span>
-              </Link>
-              <Link
-                href="/cohorts"
-                className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
-              >
-                GET TO KNOW THE LAB
-              </Link>
-            </div>
+            <HeroTitle />
+            <Reveal delay={0.5} className="mt-7 max-w-xl leading-relaxed text-foreground/85">
+              <p>
+                A research collaboration between NYU&apos;s Center for Global
+                Affairs and Microsoft — changing the conversation on how
+                people are informed, and how emerging technology can be used for
+                good.
+              </p>
+            </Reveal>
+            <Reveal delay={0.6}>
+              <div className="mt-9 flex flex-wrap items-center gap-4">
+                <Magnetic>
+                  <Link
+                    href="/portfolio"
+                    className="btn-sweep inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.02]"
+                  >
+                    Explore the portfolio <span aria-hidden>→</span>
+                  </Link>
+                </Magnetic>
+                <Link
+                  href="/portfolio#products"
+                  className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
+                >
+                  See live demos
+                </Link>
+              </div>
+            </Reveal>
           </div>
 
           {current && (
-            <HeroVisual term={current.term} caption={current.title} />
+            <Reveal delay={0.35}>
+              <Tilt3D max={7}>
+                <HeroVisual term={current.term} caption={current.title} />
+              </Tilt3D>
+            </Reveal>
           )}
+        </div>
+      </section>
+
+      {/* Mission strip */}
+      <section className="border-b border-border bg-surface/40">
+        <div className="mx-auto max-w-6xl px-6 py-16">
+          <Reveal>
+            <p className="text-xs uppercase tracking-wider text-muted">Mission</p>
+          </Reveal>
+          <Reveal delay={0.05}>
+            <p className="mt-4 max-w-4xl fluid-h2 font-heading uppercase leading-[1.02]">
+              Achieving <span className="display-em">full human potential</span>{" "}
+              through technology — changing how people are informed, and how tech
+              is used for good.
+            </p>
+          </Reveal>
         </div>
       </section>
 
       {/* Portfolio preview */}
       <section className="mx-auto max-w-6xl px-6 py-24">
-        <div className="flex items-end justify-between">
-          <div>
-            <p className="text-xs uppercase tracking-wider text-muted">Portfolio</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-              Building at the frontier.
-            </h2>
-          </div>
-          <Link
-            href="/portfolio"
-            className="hidden text-sm text-accent transition-opacity hover:opacity-80 sm:block"
-          >
-            View all four →
-          </Link>
-        </div>
-
-        <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
-          {researchAreas.map((area) => (
+        <Reveal>
+          <div className="flex items-end justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-wider text-muted">Portfolio</p>
+              <h2 className="mt-3 fluid-h2 font-heading uppercase">
+                Building at the frontier.
+              </h2>
+            </div>
             <Link
-              key={area.key}
               href="/portfolio"
-              className="group flex flex-col gap-3 bg-background p-8 transition-colors hover:bg-surface"
+              className="link-underline hidden text-sm text-accent sm:block"
             >
-              <ProjectDiagram
-                variant={area.key}
-                className="mb-3 aspect-[16/7] w-full overflow-hidden rounded-xl border border-border bg-surface/60"
-              />
-              <span className="font-mono text-xs text-muted">
-                {area.index} / {area.key}
-              </span>
-              <h3 className="text-2xl font-semibold tracking-tight sm:text-3xl group-hover:text-accent">
-                {area.question}
-              </h3>
-              <p className="text-base leading-relaxed text-muted">
-                {area.summary}
-              </p>
-              <div className="mt-2 flex flex-wrap gap-2">
-                {area.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border border-border px-2.5 py-0.5 text-xs text-muted"
-                  >
-                    #{tag.replace(/\s+/g, "")}
-                  </span>
-                ))}
-              </div>
+              View all four →
             </Link>
+          </div>
+        </Reveal>
+
+        <Stagger className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
+          {researchAreas.map((area) => (
+            <StaggerItem key={area.key}>
+              <Link
+                href="/portfolio"
+                className="group card-glow flex h-full flex-col gap-3 bg-background p-8 transition-colors hover:bg-surface"
+              >
+                <ProjectDiagram
+                  variant={area.key}
+                  className="diagram-live mb-3 aspect-[16/7] w-full overflow-hidden rounded-xl border border-border bg-surface/60"
+                />
+                <span className="font-mono text-xs text-muted">
+                  {area.index} / {area.key}
+                </span>
+                <h3 className="font-heading text-2xl uppercase tracking-wide sm:text-3xl group-hover:text-accent">
+                  {area.question}
+                </h3>
+                <p className="text-base leading-relaxed text-muted">
+                  {area.summary}
+                </p>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {area.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-border px-2.5 py-0.5 text-xs text-muted"
+                    >
+                      #{tag.replace(/\s+/g, "")}
+                    </span>
+                  ))}
+                </div>
+              </Link>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </section>
 
       {/* Collaborate CTA */}
-      <section className="border-t border-border">
-        <div className="mx-auto max-w-6xl px-6 py-24">
-          <p className="text-xs uppercase tracking-wider text-muted">Collaborate</p>
-          <h2 className="mt-4 max-w-3xl text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
-            Have a hard problem at the edge of technology and society?
-          </h2>
-          <p className="mt-6 max-w-2xl text-lg text-muted">
-            We partner with institutions, agencies, and communities to prototype
-            interventions that hold up outside the lab.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            <a
-              href={site.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-background transition-opacity hover:opacity-90"
-            >
-              Start a conversation <span aria-hidden>→</span>
-            </a>
-            <a
-              href={`mailto:${site.email}`}
-              className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
-            >
-              {site.email}
-            </a>
-          </div>
+      <section className="relative overflow-hidden border-t border-border">
+        <span className="aura" />
+        {/* Floating 3D wireframe globe */}
+        <div className="pointer-events-none absolute right-[-60px] top-1/2 hidden -translate-y-1/2 opacity-70 lg:block">
+          <WireframeGlobe />
+        </div>
+        <div className="relative mx-auto max-w-6xl px-6 py-28">
+          <Reveal>
+            <p className="text-xs uppercase tracking-wider text-muted">Collaborate</p>
+            <h2 className="mt-4 max-w-3xl fluid-h2 font-heading uppercase leading-tight">
+              Have a hard problem at the edge of technology and society?
+            </h2>
+            <p className="mt-6 max-w-2xl text-lg text-muted">
+              We partner with institutions, agencies, and communities to prototype
+              interventions that hold up outside the lab.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <Magnetic>
+                <a
+                  href={site.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-sweep inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.02]"
+                >
+                  Start a conversation <span aria-hidden>→</span>
+                </a>
+              </Magnetic>
+              <a
+                href={`mailto:${site.email}`}
+                className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
+              >
+                {site.email}
+              </a>
+            </div>
+          </Reveal>
         </div>
       </section>
+
+      {/* Newsletter */}
+      <NewsletterSignup />
     </>
   );
 }

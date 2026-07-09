@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { cohortTerms, team } from "@/content/site";
-import { Avatar, Bio } from "@/components/TeamAvatar";
+import { Avatar } from "@/components/TeamAvatar";
 
 const CHEVRON =
   "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b8d400' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>\")";
@@ -45,47 +45,36 @@ export function ResearchersExplorer() {
         </select>
       </div>
 
-      <div className="mt-12 divide-y divide-border border-y border-border">
+      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {visible.map((member) => (
-          <div
+          <Link
             key={member.name}
-            className="flex flex-col gap-6 py-10 sm:flex-row sm:gap-10"
+            href={`/team/${member.slug}`}
+            className="group card-glow flex flex-col items-start rounded-2xl border border-border bg-card p-6 transition-colors hover:border-border-strong"
           >
-            <div className="sm:w-52 sm:shrink-0">
-              <Link href={`/team/${member.slug}`} aria-label={`View ${member.name}'s profile`}>
-                <Avatar
-                  initials={member.initials}
-                  photo={member.photo}
-                  name={member.name}
-                  size={120}
-                />
-                <h3 className="mt-4 text-2xl font-semibold leading-tight tracking-tight">
-                  {member.name}
-                </h3>
-                <p className="mt-1 text-sm text-accent">{member.role}</p>
-              </Link>
-              {member.linkedin && (
-                <a
-                  href={member.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-2 block truncate text-sm text-muted transition-colors hover:text-accent"
-                >
-                  LinkedIn ↗
-                </a>
-              )}
-            </div>
-            {member.bio && (
-              <Bio
-                text={member.bio}
-                className="max-w-3xl leading-relaxed text-foreground/80"
-              />
+            <Avatar
+              initials={member.initials}
+              photo={member.photo}
+              name={member.name}
+              size={112}
+            />
+            <h3 className="mt-4 text-xl font-semibold leading-tight tracking-tight">
+              {member.name}
+            </h3>
+            <p className="mt-1 text-sm text-accent">{member.role}</p>
+            {member.term && (
+              <p className="mt-1 font-mono text-xs text-muted">{member.term}</p>
             )}
-          </div>
+            <span className="mt-4 inline-block text-sm text-muted transition-colors group-hover:text-accent">
+              View profile →
+            </span>
+          </Link>
         ))}
 
         {visible.length === 0 && (
-          <p className="py-16 text-muted">No researchers listed for this cohort yet.</p>
+          <p className="col-span-full py-16 text-muted">
+            No researchers listed for this cohort yet.
+          </p>
         )}
       </div>
     </section>

@@ -41,10 +41,17 @@ export function HeroVisual({
               y1={150 - h / 2}
               x2={x}
               y2={150 + h / 2}
-              stroke="#b8d400"
+              stroke="#c8f04b"
               strokeWidth={2.5}
               strokeLinecap="round"
               opacity={0.55 + Math.abs(phase) * 0.25}
+              style={{
+                transformBox: "fill-box",
+                transformOrigin: "center",
+                animation: `wave-osc ${2.6 + (i % 5) * 0.35}s ease-in-out ${
+                  (i % 12) * 0.12
+                }s infinite`,
+              }}
             />
           );
         })}

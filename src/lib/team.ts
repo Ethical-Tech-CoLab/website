@@ -1,7 +1,13 @@
 import { team, type TeamMember } from "@/content/site";
 
 function getAllTeamMembers(): TeamMember[] {
-  return [...team.residentFellows, ...team.researchers, ...team.collaborators];
+  return [
+    team.founder as TeamMember,
+    ...team.advisors,
+    ...team.residentFellows,
+    ...team.researchers,
+    ...team.collaborators,
+  ];
 }
 
 /** Unique slugs across all non-founder team members, for generateStaticParams. */

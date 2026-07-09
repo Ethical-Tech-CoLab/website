@@ -5,14 +5,19 @@
   color-scheme: dark;
   /* Palette mirrors the Summer '26 Tech Rehearsal deck: near-black purple
      ground, lime accent, electric-purple glow. */
-  --background: #1a1020;
-  --surface: #201428;
+  --background: #120c1a;
+  --surface: #1b1226;
+  --card: #201630;
   --secondary: #3b1878;
-  --foreground: #ffffff;
-  --muted: rgba(255, 255, 255, 0.45);
-  --border: rgba(109, 40, 217, 0.32); /* purple-tinted hairline, matches deck's card/panel borders */
-  --accent: #b8d400; /* signature lime — buttons, links, emphasis */
-  --glow: #6d28d9; /* electric-purple radial glow */
+  --foreground: #f3eefb;
+  --muted: rgba(233, 228, 244, 0.52);
+  --border: rgba(139, 92, 246, 0.26); /* purple-tinted hairline, matches deck's card/panel borders */
+  --border-strong: rgba(200, 240, 75, 0.4);
+  --accent: #c8f04b; /* signature lime — buttons, links, emphasis */
+  --accent-ink: #141414; /* near-black ink that sits ON lime */
+  --glow: #7b5cff; /* electric-violet radial glow */
+  --glow-2: #b8d400; /* olive secondary glow */
+  --grain-opacity: 0.04;
 }
 
 /* Light palette: keeps the purple/lime identity, inverted for daylight. */
@@ -20,23 +25,32 @@
   color-scheme: light;
   --background: #f5f2f9;
   --surface: #ffffff;
+  --card: #ffffff;
   --secondary: #e4dcf3;
   --foreground: #1a1020;
   --muted: rgba(26, 16, 32, 0.6);
   --border: rgba(59, 24, 120, 0.18);
+  --border-strong: rgba(95, 107, 0, 0.5);
   --accent: #5f6b00; /* darker lime/olive for contrast on light */
+  --accent-ink: #ffffff;
   --glow: #6d28d9;
+  --glow-2: #7c9a00;
+  --grain-opacity: 0.03;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);
+  --color-card: var(--card);
   --color-secondary: var(--secondary);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
   --color-glow: var(--glow);
+  --color-glow-2: var(--glow-2);
   --font-sans: var(--font-space-mono);
   --font-mono: var(--font-space-mono);
   --font-serif: var(--font-bebas);
@@ -77,4 +91,303 @@ body {
 [data-theme="dark"] .theme-icon-moon,
 [data-theme="light"] .theme-icon-sun {
   display: none;
+}
+
+/* ============================================================= *
+ *  Atmosphere: grain, auras, glass, fluid type, motion
+ * ============================================================= */
+
+/* Fine film grain over the whole page — kills the flat "templated" look.
+   A tiny tiled SVG turbulence texture, blended at very low opacity. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* Registered custom prop so the aura angle can actually interpolate. */
+@property --aura-rot {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+/* Ambient mesh aura — two blurred radial pools that rotate imperceptibly.
+   Drop <span class="aura" /> into any `relative` section as a background. */
+.aura {
+  position: absolute;
+  inset: -30%;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 9999px;
+  filter: blur(110px);
+  opacity: 0.55;
+  background:
+    radial-gradient(38% 38% at 32% 34%, color-mix(in oklab, var(--glow) 60%, transparent), transparent 70%),
+    radial-gradient(36% 36% at 70% 62%, color-mix(in oklab, var(--glow-2) 42%, transparent), transparent 72%);
+  animation: aura-drift 48s linear infinite;
+}
+@keyframes aura-drift {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Frosted glass — sticky nav, floating cards. */
+.glass {
+  background: color-mix(in oklab, var(--background) 62%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  backdrop-filter: blur(14px) saturate(1.3);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass {
+    background: var(--background);
+  }
+}
+
+/* Fluid display sizing — futuristic editorial scale. */
+.fluid-hero {
+  font-size: clamp(3.25rem, 11vw, 9rem);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+}
+.fluid-h2 {
+  font-size: clamp(2rem, 4.6vw, 3.5rem);
+  line-height: 0.98;
+}
+
+/* Lime pointer-glow that follows the cursor inside a card. Set --mx/--my
+   (in %) on pointermove; paints a soft radial without a re-render. */
+.card-glow {
+  position: relative;
+  isolation: isolate;
+}
+.card-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(
+    220px circle at var(--mx, 50%) var(--my, 0%),
+    color-mix(in oklab, var(--accent) 14%, transparent),
+    transparent 60%
+  );
+}
+.card-glow:hover::before,
+.card-glow:focus-within::before {
+  opacity: 1;
+}
+
+/* ---- 3D tilt ---- */
+.tilt-scene {
+  perspective: 900px;
+}
+.tilt-card {
+  position: relative;
+  transition: box-shadow 0.3s ease;
+  will-change: transform;
+}
+.tilt-card:hover {
+  box-shadow:
+    0 30px 60px -20px color-mix(in oklab, var(--glow) 45%, transparent),
+    0 12px 24px -12px rgba(0, 0, 0, 0.5);
+}
+/* Elements that should float above the card surface on tilt. */
+.tilt-card .depth {
+  transform: translateZ(38px);
+  transform-style: preserve-3d;
+}
+.tilt-card .depth-sm {
+  transform: translateZ(20px);
+}
+/* Moving specular sheen. */
+.tilt-glare::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: var(--gop, 0);
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    circle at var(--gx, 50%) var(--gy, 50%),
+    rgba(255, 255, 255, 0.18),
+    transparent 45%
+  );
+}
+
+/* ---- 3D wireframe globe ---- */
+.globe-scene {
+  width: 280px;
+  height: 280px;
+  perspective: 900px;
+}
+.globe-spin {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(-18deg) rotateY(0deg);
+  animation: globe-rotate 26s linear infinite;
+}
+@keyframes globe-rotate {
+  to {
+    transform: rotateX(-18deg) rotateY(360deg);
+  }
+}
+.globe-ring {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in oklab, var(--glow) 55%, transparent);
+  transform-style: preserve-3d;
+}
+.globe-latitude {
+  border-color: color-mix(in oklab, var(--accent) 45%, transparent);
+}
+.globe-node {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px color-mix(in oklab, var(--accent) 80%, transparent);
+}
+
+/* Animated CTA sweep — a lighter layer wipes across on hover. */
+.btn-sweep {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-sweep::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(120deg, transparent, color-mix(in oklab, #ffffff 55%, transparent), transparent);
+  transform: translateX(-120%);
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-sweep:hover::after {
+  transform: translateX(120%);
+}
+
+/* Animated gradient underline for text links. */
+.link-underline {
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1.5px;
+  transition: background-size 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.link-underline:hover {
+  background-size: 100% 1.5px;
+}
+
+/* Scroll-in reveal (CSS fallback + used by the Reveal component's classes). */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* SVG diagram: draw strokes in when the .diagram-live wrapper is in view. */
+.diagram-live [data-draw] {
+  stroke-dasharray: var(--len, 400);
+  stroke-dashoffset: var(--len, 400);
+}
+.diagram-live.in-view [data-draw] {
+  animation: draw 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--draw-delay, 0s);
+}
+.diagram-live [data-pop] {
+  opacity: 0;
+  transform: scale(0.6);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.diagram-live.in-view [data-pop] {
+  animation: pop 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--pop-delay, 0.3s);
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes pop {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* Run-on-hover: the gauge needle / signal pulse when the card is hovered. */
+.group:hover .diagram-runner,
+.group:focus-within .diagram-runner {
+  animation: runner-pulse 1.6s ease-in-out infinite;
+}
+@keyframes runner-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Hero audio-waveform bars — gentle staggered oscillation. */
+@keyframes wave-osc {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+/* Reading-progress hairline driven by scroll (CSS-only where supported). */
+@keyframes progress-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .aura {
+    animation: none;
+  }
 }

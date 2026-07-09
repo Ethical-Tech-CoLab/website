@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { researchAreas } from "@/content/site";
 import { ProjectDiagram } from "@/components/ProjectDiagram";
 
@@ -17,6 +18,7 @@ function chipClass(active: boolean, small = false) {
 }
 
 export function PortfolioExplorer() {
+  const reduce = useReducedMotion();
   const [activeTag, setActiveTag] = useState<string | null>(null);
   const [open, setOpen] = useState<Record<string, boolean>>(() =>
     Object.fromEntries(researchAreas.map((a) => [a.key, false])),
@@ -59,41 +61,52 @@ export function PortfolioExplorer() {
       </div>
 
       {/* Research questions */}
-      <div className="divide-y divide-border">
+      <motion.div layout className="divide-y divide-border">
+        <AnimatePresence mode="popLayout">
         {visible.map((area) => {
           const isOpen = Boolean(open[area.key]);
           return (
-            <div key={area.key} className="py-8">
-              <ProjectDiagram
-                variant={area.key}
-                className="mb-6 aspect-[16/7] w-full max-w-xl overflow-hidden rounded-xl border border-border bg-surface/60"
-              />
-              <button
-                type="button"
-                onClick={() => toggle(area.key)}
-                aria-expanded={isOpen}
-                className="flex w-full items-start justify-between gap-6 text-left"
-              >
-                <div>
-                  <p className="font-mono text-sm text-accent">
-                    {area.index} / {area.key}
-                  </p>
-                  <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
-                    {area.question}
-                  </h2>
-                  <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">
-                    {area.summary}
-                  </p>
-                </div>
-                <span
-                  aria-hidden
-                  className={`mt-1 shrink-0 text-3xl leading-none text-accent transition-transform ${
-                    isOpen ? "rotate-45" : ""
-                  }`}
+            <motion.div
+              key={area.key}
+              layout={!reduce}
+              initial={{ opacity: 0, scale: reduce ? 1 : 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: reduce ? 1 : 0.98 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="card-glow rounded-2xl py-8"
+            >
+              <div className="grid items-center gap-8 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+                <ProjectDiagram
+                  variant={area.key}
+                  className="diagram-live group aspect-[16/10] w-full overflow-hidden rounded-xl border border-border bg-surface/60"
+                />
+                <button
+                  type="button"
+                  onClick={() => toggle(area.key)}
+                  aria-expanded={isOpen}
+                  className="flex w-full items-start justify-between gap-6 text-left"
                 >
-                  +
-                </span>
-              </button>
+                  <div>
+                    <p className="font-mono text-sm text-accent">
+                      {area.index} / {area.key}
+                    </p>
+                    <h2 className="mt-3 font-heading text-3xl uppercase tracking-wide sm:text-4xl group-hover:text-accent">
+                      {area.question}
+                    </h2>
+                    <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">
+                      {area.summary}
+                    </p>
+                  </div>
+                  <span
+                    aria-hidden
+                    className={`mt-1 shrink-0 text-3xl leading-none text-accent transition-transform ${
+                      isOpen ? "rotate-45" : ""
+                    }`}
+                  >
+                    +
+                  </span>
+                </button>
+              </div>
 
               {/* Hashtags (clickable filters) */}
               <div className="mt-5 flex flex-wrap gap-2">
@@ -174,10 +187,11 @@ export function PortfolioExplorer() {
                   </div>
                 </div>
               )}
-            </div>
+            </motion.div>
           );
         })}
-      </div>
+        </AnimatePresence>
+      </motion.div>
 
       {visible.length === 0 && (
         <p className="py-16 text-muted">

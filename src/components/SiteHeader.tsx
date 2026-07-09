@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { usePathname } from "next/navigation";
 import { nav, site } from "@/content/site";
 import { asset } from "@/lib/asset";
@@ -12,7 +12,7 @@ export function SiteHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
+    <header className="glass sticky top-0 z-50 border-b border-border">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <div className="flex items-center gap-3">
           <MobileNavSidebar />
@@ -58,7 +58,7 @@ export function SiteHeader() {
           <ThemeToggle />
           <Link
             href="/contact"
-            className="ml-2 inline-flex items-center gap-1 rounded-full bg-accent px-4 py-1.5 text-sm font-semibold text-background transition-opacity hover:opacity-90"
+            className="btn-sweep ml-2 inline-flex items-center gap-1 rounded-full bg-accent px-4 py-1.5 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.03]"
           >
             Contact <span aria-hidden>→</span>
           </Link>

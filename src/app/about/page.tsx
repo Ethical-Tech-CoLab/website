@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { about } from "@/content/site";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 
 export const metadata: Metadata = {
   title: "About",
@@ -16,11 +17,13 @@ export default function AboutPage() {
   return (
     <>
       {/* Intro */}
-      <section className="border-b border-border">
-        <div className="mx-auto max-w-6xl px-6 py-24">
+      <section className="relative overflow-hidden border-b border-border">
+        <span className="aura" />
+        <div className="relative mx-auto max-w-6xl px-6 py-24">
           <SectionLabel>{about.eyebrow}</SectionLabel>
-          <h1 className="mt-4 max-w-4xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-            {about.heading}
+          <h1 className="mt-4 max-w-4xl fluid-h2 font-heading uppercase leading-[1.02]">
+            Exploring technology to improve the{" "}
+            <span className="display-em">human condition</span>.
           </h1>
           <p className="mt-8 max-w-3xl text-lg leading-relaxed text-muted">
             {about.intro}
@@ -178,6 +181,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Newsletter */}
+      <NewsletterSignup />
     </>
   );
 }
