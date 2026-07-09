@@ -359,10 +359,12 @@ export const products: Product[] = [
     name: "Arts Provenance Agent",
     repoName: "arts-provenance-agent",
     repo: "https://github.com/Ethical-Tech-CoLab/arts-provenance-agent",
+    demo: "https://ethical-tech-colab.github.io/arts-provenance-agent/",
     blurb:
-      "An AI agent for researching and reconstructing the provenance of artworks and artifacts, supporting attribution and ethical return.",
+      "An x402-native agent that traces artwork provenance, flags looting and repatriation risk, and issues a signed, tamper-evident Passport for each object. This live demo runs on mock data — catalog dashboards, passport issue/verify, and a replayed agent trace.",
     language: "TypeScript",
     theme: "Cultural heritage",
+    featured: true,
   },
 ];
 
