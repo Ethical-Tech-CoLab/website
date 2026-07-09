@@ -64,7 +64,7 @@ export default function ContactPage() {
             </p>
             <div className="mt-4 flex flex-col gap-1.5 text-sm text-foreground/85">
               {about.foundingPartners.map((partner) => (
-                <span key={partner}>{partner}</span>
+                <span key={partner.name}>{partner.name}</span>
               ))}
             </div>
           </div>

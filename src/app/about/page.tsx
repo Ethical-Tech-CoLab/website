@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { about } from "@/content/site";
 import { NewsletterSignup } from "@/components/NewsletterSignup";
+import { MissionVision } from "@/components/MissionVision";
+import { OrgShowcase } from "@/components/OrgShowcase";
 import { Reveal } from "@/components/motion/Reveal";
 
 export const metadata: Metadata = {
@@ -25,7 +27,7 @@ export default function AboutPage() {
             <SectionLabel>{about.eyebrow}</SectionLabel>
           </Reveal>
           <Reveal delay={0.05}>
-            <h1 className="mt-4 max-w-4xl fluid-hero font-heading uppercase leading-[0.9]">
+            <h1 className="mt-4 max-w-3xl font-heading text-3xl uppercase leading-[1.05] tracking-wide sm:text-4xl">
               Exploring technology to improve the{" "}
               <span className="display-em">human condition</span>.
             </h1>
@@ -38,17 +40,9 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Mission & Vision */}
-      <section className="mx-auto grid max-w-6xl gap-px overflow-hidden border-b border-border md:grid-cols-2">
-        {[about.mission, about.vision].map((block) => (
-          <Reveal key={block.label} className="px-6 py-16 md:px-10">
-            <SectionLabel>{block.label}</SectionLabel>
-            <h2 className="mt-4 font-heading text-2xl uppercase leading-snug tracking-wide sm:text-3xl">
-              {block.heading}
-            </h2>
-            <p className="mt-5 leading-relaxed text-muted">{block.body}</p>
-          </Reveal>
-        ))}
+      {/* Mission & Vision — clickable circles */}
+      <section className="border-b border-border">
+        <MissionVision />
       </section>
 
       {/* Lab Director */}
@@ -150,30 +144,23 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Collaborators */}
+      {/* Clients */}
       <section className="border-t border-border">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <Reveal>
-            <SectionLabel>{about.collaborators.label}</SectionLabel>
+            <SectionLabel>{about.clients.label}</SectionLabel>
             <h2 className="mt-3 fluid-h2 font-heading uppercase">
-              {about.collaborators.heading}
+              {about.clients.heading}
             </h2>
-          </Reveal>
-
-          <div className="mt-12">
-            <p className="text-sm font-semibold text-accent">
-              {about.collaborators.confirmedLabel}
+            <p className="mt-4 text-sm font-semibold text-accent">
+              {about.clients.note}
             </p>
-            <ul className="mt-5 grid gap-x-12 gap-y-3 sm:grid-cols-2">
-              {about.collaborators.confirmed.map((item) => (
-                <li
-                  key={item}
-                  className="border-b border-border pb-3 text-sm text-foreground/85"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
+            <p className="mt-2 text-sm text-muted">
+              Click any client to see their logo and what we do together.
+            </p>
+          </Reveal>
+          <div className="mt-10">
+            <OrgShowcase items={about.clients.items} />
           </div>
         </div>
       </section>
@@ -190,10 +177,14 @@ export default function AboutPage() {
 
           <div className="mt-16 border-t border-border pt-10">
             <SectionLabel>Founding partners</SectionLabel>
-            <div className="mt-6 flex flex-wrap gap-x-10 gap-y-3 text-sm text-foreground/85">
-              {about.foundingPartners.map((partner) => (
-                <span key={partner}>{partner}</span>
-              ))}
+            <p className="mt-2 text-sm text-muted">
+              Click a partner to see their logo and role.
+            </p>
+            <div className="mt-6">
+              <OrgShowcase
+                items={about.foundingPartners}
+                className="sm:grid-cols-3"
+              />
             </div>
           </div>
         </div>
