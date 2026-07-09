@@ -14,32 +14,33 @@ export function Avatar({
   name?: string;
   size?: number;
 }) {
-  // Fall back to initials if there's no photo, or the photo file fails to load
-  // (so a not-yet-added headshot never renders as a broken image).
+  // Initials sit underneath as the base; the photo is layered on top and only
+  // becomes visible once it loads successfully. A missing/broken file therefore
+  // never flashes — the initials just stay showing. (No photo -> initials only.)
+  const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
 
-  if (photo && !failed) {
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src={asset(photo)}
-        alt={name ? `${name} headshot` : "headshot"}
-        width={size}
-        height={size}
-        loading="lazy"
-        onError={() => setFailed(true)}
-        style={{ width: size, height: size }}
-        className="shrink-0 rounded-full border border-border object-cover"
-      />
-    );
-  }
   return (
     <span
       aria-hidden
       style={{ width: size, height: size }}
-      className="grid shrink-0 place-items-center rounded-full border border-border bg-surface text-sm font-semibold text-accent"
+      className="relative grid shrink-0 place-items-center overflow-hidden rounded-full border border-border bg-surface text-sm font-semibold text-accent"
     >
       {initials}
+      {photo && !failed && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={asset(photo)}
+          alt={name ? `${name} headshot` : "headshot"}
+          width={size}
+          height={size}
+          loading="lazy"
+          onLoad={() => setLoaded(true)}
+          onError={() => setFailed(true)}
+          style={{ opacity: loaded ? 1 : 0 }}
+          className="absolute inset-0 h-full w-full rounded-full object-cover transition-opacity duration-200"
+        />
+      )}
     </span>
   );
 }
