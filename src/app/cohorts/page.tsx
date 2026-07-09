@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Link } from "next-view-transitions";
 import { cohorts } from "@/content/site";
 import { Tilt3D } from "@/components/motion/Tilt3D";
+import { Reveal } from "@/components/motion/Reveal";
 
 export const metadata: Metadata = {
   title: "Cohorts",
@@ -15,19 +16,26 @@ export default function CohortsPage() {
 
   return (
     <>
-      <section className="border-b border-border">
-        <div className="mx-auto max-w-6xl px-6 py-24">
-          <p className="text-xs uppercase tracking-wider text-muted">
-            Cohorts · 2025-2026
-          </p>
-          <h1 className="mt-4 text-5xl font-semibold tracking-tight sm:text-6xl">
-            Cohorts.
-          </h1>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted">
-            Each cohort of the Ethical Tech CoLab takes on applied research and
-            proof-of-concept projects on intervention opportunities at the
-            intersection of emerging technologies and the human condition.
-          </p>
+      <section className="relative overflow-hidden border-b border-border">
+        <span className="aura" />
+        <div className="relative mx-auto max-w-6xl px-6 py-24">
+          <Reveal>
+            <p className="text-xs uppercase tracking-wider text-muted">
+              Cohorts · 2025-2026
+            </p>
+          </Reveal>
+          <Reveal delay={0.05}>
+            <h1 className="mt-4 fluid-hero font-heading uppercase leading-[0.9]">
+              Cohorts.
+            </h1>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted">
+              Each cohort of the Ethical Tech CoLab takes on applied research and
+              proof-of-concept projects on intervention opportunities at the
+              intersection of emerging technologies and the human condition.
+            </p>
+          </Reveal>
         </div>
       </section>
 

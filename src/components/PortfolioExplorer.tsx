@@ -2,8 +2,13 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { researchAreas } from "@/content/site";
+import { researchAreas, products } from "@/content/site";
 import { ProjectDiagram } from "@/components/ProjectDiagram";
+
+/** repo URL -> live demo URL, so a project card can launch its running app. */
+const demoByRepo = new Map(
+  products.filter((p) => p.demo).map((p) => [p.repo, p.demo as string]),
+);
 
 const allTags = Array.from(new Set(researchAreas.flatMap((a) => a.tags)));
 const hashtag = (tag: string) => `#${tag.replace(/\s+/g, "")}`;
@@ -131,42 +136,65 @@ export function PortfolioExplorer() {
                       {area.projects.length === 1 ? "project" : "projects"}
                     </p>
                     <ul className="mt-4 space-y-4">
-                      {area.projects.map((project) => (
-                        <li
-                          key={project.name}
-                          className="rounded-xl border border-border p-5"
-                        >
-                          <div className="flex items-center justify-between gap-3">
-                            <h3 className="font-semibold tracking-tight">
-                              {project.name}
-                            </h3>
-                            {project.status && (
-                              <span
-                                className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-                                  project.status === "Active"
-                                    ? "bg-accent text-background"
-                                    : "border border-border text-muted"
-                                }`}
-                              >
-                                {project.status}
-                              </span>
-                            )}
-                          </div>
-                          <p className="mt-2 text-sm leading-relaxed text-muted">
-                            {project.summary}
-                          </p>
-                          {project.repo && (
-                            <a
-                              href={project.repo}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-accent transition-opacity hover:opacity-80"
-                            >
-                              View code <span aria-hidden>↗</span>
-                            </a>
-                          )}
-                        </li>
-                      ))}
+                      {area.projects.map((project) => {
+                        const demo = project.repo
+                          ? demoByRepo.get(project.repo)
+                          : undefined;
+                        return (
+                          <li
+                            key={project.name}
+                            className="card-glow rounded-xl border border-border p-6 transition-colors hover:border-border-strong"
+                          >
+                            <div className="flex items-center justify-between gap-3">
+                              <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">
+                                {project.name}
+                              </h3>
+                              {demo ? (
+                                <span className="shrink-0 rounded-full bg-accent px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-accent-ink">
+                                  ● Live
+                                </span>
+                              ) : (
+                                project.status && (
+                                  <span
+                                    className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                                      project.status === "Active"
+                                        ? "bg-accent text-accent-ink"
+                                        : "border border-border text-muted"
+                                    }`}
+                                  >
+                                    {project.status}
+                                  </span>
+                                )
+                              )}
+                            </div>
+                            <p className="mt-3 text-base leading-relaxed text-muted">
+                              {project.summary}
+                            </p>
+                            <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
+                              {demo && (
+                                <a
+                                  href={demo}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="btn-sweep inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.03]"
+                                >
+                                  ▶ Launch live demo
+                                </a>
+                              )}
+                              {project.repo && (
+                                <a
+                                  href={project.repo}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1 text-sm font-medium text-accent transition-opacity hover:opacity-80"
+                                >
+                                  View code <span aria-hidden>↗</span>
+                                </a>
+                              )}
+                            </div>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
 

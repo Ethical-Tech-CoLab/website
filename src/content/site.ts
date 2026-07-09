@@ -140,10 +140,31 @@ export const researchAreas: ResearchArea[] = [
     ],
     projects: [
       {
-        name: "Digital Art Passport",
+        name: "Arts Provenance Agent — Digital Provenance Passport",
         summary:
-          "A digital provenance passport for cultural artifacts that supports repatriation, attribution, and ethical stewardship. Combining verifiable credentials with collaborative cataloguing, it gives institutions, source communities, and researchers a shared record of an object's life across borders.",
+          "An x402-native agent that traces the provenance of artworks and artifacts, flags looting, repatriation, and valuation risk, and issues a cryptographically signed, tamper-evident Passport (a JSON-LD Verifiable Credential) for each object. Every claim is grounded in an allowlist of authoritative sources — the Met, UNESCO, ICOM, the Art Loss Register — so a fact without a citation is never produced. Includes a dashboard for tracing where an object has been, its risk score, and repatriation status.",
         status: "Active",
+        repo: "https://github.com/Ethical-Tech-CoLab/arts-provenance-agent",
+      },
+      {
+        name: "Provenance Search — Provenance Intelligence",
+        summary:
+          "Looks up an artwork's ownership history across free public sources — Tavily search (restricted to the Met, Getty, INTERPOL, UNESCO, Art Loss Register and more), the Met and Art Institute of Chicago APIs, MoMA, Wikidata, and Europeana — and emits a provenance passport with a confidence score computed by a fixed algorithm, not the AI. Supports text, image upload, and live camera capture for use inside a museum.",
+        status: "Private · In development",
+        repo: "https://github.com/Ethical-Tech-CoLab/provenance-search",
+      },
+      {
+        name: "Digital Art Passport (VANGO)",
+        summary:
+          "A mobile-style digital passport for art experiences: scan a QR code or enter an artwork's code to collect a stamp — a vintage illustration of the piece with the artist, venue, and date. Stamps persist across sessions, with a collector bio and passport number, and a fully multilingual interface (English, French, Italian).",
+        status: "Active",
+        repo: "https://github.com/Ethical-Tech-CoLab/VANGO",
+      },
+      {
+        name: "3D Online Gallery",
+        summary:
+          "An immersive 3D gallery for exploring provenance-tracked and repatriated works in a navigable virtual space. Placeholder for an upcoming build.",
+        status: "Coming soon",
       },
     ],
   },
