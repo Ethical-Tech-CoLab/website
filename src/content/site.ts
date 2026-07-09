@@ -271,7 +271,12 @@ export interface Product {
   featured?: boolean;
 }
 
-export const productThemes = ["Evacuation", "Cultural heritage", "Tooling"];
+export const productThemes = [
+  "Evacuation",
+  "Cultural heritage",
+  "Traceability",
+  "Tooling",
+];
 
 export const products: Product[] = [
   {
@@ -364,6 +369,17 @@ export const products: Product[] = [
       "An x402-native agent that traces artwork provenance, flags looting and repatriation risk, and issues a signed, tamper-evident Passport for each object. This live demo runs on mock data — catalog dashboards, passport issue/verify, and a replayed agent trace.",
     language: "TypeScript",
     theme: "Cultural heritage",
+    featured: true,
+  },
+  {
+    name: "Forced Labor Structural Risk Index",
+    repoName: "forced-labor-structural-risk-index",
+    repo: "https://github.com/aml1045/forced-labor-structural-risk-index",
+    demo: "https://aml1045.github.io/forced-labor-structural-risk-index/",
+    blurb:
+      "An interactive index mapping the structural conditions that enable forced labor across 184 countries on a 0–1 risk scale — with a choropleth world map, national and sub-national layers, rankings, and sources. Built by Amanda Lindsey in the Fall 2025 cohort.",
+    language: "HTML",
+    theme: "Traceability",
     featured: true,
   },
 ];
