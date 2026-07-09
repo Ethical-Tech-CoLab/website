@@ -43,6 +43,7 @@ export const nav = [
   { label: "Home", href: "/" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Live Demos", href: "/demos" },
+  { label: "Publications", href: "/publications" },
   { label: "Cohorts", href: "/cohorts" },
   { label: "About", href: "/about" },
   { label: "Team", href: "/team" },
@@ -232,6 +233,70 @@ export const researchAreas: ResearchArea[] = [
     ],
   },
 ];
+
+/** An academic report / write-up tied to one of the research questions. */
+export interface Publication {
+  index: string;
+  area: string;
+  question: string;
+  title: string;
+  summary: string;
+  status: string;
+  /** Link to the published report/PDF. Empty string = placeholder, not yet out. */
+  url: string;
+}
+
+export const publications = {
+  eyebrow: "Publications · Academic reports",
+  heading: "The research, written up.",
+  intro:
+    "Each research question the CoLab takes on is being written up as an academic report. Titles are working drafts; links go live here as each report is published.",
+  items: [
+    {
+      index: "01",
+      area: "Evacuation",
+      question: "How can AI inform evacuation decisions?",
+      title: "AI-Informed Evacuation Decision-Making Under Crisis Constraints",
+      summary:
+        "A write-up of the evacuation-risk models, information index, and behavioral simulations, and what they imply for who reaches safety.",
+      status: "In preparation",
+      url: "",
+    },
+    {
+      index: "02",
+      area: "Cultural heritage",
+      question:
+        "How can technology support the ethical return of cultural artifacts?",
+      title:
+        "Verifiable Provenance for the Ethical Return of Cultural Artifacts",
+      summary:
+        "A report on pairing verifiable credentials with grounded, cited provenance to support repatriation, attribution, and ethical stewardship.",
+      status: "In preparation",
+      url: "",
+    },
+    {
+      index: "03",
+      area: "Traceability",
+      question: "How can ethical claims in supply chains be made verifiable?",
+      title: "Making Ethical Supply-Chain Claims Verifiable",
+      summary:
+        "A report on structural forced-labor risk and interoperable trace records that let buyers and regulators verify claims without exposing supplier data.",
+      status: "In preparation",
+      url: "",
+    },
+    {
+      index: "04",
+      area: "Diplomacy",
+      question: "How can AI help practitioners rehearse high-stakes diplomacy?",
+      title:
+        "Rehearsing High-Stakes Diplomacy with Culturally Grounded AI Agents",
+      summary:
+        "A report on AI-mediated environments where negotiators rehearse against agents that model historical context, incentives, and red lines.",
+      status: "In preparation",
+      url: "",
+    },
+  ] as Publication[],
+};
 
 /** Past projects from earlier cohorts — the portfolio archive. */
 export interface ArchivedProject {

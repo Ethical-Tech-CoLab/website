@@ -27,7 +27,7 @@ export default function AboutPage() {
             <SectionLabel>{about.eyebrow}</SectionLabel>
           </Reveal>
           <Reveal delay={0.05}>
-            <h1 className="mt-4 max-w-3xl font-heading text-3xl uppercase leading-[1.05] tracking-wide sm:text-4xl">
+            <h1 className="mt-4 fluid-hero font-heading uppercase leading-[0.9]">
               Exploring technology to improve the{" "}
               <span className="display-em">human condition</span>.
             </h1>
