@@ -187,6 +187,14 @@ export default function AboutPage() {
               />
             </div>
           </div>
+
+          <div className="mt-16 border-t border-border pt-10">
+            <SectionLabel>{about.partners.label}</SectionLabel>
+            <p className="mt-2 text-sm text-muted">{about.partners.note}</p>
+            <div className="mt-6">
+              <OrgShowcase items={about.partners.items} />
+            </div>
+          </div>
         </div>
       </section>
 

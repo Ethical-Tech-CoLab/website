@@ -23,5 +23,11 @@ Founding partners:
 - `microsoft.svg` — Microsoft (already added)
 - NYU SPS + CGA use `/nyu-sps-cga-logo.jpg` (already added)
 
+Partners:
+- `100x.png` — 100x
+- `apne-aap-women-worldwide.png` — Apne Aap Women Worldwide
+- `gaia.png` — Gaia
+- `grid-bank.png` — Grid Bank
+
 To use a different name for any org, set its `logo` field in
 `src/content/site.ts` to the exact path (e.g. `logo: "/logos/blockapps.png"`).
