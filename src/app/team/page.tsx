@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Link } from "next-view-transitions";
 import { team } from "@/content/site";
 import { asset } from "@/lib/asset";
+import { excerpt } from "@/lib/team";
 import { Avatar } from "@/components/TeamAvatar";
 import { ResearchersExplorer } from "@/components/ResearchersExplorer";
 import { AlumniSection } from "@/components/AlumniSection";
@@ -129,6 +130,11 @@ export default function TeamPage() {
                       {member.org}
                     </p>
                   )}
+                  {member.bio && (
+                    <p className="mt-2 text-sm leading-relaxed text-muted">
+                      {excerpt(member.bio)}
+                    </p>
+                  )}
                   <Link
                     href={`/team/${member.slug}`}
                     className="mt-2 inline-block text-sm text-muted transition-colors hover:text-accent"
@@ -173,6 +179,11 @@ export default function TeamPage() {
                       {member.name}
                     </h3>
                   </Link>
+                  {member.bio && (
+                    <p className="mt-2 text-sm leading-relaxed text-muted">
+                      {excerpt(member.bio)}
+                    </p>
+                  )}
                   <Link
                     href={`/team/${member.slug}`}
                     className="mt-2 inline-block text-sm text-muted transition-colors hover:text-accent"

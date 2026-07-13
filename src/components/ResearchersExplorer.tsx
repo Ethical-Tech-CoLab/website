@@ -1,6 +1,7 @@
 import { Link } from "next-view-transitions";
 import { cohortTerms, team } from "@/content/site";
 import { Avatar } from "@/components/TeamAvatar";
+import { excerpt } from "@/lib/team";
 
 const CURRENT_TERM = cohortTerms[cohortTerms.length - 1];
 
@@ -47,6 +48,11 @@ export function ResearchersExplorer() {
             </h3>
             {member.term && (
               <p className="mt-1 font-mono text-xs text-muted">{member.term}</p>
+            )}
+            {member.bio && (
+              <p className="mt-3 text-sm leading-relaxed text-muted">
+                {excerpt(member.bio)}
+              </p>
             )}
             <span className="mt-4 inline-block text-sm text-muted transition-colors group-hover:text-accent">
               View profile →

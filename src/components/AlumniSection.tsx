@@ -1,16 +1,9 @@
 import { Link } from "next-view-transitions";
 import { cohortTerms, team, type TeamMember } from "@/content/site";
 import { Avatar } from "@/components/TeamAvatar";
+import { excerpt } from "@/lib/team";
 
 const CURRENT_TERM = cohortTerms[cohortTerms.length - 1];
-
-/** Trim a bio to a short card excerpt without cutting a word in half. */
-function excerpt(bio: string, max = 150) {
-  const firstPara = bio.split("\n").find(Boolean) ?? bio;
-  if (firstPara.length <= max) return firstPara;
-  const cut = firstPara.slice(0, max);
-  return cut.slice(0, cut.lastIndexOf(" ")).trimEnd() + "…";
-}
 
 /**
  * Alumni — researchers from previous cohorts, grouped by term (most recent

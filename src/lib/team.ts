@@ -1,5 +1,13 @@
 import { team, type TeamMember } from "@/content/site";
 
+/** Trim a bio to a short card blurb without cutting a word in half. */
+export function excerpt(bio: string, max = 150): string {
+  const firstPara = bio.split("\n").find(Boolean) ?? bio;
+  if (firstPara.length <= max) return firstPara;
+  const cut = firstPara.slice(0, max);
+  return cut.slice(0, cut.lastIndexOf(" ")).trimEnd() + "…";
+}
+
 function getAllTeamMembers(): TeamMember[] {
   return [
     team.founder as TeamMember,

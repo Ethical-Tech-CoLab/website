@@ -98,6 +98,11 @@ as reports are published — the card auto-switches to a "Read report" button.
 
 - [ ] **Fall 2025 alumni bios** are short placeholders ("NYU student and Applied
       AI Researcher…") — swap in real bios when available.
+- [ ] **Missing bios / resume blurbs** — team cards now show a short bio excerpt
+      for everyone who has a `bio` in `src/content/site.ts`. These participants
+      have none yet, so their cards (and profile pages) show no blurb: **Hannah
+      Zhao, Kirsten Co, Alex Du, Adeline Daab, Susan deMenil**. Add a `bio` for
+      each and it appears automatically.
 - [ ] **Cohort project placeholders** (Spring 2025: AI's Carbon Footprint,
       Generative AI for Good; Fall 2025: Academic Research Tool — LLM prompting;
       Summer 2026: Synthetic Data Guidelines for Beginners) — add descriptions
