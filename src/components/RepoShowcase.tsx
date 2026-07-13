@@ -2,7 +2,12 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { products, productTerms, type Product } from "@/content/site";
+import {
+  products,
+  productTerms,
+  productThemes,
+  type Product,
+} from "@/content/site";
 import { asset } from "@/lib/asset";
 import { Tilt3D } from "@/components/motion/Tilt3D";
 
@@ -207,10 +212,13 @@ function ProductCard({
 
 export function RepoShowcase() {
   const [term, setTerm] = useState<string | null>(null);
+  const [theme, setTheme] = useState<string | null>(null);
   const [activeRepo, setActiveRepo] = useState<string | null>(null);
   const reduce = useReducedMotion();
 
-  const visible = term ? products.filter((p) => p.term === term) : products;
+  const visible = products.filter(
+    (p) => (!term || p.term === term) && (!theme || p.theme === theme),
+  );
 
   const chip = (active: boolean) =>
     `rounded-full border px-3 py-1.5 text-sm transition-colors ${
@@ -221,28 +229,58 @@ export function RepoShowcase() {
 
   return (
     <div className="mx-auto max-w-6xl px-6 pb-24">
-      {/* filter bar — by semester */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-border pb-8">
-        <span className="mr-2 text-xs uppercase tracking-wider text-muted">
-          Semester
-        </span>
-        <button type="button" onClick={() => setTerm(null)} className={chip(term === null)}>
-          All
-        </button>
-        {productTerms.map((t) => (
+      <div className="space-y-4 border-b border-border pb-8">
+        {/* filter row — by semester */}
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="mr-2 w-20 shrink-0 text-xs uppercase tracking-wider text-muted">
+            Semester
+          </span>
           <button
-            key={t}
             type="button"
-            onClick={() => setTerm((v) => (v === t ? null : t))}
-            className={chip(term === t)}
+            onClick={() => setTerm(null)}
+            className={chip(term === null)}
           >
-            {t}
+            All
           </button>
-        ))}
-        <span className="ml-auto font-mono text-xs text-muted">
-          {products.filter((p) => p.demo || p.demos?.length).length} live ·{" "}
-          {products.length} projects
-        </span>
+          {productTerms.map((t) => (
+            <button
+              key={t}
+              type="button"
+              onClick={() => setTerm((v) => (v === t ? null : t))}
+              className={chip(term === t)}
+            >
+              {t}
+            </button>
+          ))}
+          <span className="ml-auto font-mono text-xs text-muted">
+            {visible.filter((p) => p.demo || p.demos?.length).length} live ·{" "}
+            {visible.length} shown
+          </span>
+        </div>
+
+        {/* filter row — by theme */}
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="mr-2 w-20 shrink-0 text-xs uppercase tracking-wider text-muted">
+            Theme
+          </span>
+          <button
+            type="button"
+            onClick={() => setTheme(null)}
+            className={chip(theme === null)}
+          >
+            All
+          </button>
+          {productThemes.map((t) => (
+            <button
+              key={t}
+              type="button"
+              onClick={() => setTheme((v) => (v === t ? null : t))}
+              className={chip(theme === t)}
+            >
+              {t}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* bento grid — FLIP reflow on filter change */}
@@ -269,6 +307,10 @@ export function RepoShowcase() {
           ))}
         </AnimatePresence>
       </motion.div>
+
+      {visible.length === 0 && (
+        <p className="py-16 text-muted">No demos match those filters.</p>
+      )}
     </div>
   );
 }
