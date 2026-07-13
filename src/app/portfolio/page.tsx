@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { PortfolioExplorer } from "@/components/PortfolioExplorer";
 import { SectionTabs } from "@/components/SectionTabs";
 import { ArchiveExplorer } from "@/components/ArchiveExplorer";
 import { archivedProjects } from "@/content/site";
+import { asset } from "@/lib/asset";
 import { Reveal } from "@/components/motion/Reveal";
 
 export const metadata: Metadata = {
@@ -15,6 +17,20 @@ export default function PortfolioPage() {
   return (
     <>
       <section className="relative overflow-hidden border-b border-border">
+        {/* Background: NYU (W4) photo behind the hero */}
+        <Image
+          src={asset("/nyu-w4.jpg")}
+          alt=""
+          aria-hidden
+          fill
+          priority
+          sizes="100vw"
+          className="pointer-events-none object-cover object-center opacity-25"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-background/70"
+        />
         <span className="aura" />
         <div className="relative mx-auto max-w-6xl px-6 py-24">
           <Reveal>
