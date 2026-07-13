@@ -1,5 +1,7 @@
+import Image from "next/image";
 import { Link } from "next-view-transitions";
 import { researchAreas, site } from "@/content/site";
+import { asset } from "@/lib/asset";
 import { HeroVisual } from "@/components/HeroVisual";
 import { HeroField } from "@/components/HeroField";
 import { HeroTitle } from "@/components/HeroTitle";
@@ -19,6 +21,21 @@ export default function Home() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border">
+        {/* Background: NYU subway sign, sitting behind the interactive lines */}
+        <Image
+          src={asset("/nyu-subway.jpg")}
+          alt=""
+          aria-hidden
+          fill
+          priority
+          sizes="100vw"
+          className="pointer-events-none object-cover object-center opacity-25"
+        />
+        {/* Darken so the hero stays legible and the subway reads as a backdrop */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-background/70"
+        />
         <span className="aura" />
         <div
           aria-hidden
