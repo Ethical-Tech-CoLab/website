@@ -4,6 +4,8 @@ Public website for the **NYU Center for Global Affairs × Microsoft Research Eth
 
 > *Exploring intervention opportunities at the intersection of emerging technologies and the human condition.*
 
+🔗 **Live site:** <https://ethical-tech-colab.github.io/website/>
+
 ## About the CoLab
 
 The NYU CGA Ethical Tech CoLab focuses on applied research at the frontier of AI, decentralized tech, and human rights — with an emphasis on migration, forced labor, refugees, and displaced people. Projects move from research question to fielded prototype within a semester-long cohort.
