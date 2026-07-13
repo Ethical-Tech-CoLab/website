@@ -109,6 +109,26 @@ export function SiteFooter() {
                   Join the newsletter ↗
                 </Link>
               </li>
+              <li>
+                <a
+                  href="https://www.sps.nyu.edu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-foreground/90 transition-colors hover:text-accent"
+                >
+                  NYU SPS ↗
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.sps.nyu.edu/about/academic-divisions-and-departments/center-for-global-affairs.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-foreground/90 transition-colors hover:text-accent"
+                >
+                  NYU CGA ↗
+                </a>
+              </li>
             </ul>
           </div>
         </div>

@@ -33,8 +33,16 @@ export default function Home() {
           <HeroTitle />
           <Reveal delay={0.5} className="mt-7 max-w-2xl leading-relaxed text-foreground/85">
             <p>
-              A research collaboration between NYU&apos;s Center for Global
-              Affairs and Microsoft — changing the conversation on how people are
+              A research collaboration between NYU&apos;s{" "}
+              <a
+                href="https://www.sps.nyu.edu/about/academic-divisions-and-departments/center-for-global-affairs.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline text-accent hover:opacity-80"
+              >
+                Center for Global Affairs
+              </a>{" "}
+              and Microsoft — changing the conversation on how people are
               informed, and how emerging technology can be used for good.
             </p>
           </Reveal>
