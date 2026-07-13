@@ -309,50 +309,46 @@ export function RepoShowcase() {
       {/* Enlarged demo — run the product full size */}
       {enlarged?.demo && (
         <div
-          className="fixed inset-0 z-[100] flex flex-col bg-background/90 p-4 backdrop-blur sm:p-6"
-          onClick={() => setEnlarged(null)}
+          className="fixed inset-0 z-[100] flex flex-col bg-background"
           role="dialog"
           aria-modal="true"
           aria-label={`${enlarged.name} live demo`}
         >
-          <div
-            className="mx-auto flex h-full w-full max-w-6xl flex-col"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between gap-3 pb-3">
-              <div className="min-w-0">
-                <h3 className="truncate font-heading text-lg uppercase tracking-wide">
-                  {enlarged.name}
-                </h3>
-                <p className="truncate font-mono text-xs text-muted">
-                  {new URL(enlarged.demo).host}
-                </p>
-              </div>
-              <div className="flex shrink-0 items-center gap-2">
-                <a
-                  href={enlarged.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
-                >
-                  Open in new tab ↗
-                </a>
-                <button
-                  type="button"
-                  onClick={() => setEnlarged(null)}
-                  className="rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.03]"
-                >
-                  ✕ Close
-                </button>
-              </div>
+          {/* slim control bar */}
+          <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-2.5">
+            <div className="min-w-0">
+              <h3 className="truncate font-heading text-base uppercase tracking-wide">
+                {enlarged.name}
+              </h3>
+              <p className="truncate font-mono text-[10px] text-muted">
+                {new URL(enlarged.demo).host}
+              </p>
             </div>
-            <iframe
-              src={enlarged.demo}
-              title={`${enlarged.name} live demo`}
-              sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-              className="w-full flex-1 rounded-xl border border-border bg-white"
-            />
+            <div className="flex shrink-0 items-center gap-2">
+              <a
+                href={enlarged.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-border px-4 py-1.5 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
+              >
+                Open in new tab ↗
+              </a>
+              <button
+                type="button"
+                onClick={() => setEnlarged(null)}
+                className="rounded-full bg-accent px-4 py-1.5 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.03]"
+              >
+                ✕ Close
+              </button>
+            </div>
           </div>
+          {/* full-bleed demo */}
+          <iframe
+            src={enlarged.demo}
+            title={`${enlarged.name} live demo`}
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+            className="w-full flex-1 border-0 bg-white"
+          />
         </div>
       )}
     </div>
