@@ -324,12 +324,45 @@ export const publications = {
   ] as Publication[],
 };
 
+/** A single labelled link (e.g. a live demo). */
+export interface DemoLink {
+  label: string;
+  href: string;
+}
+
+/** The Avatar Storytelling live demos (D-ID), shared by the Spring 2025 cohort
+ * card, the portfolio archive, and the Live Demos page so they never drift. */
+export const avatarStorytellingDemos: DemoLink[] = [
+  {
+    label: "Live demo 1",
+    href: "https://studio.d-id.com/share?id=f816a9fc31454c3b843cf577e9affc78&utm_source=copy",
+  },
+  {
+    label: "Live demo 2",
+    href: "https://studio.d-id.com/share?id=0e35cf3e8380a8436ddadf29838acf2e&utm_source=copy",
+  },
+  {
+    label: "Live demo 3",
+    href: "https://studio.d-id.com/share?id=6e23d48f51c352d58425aa6faf299ec8&utm_source=copy",
+  },
+  {
+    label: "Live demo 4",
+    href: "https://studio.d-id.com/share?id=6c979fe11446cabaa5988f0922f0bd33&utm_source=copy",
+  },
+];
+
 /** Past projects from earlier cohorts — the portfolio archive. */
 export interface ArchivedProject {
   name: string;
   term: string;
   summary: string;
   tags: string[];
+  /** Source repo URL — renders a "View code" link when expanded. */
+  repo?: string;
+  /** Single live-demo URL — renders a "Launch live demo" button when expanded. */
+  demo?: string;
+  /** Several live demos (e.g. shared videos) — rendered as links when expanded. */
+  demos?: DemoLink[];
 }
 
 export const archivedProjects: ArchivedProject[] = [
@@ -360,6 +393,7 @@ export const archivedProjects: ArchivedProject[] = [
     summary:
       "Human-condition storytelling with culturally grounded digital-human avatars — short pieces produced with generative media.",
     tags: ["Generative AI", "Storytelling", "Media"],
+    demos: avatarStorytellingDemos,
   },
   {
     name: "Forced Labor Structural Risk Index",
@@ -367,6 +401,8 @@ export const archivedProjects: ArchivedProject[] = [
     summary:
       "An interactive index mapping the structural conditions that enable forced labor across 184 countries on a 0–1 risk scale, with national and sub-national layers.",
     tags: ["Traceability", "Human rights", "Data"],
+    repo: "https://github.com/aml1045/forced-labor-structural-risk-index",
+    demo: "https://aml1045.github.io/forced-labor-structural-risk-index/",
   },
   {
     name: "Academic Research Tool",
@@ -374,33 +410,6 @@ export const archivedProjects: ArchivedProject[] = [
     summary:
       "An LLM-assisted tool for accelerating literature review and research workflows through structured prompting.",
     tags: ["LLM", "Research", "Tooling"],
-  },
-];
-
-/** A single labelled link (e.g. a live demo). */
-export interface DemoLink {
-  label: string;
-  href: string;
-}
-
-/** The Avatar Storytelling live demos (D-ID), shared by the Spring 2025 cohort
- * card and the Live Demos page so the two never drift. */
-export const avatarStorytellingDemos: DemoLink[] = [
-  {
-    label: "Live demo 1",
-    href: "https://studio.d-id.com/share?id=f816a9fc31454c3b843cf577e9affc78&utm_source=copy",
-  },
-  {
-    label: "Live demo 2",
-    href: "https://studio.d-id.com/share?id=0e35cf3e8380a8436ddadf29838acf2e&utm_source=copy",
-  },
-  {
-    label: "Live demo 3",
-    href: "https://studio.d-id.com/share?id=6e23d48f51c352d58425aa6faf299ec8&utm_source=copy",
-  },
-  {
-    label: "Live demo 4",
-    href: "https://studio.d-id.com/share?id=6c979fe11446cabaa5988f0922f0bd33&utm_source=copy",
   },
 ];
 
