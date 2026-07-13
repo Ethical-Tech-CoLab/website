@@ -66,6 +66,15 @@ Partners:
     - [ ] ESG Labels & Certificates Transparency (Spring 2025)
     - [ ] AI's Carbon Footprint (Spring 2025)
     - [ ] Academic Research Tool (Fall 2025)
+- [ ] **Avatar Storytelling — deploy the code.** The Generative AI for Good /
+      Avatar Storytelling project currently only has D-ID share links (four
+      videos). Get the project code hosted so it has a real live demo + repo,
+      then point `avatarStorytellingDemos` / the `avatar-storytelling` product
+      at the deployed app instead of (or in addition to) the D-ID links.
+- [ ] **Previous-cohort projects — gather missing links & content.** Track down
+      the remaining repos, live demos, write-ups, and descriptions for earlier
+      cohorts' projects (Spring 2025 and Fall 2025) so the archive cards and
+      Live Demos page are complete rather than name-only.
 
 ## 5. Publications (`src/content/site.ts` → `publications`)
 
