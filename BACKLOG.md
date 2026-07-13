@@ -4,7 +4,7 @@ Living checklist of open items. Everything not listed here is done and live at
 <https://ethical-tech-colab.github.io/website/>. After adding any asset below,
 run `npm run sync:static`, then commit + push (or ask me to).
 
-Last updated: 2026-07-09.
+Last updated: 2026-07-13.
 
 ---
 
@@ -65,6 +65,16 @@ Partners:
       Render instead.
 - [ ] **Provenance Search** — repo is public now, but it's a server app with no
       live demo yet (needs hosting).
+- [ ] **Portfolio archive — missing live demos.** These previous-cohort projects
+      have no live-demo link yet, so their card shows no `+` to expand. Add a
+      `demo` (single URL), `demos` (list of `{label, href}`), and/or `repo` to
+      the matching entry in `archivedProjects` (`src/content/site.ts`) and the
+      `+`-to-open live demo appears automatically (as it now does for Forced
+      Labor Structural Risk Index and Avatar Storytelling).
+    - [ ] Online Grooming Prevention (Spring 2025)
+    - [ ] ESG Labels & Certificates Transparency (Spring 2025)
+    - [ ] AI's Carbon Footprint (Spring 2025)
+    - [ ] Academic Research Tool (Fall 2025)
 
 ## 5. Publications (`src/content/site.ts` → `publications`)
 
