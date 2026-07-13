@@ -105,6 +105,9 @@ as reports are published — the card auto-switches to a "Read report" button.
 - [ ] **Alex Du & Hannah Zhao** were Spring 2025 fellows but are listed in their
       current roles (Staff / Collaborator), not under Spring 2025 Alumni. Decide
       whether to also list them there.
+- [ ] **Notify past cohorts / alumni** — message old cohort members (Spring 2025,
+      Fall 2025, and any earlier) to let them know their profile is now live on
+      the website, so they can review it and flag any corrections.
 - [ ] **About page is hidden** — the whole `/about` page is currently disabled
       (removed from the nav; the route serves a 404). Nothing is deleted: the
       full layout is preserved as comments in `src/app/about/page.tsx`, and all
