@@ -16,8 +16,10 @@ export const site = {
   // swap in the real handles once the accounts exist. Set to "" to hide a link.
   social: {
     github: "https://github.com/Ethical-Tech-CoLab",
-    instagram: "https://instagram.com/", // TODO: real Instagram handle
-    twitter: "https://twitter.com/", // TODO: real X/Twitter handle (account not created yet)
+    // Hidden for now — the footer drops any social with an empty href. Restore
+    // by pasting the real handle back in.
+    instagram: "", // TODO: real Instagram handle (hidden until account exists)
+    twitter: "", // TODO: real X/Twitter handle (hidden until account exists)
   },
   // Legal disclaimers shown in the footer footnote.
   legal: [
@@ -294,7 +296,7 @@ export const publications = {
       summary:
         "A report on AI-mediated environments where negotiators rehearse against agents that model historical context, incentives, and red lines.",
       status: "In preparation",
-      url: "",
+      url: "https://yorkerhodes3.github.io/nova-portfolio-ofsd7xep/diplomacy-session-report.html",
     },
   ] as Publication[],
 };
