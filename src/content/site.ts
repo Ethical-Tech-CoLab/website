@@ -606,7 +606,7 @@ export const cohorts: Cohort[] = [
     title: "First applied research projects.",
     body: "The lab's first applied research projects, spanning online safety, sustainability, AI's footprint, and generative storytelling.",
     items: [
-      "9 researchers",
+      "8 researchers",
       "Online Grooming Prevention",
       "ESG Labels & Certificates Transparency",
       "AI's Carbon Footprint",
@@ -620,7 +620,7 @@ export const cohorts: Cohort[] = [
     title: "Prototyping and partner pilots.",
     body: "Technical spikes (multi-agent harnesses, verifiable credentials, geospatial pipelines) tested against real partner needs.",
     items: [
-      "6 researchers",
+      "7 researchers",
       "Forced Labor Structural Risk Index",
       "Academic Research Tool",
     ],
@@ -1138,7 +1138,7 @@ export const team = {
       initials: "KC",
       name: "Kirsten Co",
       role: "Strategic Advisor",
-      term: "Spring 2025",
+      term: "Fall 2025",
       org: "Ethical Tech CoLab",
       linkedin: "https://www.linkedin.com/in/kirsten-co/",
       photo: "/team/kirsten.jpeg",
