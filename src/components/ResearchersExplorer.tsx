@@ -24,7 +24,7 @@ export function ResearchersExplorer() {
       </div>
 
       <p className="mt-6 max-w-2xl text-base leading-relaxed text-foreground/75">
-        Our graduate researchers are conducting applied AI research — building
+        Our graduate student researchers are conducting applied AI research — building
         with open-source tools, generating synthetic data, integrating LLMs, and
         making sense of fragmented data.
       </p>
