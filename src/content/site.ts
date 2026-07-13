@@ -878,7 +878,7 @@ export const team = {
   eyebrow: "Team",
   heading: "The people building this.",
   intro:
-    "A small, selected team of graduate students working at the intersection of the human condition and emerging technology.",
+    "A small, selected team of graduate students working at the intersection of the human condition and emerging technology. Alongside them, faculty advisors, industry partners, and collaborators mentor, guide, and build the work together.",
   founder: {
     initials: "YR",
     name: "Yorke E Rhodes III",
