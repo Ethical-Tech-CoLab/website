@@ -88,6 +88,13 @@ export default function Home() {
               is used for good.
             </p>
           </Reveal>
+          <Reveal delay={0.1}>
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted">
+              What are the circumstances of the human being, and how can
+              technology improve them? We see technology as a tool — part of the
+              solution.
+            </p>
+          </Reveal>
         </div>
       </section>
 
