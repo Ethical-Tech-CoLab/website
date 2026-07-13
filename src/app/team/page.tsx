@@ -47,7 +47,7 @@ export default function TeamPage() {
           <Reveal delay={0.1}>
             <p className="mt-8 max-w-2xl text-lg leading-relaxed text-foreground/85">
               {team.intro} Past cohorts are listed in the{" "}
-              <Link href="/cohorts" className="text-accent hover:opacity-80">
+              <Link href="/#cohorts" className="text-accent hover:opacity-80">
                 timeline
               </Link>
               .

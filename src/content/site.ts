@@ -44,8 +44,9 @@ export const nav = [
   { label: "Portfolio", href: "/portfolio" },
   { label: "Live Demos", href: "/demos" },
   { label: "Publications", href: "/publications" },
-  { label: "Cohorts", href: "/cohorts" },
-  { label: "About", href: "/about" },
+  // Cohorts tab removed — its content now lives on the Home page.
+  // About tab temporarily hidden — page preserved at src/app/about/page.tsx.
+  // { label: "About", href: "/about" },
   { label: "Team", href: "/team" },
 ];
 
@@ -980,13 +981,11 @@ export const team = {
       slug: "natasha-nagarajan",
       bio: "Natasha Nagarajan is an MS in Global Security, Conflict, and Cybercrime '25 from Atlanta, Georgia. In the Spring 2025 cohort she contributed to Online Grooming Prevention, with interests in intelligence, space policy, and responsible innovation.",
     },
-  ] as TeamMember[],
-  collaboratorsLabel: "Other Members",
-  collaborators: [
     {
       initials: "HZ",
       name: "Hannah Zhao",
       role: "3D Creative Designer",
+      term: "Spring 2025",
       org: "Ethical Tech CoLab",
       photo: "/team/hannah.jpg",
       slug: "hannah-zhao",
@@ -995,11 +994,24 @@ export const team = {
       initials: "KC",
       name: "Kirsten Co",
       role: "Strategic Advisor",
+      term: "Spring 2025",
       org: "Ethical Tech CoLab",
       linkedin: "https://www.linkedin.com/in/kirsten-co/",
       photo: "/team/kirsten.jpeg",
       slug: "kirsten-co",
     },
+    {
+      initials: "AD",
+      name: "Alex Du",
+      role: "Marketing & Community Lead",
+      term: "Spring 2025",
+      linkedin: "https://www.linkedin.com/in/alexandra-x-du/",
+      photo: "/team/alex.jpg",
+      slug: "alex-du",
+    },
+  ] as TeamMember[],
+  collaboratorsLabel: "Other Members",
+  collaborators: [
     {
       initials: "AD",
       name: "Adeline Daab",

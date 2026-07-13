@@ -59,7 +59,7 @@ export function HeroVisual({
 
       {/* current-cohort overlay */}
       <Link
-        href="/cohorts"
+        href="/#cohorts"
         className="absolute inset-x-4 bottom-4 rounded-xl border border-border bg-background/70 p-5 backdrop-blur-md transition-colors hover:border-accent"
       >
         <p className="text-[0.65rem] uppercase tracking-[0.2em] text-muted">

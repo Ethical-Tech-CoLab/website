@@ -40,13 +40,13 @@ export default function PortfolioPage() {
         <PortfolioExplorer />
       </div>
 
-      {/* Shortcut to the Live Demos tab */}
+      {/* Shortcuts: Live Demos + Publications */}
       <section id="products" className="scroll-mt-24 border-t border-border">
-        <div className="mx-auto max-w-6xl px-6 py-16">
+        <div className="mx-auto grid max-w-6xl gap-6 px-6 py-16 sm:grid-cols-2">
           <Reveal>
             <Link
               href="/demos"
-              className="group card-glow flex flex-col justify-between gap-6 rounded-2xl border border-border bg-card p-8 transition-colors hover:border-border-strong sm:flex-row sm:items-center"
+              className="group card-glow flex h-full flex-col justify-between gap-6 rounded-2xl border border-border bg-card p-8 transition-colors hover:border-border-strong"
             >
               <div>
                 <p className="text-xs uppercase tracking-wider text-muted">
@@ -60,8 +60,31 @@ export default function PortfolioPage() {
                   your browser. Press play on any demo, or read the source.
                 </p>
               </div>
-              <span className="btn-sweep inline-flex shrink-0 items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-ink transition-transform group-hover:scale-[1.03]">
+              <span className="btn-sweep inline-flex shrink-0 items-center gap-2 self-start rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-ink transition-transform group-hover:scale-[1.03]">
                 See live demos <span aria-hidden>→</span>
+              </span>
+            </Link>
+          </Reveal>
+
+          <Reveal delay={0.05}>
+            <Link
+              href="/publications"
+              className="group card-glow flex h-full flex-col justify-between gap-6 rounded-2xl border border-border bg-card p-8 transition-colors hover:border-border-strong"
+            >
+              <div>
+                <p className="text-xs uppercase tracking-wider text-muted">
+                  Publications · Writing
+                </p>
+                <h2 className="mt-3 fluid-h2 font-heading uppercase">
+                  Read the <span className="display-em">findings</span>.
+                </h2>
+                <p className="mt-3 max-w-xl leading-relaxed text-muted">
+                  Papers, reports, and essays where the cohort shares its
+                  methods, results, and lessons for others to build on.
+                </p>
+              </div>
+              <span className="inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-border px-6 py-3 text-sm font-semibold text-foreground transition-colors group-hover:border-accent group-hover:text-accent">
+                See publications <span aria-hidden>→</span>
               </span>
             </Link>
           </Reveal>

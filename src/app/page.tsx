@@ -9,6 +9,7 @@ import { Reveal, Stagger, StaggerItem } from "@/components/motion/Reveal";
 import { Magnetic } from "@/components/motion/Magnetic";
 import { Tilt3D } from "@/components/motion/Tilt3D";
 import { WireframeGlobe } from "@/components/WireframeGlobe";
+import { CohortsShowcase } from "@/components/CohortsShowcase";
 import { cohorts } from "@/content/site";
 
 export default function Home() {
@@ -136,6 +137,9 @@ export default function Home() {
           ))}
         </Stagger>
       </section>
+
+      {/* Cohorts — moved here from the retired /cohorts route */}
+      <CohortsShowcase />
 
       {/* Collaborate CTA */}
       <section className="relative overflow-hidden border-t border-border">
