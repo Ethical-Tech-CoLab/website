@@ -397,4 +397,10 @@ body::after {
   .aura {
     animation: none;
   }
+  /* The globe is a small, low-opacity decorative element; keep it gently
+     spinning even under reduced motion so it never reads as broken. */
+  .globe-spin {
+    animation-duration: 24s !important;
+    animation-iteration-count: infinite !important;
+  }
 }
