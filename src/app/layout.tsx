@@ -5,7 +5,8 @@ import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ScrollProgress } from "@/components/ScrollProgress";
-import { IntroCurtain } from "@/components/IntroCurtain";
+// IntroCurtain (the "Tap to enter" splash) removed — visitors land directly on
+// the site. Component preserved at src/components/IntroCurtain.tsx to re-enable.
 
 const bebasNeue = Bebas_Neue({
   variable: "--font-bebas",
@@ -53,7 +54,6 @@ export default function RootLayout({
           />
         </head>
         <body className="min-h-full flex flex-col bg-background text-foreground">
-          <IntroCurtain />
           <ScrollProgress />
           <SiteHeader />
           <main className="flex-1">{children}</main>

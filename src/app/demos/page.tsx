@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { RepoShowcase } from "@/components/RepoShowcase";
+import { SectionTabs } from "@/components/SectionTabs";
 import { Reveal } from "@/components/motion/Reveal";
 
 export const metadata: Metadata = {
@@ -33,6 +34,8 @@ export default function DemosPage() {
           </Reveal>
         </div>
       </section>
+
+      <SectionTabs />
 
       <div className="pt-12">
         <RepoShowcase />

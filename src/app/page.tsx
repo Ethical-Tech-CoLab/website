@@ -88,7 +88,12 @@ export default function Home() {
         <Reveal>
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-xs uppercase tracking-wider text-muted">Portfolio</p>
+              <Link
+                href="/portfolio"
+                className="link-underline text-xs uppercase tracking-wider text-muted transition-colors hover:text-accent"
+              >
+                Portfolio
+              </Link>
               <h2 className="mt-3 fluid-h2 font-heading uppercase">
                 Building at the frontier.
               </h2>
@@ -119,19 +124,6 @@ export default function Home() {
                 <h3 className="font-heading text-2xl uppercase tracking-wide sm:text-3xl group-hover:text-accent">
                   {area.question}
                 </h3>
-                <p className="text-base leading-relaxed text-muted">
-                  {area.summary}
-                </p>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {area.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-border px-2.5 py-0.5 text-xs text-muted"
-                    >
-                      #{tag.replace(/\s+/g, "")}
-                    </span>
-                  ))}
-                </div>
               </Link>
             </StaggerItem>
           ))}

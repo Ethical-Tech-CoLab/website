@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { publications } from "@/content/site";
+import { SectionTabs } from "@/components/SectionTabs";
 import { Reveal } from "@/components/motion/Reveal";
 
 export const metadata: Metadata = {
@@ -32,6 +33,8 @@ export default function PublicationsPage() {
           </Reveal>
         </div>
       </section>
+
+      <SectionTabs />
 
       <div className="mx-auto max-w-6xl px-6 py-20">
         <div className="grid gap-6 sm:grid-cols-2">
