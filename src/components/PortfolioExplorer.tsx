@@ -1,13 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { Link } from "next-view-transitions";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { researchAreas, products } from "@/content/site";
 import { ProjectDiagram } from "@/components/ProjectDiagram";
 
-/** repo URL -> live demo URL, so a project card can launch its running app. */
-const demoByRepo = new Map(
-  products.filter((p) => p.demo).map((p) => [p.repo, p.demo as string]),
+/** repo URL -> the product it maps to, so a project can link straight to its
+ * card on the Live Demos page (and know whether a live demo exists). */
+const productByRepo = new Map(
+  products.filter((p) => p.repo).map((p) => [p.repo as string, p]),
 );
 
 const allTags = Array.from(new Set(researchAreas.flatMap((a) => a.tags)));
@@ -137,63 +139,54 @@ export function PortfolioExplorer() {
                     </p>
                     <ul className="mt-4 space-y-4">
                       {area.projects.map((project) => {
-                        const demo =
-                          project.demo ??
-                          (project.repo
-                            ? demoByRepo.get(project.repo)
-                            : undefined);
+                        const product = project.repo
+                          ? productByRepo.get(project.repo)
+                          : undefined;
+                        const hasDemo =
+                          Boolean(project.demo) ||
+                          Boolean(product?.demo) ||
+                          Boolean(product?.demos?.length);
+                        // Link straight to this project's card on the Live Demos
+                        // page (anchored when it has a product there).
+                        const demosHref = product
+                          ? `/demos#${product.repoName}`
+                          : "/demos";
                         return (
-                          <li
-                            key={project.name}
-                            className="card-glow rounded-xl border border-border p-6 transition-colors hover:border-border-strong"
-                          >
-                            <div className="flex items-center justify-between gap-3">
-                              <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">
-                                {project.name}
-                              </h3>
-                              {demo ? (
-                                <span className="shrink-0 rounded-full bg-accent px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-accent-ink">
-                                  ● Live
-                                </span>
-                              ) : (
-                                project.status && (
-                                  <span
-                                    className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-                                      project.status === "Active"
-                                        ? "bg-accent text-accent-ink"
-                                        : "border border-border text-muted"
-                                    }`}
-                                  >
-                                    {project.status}
+                          <li key={project.name}>
+                            <Link
+                              href={demosHref}
+                              className="group card-glow flex flex-col rounded-xl border border-border p-6 transition-colors hover:border-border-strong"
+                            >
+                              <div className="flex items-center justify-between gap-3">
+                                <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">
+                                  {project.name}
+                                </h3>
+                                {hasDemo ? (
+                                  <span className="shrink-0 rounded-full bg-accent px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-accent-ink">
+                                    ● Live
                                   </span>
-                                )
-                              )}
-                            </div>
-                            <p className="mt-3 text-base leading-relaxed text-muted">
-                              {project.summary}
-                            </p>
-                            <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
-                              {demo && (
-                                <a
-                                  href={demo}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="btn-sweep inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.03]"
-                                >
-                                  ▶ Launch live demo
-                                </a>
-                              )}
-                              {project.repo && (
-                                <a
-                                  href={project.repo}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-1 text-sm font-medium text-accent transition-opacity hover:opacity-80"
-                                >
-                                  View code <span aria-hidden>↗</span>
-                                </a>
-                              )}
-                            </div>
+                                ) : (
+                                  project.status && (
+                                    <span
+                                      className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                                        project.status === "Active"
+                                          ? "bg-accent text-accent-ink"
+                                          : "border border-border text-muted"
+                                      }`}
+                                    >
+                                      {project.status}
+                                    </span>
+                                  )
+                                )}
+                              </div>
+                              <p className="mt-3 text-base leading-relaxed text-muted">
+                                {project.summary}
+                              </p>
+                              <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-muted transition-colors group-hover:text-accent">
+                                {hasDemo ? "Open live demo" : "See in Live Demos"}{" "}
+                                <span aria-hidden>→</span>
+                              </span>
+                            </Link>
                           </li>
                         );
                       })}

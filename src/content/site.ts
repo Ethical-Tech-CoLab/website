@@ -410,6 +410,9 @@ export interface Product {
   blurb: string;
   language: string;
   theme: string;
+  /** Cohort term this demo came out of, e.g. "Summer 2026". Used by the
+   * per-semester filter on the Live Demos page. */
+  term: string;
   featured?: boolean;
 }
 
@@ -420,10 +423,14 @@ export const productThemes = [
   "Storytelling",
 ];
 
+/** Semesters shown in the Live Demos filter, newest first. */
+export const productTerms = ["Summer 2026", "Fall 2025", "Spring 2025"];
+
 export const products: Product[] = [
   {
     name: "Exodus — Civilian Evacuation Risk Platform",
     repoName: "Exodus",
+    term: "Summer 2026",
     repo: "https://github.com/Ethical-Tech-CoLab/Exodus",
     demo: "https://exodus-ruddy.vercel.app",
     blurb:
@@ -435,6 +442,7 @@ export const products: Product[] = [
   {
     name: "Evacuation Information Index",
     repoName: "evacuation-inform-index-carolina",
+    term: "Summer 2026",
     repo: "https://github.com/Ethical-Tech-CoLab/evacuation-inform-index-carolina",
     demo: "https://ethical-tech-colab.github.io/evacuation-inform-index-carolina/",
     blurb:
@@ -446,6 +454,7 @@ export const products: Product[] = [
   {
     name: "Evacuation Routing Simulator",
     repoName: "India-EvacSimulation",
+    term: "Summer 2026",
     repo: "https://github.com/Ethical-Tech-CoLab/India-EvacSimulation",
     demo: "https://ethical-tech-colab.github.io/India-EvacSimulation/",
     blurb:
@@ -456,6 +465,7 @@ export const products: Product[] = [
   {
     name: "Evacuation Behavior Simulator",
     repoName: "Evac-Sim-Melanie",
+    term: "Summer 2026",
     repo: "https://github.com/Ethical-Tech-CoLab/Evac-Sim-Melanie",
     demo: "https://ethical-tech-colab.github.io/Evac-Sim-Melanie/",
     blurb:
@@ -466,6 +476,7 @@ export const products: Product[] = [
   {
     name: "Digital Art Passport (VANGO)",
     repoName: "VANGO",
+    term: "Summer 2026",
     repo: "https://github.com/Ethical-Tech-CoLab/VANGO",
     demo: "https://ethical-tech-colab.github.io/VANGO/",
     blurb:
@@ -476,6 +487,7 @@ export const products: Product[] = [
   {
     name: "Evacuation Model",
     repoName: "evacmodel",
+    term: "Summer 2026",
     repo: "https://github.com/Ethical-Tech-CoLab/evacmodel",
     demo: "https://ethical-tech-colab.github.io/evacmodel/",
     blurb:
@@ -486,6 +498,7 @@ export const products: Product[] = [
   {
     name: "ERCF — Evacuation Risk & Cost Framework",
     repoName: "ercf",
+    term: "Summer 2026",
     repo: "https://github.com/Ethical-Tech-CoLab/ercf",
     blurb:
       "A decision-support framework estimating the human and financial cost of civilian evacuation in armed conflict, scoring scenarios across seven risk dimensions and comparing evacuating against staying.",
@@ -495,6 +508,7 @@ export const products: Product[] = [
   {
     name: "Arts Provenance Agent",
     repoName: "arts-provenance-agent",
+    term: "Summer 2026",
     repo: "https://github.com/Ethical-Tech-CoLab/arts-provenance-agent",
     demo: "https://ethical-tech-colab.github.io/arts-provenance-agent/",
     blurb:
@@ -506,6 +520,7 @@ export const products: Product[] = [
   {
     name: "Forced Labor Structural Risk Index",
     repoName: "forced-labor-structural-risk-index",
+    term: "Fall 2025",
     repo: "https://github.com/aml1045/forced-labor-structural-risk-index",
     demo: "https://aml1045.github.io/forced-labor-structural-risk-index/",
     blurb:
@@ -517,6 +532,7 @@ export const products: Product[] = [
   {
     name: "Generative AI for Good — Avatar Storytelling",
     repoName: "avatar-storytelling",
+    term: "Spring 2025",
     demos: avatarStorytellingDemos,
     blurb:
       "Human-condition storytelling with culturally grounded digital-human avatars — a set of short pieces produced with generative media in the Spring 2025 cohort.",
@@ -548,15 +564,13 @@ export const cohorts: Cohort[] = [
     index: "01",
     term: "Spring 2025",
     title: "First applied research projects.",
-    body: "Two projects took shape: detecting and preventing grooming in online spaces, and standardizing ESG certificates & labels to drive consumer behavior toward sustainability.",
+    body: "The lab's first applied research projects, spanning online safety, sustainability, AI's footprint, and generative storytelling.",
     items: [
-      "Online Grooming Prevention: repurposing existing tech for online safety",
-      "ESG Labels & Certificates Transparency: standardization for consumer trust",
+      "9 researchers",
+      "Online Grooming Prevention",
+      "ESG Labels & Certificates Transparency",
       "AI's Carbon Footprint",
-      {
-        label: "Generative AI for Good — Avatar Storytelling",
-        links: avatarStorytellingDemos,
-      },
+      "Generative AI for Good — Avatar Storytelling",
     ],
     archive: "Full archive coming soon",
   },
@@ -566,13 +580,9 @@ export const cohorts: Cohort[] = [
     title: "Prototyping and partner pilots.",
     body: "Technical spikes (multi-agent harnesses, verifiable credentials, geospatial pipelines) tested against real partner needs.",
     items: [
-      {
-        label: "Forced Labor Structural Risk Index — live demo",
-        href: "https://aml1045.github.io/forced-labor-structural-risk-index/",
-      },
-      "Academic Research Tool — LLM prompting",
-      "Evaluation harnesses",
-      "Partner pilots scoped",
+      "6 researchers",
+      "Forced Labor Structural Risk Index",
+      "Academic Research Tool",
     ],
     archive: "Full archive coming soon",
   },
@@ -581,11 +591,13 @@ export const cohorts: Cohort[] = [
     term: "Summer 2026",
     current: true,
     title: "Four projects, one frontier.",
-    body: "The current cohort takes four research projects to fielded prototypes: Evacuation Information Index, Digital Art Passport, Ethical Supply Chain & Traceability, and Diplomatic Simulator.",
+    body: "The current cohort takes four research projects from question to fielded prototype.",
     items: [
-      "8 applied researchers",
-      "4 active projects",
-      "Synthetic Data Guidelines for Beginners",
+      "7 researchers",
+      "Evacuation Information Index",
+      "Digital Art Passport",
+      "Ethical Supply Chain & Traceability",
+      "Diplomatic Simulator",
     ],
   },
 ];

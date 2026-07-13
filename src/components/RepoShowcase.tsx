@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { products, productThemes, type Product } from "@/content/site";
+import { products, productTerms, type Product } from "@/content/site";
 import { asset } from "@/lib/asset";
 import { Tilt3D } from "@/components/motion/Tilt3D";
 
@@ -186,6 +186,9 @@ function ProductCard({
         <span className="rounded-full border border-border px-2 py-0.5">
           #{product.theme.replace(/\s+/g, "")}
         </span>
+        <span className="rounded-full border border-border px-2 py-0.5">
+          {product.term}
+        </span>
         {product.repo && (
           <a
             href={product.repo}
@@ -203,13 +206,11 @@ function ProductCard({
 }
 
 export function RepoShowcase() {
-  const [theme, setTheme] = useState<string | null>(null);
+  const [term, setTerm] = useState<string | null>(null);
   const [activeRepo, setActiveRepo] = useState<string | null>(null);
   const reduce = useReducedMotion();
 
-  const visible = theme
-    ? products.filter((p) => p.theme === theme)
-    : products;
+  const visible = term ? products.filter((p) => p.term === term) : products;
 
   const chip = (active: boolean) =>
     `rounded-full border px-3 py-1.5 text-sm transition-colors ${
@@ -220,20 +221,20 @@ export function RepoShowcase() {
 
   return (
     <div className="mx-auto max-w-6xl px-6 pb-24">
-      {/* filter bar */}
+      {/* filter bar — by semester */}
       <div className="flex flex-wrap items-center gap-2 border-b border-border pb-8">
         <span className="mr-2 text-xs uppercase tracking-wider text-muted">
-          Filter
+          Semester
         </span>
-        <button type="button" onClick={() => setTheme(null)} className={chip(theme === null)}>
+        <button type="button" onClick={() => setTerm(null)} className={chip(term === null)}>
           All
         </button>
-        {productThemes.map((t) => (
+        {productTerms.map((t) => (
           <button
             key={t}
             type="button"
-            onClick={() => setTheme((v) => (v === t ? null : t))}
-            className={chip(theme === t)}
+            onClick={() => setTerm((v) => (v === t ? null : t))}
+            className={chip(term === t)}
           >
             {t}
           </button>
@@ -250,12 +251,13 @@ export function RepoShowcase() {
           {visible.map((product) => (
             <motion.div
               key={product.repoName}
+              id={product.repoName}
               layout={!reduce}
               initial={{ opacity: 0, scale: reduce ? 1 : 0.97 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: reduce ? 1 : 0.97 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="h-full"
+              className="h-full scroll-mt-24"
             >
               <ProductCard
                 product={product}
