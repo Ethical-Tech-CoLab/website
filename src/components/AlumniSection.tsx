@@ -33,8 +33,7 @@ export function AlumniSection() {
         </p>
         <h2 className="mt-3 fluid-h2 font-heading uppercase">Alumni</h2>
         <p className="mt-4 max-w-2xl leading-relaxed text-muted">
-          Researchers who took earlier cohorts&apos; projects from question to
-          prototype. Their work seeds what the current cohort builds on.
+          Each cohort seeds on what the previous cohort worked on.
         </p>
 
         {byTerm.map((group) => (

@@ -1024,7 +1024,6 @@ export const team = {
       term: "Fall 2025",
       photo: "/team/alexa.jpeg",
       slug: "alexa-shamie",
-      bio: "NYU student and Applied AI Graduate Researcher in the Ethical Tech CoLab's Fall 2025 cohort.",
     },
     {
       initials: "MT",
@@ -1033,7 +1032,6 @@ export const team = {
       term: "Fall 2025",
       photo: "/team/mohagani.jpg",
       slug: "mohagani-townsend",
-      bio: "NYU student and Applied AI Graduate Researcher in the Ethical Tech CoLab's Fall 2025 cohort.",
     },
     {
       initials: "AL",
@@ -1042,7 +1040,6 @@ export const team = {
       term: "Fall 2025",
       photo: "/team/amanda.jpg",
       slug: "amanda-lindsey",
-      bio: "NYU student and Applied AI Graduate Researcher in the Ethical Tech CoLab's Fall 2025 cohort. Built the Forced Labor Structural Risk Index.",
     },
     {
       initials: "TB",
@@ -1051,7 +1048,6 @@ export const team = {
       term: "Fall 2025",
       photo: "/team/taylor.jpg",
       slug: "taylor-badt",
-      bio: "NYU student and Applied AI Graduate Researcher in the Ethical Tech CoLab's Fall 2025 cohort.",
     },
     {
       initials: "VJ",
@@ -1060,7 +1056,6 @@ export const team = {
       term: "Fall 2025",
       photo: "/team/vedant.png",
       slug: "vedant-jain",
-      bio: "NYU student and Applied AI Graduate Researcher in the Ethical Tech CoLab's Fall 2025 cohort.",
     },
     {
       initials: "GD",
@@ -1069,7 +1064,6 @@ export const team = {
       term: "Fall 2025",
       photo: "/team/grace.jpg",
       slug: "grace-driscoll",
-      bio: "NYU student and Applied AI Graduate Researcher in the Ethical Tech CoLab's Fall 2025 cohort.",
     },
     {
       initials: "SS",
