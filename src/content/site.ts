@@ -321,6 +321,18 @@ export const publications = {
       status: "In preparation",
       url: "https://yorkerhodes3.github.io/nova-portfolio-ofsd7xep/diplomacy-session-report.html",
     },
+    {
+      index: "05",
+      area: "Sustainability",
+      question:
+        "How large is AI's environmental footprint — and how can it be reduced?",
+      title: "AI's Carbon Footprint: The Environmental Impact of AI",
+      summary:
+        "A CoLab report on AI's energy use across training and inference, the data-center and hardware toll, and the mitigation strategies, regulations, and policies that could bend the curve.",
+      status: "Published",
+      // Internal route (starts with "/") — rendered on-site, see the card logic.
+      url: "/publications/ai-carbon-footprint",
+    },
   ] as Publication[],
 };
 

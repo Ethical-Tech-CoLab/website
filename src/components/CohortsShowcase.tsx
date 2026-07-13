@@ -23,9 +23,10 @@ export function CohortsShowcase() {
           </p>
           <h2 className="mt-3 fluid-h2 font-heading uppercase">Cohorts.</h2>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
-            Each cohort of the Ethical Tech CoLab takes on applied research and
-            proof-of-concept projects on intervention opportunities at the
-            intersection of emerging technologies and the human condition.
+            Each graduate student cohort of the Ethical Tech CoLab takes on
+            applied research and proof-of-concept projects on intervention
+            opportunities at the intersection of emerging technologies and the
+            human condition.
           </p>
         </Reveal>
 

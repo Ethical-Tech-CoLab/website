@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Link } from "next-view-transitions";
 import { publications } from "@/content/site";
 import { SectionTabs } from "@/components/SectionTabs";
 import { Reveal } from "@/components/motion/Reveal";
@@ -68,14 +69,23 @@ export default function PublicationsPage() {
 
                 <div className="mt-auto pt-6">
                   {pub.url ? (
-                    <a
-                      href={pub.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-sweep inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.03]"
-                    >
-                      Read report <span aria-hidden>↗</span>
-                    </a>
+                    pub.url.startsWith("/") ? (
+                      <Link
+                        href={pub.url}
+                        className="btn-sweep inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.03]"
+                      >
+                        Read report <span aria-hidden>→</span>
+                      </Link>
+                    ) : (
+                      <a
+                        href={pub.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-sweep inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.03]"
+                      >
+                        Read report <span aria-hidden>↗</span>
+                      </a>
+                    )
                   ) : (
                     <span className="inline-flex items-center gap-2 rounded-full border border-dashed border-border px-5 py-2.5 text-sm text-muted">
                       Academic report — coming soon
