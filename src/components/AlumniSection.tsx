@@ -45,7 +45,11 @@ export function AlumniSection() {
         </p>
 
         {byTerm.map((group) => (
-          <div key={group.term} className="mt-14 first:mt-12">
+          <div
+            key={group.term}
+            id={`alumni-${group.term.toLowerCase().replace(/\s+/g, "-")}`}
+            className="mt-14 scroll-mt-24 first:mt-12"
+          >
             <div className="flex items-center gap-4">
               <h3 className="font-heading text-xl uppercase tracking-wide text-accent">
                 {group.term}

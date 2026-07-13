@@ -106,7 +106,13 @@ export function CohortsShowcase() {
                       </Link>
                     )}
                     <Link
-                      href={cohort.current ? "/team#researchers" : "/team#alumni"}
+                      href={
+                        cohort.current
+                          ? "/team#researchers"
+                          : `/team#alumni-${cohort.term
+                              .toLowerCase()
+                              .replace(/\s+/g, "-")}`
+                      }
                       className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
                     >
                       Meet the cohort →
