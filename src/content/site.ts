@@ -339,6 +339,34 @@ export const archivedProjects: ArchivedProject[] = [
       "Standardizing ESG certificates and labels into a comparable, trustworthy signal so consumers can steer their behavior toward genuinely sustainable products.",
     tags: ["Sustainability", "Consumer trust", "Standardization"],
   },
+  {
+    name: "AI's Carbon Footprint",
+    term: "Spring 2025",
+    summary:
+      "Measuring the energy and carbon cost of AI systems, with guidance for lower-impact, more accountable deployment.",
+    tags: ["Sustainability", "AI impact", "Policy"],
+  },
+  {
+    name: "Generative AI for Good — Avatar Storytelling",
+    term: "Spring 2025",
+    summary:
+      "Human-condition storytelling with culturally grounded digital-human avatars — short pieces produced with generative media.",
+    tags: ["Generative AI", "Storytelling", "Media"],
+  },
+  {
+    name: "Forced Labor Structural Risk Index",
+    term: "Fall 2025",
+    summary:
+      "An interactive index mapping the structural conditions that enable forced labor across 184 countries on a 0–1 risk scale, with national and sub-national layers.",
+    tags: ["Traceability", "Human rights", "Data"],
+  },
+  {
+    name: "Academic Research Tool",
+    term: "Fall 2025",
+    summary:
+      "An LLM-assisted tool for accelerating literature review and research workflows through structured prompting.",
+    tags: ["LLM", "Research", "Tooling"],
+  },
 ];
 
 /** A single labelled link (e.g. a live demo). */
