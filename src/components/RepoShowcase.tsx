@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   products,
@@ -28,11 +28,13 @@ function DemoFrame({
   active,
   onRun,
   onStop,
+  onExpand,
 }: {
   product: Product;
   active: boolean;
   onRun: () => void;
   onStop: () => void;
+  onExpand: () => void;
 }) {
   const host = product.demo ? new URL(product.demo).host : "";
   return (
@@ -47,6 +49,14 @@ function DemoFrame({
         <span className="ml-1 flex-1 truncate rounded-md bg-surface px-2 py-0.5 font-mono text-[10px] text-muted">
           {host}
         </span>
+        <button
+          type="button"
+          onClick={onExpand}
+          aria-label={`Open ${product.name} demo full size`}
+          className="rounded-md px-2 py-0.5 font-mono text-[10px] text-muted transition-colors hover:text-accent"
+        >
+          ⤢ expand
+        </button>
         {active ? (
           <button
             type="button"
@@ -118,11 +128,13 @@ function ProductCard({
   active,
   onRun,
   onStop,
+  onExpand,
 }: {
   product: Product;
   active: boolean;
   onRun: () => void;
   onStop: () => void;
+  onExpand: () => void;
 }) {
   return (
     <Tilt3D max={6} disabled={active} className="h-full">
@@ -160,6 +172,7 @@ function ProductCard({
             active={active}
             onRun={onRun}
             onStop={onStop}
+            onExpand={onExpand}
           />
         </div>
       )}
@@ -214,11 +227,24 @@ export function RepoShowcase() {
   const [term, setTerm] = useState<string | null>(null);
   const [theme, setTheme] = useState<string | null>(null);
   const [activeRepo, setActiveRepo] = useState<string | null>(null);
+  const [enlarged, setEnlarged] = useState<Product | null>(null);
   const reduce = useReducedMotion();
 
   const visible = products.filter(
     (p) => (!term || p.term === term) && (!theme || p.theme === theme),
   );
+
+  // Close the enlarged demo on Escape, and lock body scroll while it's open.
+  useEffect(() => {
+    if (!enlarged) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setEnlarged(null);
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [enlarged]);
 
   const chip = (active: boolean) =>
     `rounded-full border px-3 py-1.5 text-sm transition-colors ${
@@ -302,6 +328,7 @@ export function RepoShowcase() {
                 active={activeRepo === product.repoName}
                 onRun={() => setActiveRepo(product.repoName)}
                 onStop={() => setActiveRepo(null)}
+                onExpand={() => setEnlarged(product)}
               />
             </motion.div>
           ))}
@@ -310,6 +337,56 @@ export function RepoShowcase() {
 
       {visible.length === 0 && (
         <p className="py-16 text-muted">No demos match those filters.</p>
+      )}
+
+      {/* Enlarged demo — run the product full size */}
+      {enlarged?.demo && (
+        <div
+          className="fixed inset-0 z-[100] flex flex-col bg-background/90 p-4 backdrop-blur sm:p-6"
+          onClick={() => setEnlarged(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${enlarged.name} live demo`}
+        >
+          <div
+            className="mx-auto flex h-full w-full max-w-6xl flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between gap-3 pb-3">
+              <div className="min-w-0">
+                <h3 className="truncate font-heading text-lg uppercase tracking-wide">
+                  {enlarged.name}
+                </h3>
+                <p className="truncate font-mono text-xs text-muted">
+                  {new URL(enlarged.demo).host}
+                </p>
+              </div>
+              <div className="flex shrink-0 items-center gap-2">
+                <a
+                  href={enlarged.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
+                >
+                  Open in new tab ↗
+                </a>
+                <button
+                  type="button"
+                  onClick={() => setEnlarged(null)}
+                  className="rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.03]"
+                >
+                  ✕ Close
+                </button>
+              </div>
+            </div>
+            <iframe
+              src={enlarged.demo}
+              title={`${enlarged.name} live demo`}
+              sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+              className="w-full flex-1 rounded-xl border border-border bg-white"
+            />
+          </div>
+        </div>
       )}
     </div>
   );

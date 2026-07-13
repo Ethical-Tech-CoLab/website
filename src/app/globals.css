@@ -240,7 +240,15 @@ body::after {
   transform: rotateX(-18deg) rotateY(0deg);
   animation: globe-rotate 14s linear infinite;
 }
+/* Explicit 0 → 180 → 360 stops: a bare 0deg→360deg keyframe can interpolate as
+   identical matrices in some browsers and render as no motion at all. */
 @keyframes globe-rotate {
+  from {
+    transform: rotateX(-18deg) rotateY(0deg);
+  }
+  50% {
+    transform: rotateX(-18deg) rotateY(180deg);
+  }
   to {
     transform: rotateX(-18deg) rotateY(360deg);
   }
