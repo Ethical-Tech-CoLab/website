@@ -78,7 +78,6 @@ export default function TeamPage() {
               <h3 className="font-sans text-2xl font-semibold tracking-tight">
                 {team.founder.name}
               </h3>
-              <p className="mt-1 text-sm text-accent">{team.founder.role}</p>
               {team.founder.org && (
                 <p className="mt-1 text-sm text-foreground/70">
                   {team.founder.org}
@@ -128,7 +127,6 @@ export default function TeamPage() {
                     <h3 className="font-sans text-lg font-semibold leading-tight tracking-tight">
                       {member.name}
                     </h3>
-                    <p className="mt-1 text-sm text-accent">{member.role}</p>
                   </Link>
                   {member.org && (
                     <p className="mt-1 text-sm text-foreground/70">
@@ -198,7 +196,6 @@ export default function TeamPage() {
                     <h3 className="font-sans text-lg font-semibold leading-tight tracking-tight">
                       {member.name}
                     </h3>
-                    <p className="mt-1 text-sm text-accent">{member.role}</p>
                   </Link>
                   <Link
                     href={`/team/${member.slug}`}

@@ -73,7 +73,6 @@ export function AlumniSection() {
                   <h4 className="mt-4 text-lg font-semibold leading-tight tracking-tight">
                     {member.name}
                   </h4>
-                  <p className="mt-1 text-sm text-accent">{member.role}</p>
                   {member.bio && (
                     <p className="mt-3 text-sm leading-relaxed text-muted">
                       {excerpt(member.bio)}

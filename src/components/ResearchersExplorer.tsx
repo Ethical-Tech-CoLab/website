@@ -23,6 +23,12 @@ export function ResearchersExplorer() {
         </div>
       </div>
 
+      <p className="mt-6 max-w-2xl text-base leading-relaxed text-foreground/75">
+        Our graduate researchers are conducting applied AI research — building
+        with open-source tools, generating synthetic data, integrating LLMs, and
+        making sense of fragmented data.
+      </p>
+
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {visible.map((member) => (
           <Link
@@ -39,7 +45,6 @@ export function ResearchersExplorer() {
             <h3 className="mt-4 font-sans text-lg font-semibold leading-tight tracking-tight">
               {member.name}
             </h3>
-            <p className="mt-1 text-sm text-accent">{member.role}</p>
             {member.term && (
               <p className="mt-1 font-mono text-xs text-muted">{member.term}</p>
             )}
