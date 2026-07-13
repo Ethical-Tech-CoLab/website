@@ -234,7 +234,7 @@ export function RepoShowcase() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: reduce ? 1 : 0.97 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className={product.featured ? "lg:col-span-2" : ""}
+              className="h-full"
             >
               <ProductCard
                 product={product}
