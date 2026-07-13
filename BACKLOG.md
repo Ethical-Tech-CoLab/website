@@ -8,18 +8,16 @@ Last updated: 2026-07-13.
 
 ---
 
-## 1. Team headshots
+## 1. Team headshots — ✅ complete
 
-Drop each file into `public/team/`. Until then the card shows clean initials
-(no broken image). Filenames must match exactly.
+Every team member now has a headshot in `public/team/` (new ones are added by
+dropping a file into the local "Pictures website" folder and converting it to
+`public/team/<slug>.jpg`; filenames must match the `photo` path in `site.ts`).
 
-- [ ] `teresa.jpg` — Teresa Cantero *(pasted in chat; needs to be saved to disk)*
-
-*Done:* Sylvia Maier (downloaded from NYU); all Summer 2026 and Fall 2025
-researchers, staff, founder, and collaborators; and **all six Spring 2025
-headshots** — Smita Samanta, Elizabeth Matthews, Renata Gladkikh, Jennifer
-Hofmann, Emily Harrington, Natasha Nagarajan (added from the "Pictures website"
-folder, 2026-07-13).
+*Done:* founder, advisors (incl. Teresa Cantero and Sylvia Maier), all Summer
+2026 / Fall 2025 researchers, staff, collaborators, and all six Spring 2025
+headshots (Smita Samanta, Elizabeth Matthews, Renata Gladkikh, Jennifer Hofmann,
+Emily Harrington, Natasha Nagarajan).
 
 ## 2. Client & partner logos
 
