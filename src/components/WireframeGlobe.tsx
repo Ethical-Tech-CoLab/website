@@ -18,11 +18,11 @@ export function WireframeGlobe({ className = "" }: { className?: string }) {
   return (
     <div aria-hidden className={`globe-scene ${className}`}>
       <div className="globe-spin">
-        {/* meridian rings */}
+        {/* meridian rings — one highlighted "prime meridian" makes the spin visible */}
         {Array.from({ length: meridians }).map((_, i) => (
           <span
             key={`m${i}`}
-            className="globe-ring globe-meridian"
+            className={`globe-ring globe-meridian${i === 0 ? " globe-prime" : ""}`}
             style={{ transform: `rotateY(${(i * 180) / meridians}deg)` }}
           />
         ))}
