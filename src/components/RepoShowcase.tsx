@@ -22,18 +22,13 @@ function langColor(l: string) {
   return LANG_COLOR[l] ?? "var(--muted)";
 }
 
-/** A minimal browser-chrome frame around a poster that swaps to a live iframe. */
+/** A browser-chrome frame around a clickable poster; clicking opens the demo
+ *  full size in a modal so it can actually be run. */
 function DemoFrame({
   product,
-  active,
-  onRun,
-  onStop,
   onExpand,
 }: {
   product: Product;
-  active: boolean;
-  onRun: () => void;
-  onStop: () => void;
   onExpand: () => void;
 }) {
   const host = product.demo ? new URL(product.demo).host : "";
@@ -57,87 +52,58 @@ function DemoFrame({
         >
           ⤢ expand
         </button>
-        {active ? (
-          <button
-            type="button"
-            onClick={onStop}
-            className="rounded-md px-2 py-0.5 font-mono text-[10px] text-muted transition-colors hover:text-accent"
-          >
-            ✕ stop
-          </button>
-        ) : (
-          <a
-            href={product.demo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-md px-2 py-0.5 font-mono text-[10px] text-muted transition-colors hover:text-accent"
-          >
-            open ↗
-          </a>
-        )}
+        <a
+          href={product.demo}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rounded-md px-2 py-0.5 font-mono text-[10px] text-muted transition-colors hover:text-accent"
+        >
+          open ↗
+        </a>
       </div>
 
-      {/* stage */}
-      <div className="relative aspect-[16/10] w-full">
-        {active ? (
-          <iframe
-            src={product.demo}
-            title={`${product.name} live demo`}
-            loading="lazy"
-            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-            className="absolute inset-0 h-full w-full bg-white"
-          />
-        ) : (
-          <button
-            type="button"
-            onClick={onRun}
-            aria-label={`Run live demo of ${product.name}`}
-            className="group/frame absolute inset-0 h-full w-full"
-          >
-            {/* poster: real screenshot if present, else branded gradient */}
-            <span
-              aria-hidden
-              className="absolute inset-0 bg-cover bg-center opacity-90 transition-opacity group-hover/frame:opacity-100"
-              style={{
-                backgroundImage: `url(${asset(`/repos/${product.repoName}.jpg`)})`,
-                backgroundColor: "var(--secondary)",
-              }}
-            />
-            <span
-              aria-hidden
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, transparent 40%, color-mix(in oklab, var(--background) 70%, transparent))",
-              }}
-            />
-            <span className="absolute inset-0 flex items-center justify-center">
-              <span className="btn-sweep inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-ink shadow-lg transition-transform group-hover/frame:scale-105">
-                ▶ Run live demo
-              </span>
-            </span>
-          </button>
-        )}
-      </div>
+      {/* stage: clickable poster that opens the full-size demo */}
+      <button
+        type="button"
+        onClick={onExpand}
+        aria-label={`Open ${product.name} live demo full size`}
+        className="group/frame relative block aspect-[16/10] w-full"
+      >
+        <span
+          aria-hidden
+          className="absolute inset-0 bg-cover bg-center opacity-90 transition-opacity group-hover/frame:opacity-100"
+          style={{
+            backgroundImage: `url(${asset(`/repos/${product.repoName}.jpg`)})`,
+            backgroundColor: "var(--secondary)",
+          }}
+        />
+        <span
+          aria-hidden
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, transparent 40%, color-mix(in oklab, var(--background) 70%, transparent))",
+          }}
+        />
+        <span className="absolute inset-0 flex items-center justify-center">
+          <span className="btn-sweep inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-ink shadow-lg transition-transform group-hover/frame:scale-105">
+            ▶ Run live demo
+          </span>
+        </span>
+      </button>
     </div>
   );
 }
 
 function ProductCard({
   product,
-  active,
-  onRun,
-  onStop,
   onExpand,
 }: {
   product: Product;
-  active: boolean;
-  onRun: () => void;
-  onStop: () => void;
   onExpand: () => void;
 }) {
   return (
-    <Tilt3D max={6} disabled={active} className="h-full">
+    <Tilt3D max={6} className="h-full">
     <div
       className={`card-glow flex h-full flex-col rounded-2xl border border-border bg-card p-6 transition-colors hover:border-border-strong`}
     >
@@ -152,28 +118,33 @@ function ProductCard({
             </p>
           )}
         </div>
-        {product.demo || product.demos?.length ? (
-          <span className="shrink-0 rounded-full bg-accent px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-accent-ink">
-            ● Live
-          </span>
-        ) : (
-          <span className="shrink-0 rounded-full border border-border px-2.5 py-0.5 text-[10px] uppercase tracking-wider text-muted">
-            Source
-          </span>
-        )}
+        <div className="flex shrink-0 items-center gap-2">
+          {product.demo && (
+            <button
+              type="button"
+              onClick={onExpand}
+              className="rounded-full border border-border px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted transition-colors hover:border-accent hover:text-accent"
+            >
+              ⤢ Expand
+            </button>
+          )}
+          {product.demo || product.demos?.length ? (
+            <span className="rounded-full bg-accent px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-accent-ink">
+              ● Live
+            </span>
+          ) : (
+            <span className="rounded-full border border-border px-2.5 py-0.5 text-[10px] uppercase tracking-wider text-muted">
+              Source
+            </span>
+          )}
+        </div>
       </div>
 
       <p className="mt-3 text-sm leading-relaxed text-muted">{product.blurb}</p>
 
       {product.demo && (
         <div className="mt-5">
-          <DemoFrame
-            product={product}
-            active={active}
-            onRun={onRun}
-            onStop={onStop}
-            onExpand={onExpand}
-          />
+          <DemoFrame product={product} onExpand={onExpand} />
         </div>
       )}
 
@@ -226,7 +197,6 @@ function ProductCard({
 export function RepoShowcase() {
   const [term, setTerm] = useState<string | null>(null);
   const [theme, setTheme] = useState<string | null>(null);
-  const [activeRepo, setActiveRepo] = useState<string | null>(null);
   const [enlarged, setEnlarged] = useState<Product | null>(null);
   const reduce = useReducedMotion();
 
@@ -325,9 +295,6 @@ export function RepoShowcase() {
             >
               <ProductCard
                 product={product}
-                active={activeRepo === product.repoName}
-                onRun={() => setActiveRepo(product.repoName)}
-                onStop={() => setActiveRepo(null)}
                 onExpand={() => setEnlarged(product)}
               />
             </motion.div>
