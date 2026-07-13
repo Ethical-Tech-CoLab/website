@@ -340,7 +340,6 @@ export const productThemes = [
   "Evacuation",
   "Cultural heritage",
   "Traceability",
-  "Tooling",
 ];
 
 export const products: Product[] = [
@@ -405,16 +404,6 @@ export const products: Product[] = [
       "An evacuation-modeling prototype exploring population movement and decision dynamics under crisis constraints.",
     language: "HTML",
     theme: "Evacuation",
-  },
-  {
-    name: "Grant Valuation Tool",
-    repoName: "grant-valuation-tool",
-    repo: "https://github.com/Ethical-Tech-CoLab/grant-valuation-tool",
-    demo: "https://ethical-tech-colab.github.io/grant-valuation-tool/",
-    blurb:
-      "A tool for valuing and comparing grants, helping the lab and its partners weigh funding decisions with a consistent framework.",
-    language: "TypeScript",
-    theme: "Tooling",
   },
   {
     name: "ERCF — Evacuation Risk & Cost Framework",
