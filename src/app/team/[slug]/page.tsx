@@ -52,7 +52,9 @@ export default async function TeamMemberPage({
             <h1 className="font-sans text-4xl font-semibold tracking-tight">
               {member.name}
             </h1>
-            <p className="mt-2 text-accent">{member.role}</p>
+            {member.role && member.role !== "Applied AI Graduate Researcher" && (
+              <p className="mt-2 text-accent">{member.role}</p>
+            )}
             {member.org && (
               <p className="mt-1 text-sm text-foreground/70">{member.org}</p>
             )}
