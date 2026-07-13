@@ -763,10 +763,10 @@ export interface TeamMember {
 export const cohortTerms = ["Spring 2025", "Fall 2025", "Summer 2026"];
 
 export const team = {
-  eyebrow: "Team · Current cohort",
+  eyebrow: "Team",
   heading: "The people building this.",
   intro:
-    "A small, deliberate team pairing applied AI research with design, policy, and field expertise.",
+    "A small, selected team of graduate students working at the intersection of the human condition and emerging technology.",
   founder: {
     initials: "YR",
     name: "Yorke E Rhodes III",
