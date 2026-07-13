@@ -112,3 +112,12 @@ as reports are published — the card auto-switches to a "Read report" button.
       Decide what to do with it, then restore by: (1) deleting the `notFound()`
       stub and uncommenting the component in `about/page.tsx`, and (2) re-adding
       `{ label: "About", href: "/about" }` to `nav` in `site.ts`.
+
+## 8. Technical / infrastructure checks (project repos, not this site)
+
+- [ ] **Tavily search — token/credit usage.** Confirm whether the searches that
+      use Tavily are consuming tokens/credits, and how much, so usage doesn't
+      run up unexpectedly.
+- [ ] **ACLED API keys — evacuation projects.** Verify the ACLED API keys are
+      still preserved (and valid) in the evacuation projects, so the data feeds
+      don't silently break.
