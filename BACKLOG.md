@@ -15,18 +15,11 @@ Drop each file into `public/team/`. Until then the card shows clean initials
 
 - [ ] `teresa.jpg` — Teresa Cantero *(pasted in chat; needs to be saved to disk)*
 - [ ] `smita.jpg` — Smita Samanta (Spring 2025)
-- [ ] `elizabeth.jpg` — Elizabeth Matthews (Spring 2025)
-- [ ] `renata.jpg` — Renata Gladkikh (Spring 2025)
-- [ ] `jennifer.jpg` — Jennifer Hofmann (Spring 2025)
-- [ ] `emily.jpg` — Emily Harrington (Spring 2025)
-- [ ] `natasha.jpg` — Natasha Nagarajan (Spring 2025)
 
-*Done:* Sylvia Maier (downloaded from NYU), plus all Summer 2026 and Fall 2025
-researchers, staff, founder, and collaborators.
-
-> The six Spring 2025 headshots exist in the **Ethical Tech Summit deck**. If
-> that PDF is saved to `~/Downloads/`, the headshots may be extractable
-> automatically — otherwise crop + save them with the names above.
+*Done:* Sylvia Maier (downloaded from NYU); all Summer 2026 and Fall 2025
+researchers, staff, founder, and collaborators; and **five of the six Spring
+2025 headshots** — Elizabeth Matthews, Renata Gladkikh, Jennifer Hofmann, Emily
+Harrington, Natasha Nagarajan (added from the "Pictures website" folder, 2026-07-13).
 
 ## 2. Client & partner logos
 
