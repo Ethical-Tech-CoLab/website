@@ -40,6 +40,12 @@ export default function CarbonFootprintPage() {
               <span className="font-semibold">{carbonReport.org}</span>
               <span aria-hidden className="text-muted">·</span>
               <span>{carbonReport.advisor}</span>
+              {carbonReport.date && (
+                <>
+                  <span aria-hidden className="text-muted">·</span>
+                  <span>{carbonReport.date}</span>
+                </>
+              )}
             </div>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
               {carbonReport.authors}

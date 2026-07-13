@@ -27,6 +27,7 @@ export const carbonReport = {
   subtitle: "The Environmental Impact of Artificial Intelligence",
   org: "Ethical Tech CoLab",
   advisor: "Professor Yorke Rhodes III",
+  date: "May 2025",
   authors:
     "Alexandra Du, Elizabeth Matthews, Emily Harrington, Hannah Zhao, Jennifer Hofmann, Natasha Nagarajan, Renata Gladkikh, and Smita Samanta",
   thesis:

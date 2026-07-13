@@ -60,6 +60,9 @@ export default function PublicationsPage() {
                 <h2 className="mt-4 font-heading text-xl uppercase leading-snug tracking-wide sm:text-2xl">
                   {pub.title}
                 </h2>
+                {pub.date && (
+                  <p className="mt-2 font-mono text-xs text-muted">{pub.date}</p>
+                )}
                 <p className="mt-2 text-sm font-medium text-muted">
                   {pub.question}
                 </p>

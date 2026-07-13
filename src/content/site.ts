@@ -268,6 +268,8 @@ export interface Publication {
   title: string;
   summary: string;
   status: string;
+  /** Publication date, e.g. "May 2025". Shown on the card and report page. */
+  date?: string;
   /** Link to the published report/PDF. Empty string = placeholder, not yet out. */
   url: string;
 }
@@ -330,6 +332,7 @@ export const publications = {
       summary:
         "A CoLab report on AI's energy use across training and inference, the data-center and hardware toll, and the mitigation strategies, regulations, and policies that could bend the curve.",
       status: "Published",
+      date: "May 2025",
       // Internal route (starts with "/") — rendered on-site, see the card logic.
       url: "/publications/ai-carbon-footprint",
     },

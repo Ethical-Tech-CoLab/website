@@ -14,12 +14,12 @@ Drop each file into `public/team/`. Until then the card shows clean initials
 (no broken image). Filenames must match exactly.
 
 - [ ] `teresa.jpg` — Teresa Cantero *(pasted in chat; needs to be saved to disk)*
-- [ ] `smita.jpg` — Smita Samanta (Spring 2025)
 
 *Done:* Sylvia Maier (downloaded from NYU); all Summer 2026 and Fall 2025
-researchers, staff, founder, and collaborators; and **five of the six Spring
-2025 headshots** — Elizabeth Matthews, Renata Gladkikh, Jennifer Hofmann, Emily
-Harrington, Natasha Nagarajan (added from the "Pictures website" folder, 2026-07-13).
+researchers, staff, founder, and collaborators; and **all six Spring 2025
+headshots** — Smita Samanta, Elizabeth Matthews, Renata Gladkikh, Jennifer
+Hofmann, Emily Harrington, Natasha Nagarajan (added from the "Pictures website"
+folder, 2026-07-13).
 
 ## 2. Client & partner logos
 
