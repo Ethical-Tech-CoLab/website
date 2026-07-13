@@ -38,7 +38,11 @@ export function SiteHeader() {
               const active =
                 item.href === "/"
                   ? pathname === "/"
-                  : pathname.startsWith(item.href);
+                  : pathname.startsWith(item.href) ||
+                    // Portfolio stays active on its sub-tabs (Live Demos, Publications).
+                    (item.href === "/portfolio" &&
+                      (pathname.startsWith("/demos") ||
+                        pathname.startsWith("/publications")));
               return (
                 <li key={item.href}>
                   <Link

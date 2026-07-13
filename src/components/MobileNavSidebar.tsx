@@ -57,7 +57,13 @@ export function MobileNavSidebar() {
         <ul className="flex flex-col gap-1">
           {nav.map((item) => {
             const active =
-              item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+              item.href === "/"
+                ? pathname === "/"
+                : pathname.startsWith(item.href) ||
+                  // Portfolio stays active on its sub-tabs (Live Demos, Publications).
+                  (item.href === "/portfolio" &&
+                    (pathname.startsWith("/demos") ||
+                      pathname.startsWith("/publications")));
             return (
               <li key={item.href}>
                 <Link

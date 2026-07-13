@@ -44,8 +44,10 @@ export const newsletter = {
 export const nav = [
   { label: "Home", href: "/" },
   { label: "Portfolio", href: "/portfolio" },
-  { label: "Live Demos", href: "/demos" },
-  { label: "Publications", href: "/publications" },
+  // Live Demos and Publications are now sub-tabs under Portfolio (see
+  // SectionTabs), so they're kept out of the top nav for a cleaner menu bar.
+  // { label: "Live Demos", href: "/demos" },
+  // { label: "Publications", href: "/publications" },
   // Cohorts tab removed — its content now lives on the Home page.
   // About tab temporarily hidden — page preserved at src/app/about/page.tsx.
   // { label: "About", href: "/about" },
@@ -466,6 +468,22 @@ export const cohorts: Cohort[] = [
       "ESG Labels & Certificates Transparency: standardization for consumer trust",
       "AI's Carbon Footprint",
       "Generative AI for Good — Avatar storytelling",
+      {
+        label: "Avatar storytelling — live demo 1",
+        href: "https://studio.d-id.com/share?id=f816a9fc31454c3b843cf577e9affc78&utm_source=copy",
+      },
+      {
+        label: "Avatar storytelling — live demo 2",
+        href: "https://studio.d-id.com/share?id=0e35cf3e8380a8436ddadf29838acf2e&utm_source=copy",
+      },
+      {
+        label: "Avatar storytelling — live demo 3",
+        href: "https://studio.d-id.com/share?id=6e23d48f51c352d58425aa6faf299ec8&utm_source=copy",
+      },
+      {
+        label: "Avatar storytelling — live demo 4",
+        href: "https://studio.d-id.com/share?id=6c979fe11446cabaa5988f0922f0bd33&utm_source=copy",
+      },
     ],
     archive: "Full archive coming soon",
   },
