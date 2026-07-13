@@ -84,9 +84,9 @@ export function SiteHeader() {
                     onMouseEnter={() => setOpenMenu(item.label)}
                     onMouseLeave={() => setOpenMenu(null)}
                   >
-                    <button
-                      type="button"
-                      onClick={() => setOpenMenu(open ? null : item.label)}
+                    <Link
+                      href={item.href}
+                      onClick={() => setOpenMenu(null)}
                       aria-haspopup="menu"
                       aria-expanded={open}
                       className={`inline-flex items-center gap-1 ${itemClass}`}
@@ -100,7 +100,7 @@ export function SiteHeader() {
                       >
                         ▾
                       </span>
-                    </button>
+                    </Link>
                     {open && (
                       <div className="absolute left-0 top-full min-w-[180px] pt-2">
                         <div className="glass overflow-hidden rounded-xl border border-border p-1 shadow-lg">
