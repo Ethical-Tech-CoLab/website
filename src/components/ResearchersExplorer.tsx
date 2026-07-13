@@ -15,7 +15,7 @@ export function ResearchersExplorer() {
       <div className="flex flex-wrap items-baseline justify-between gap-4">
         <div>
           <p className="text-xs uppercase tracking-wider text-muted">
-            Applied AI Researchers · {CURRENT_TERM}
+            {CURRENT_TERM}
           </p>
           <h2 className="mt-3 fluid-h2 font-heading uppercase">
             {team.researchersLabel}
