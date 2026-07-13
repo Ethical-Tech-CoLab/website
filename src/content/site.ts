@@ -1021,10 +1021,10 @@ export const team = {
     },
     {
       initials: "SD",
-      name: "Susan DeMinil",
+      name: "Susan deMenil",
       role: "Collaborator",
       org: "AABC",
-      // linkedin: "", // TODO: Susan DeMinil LinkedIn URL
+      // linkedin: "", // TODO: Susan deMenil LinkedIn URL
       slug: "susan-deminil",
     },
   ] as TeamMember[],
