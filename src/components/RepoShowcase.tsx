@@ -129,11 +129,13 @@ function ProductCard({
           <h3 className="font-heading text-xl uppercase tracking-wide sm:text-2xl">
             {product.name}
           </h3>
-          <p className="mt-1 font-mono text-xs text-muted">
-            {product.repoName}
-          </p>
+          {product.repo && (
+            <p className="mt-1 font-mono text-xs text-muted">
+              {product.repoName}
+            </p>
+          )}
         </div>
-        {product.demo ? (
+        {product.demo || product.demos?.length ? (
           <span className="shrink-0 rounded-full bg-accent px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-accent-ink">
             ● Live
           </span>
@@ -157,6 +159,22 @@ function ProductCard({
         </div>
       )}
 
+      {product.demos && product.demos.length > 0 && (
+        <div className="mt-5 flex flex-wrap gap-2">
+          {product.demos.map((d) => (
+            <a
+              key={d.href}
+              href={d.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-sweep inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.03]"
+            >
+              ▶ {d.label}
+            </a>
+          ))}
+        </div>
+      )}
+
       <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 pt-5 font-mono text-xs text-muted">
         <span className="inline-flex items-center gap-1.5">
           <span
@@ -168,14 +186,16 @@ function ProductCard({
         <span className="rounded-full border border-border px-2 py-0.5">
           #{product.theme.replace(/\s+/g, "")}
         </span>
-        <a
-          href={product.repo}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="ml-auto text-foreground/80 transition-colors hover:text-accent"
-        >
-          View source ↗
-        </a>
+        {product.repo && (
+          <a
+            href={product.repo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-auto text-foreground/80 transition-colors hover:text-accent"
+          >
+            View source ↗
+          </a>
+        )}
       </div>
     </div>
     </Tilt3D>
@@ -219,7 +239,8 @@ export function RepoShowcase() {
           </button>
         ))}
         <span className="ml-auto font-mono text-xs text-muted">
-          {products.filter((p) => p.demo).length} live · {products.length} repos
+          {products.filter((p) => p.demo || p.demos?.length).length} live ·{" "}
+          {products.length} projects
         </span>
       </div>
 

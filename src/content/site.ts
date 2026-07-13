@@ -41,13 +41,26 @@ export const newsletter = {
   cta: "Subscribe",
 };
 
-export const nav = [
+export interface NavItem {
+  label: string;
+  href: string;
+  /** Sub-tabs shown in a dropdown under this item (also mirrored by SectionTabs). */
+  children?: { label: string; href: string }[];
+}
+
+export const nav: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "Portfolio", href: "/portfolio" },
-  // Live Demos and Publications are now sub-tabs under Portfolio (see
-  // SectionTabs), so they're kept out of the top nav for a cleaner menu bar.
-  // { label: "Live Demos", href: "/demos" },
-  // { label: "Publications", href: "/publications" },
+  {
+    label: "Portfolio",
+    href: "/portfolio",
+    // Live Demos and Publications live under Portfolio: a dropdown in the top
+    // nav and the SectionTabs bar on the pages themselves.
+    children: [
+      { label: "Overview", href: "/portfolio" },
+      { label: "Live Demos", href: "/demos" },
+      { label: "Publications", href: "/publications" },
+    ],
+  },
   // Cohorts tab removed — its content now lives on the Home page.
   // About tab temporarily hidden — page preserved at src/app/about/page.tsx.
   // { label: "About", href: "/about" },
@@ -328,13 +341,44 @@ export const archivedProjects: ArchivedProject[] = [
   },
 ];
 
+/** A single labelled link (e.g. a live demo). */
+export interface DemoLink {
+  label: string;
+  href: string;
+}
+
+/** The Avatar Storytelling live demos (D-ID), shared by the Spring 2025 cohort
+ * card and the Live Demos page so the two never drift. */
+export const avatarStorytellingDemos: DemoLink[] = [
+  {
+    label: "Live demo 1",
+    href: "https://studio.d-id.com/share?id=f816a9fc31454c3b843cf577e9affc78&utm_source=copy",
+  },
+  {
+    label: "Live demo 2",
+    href: "https://studio.d-id.com/share?id=0e35cf3e8380a8436ddadf29838acf2e&utm_source=copy",
+  },
+  {
+    label: "Live demo 3",
+    href: "https://studio.d-id.com/share?id=6e23d48f51c352d58425aa6faf299ec8&utm_source=copy",
+  },
+  {
+    label: "Live demo 4",
+    href: "https://studio.d-id.com/share?id=6c979fe11446cabaa5988f0922f0bd33&utm_source=copy",
+  },
+];
+
 /** A shipped repository/product, shown on the Repositories page. */
 export interface Product {
   name: string;
   repoName: string;
-  repo: string;
+  /** Source repo URL. Optional — some demos (e.g. shared videos) have no repo. */
+  repo?: string;
   /** Live deployed URL, if the product is running somewhere embeddable. */
   demo?: string;
+  /** A set of live demos shown as links (used when there are several, or when
+   * the demo isn't embeddable as an iframe). */
+  demos?: DemoLink[];
   blurb: string;
   language: string;
   theme: string;
@@ -345,6 +389,7 @@ export const productThemes = [
   "Evacuation",
   "Cultural heritage",
   "Traceability",
+  "Storytelling",
 ];
 
 export const products: Product[] = [
@@ -441,11 +486,24 @@ export const products: Product[] = [
     theme: "Traceability",
     featured: true,
   },
+  {
+    name: "Generative AI for Good — Avatar Storytelling",
+    repoName: "avatar-storytelling",
+    demos: avatarStorytellingDemos,
+    blurb:
+      "Human-condition storytelling with culturally grounded digital-human avatars — a set of short pieces produced with generative media in the Spring 2025 cohort.",
+    language: "D-ID",
+    theme: "Storytelling",
+  },
 ];
 
 /** A cohort highlight. A plain string is a static bullet; an object with an
- * href renders as a link (e.g. a live project or researcher's demo). */
-export type CohortItem = string | { label: string; href: string };
+ * href renders as a single link; an object with `links` renders a labelled
+ * group with an indented list of sub-links (e.g. a project and its demos). */
+export type CohortItem =
+  | string
+  | DemoLink
+  | { label: string; links: DemoLink[] };
 
 export interface Cohort {
   index: string;
@@ -467,22 +525,9 @@ export const cohorts: Cohort[] = [
       "Online Grooming Prevention: repurposing existing tech for online safety",
       "ESG Labels & Certificates Transparency: standardization for consumer trust",
       "AI's Carbon Footprint",
-      "Generative AI for Good — Avatar storytelling",
       {
-        label: "Avatar storytelling — live demo 1",
-        href: "https://studio.d-id.com/share?id=f816a9fc31454c3b843cf577e9affc78&utm_source=copy",
-      },
-      {
-        label: "Avatar storytelling — live demo 2",
-        href: "https://studio.d-id.com/share?id=0e35cf3e8380a8436ddadf29838acf2e&utm_source=copy",
-      },
-      {
-        label: "Avatar storytelling — live demo 3",
-        href: "https://studio.d-id.com/share?id=6e23d48f51c352d58425aa6faf299ec8&utm_source=copy",
-      },
-      {
-        label: "Avatar storytelling — live demo 4",
-        href: "https://studio.d-id.com/share?id=6c979fe11446cabaa5988f0922f0bd33&utm_source=copy",
+        label: "Generative AI for Good — Avatar Storytelling",
+        links: avatarStorytellingDemos,
       },
     ],
     archive: "Full archive coming soon",
@@ -512,7 +557,6 @@ export const cohorts: Cohort[] = [
     items: [
       "8 applied researchers",
       "4 active projects",
-      "3 institutional partners (NYU SPS · CGA · Microsoft)",
       "Synthetic Data Guidelines for Beginners",
     ],
   },

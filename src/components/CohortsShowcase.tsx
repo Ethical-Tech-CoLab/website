@@ -66,25 +66,61 @@ export function CohortsShowcase() {
 
                 <ul className="mt-5 space-y-2 text-sm text-foreground/85">
                   {cohort.items.map((item) => {
-                    const isLink = typeof item !== "string";
-                    const key = isLink ? item.label : item;
+                    // Plain string bullet.
+                    if (typeof item === "string") {
+                      return (
+                        <li key={item} className="flex gap-2.5">
+                          <span aria-hidden className="mt-1 text-accent">
+                            ◦
+                          </span>
+                          <span>{item}</span>
+                        </li>
+                      );
+                    }
+                    // Labelled group: a project with an indented list of demos.
+                    if ("links" in item) {
+                      return (
+                        <li key={item.label} className="flex gap-2.5">
+                          <span aria-hidden className="mt-1 text-accent">
+                            ◦
+                          </span>
+                          <div>
+                            <span>{item.label}</span>
+                            <ul className="mt-2 space-y-1 pl-1">
+                              {item.links.map((link) => (
+                                <li key={link.href} className="flex gap-2">
+                                  <span aria-hidden className="text-accent">
+                                    ▸
+                                  </span>
+                                  <a
+                                    href={link.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="font-medium text-accent underline-offset-4 transition-opacity hover:underline hover:opacity-80"
+                                  >
+                                    {link.label} <span aria-hidden>↗</span>
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </li>
+                      );
+                    }
+                    // Single link.
                     return (
-                      <li key={key} className="flex gap-2.5">
+                      <li key={item.label} className="flex gap-2.5">
                         <span aria-hidden className="mt-1 text-accent">
                           ◦
                         </span>
-                        {isLink ? (
-                          <a
-                            href={item.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="font-medium text-accent underline-offset-4 transition-opacity hover:underline hover:opacity-80"
-                          >
-                            {item.label} <span aria-hidden>↗</span>
-                          </a>
-                        ) : (
-                          <span>{item}</span>
-                        )}
+                        <a
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-medium text-accent underline-offset-4 transition-opacity hover:underline hover:opacity-80"
+                        >
+                          {item.label} <span aria-hidden>↗</span>
+                        </a>
                       </li>
                     );
                   })}
@@ -97,14 +133,12 @@ export function CohortsShowcase() {
                     </p>
                   )}
                   <div className="mt-3 flex flex-wrap gap-3">
-                    {cohort.current && (
-                      <Link
-                        href="/portfolio"
-                        className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-background transition-opacity hover:opacity-90"
-                      >
-                        Portfolio →
-                      </Link>
-                    )}
+                    <Link
+                      href="/portfolio"
+                      className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-background transition-opacity hover:opacity-90"
+                    >
+                      Portfolio →
+                    </Link>
                     <Link
                       href={
                         cohort.current
