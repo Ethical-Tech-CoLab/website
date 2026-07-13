@@ -146,6 +146,14 @@ export const researchAreas: ResearchArea[] = [
         status: "Active",
         repo: "https://github.com/Ethical-Tech-CoLab/India-EvacSimulation",
       },
+      {
+        name: "Mariupol 2022 — Corridor Severity Model",
+        summary:
+          "A corridor-severity model reconstructing the 2022 Mariupol evacuation, scoring the risk and viability of humanitarian corridors under siege conditions.",
+        status: "Active",
+        repo: "https://github.com/Ethical-Tech-CoLab/mariupol-evacuation-model",
+        demo: "https://ethical-tech-colab.github.io/mariupol-evacuation-model/",
+      },
     ],
   },
   {
@@ -459,6 +467,17 @@ export const products: Product[] = [
     demo: "https://ethical-tech-colab.github.io/India-EvacSimulation/",
     blurb:
       "An interactive simulator modeling how routing and assignment choices shape who reaches safety, with shareable scenario state and a built-in explainer walkthrough.",
+    language: "HTML",
+    theme: "Evacuation",
+  },
+  {
+    name: "Mariupol 2022 — Corridor Severity Model",
+    repoName: "mariupol-evacuation-model",
+    term: "Summer 2026",
+    repo: "https://github.com/Ethical-Tech-CoLab/mariupol-evacuation-model",
+    demo: "https://ethical-tech-colab.github.io/mariupol-evacuation-model/",
+    blurb:
+      "A corridor-severity model reconstructing the 2022 Mariupol evacuation, scoring the risk and viability of humanitarian corridors under siege conditions.",
     language: "HTML",
     theme: "Evacuation",
   },
