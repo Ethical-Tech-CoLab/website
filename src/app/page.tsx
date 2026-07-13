@@ -124,7 +124,7 @@ export default function Home() {
                 href="/portfolio"
                 className="link-underline text-xs uppercase tracking-wider text-muted transition-colors hover:text-accent"
               >
-                Portfolio
+                Current projects
               </Link>
               <h2 className="mt-3 fluid-h2 font-heading uppercase">
                 Building at the frontier.
