@@ -11,7 +11,7 @@ export const site = {
   partnersLine: "NYU SPS · CGA · Microsoft · New York",
   footerBlurb:
     "Exploring intervention opportunities at the intersection of emerging technologies and the human condition.",
-  cohortRange: "Four cohorts · 2024-2026",
+  cohortRange: "Four cohorts · est. 2024-2026",
   // Social links. GitHub is the real org; instagram/twitter are placeholders —
   // swap in the real handles once the accounts exist. Set to "" to hide a link.
   social: {
