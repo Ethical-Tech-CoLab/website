@@ -105,3 +105,10 @@ as reports are published — the card auto-switches to a "Read report" button.
 - [ ] **Alex Du & Hannah Zhao** were Spring 2025 fellows but are listed in their
       current roles (Staff / Collaborator), not under Spring 2025 Alumni. Decide
       whether to also list them there.
+- [ ] **About page is hidden** — the whole `/about` page is currently disabled
+      (removed from the nav; the route serves a 404). Nothing is deleted: the
+      full layout is preserved as comments in `src/app/about/page.tsx`, and all
+      its content still lives in the `about` object in `src/content/site.ts`.
+      Decide what to do with it, then restore by: (1) deleting the `notFound()`
+      stub and uncommenting the component in `about/page.tsx`, and (2) re-adding
+      `{ label: "About", href: "/about" }` to `nav` in `site.ts`.
