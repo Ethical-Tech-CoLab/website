@@ -139,26 +139,6 @@ export default function TeamPage() {
                   >
                     View profile →
                   </Link>
-                  {member.linkedin && (
-                    <a
-                      href={member.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-2 inline-block text-sm text-muted transition-colors hover:text-accent"
-                    >
-                      LinkedIn ↗
-                    </a>
-                  )}
-                  {member.website && (
-                    <a
-                      href={member.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="ml-4 mt-2 inline-block text-sm text-muted transition-colors hover:text-accent"
-                    >
-                      Website ↗
-                    </a>
-                  )}
                 </div>
               </div>
             ))}

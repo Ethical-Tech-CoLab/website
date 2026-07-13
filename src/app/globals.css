@@ -238,7 +238,7 @@ body::after {
   height: 100%;
   transform-style: preserve-3d;
   transform: rotateX(-18deg) rotateY(0deg);
-  animation: globe-rotate 26s linear infinite;
+  animation: globe-rotate 14s linear infinite;
 }
 @keyframes globe-rotate {
   to {
