@@ -543,9 +543,21 @@ export const products: Product[] = [
     repoName: "ercf",
     term: "Summer 2026",
     repo: "https://github.com/Ethical-Tech-CoLab/ercf",
+    demo: "https://ercf-production.up.railway.app",
     blurb:
       "A decision-support framework estimating the human and financial cost of civilian evacuation in armed conflict, scoring scenarios across seven risk dimensions and comparing evacuating against staying.",
     language: "Python",
+    theme: "Evacuation",
+  },
+  {
+    name: "CERAI — Civilian Evacuation Risk Anticipation Index",
+    repoName: "CERAI_AR",
+    term: "Summer 2026",
+    repo: "https://github.com/Ethical-Tech-CoLab/CERAI_AR",
+    demo: "https://ethical-tech-colab.github.io/CERAI_AR/",
+    blurb:
+      "A composite index anticipating civilian risk during evacuation operations, scoring weighted categories — hazards, infrastructure, population vulnerability, information environment, and weather — with Monte Carlo sensitivity analysis, ACLED conflict-event lookup, and source-credibility tagging on every indicator, built to make evacuation-risk reasoning auditable for IHL compliance review.",
+    language: "HTML",
     theme: "Evacuation",
   },
   {
