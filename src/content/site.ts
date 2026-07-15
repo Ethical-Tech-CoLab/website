@@ -556,7 +556,7 @@ export const products: Product[] = [
     repo: "https://github.com/Ethical-Tech-CoLab/CERAI_AR",
     demo: "https://ethical-tech-colab.github.io/CERAI_AR/",
     blurb:
-      "A composite index anticipating civilian risk during evacuation operations, scoring weighted categories — hazards, infrastructure, population vulnerability, information environment, and weather — with Monte Carlo sensitivity analysis, ACLED conflict-event lookup, and source-credibility tagging on every indicator, built to make evacuation-risk reasoning auditable for IHL compliance review.",
+      "A composite index anticipating civilian risk during evacuation operations, scoring weighted categories — hazards, infrastructure, population vulnerability, information environment, and weather — with Monte Carlo sensitivity analysis, ACLED conflict-event lookup, and source-credibility tagging on every indicator, so evacuation-risk reasoning stays auditable for IHL compliance review. Built by Alana Robertson in the Summer 2026 cohort, on Teresa Cantero's doctoral research into AI and the protection and evacuation of civilians under IHL.",
     language: "HTML",
     theme: "Evacuation",
   },
