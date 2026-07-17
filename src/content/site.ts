@@ -336,6 +336,18 @@ export const publications = {
       // Internal route (starts with "/") — rendered on-site, see the card logic.
       url: "/publications/ai-carbon-footprint",
     },
+    {
+      index: "06",
+      area: "Research",
+      question:
+        "How can AI help researchers formulate rigorous research questions?",
+      title: "AI-Powered Assistance in Formulating Research Questions",
+      summary:
+        "A survey of how AI supports researchers across the question-formulation workflow — finding gaps, generating candidate questions, summarizing the state of the art, and flagging contradictions — with guardrails against hallucinated citations and a red-team verification model. Ships with a reusable Copilot 'Researcher' prompt and a journal-credibility rubric.",
+      status: "Published",
+      date: "October 2025",
+      url: "https://docs.google.com/document/d/e/2PACX-1vSvmcQY-2oere7kNU0Uc5YgKTsf3bKVPVPBCHxH-Mb10rZIzksvaFkcHXFfWZFkWmB6ME8OeMEZrDso/pub",
+    },
   ] as Publication[],
 };
 
@@ -420,11 +432,13 @@ export const archivedProjects: ArchivedProject[] = [
     demo: "https://aml1045.github.io/forced-labor-structural-risk-index/",
   },
   {
-    name: "Academic Research Tool",
+    name: "AI Research Question Assistant",
     term: "Fall 2025",
     summary:
-      "An LLM-assisted tool for accelerating literature review and research workflows through structured prompting.",
+      "A survey and toolkit for how AI helps researchers formulate rigorous, original research questions — finding gaps, generating candidate questions, summarizing the state of the art, and flagging contradictions, with guardrails against hallucinated citations. Ships with a reusable Copilot 'Researcher' prompt and a journal-credibility rubric.",
     tags: ["LLM", "Research", "Tooling"],
+    repo: "https://github.com/Ethical-Tech-CoLab/ai-research-question-assistant",
+    demo: "https://ethical-tech-colab.github.io/ai-research-question-assistant/",
   },
 ];
 
@@ -453,6 +467,7 @@ export const productThemes = [
   "Cultural heritage",
   "Traceability",
   "Storytelling",
+  "Research",
 ];
 
 /** Semesters shown in the Live Demos filter, newest first. */
@@ -585,6 +600,17 @@ export const products: Product[] = [
     featured: true,
   },
   {
+    name: "AI Research Question Assistant",
+    repoName: "ai-research-question-assistant",
+    term: "Fall 2025",
+    repo: "https://github.com/Ethical-Tech-CoLab/ai-research-question-assistant",
+    demo: "https://ethical-tech-colab.github.io/ai-research-question-assistant/",
+    blurb:
+      "A survey and toolkit for how AI helps researchers move from a broad interest to a well-formed research question — finding gaps, generating candidate questions, summarizing the state of the art, and flagging contradictions, with guardrails against hallucinated citations. Ships with a reusable Copilot 'Researcher' prompt and a journal-credibility rubric. Built by the Fall 2025 cohort.",
+    language: "HTML",
+    theme: "Research",
+  },
+  {
     name: "Generative AI for Good — Avatar Storytelling",
     repoName: "avatar-storytelling",
     term: "Spring 2025",
@@ -637,7 +663,7 @@ export const cohorts: Cohort[] = [
     items: [
       "7 researchers",
       "Forced Labor Structural Risk Index",
-      "Academic Research Tool",
+      "AI Research Question Assistant",
     ],
     archive: "Full archive coming soon",
   },
