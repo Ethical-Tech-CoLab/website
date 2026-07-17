@@ -346,7 +346,9 @@ export const publications = {
         "A survey of how AI supports researchers across the question-formulation workflow — finding gaps, generating candidate questions, summarizing the state of the art, and flagging contradictions — with guardrails against hallucinated citations and a red-team verification model. Ships with a reusable Copilot 'Researcher' prompt and a journal-credibility rubric.",
       status: "Published",
       date: "October 2025",
-      url: "https://docs.google.com/document/d/e/2PACX-1vSvmcQY-2oere7kNU0Uc5YgKTsf3bKVPVPBCHxH-Mb10rZIzksvaFkcHXFfWZFkWmB6ME8OeMEZrDso/pub",
+      // Internal route (starts with "/") — rendered on-site, see the card logic.
+      // The published Google Doc is linked from the report page itself.
+      url: "/publications/ai-research-assistant",
     },
   ] as Publication[],
 };
