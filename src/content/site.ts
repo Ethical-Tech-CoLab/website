@@ -350,6 +350,20 @@ export const publications = {
       // The published Google Doc is linked from the report page itself.
       url: "/publications/ai-research-assistant",
     },
+    {
+      index: "07",
+      area: "Evacuation",
+      question:
+        "Is leaving actually safer than staying, and how would anyone know?",
+      title:
+        "The Evacuation Inform Index: Weighing the Risk of Leaving Against the Risk of Staying",
+      summary:
+        "A plain-language report on a decision support prototype that scores 104 active crises on two risks at once, keeping danger and feasibility deliberately apart so that operational difficulty cannot quietly cancel out a legal obligation. Prepared as masters research at the NYU Center for Global Affairs.",
+      status: "Published",
+      date: "July 2026",
+      // Internal route (starts with "/") — rendered on-site, see the card logic.
+      url: "/publications/evacuation-inform-index",
+    },
   ] as Publication[],
 };
 
