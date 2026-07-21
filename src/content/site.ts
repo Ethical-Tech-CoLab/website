@@ -498,6 +498,7 @@ export const products: Product[] = [
     repoName: "diplomatic-simulator",
     term: "Summer 2026",
     repo: "https://github.com/Ethical-Tech-CoLab/diplomatic-simulator",
+    demo: "https://ethical-tech-colab.github.io/diplomatic-simulator/live.html",
     demos: [
       {
         label: "Watch a live negotiation",
