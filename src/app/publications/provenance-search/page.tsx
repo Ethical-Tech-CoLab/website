@@ -3,6 +3,7 @@ import { Link } from "next-view-transitions";
 import { provenanceSearchReport } from "@/content/publications/provenance-search";
 import { SectionTabs } from "@/components/SectionTabs";
 import { Reveal } from "@/components/motion/Reveal";
+import { ReportBody } from "@/components/ReportBody";
 
 export const metadata: Metadata = {
   title: "Provenance Search",
@@ -144,20 +145,7 @@ export default function ProvenanceSearchPage() {
                 {section.title}
               </h2>
             </Reveal>
-            <div className="mt-6 space-y-5 leading-relaxed text-foreground/85">
-              {section.paragraphs.map((para, i) =>
-                typeof para === "string" ? (
-                  <p key={i}>{para}</p>
-                ) : (
-                  <p key={i}>
-                    <span className="font-semibold text-accent">
-                      {para.lead}
-                    </span>{" "}
-                    {para.text}
-                  </p>
-                ),
-              )}
-            </div>
+            <ReportBody paragraphs={section.paragraphs} />
           </section>
         ))}
 

@@ -9,9 +9,18 @@
 // The source paper follows those rules; keep them if you edit this file.
 // ─────────────────────────────────────────────────────────────────────────
 
-/** A paragraph is either plain prose, or prose introduced by a bold lead-in
- *  (used for the labelled limitation entries). */
-export type Paragraph = string | { lead: string; text: string };
+/** A paragraph is plain prose, prose introduced by a bold lead-in (used for
+ *  the labelled limitation entries), a bulleted or numbered list, or a table.
+ *  The list and table variants carry structure the source paper had: the
+ *  numbered objectives, the five stages, the four information channels, the
+ *  vulnerability categories with their delays and speeds, the three scenario
+ *  modes, the corridor gate settings, and the cited provisions of
+ *  International Humanitarian Law. */
+export type Paragraph =
+  | string
+  | { lead: string; text: string }
+  | { intro?: string; list: string[]; ordered?: boolean }
+  | { table: { caption?: string; headers: string[]; rows: string[][] } };
 
 export interface ReportSection {
   id: string;
@@ -102,12 +111,18 @@ export const evacuationSimulationReport = {
       number: "03",
       title: "Objectives",
       paragraphs: [
-        "The tool is designed to show how the quality and source of information, rather than the severity of the threat alone, determines how quickly a population moves.",
-        "It is designed to make the cost of vulnerability legible in units of time, so that the delay imposed by an elder or an unaccompanied child can be compared directly against the length of a corridor window.",
-        "It is designed to demonstrate the asymmetry between modes of transport, showing that the same obstruction which is a minor inconvenience to a household with a car may be fatal to a household on foot.",
-        "It is designed to represent the operational conditions that International Humanitarian Law regulates, including corridor access, checkpoint obstruction, attacks on communications infrastructure, perfidious misinformation, and forced displacement, so that legal rules can be seen as behavioural consequences rather than abstract prohibitions.",
-        "It is designed to support comparison between runs, so that a user can change one condition, run the scenario again, and see what that single change cost the population.",
-        "And it is designed to serve as a teaching instrument for students and humanitarian practitioners rather than as an operational planning tool.",
+        {
+          intro: "The tool is designed to:",
+          ordered: true,
+          list: [
+            "Show how the quality and source of information, rather than the severity of the threat alone, determines how quickly a population moves.",
+            "Make the cost of vulnerability legible in units of time, so that the delay imposed by an elder or an unaccompanied child can be compared directly against the length of a corridor window.",
+            "Demonstrate the asymmetry between modes of transport, showing that the same obstruction which is a minor inconvenience to a household with a car may be fatal to a household on foot.",
+            "Represent the operational conditions that International Humanitarian Law regulates, including corridor access, checkpoint obstruction, attacks on communications infrastructure, perfidious misinformation, and forced displacement, so that legal rules can be seen as behavioural consequences rather than abstract prohibitions.",
+            "Support comparison between runs, so that a user can change one condition, run the scenario again, and see what that single change cost the population.",
+            "Serve as a teaching instrument for students and humanitarian practitioners rather than as an operational planning tool.",
+          ],
+        },
       ],
     },
     {
@@ -121,16 +136,31 @@ export const evacuationSimulationReport = {
         },
         "Households are linked to one another in a social network. Each family is connected to the family on either side of it in a ring, and also to the family two positions away. The result is that every household can see four of the other five. Only these linked households can influence one another.",
         {
-          lead: "The five stages.",
-          text: "Every individual passes through five stages in order. Unaware, meaning the person has not yet heard anything. Seeking, meaning the person has heard an alert and is now looking for corroboration. Milling, meaning the person believes the alert and is preparing to leave, gathering family members, packing, securing the house. Evacuating, meaning the person is physically moving toward an exit. And Evacuated, meaning the person has reached safety and is out of the simulation.",
+          intro: "Every individual passes through five stages in order:",
+          ordered: true,
+          list: [
+            "Unaware. The person has not yet heard anything.",
+            "Seeking. The person has heard an alert and is now looking for corroboration.",
+            "Milling. The person believes the alert and is preparing to leave: gathering family members, packing, securing the house.",
+            "Evacuating. The person is physically moving toward an exit.",
+            "Evacuated. The person has reached safety and is out of the simulation.",
+          ],
         },
         "Each transition is probabilistic, meaning it is decided by a weighted chance each time the clock advances rather than by a fixed rule. Two people in identical circumstances will not necessarily move at the same moment.",
         {
           lead: "The clock.",
           text: "Time in the simulation is measured in ticks. A tick is a deliberately abstract unit. When the simulation is running at normal speed one tick elapses every 200 milliseconds of real time, roughly five ticks per second, but a tick is not claimed to correspond to any particular number of real-world minutes. The documentation states the reason plainly: the timing values were chosen to produce realistic relative behaviour, not calibrated against measured durations, and labelling ticks as minutes would imply a precision the model does not have. This is an unusually candid design choice and it should be respected when interpreting any result.",
         },
-        "A person in the Seeking stage accumulates confirmations, and the model records which source supplied the final one that tipped the person into Milling. The official broadcast is a single information node at the centre of the map, representing a government or military announcement, with its reliability set directly by the information clarity setting. The humanitarian actor is a separate node in the upper left of the map, representing an aid organisation such as the ICRC; its reliability is fixed at 0.75, higher than a government broadcast at typical clarity settings, but it reaches only a fraction of households, determined by the humanitarian access setting. This encodes the operational reality that a neutral organisation is more trusted but must negotiate for physical access.",
-        "The third channel is neighbours. If any linked household has a member who is already milling or evacuating, a person in the Seeking stage may take that as a confirmation. This is social contagion, and it is the mechanism by which an evacuation cascades through a community. The fourth is misinformation: a hostile channel that supplies confirmations which count toward the threshold exactly as genuine ones do, but which then send the person to the wrong exit.",
+        {
+          intro:
+            "A person in the Seeking stage accumulates confirmations, and the model records which source supplied the final one that tipped the person into Milling. Confirmations arrive through four channels.",
+          list: [
+            "The official broadcast. A single information node at the centre of the map, representing a government or military announcement, with its reliability set directly by the information clarity setting.",
+            "The humanitarian actor. A separate node in the upper left of the map, representing an aid organisation such as the ICRC. Its reliability is fixed at 0.75, higher than a government broadcast at typical clarity settings, but it reaches only a fraction of households, determined by the humanitarian access setting. This encodes the operational reality that a neutral organisation is more trusted but must negotiate for physical access.",
+            "Neighbours. If any linked household has a member who is already milling or evacuating, a person in the Seeking stage may take that as a confirmation. This is social contagion, and it is the mechanism by which an evacuation cascades through a community.",
+            "Misinformation. A hostile channel that supplies confirmations which count toward the threshold exactly as genuine ones do, but which then send the person to the wrong exit.",
+          ],
+        },
       ],
     },
     {
@@ -198,11 +228,45 @@ export const evacuationSimulationReport = {
           lead: "Neighbour influence.",
           text: "A percentage from 0 to 100, set to 55 by default. Each tick, if any of a household's four linked neighbours has a member visibly milling or evacuating, every seeking member of that household has a chance equal to this setting of gaining a confirmation from that observation alone. At high settings the community behaves as a cascade, where one household departing pulls the rest out behind it. At zero, social observation counts for nothing and only official and humanitarian channels matter.",
         },
-        "Three quantities are not exposed as settings but are generated for each individual when the run is built, and they are what the settings above actually act upon. Confirmations needed is a random whole number from 1 to 3, plus one or two more if information clarity is below 4, plus one if the person is an elder, plus two if they are an unaccompanied minor. It is the single number that most determines who leaves early and who leaves late. Preparation time is drawn at random from a range that depends on the scenario, with an additional draw added for the person's vulnerability category: on foot the base range is 2 to 4 ticks, with an elder adding 2 to 5, a child under five adding 3 to 6, a pregnant woman adding 2 to 5, and an unaccompanied minor adding 6 to 12. Travel time is drawn the same way, and speed is a fixed value per category per scenario, measured in screen pixels per tick.",
+        "Three quantities are not exposed as settings but are generated for each individual when the run is built, and they are what the settings above actually act upon. Confirmations needed is a random whole number from 1 to 3, plus one or two more if information clarity is below 4, plus a category penalty. It is the single number that most determines who leaves early and who leaves late. Preparation time is drawn at random from a range that depends on the scenario, with an additional draw added for the person's vulnerability category. Travel time is drawn the same way, and speed is a fixed value per category per scenario, measured in screen pixels per tick.",
+        {
+          table: {
+            caption:
+              "How each category is penalised in the pedestrian scenario. The base preparation range is 2 to 4 ticks for everyone, and the category delay is added on top.",
+            headers: [
+              "Category",
+              "Extra confirmations",
+              "Extra preparation",
+              "Speed on foot",
+            ],
+            rows: [
+              ["Adult", "None", "None", "2.6"],
+              ["Elder", "1", "2 to 5 ticks", "1.8"],
+              ["Child under five", "None", "3 to 6 ticks", "1.5"],
+              ["Pregnant woman", "None", "2 to 5 ticks", "2.0"],
+              ["Unaccompanied minor", "2", "6 to 12 ticks", "1.5"],
+            ],
+          },
+        },
         {
           lead: "The scenario setting.",
-          text: "The user chooses one of three modes of evacuation, and this choice rewrites all the preparation and travel figures at once. The three modes are not simply faster or slower versions of each other. They differ in shape. Pedestrian is the slowest and the most unequal: preparation is moderate, but travel speeds differ substantially by category, from 1.5 for a child to 2.6 for an adult, and vulnerability matters more here than in any other mode. Car has the quickest preparation of the three, at a base of 1 to 3 ticks, and every category travels at an identical speed of 5.5. A vehicle equalises mobility almost completely, and this is the model's clearest single finding: access to transport does not merely make evacuation faster, it makes vulnerability stop mattering. Train is the reverse profile, with the longest preparation of the three at a base of 4 to 8 ticks, representing the wait for a departure, but once aboard everyone moves at 8.0, the fastest speed in the model. The train scenario has no corridor gates at all; passengers leave by the rail line.",
+          text: "The user chooses one of three modes of evacuation, and this choice rewrites all the preparation and travel figures at once. The three modes are not simply faster or slower versions of each other. They differ in shape.",
         },
+        {
+          table: {
+            headers: ["Mode", "Base preparation", "Travel speed"],
+            rows: [
+              [
+                "Pedestrian",
+                "2 to 4 ticks",
+                "1.5 for a child up to 2.6 for an adult",
+              ],
+              ["Car", "1 to 3 ticks", "5.5 for every category"],
+              ["Train", "4 to 8 ticks", "8.0 for every category"],
+            ],
+          },
+        },
+        "Pedestrian is the slowest and the most unequal, and vulnerability matters more there than in any other mode. Car equalises mobility almost completely, and this is the model's clearest single finding: access to transport does not merely make evacuation faster, it makes vulnerability stop mattering. Train is the reverse profile, where the long preparation represents the wait for a departure but the journey itself is the fastest in the model. The train scenario has no corridor gates at all; passengers leave by the rail line.",
       ],
     },
     {
@@ -211,7 +275,15 @@ export const evacuationSimulationReport = {
       title: "Corridors: How People Actually Get Out",
       paragraphs: [
         "In the pedestrian and car scenarios, escape is not in all directions. Four gates are placed at the midpoints of the four edges of the map and named North, South, East, and West. When a person finishes preparing, they identify the nearest gate that is currently open and move toward it. The train scenario has no gates.",
-        "Each gate has three settings. It can be open or closed at the start. It can be given a closing tick, at which it shuts. It can be given an opening tick, at which it opens, in which case it begins the run closed. Combining an opening tick with a closing tick produces a humanitarian window: a gate that opens at tick 15 and closes at tick 35 gives the population a twenty-tick passage. This is the mechanic that makes every preparation delay described above consequential rather than merely descriptive. An eight-tick elder delay is invisible in a run with no time limit and decisive in a run with a twenty-tick window.",
+        {
+          intro: "Each gate has three settings.",
+          list: [
+            "It can be open or closed at the start.",
+            "It can be given a closing tick, at which it shuts.",
+            "It can be given an opening tick, at which it opens, in which case it begins the run closed.",
+          ],
+        },
+        "Combining an opening tick with a closing tick produces a humanitarian window: a gate that opens at tick 15 and closes at tick 35 gives the population a twenty-tick passage. This is the mechanic that makes every preparation delay described above consequential rather than merely descriptive. An eight-tick elder delay is invisible in a run with no time limit and decisive in a run with a twenty-tick window.",
         "When a gate closes mid-run, anyone already travelling toward it recalculates and heads for the nearest remaining open gate, and the reroute is logged individually. Rerouting costs time, and the cost is much higher on foot than by car, which is the asymmetry the documentation identifies as a research finding in its own right. The same closure that mildly inconveniences a household with a vehicle can leave a household on foot unable to reach any alternative.",
         "If no gate is open when a person is ready to move, they are marked as trapped. Trapped individuals stop, are logged by name, and are counted in the final summary. A run ends when every person is either evacuated or trapped. This is the simulation's representation of encirclement and siege, and it is the condition the tool is most clearly designed to make visible: the visual and numerical gap between the households that got out and the households that were still preparing when the gate shut.",
       ],
@@ -262,9 +334,21 @@ export const evacuationSimulationReport = {
       title: "Grounding in International Humanitarian Law",
       paragraphs: [
         "The repository connects each of its mechanics to a provision of International Humanitarian Law, the body of law that regulates the conduct of hostilities and protects those not taking part in the fighting. This is a valuable design feature: it turns legal rules into observable behaviour.",
-        "Several of those provisions are cited correctly. Additional Protocol II, Article 17(1) provides that the displacement of the civilian population shall not be ordered for reasons related to the conflict unless the security of the civilians involved or imperative military reasons so demand, and Article 17(2) provides that civilians shall not be compelled to leave their own territory. This is the correct basis for the coercion mechanic. Customary Rule 129 prohibits deportation and forcible transfer, and Rule 131 requires that displaced civilians be received in satisfactory conditions and that families not be separated.",
-        "Additional Protocol I, Article 52 provides that civilian objects shall not be the object of attack, which is the correct basis for the infrastructure damage mechanic. Article 58 requires parties to endeavour to remove civilians from the vicinity of military objectives, and its opening words expressly preserve Article 49 of the Fourth Geneva Convention, which matters: the duty to move civilians away from danger cannot be used to justify displacement that Article 49 forbids. Customary Rule 53 and Article 54 prohibit starvation of the civilian population as a method of warfare, and Article 54(2) is particularly apposite to the trapped mechanic, because it prohibits destroying or rendering useless objects indispensable to civilian survival whatever the motive, expressly including the motive of causing civilians to move away.",
-        "Article 70 and Customary Rule 55 require parties to allow and facilitate rapid and unimpeded passage of impartial humanitarian relief, which is the correct basis for the humanitarian access setting. Article 57(2)(c) and Customary Rule 20 require effective advance warning of attacks which may affect the civilian population unless circumstances do not permit, and a high-threat, low-clarity run is a fair representation of a warning that was issued but was too vague to act on. Customary Rule 138 entitles the elderly, disabled, and infirm to special respect and protection, which supports the elder mechanic.",
+        {
+          intro:
+            "The following provisions are cited in the repository and are cited correctly.",
+          list: [
+            "Additional Protocol II, Article 17(1), which provides that the displacement of the civilian population shall not be ordered for reasons related to the conflict unless the security of the civilians involved or imperative military reasons so demand, and that where displacement does occur all possible measures shall be taken so that the population is received under satisfactory conditions. Article 17(2) provides that civilians shall not be compelled to leave their own territory. This is the correct basis for the coercion mechanic.",
+            "Customary International Humanitarian Law Rule 129, which prohibits parties from deporting or forcibly transferring the civilian population of an occupied territory, and from ordering the displacement of the civilian population in non-international armed conflict, subject to the same two exceptions. Rule 131 requires that displaced civilians be received in satisfactory conditions and that families not be separated.",
+            "Additional Protocol I, Article 37, which prohibits killing, injuring, or capturing an adversary by perfidy, and Article 38, which prohibits improper use of the red cross and red crescent emblems, the flag of truce, and the emblem of the United Nations. These are the bases the repository gives for the misinformation mechanic, subject to the framing point noted at the end of this section.",
+            "Additional Protocol I, Article 52, which provides that civilian objects shall not be the object of attack, that attacks shall be limited strictly to military objectives, and that where there is doubt whether a normally civilian object is being used militarily it shall be presumed not to be. This is the correct basis for the infrastructure damage mechanic.",
+            "Additional Protocol I, Article 58, which requires parties to endeavour to remove civilians from the vicinity of military objectives and to take other necessary precautions to protect civilians under their control. Its opening words expressly preserve Article 49 of the Fourth Geneva Convention, which matters: the duty to move civilians away from danger cannot be used to justify displacement that Article 49 forbids.",
+            "Customary Rule 53 and Additional Protocol I, Article 54, which prohibit starvation of the civilian population as a method of warfare. Article 54(2) is particularly apposite to the trapped mechanic, because it prohibits destroying or rendering useless objects indispensable to civilian survival whatever the motive, expressly including the motive of causing civilians to move away.",
+            "Additional Protocol I, Article 70 and Customary Rule 55, which require parties to allow and facilitate rapid and unimpeded passage of impartial humanitarian relief for civilians in need, subject to a right of control. This is the correct basis for the humanitarian access setting.",
+            "Additional Protocol I, Article 57(2)(c) and Customary Rule 20, which require each party to give effective advance warning of attacks which may affect the civilian population unless circumstances do not permit. A high-threat, low-clarity run is a fair representation of a warning that was issued but was too vague to act on.",
+            "Customary Rule 138, which provides that the elderly, disabled, and infirm affected by armed conflict are entitled to special respect and protection. This supports the elder mechanic.",
+          ],
+        },
         "Four citations in the repository documentation are inaccurate and should be corrected. This is not a criticism of the project's substance, which is sound. It is a matter of the accuracy that a teaching tool on legal subjects requires.",
         {
           lead: "Customary Rule 99.",

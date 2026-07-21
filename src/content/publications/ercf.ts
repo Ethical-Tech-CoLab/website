@@ -8,9 +8,19 @@
 // The source paper follows those rules; keep them if you edit this file.
 // ─────────────────────────────────────────────────────────────────────────
 
-/** A paragraph is either plain prose, or prose introduced by a bold lead-in
- *  (used for the labelled limitation entries). */
-export type Paragraph = string | { lead: string; text: string };
+/** A paragraph is plain prose, prose introduced by an accent lead-in, a
+ *  formula rendered in monospace, a bulleted list, or a data table. The
+ *  formulas are kept alongside their plain-language description rather than
+ *  instead of it: several of them, the infrastructure-denial multiplier in
+ *  particular, are ambiguous when written out in words. The rate ladders the
+ *  tool selects by risk level are tables, because their whole point is that a
+ *  reader can compare one level against another at a glance. */
+export type Paragraph =
+  | string
+  | { lead: string; text: string }
+  | { formula: string; note?: string }
+  | { intro?: string; list: string[]; ordered?: boolean }
+  | { table: { caption?: string; headers: string[]; rows: string[][] } };
 
 export interface ReportSection {
   id: string;
@@ -92,10 +102,17 @@ export const ercfReport = {
       number: "03",
       title: "Objectives",
       paragraphs: [
-        "The tool is designed to produce a rapid, itemised cost estimate for a civilian evacuation operation, broken into transport, fuel, personnel, food, water, shelter, medical supplies, communications and contingency.",
-        "It produces a parallel estimate for the cost of assisting a population that remains in the conflict zone, including the extra cost that conflict access conditions impose and the proportion of supplies that never arrives. It identifies the break-even point at which continuing in-zone assistance becomes more expensive than a one-time evacuation, so that funding appeals can be argued from arithmetic rather than assertion.",
-        "It places the current situation against documented historical operations, so that a planner can see which past conflicts a scenario most resembles, and it makes every parameter, source and confidence level visible in the interface rather than buried in the code.",
-        "Finally, it keeps the estimate of financial cost separate from the estimate of mortality, so that a funding calculation is never confused with a casualty prediction.",
+        {
+          intro: "The tool is designed to:",
+          list: [
+            "Produce a rapid, itemised cost estimate for a civilian evacuation operation, broken into transport, fuel, personnel, food, water, shelter, medical supplies, communications and contingency.",
+            "Produce a parallel estimate for the cost of assisting a population that remains in the conflict zone, including the extra cost that conflict access conditions impose and the proportion of supplies that never arrives.",
+            "Identify the break-even point at which continuing in-zone assistance becomes more expensive than a one-time evacuation, so that funding appeals can be argued from arithmetic rather than assertion.",
+            "Place the current situation against documented historical operations, so that a planner can see which past conflicts a scenario most resembles.",
+            "Make every parameter, source and confidence level visible in the interface rather than buried in the code.",
+            "Keep the estimate of financial cost separate from the estimate of mortality, so that a funding calculation is never confused with a casualty prediction.",
+          ],
+        },
       ],
     },
     {
@@ -132,7 +149,26 @@ export const ercfReport = {
           lead: "D7, Information.",
           text: "How poor the information environment is. A high score means communications failure, rumour, and an inability to coordinate.",
         },
-        "The seven scores are combined into a single number by multiplying each by a weight and adding the results. D1 is multiplied by 0.25, D2 by 0.15, D3 by 0.15, D4 by 0.15, D5 by 0.15, D6 by 0.10 and D7 by 0.05. The weights add up to 1.00, so the resulting score stays on the same 1 to 5 scale as the inputs.",
+        "The seven scores are combined into a single number by multiplying each by a weight and adding the results. The weights add up to 1.00, so the resulting score stays on the same 1 to 5 scale as the inputs.",
+        {
+          table: {
+            headers: ["Dimension", "Factor", "Weight"],
+            rows: [
+              ["D1", "Kinetic Threat", "0.25"],
+              ["D2", "Mobility Constraints", "0.15"],
+              ["D3", "Authorization", "0.15"],
+              ["D4", "Logistics", "0.15"],
+              ["D5", "Destination", "0.15"],
+              ["D6", "Urgency", "0.10"],
+              ["D7", "Information", "0.05"],
+            ],
+          },
+        },
+        {
+          formula:
+            "ERCF = (D1 x 0.25) + (D2 x 0.15) + (D3 x 0.15) + (D4 x 0.15) + (D5 x 0.15) + (D6 x 0.10) + (D7 x 0.05)",
+          note: "The seven weights sum to 1.00.",
+        },
         "D1 carries the largest weight, one quarter of the total, because direct physical threat is treated as the primary driver of evacuation necessity, and because it is the dimension that alone determines whether movement is safe. It is tied to the precautionary obligations in Articles 57 and 58 of Additional Protocol I.",
         "D2, D3, D4 and D5 each carry fifteen per cent and form an equal group. The argument is that mobility, consent, logistics and destination safety are each individually capable of making an evacuation impossible, so none should dominate the others. D3 is explicitly capped at fifteen per cent rather than being set higher, because the most extreme authorization failures are already captured elsewhere in the tool by a hard trigger.",
         "D6 carries ten per cent, deliberately below the equal group. The reasoning is that urgency is largely absorbed by D1 in the most extreme situations, and that the tool captures urgency more sharply through the hard trigger and through a separate extraction-probability floor than a linear weight would. D7 carries five per cent, the lowest. Poor information raises coordination cost and panic risk, but on its own it does not determine whether an evacuation is necessary or possible.",
@@ -144,7 +180,44 @@ export const ercfReport = {
       number: "05",
       title: "From Seven Scores to a Risk Level",
       paragraphs: [
-        "The weighted score is placed into one of five bands, each with a label and a NATO-doctrine equivalent used in military planning. Level 0, Baseline and Monitoring, is a score of 1.5 or below, with a NATO equivalent of permissive and stable. Level 1, Low Risk and Advisory, runs above 1.5 up to 2.5, permissive but degrading. Level 2, Moderate Risk and Watchful, runs above 2.5 up to 3.5, uncertain. Level 3, High Risk and Contested, runs above 3.5 up to 4.2, hostile and partial. Level 4, Critical and Emergency, is above 4.2, hostile and imminent.",
+        "The weighted score is placed into one of five bands, each with a label and a NATO-doctrine equivalent used in military planning.",
+        {
+          table: {
+            headers: ["Level", "Label", "Weighted score", "NATO equivalent"],
+            rows: [
+              [
+                "Level 0",
+                "Baseline and Monitoring",
+                "1.5 or below",
+                "permissive and stable",
+              ],
+              [
+                "Level 1",
+                "Low Risk and Advisory",
+                "above 1.5 up to 2.5",
+                "permissive but degrading",
+              ],
+              [
+                "Level 2",
+                "Moderate Risk and Watchful",
+                "above 2.5 up to 3.5",
+                "uncertain",
+              ],
+              [
+                "Level 3",
+                "High Risk and Contested",
+                "above 3.5 up to 4.2",
+                "hostile, partial",
+              ],
+              [
+                "Level 4",
+                "Critical and Emergency",
+                "above 4.2",
+                "hostile, imminent",
+              ],
+            ],
+          },
+        },
         "There is one override. If D1 and D6 are both at 4.5 or above, that is, if violence is extreme and the window is closing at the same time, the score is floored at 4.21, which forces Level 4 regardless of how favourable the other five dimensions look. This exists because the linear weighted average would otherwise allow good logistics and a safe destination to pull an imminent massacre down into Level 3.",
         "The level is not merely a label. It selects the numerical rates used everywhere downstream: the security escort ratio, the daily cost of assistance per person, the access multiplier, the supply loss rate, the injury rate, the mortality base rate, and the probability of emergency extraction. Almost every figure the tool produces changes when the level changes. This is a design choice worth noticing, because it means the five-band classification carries a great deal of weight and the boundaries between bands, at 1.5, 2.5, 3.5 and 4.2, are themselves modelled judgments rather than empirical findings.",
         "Alongside the composite score, the tool computes three sub-indexes that keep distinct questions apart. This was added on the recommendation of the project's academic reviewers. Risk Severity asks how dangerous the situation is for civilians, and is built from D1, D2 and D6 only, rescaled back onto a 1 to 5 range. Feasibility asks whether people can realistically move, and is built from D3, D4 and D5, but inverted: because a high D3, D4 or D5 score means bad conditions, each is subtracted from 6 before being used, so that a high feasibility number means a genuinely open corridor. Information Quality is simply 6 minus D7, so that a high number means good situational awareness.",
@@ -159,11 +232,80 @@ export const ercfReport = {
         "This is the part of the tool with the strongest evidentiary foundation. The planner supplies four things: the population at risk, the percentage of that population who are vulnerable, the distance in kilometres to safety, and the terrain quality. Everything else is derived.",
         "The population is split into vulnerable and non-vulnerable. Non-vulnerable people are assigned to standard buses at 50 people per bus. Vulnerable people are assigned to medical buses at 20 people per bus, and ambulances at one per 150 vulnerable people. The bus capacities are marked in the code as operational assumptions not validated against field data. The ambulance ratio has a history worth recording: it was originally set at one ambulance per 40 vulnerable people, and was revised to one per 150 after the author found that no published field standard exists at all and that the original figure was three to five times above what documented practice, in particular a study of the Kosovo operation, actually showed.",
         "The number of medical buses and ambulances is then multiplied by a factor derived from D2, the mobility dimension. At D2 of 1 the factor is 0.8, at 2 it is 1.0, at 3 it is 1.3, at 4 it is 1.8, and at 5 it is 2.5. In plain terms, a population with severe mobility constraints needs roughly two and a half times the assisted transport of a baseline population. This factor is described in the code as estimated with no primary source.",
-        "Security staff are assigned according to the risk level, and the ratio tightens sharply as danger rises: no security at Level 0, then one security person per 500 civilians at Level 1, per 200 at Level 2, per 100 at Level 3, and per 50 at Level 4. Medical staff are assigned at one per 250 people, which is the Sphere Handbook 2018 standard for clinical officers in emergency settings. This figure was corrected upward during development: an earlier version used one per 500, half the Sphere standard, with no documented justification. Paramedics are assigned at one per 100 people, and one driver per vehicle.",
-        "Daily rates are 300 US dollars for security, 200 for medical staff, 150 for paramedics and 50 for drivers. These are total cost to the operation, not take-home pay. All four are tagged as estimated. The code carries an unusually candid note about them: every rate implicitly assumes national staff or a lower-cost international non-governmental deployment at roughly the level of Médecins Sans Frontières, and full United Nations international professional staff, once daily subsistence allowance and danger pay are included, would cost three to six times more. The author records that this assumption is not stated in the interface and should be flagged.",
+        "Staffing is set by ratio, and the security ratio tightens sharply as danger rises. The medical staffing figure is the Sphere Handbook 2018 standard for clinical officers in emergency settings, and it was corrected upward during development: an earlier version used one per 500, half the Sphere standard, with no documented justification.",
+        {
+          table: {
+            headers: ["Role", "Allocation", "Daily rate, US dollars"],
+            rows: [
+              [
+                "Security",
+                "none at Level 0, one per 500 civilians at Level 1, per 200 at Level 2, per 100 at Level 3, per 50 at Level 4",
+                "300",
+              ],
+              ["Medical staff", "one per 250 people", "200"],
+              ["Paramedics", "one per 100 people", "150"],
+              ["Drivers", "one per vehicle", "50"],
+            ],
+            caption:
+              "Daily rates are total cost to the operation, not take-home pay. All four are tagged as estimated.",
+          },
+        },
+        "The code carries an unusually candid note about the rates: every rate implicitly assumes national staff or a lower-cost international non-governmental deployment at roughly the level of Médecins Sans Frontières, and full United Nations international professional staff, once daily subsistence allowance and danger pay are included, would cost three to six times more. The author records that this assumption is not stated in the interface and should be flagged.",
         "Water is calculated at 20 litres per person per day for three days. This is the UNHCR full planning standard, chosen deliberately over the Sphere emergency minimum of 7.5 to 15 litres because an evacuation is a planned operation rather than a first-response emergency. Food is calculated at 0.45 kilograms of dry food per person per day for three days, which is the dry-weight equivalent of the Sphere minimum of 2,100 kilocalories per person per day. Tents are provided at one per five people, which at the Sphere standard of 3.5 square metres per person gives 17.5 square metres per tent and is internally consistent. Basic medical kits are provided at one per 100 people, and trauma kits at one per 50 people when the risk level is 3 or above, or one per 200 otherwise. Radios are provided at one per five vehicles plus a fixed five for coordination.",
-        "Standard buses are costed at 200 US dollars each, medical buses at 400, and ambulances at 700. The medical bus and ambulance figures were revised upward during development after research found no primary source for the earlier values; the revised figures sit at the lower bound of documented field ranges for medically-equipped vehicles. Fuel is calculated at 0.35 litres per kilometre per vehicle for a return journey, priced at 1.20 US dollars per litre, revised down from 1.50 on the basis of ACAPS reporting of Yemeni consumer fuel prices in 2022. Food is priced at 3 US dollars per kilogram, a figure the project's own parameter registry flags as having no citation behind it even though the quantity does.",
-        "Water is priced at 0.05 US dollars per litre, and here the code is unusually honest: field evidence gathered in 2026 found real water trucking costs ranging from 2 to 23 US dollars per cubic metre, all of which are below the model's baseline, and the author records that the lower figures were not adopted pending further validation. Tents are priced at 380 US dollars each, raised from an earlier 150 after the earlier figure was found to describe a tarpaulin kit suitable for a week rather than a standard tent; 380 sits just below the 400 dollar replacement cost UNHCR gave publicly in 2022. Basic medical kits are priced at 21 US dollars, derived from the WHO and UNICEF Interagency Emergency Health Kit costing, revised down from an earlier 50 which was roughly seven times too high for a three-day convoy. Trauma kits are priced at 200 US dollars and remain unvalidated, because the ICRC does not publish per-kit pricing. Radios are priced at 500 US dollars each, within the documented procurement range for professional handheld VHF units.",
+        "The unit costs applied to those quantities are set out below, each with the evidence the project records behind it. Fuel is the one line with a consumption figure of its own: it is calculated at 0.35 litres per kilometre per vehicle for a return journey before the per-litre price is applied.",
+        {
+          table: {
+            headers: ["Item", "Unit cost", "Evidence recorded in the code"],
+            rows: [
+              ["Standard bus", "200 US dollars each", ""],
+              [
+                "Medical bus",
+                "400 US dollars each",
+                "Revised upward after research found no primary source for the earlier value; sits at the lower bound of documented field ranges for medically-equipped vehicles.",
+              ],
+              [
+                "Ambulance",
+                "700 US dollars each",
+                "Revised upward on the same basis as the medical bus.",
+              ],
+              [
+                "Fuel",
+                "1.20 US dollars per litre",
+                "Revised down from 1.50 on the basis of ACAPS reporting of Yemeni consumer fuel prices in 2022.",
+              ],
+              [
+                "Food",
+                "3 US dollars per kilogram",
+                "Flagged by the project's own parameter registry as having no citation behind it, even though the quantity does.",
+              ],
+              [
+                "Water",
+                "0.05 US dollars per litre",
+                "Field evidence gathered in 2026 found real water trucking costs of 2 to 23 US dollars per cubic metre, all below the model's baseline; the lower figures were not adopted pending further validation.",
+              ],
+              [
+                "Tent",
+                "380 US dollars each",
+                "Raised from an earlier 150 once that figure was found to describe a tarpaulin kit suitable for a week rather than a standard tent; 380 sits just below the 400 dollar replacement cost UNHCR gave publicly in 2022.",
+              ],
+              [
+                "Basic medical kit",
+                "21 US dollars",
+                "Derived from the WHO and UNICEF Interagency Emergency Health Kit costing, revised down from an earlier 50 that was roughly seven times too high for a three-day convoy.",
+              ],
+              [
+                "Trauma kit",
+                "200 US dollars",
+                "Unvalidated. The ICRC does not publish per-kit pricing.",
+              ],
+              [
+                "Radio",
+                "500 US dollars each",
+                "Within the documented procurement range for professional handheld VHF units.",
+              ],
+            ],
+          },
+        },
         "Three multipliers are applied on top. Terrain multiplies transport and fuel costs, with five levels running from 4.0 for the worst terrain down to 1.0 for the best, and 2.5, 1.7 and 1.2 in between. The lower end of this range is consistent with published road-condition cost models; the upper end of 4.0 is an expert estimate consistent with a World Food Programme figure showing per-tonne delivery costs in the Central African Republic, South Sudan and the Democratic Republic of the Congo running about five times a standard country average, though that figure mixes terrain, access and security together.",
         "Season adjusts terrain further. If the operation starts in a month the tool classifies as a closure period for that latitude, the terrain multiplier is boosted by 50 per cent for the worst terrain, 30 per cent for the second worst and 20 per cent for middling terrain. Closure periods are set by latitude: December to March above 30 degrees north, June to September below 30 degrees south, and April to October in the tropics for wet season. The author describes these as broad regional approximations. The most useful output here is not the cost boost but a flag: the worst terrain in a closure period is marked potentially impassable, which is an operational warning rather than a number.",
         "D4, logistics, adds 10 per cent to transport and fuel for each point above 1, so a D4 of 5 adds 40 per cent. D5, destination, changes the number of tents needed: a destination with good existing infrastructure halves the tent requirement, a destination with none doubles it. Both are marked estimated with no primary source. Finally, 15 per cent is added to the whole subtotal as contingency, which the code justifies as the lower bound of the 15 to 20 per cent standard used for high-risk projects.",
@@ -177,8 +319,21 @@ export const ercfReport = {
       paragraphs: [
         "The second calculation estimates what it costs an organisation to keep a population alive where it is. It has three parts.",
         "The first is supply delivery. The starting point is 3.50 US dollars per person per day, a multi-sector figure covering food, water, health, shelter and coordination. The World Food Programme's own global average for food and cash assistance alone was 42 US cents per beneficiary per day in 2023, and the code explains the difference between the two figures at some length: at the full Sphere water standard, water alone dominates supply weight, and applying the World Food Programme's per-tonne Sudan delivery cost to that weight gives 3.28 US dollars per person per day, within six per cent of the model's figure. That is a genuinely careful piece of reasoning.",
-        "The baseline is then multiplied by an access multiplier that represents how much more expensive delivery becomes as conflict intensifies: 1.0 at Level 0, 1.5 at Level 1, 2.0 at Level 2, 3.6 at Level 3 and 4.0 at Level 4. These figures were revised downward during development, from earlier values of 3.0, 5.0 and 8.0 for the top three levels, after the author's research established that documented sources support only about 2.5 to 3.6 times at Level 3 and nothing above about 4 times at Level 4. Level 4 remains marked as directionally plausible but unconfirmed, and the project's backlog lists it as the outstanding unvalidated cost parameter. A further penalty is applied from D4, and the terrain and seasonal multipliers apply here too, because bad roads make delivery expensive whether people are leaving or staying.",
-        "The second part is supplies that never arrive. A loss rate is added, representing goods destroyed, looted or simply undelivered: 5 per cent at Levels 0 and 1, 15 per cent at Level 2, 30 per cent at Level 3 and 50 per cent at Level 4. Only the lowest of these has any published anchor: OCHA monitoring of Gaza during the ceasefire period in late 2025 recorded under two per cent of cargo looted or intercepted under active monitoring, and the model uses 5 per cent as a planning buffer including spoilage. The three higher figures are internal planning estimates with no published equivalent that the author could find. A low D3, meaning consent is absent, adds further to the loss rate, and a low D7, meaning poor information, adds a coordination overhead.",
+        "The baseline is then multiplied by an access multiplier that represents how much more expensive delivery becomes as conflict intensifies. The second part of the calculation, supplies that never arrive, is then added as a loss rate representing goods destroyed, looted or simply undelivered. Both ladders are selected by the risk level.",
+        {
+          table: {
+            headers: ["Risk level", "Access multiplier", "Supply loss rate"],
+            rows: [
+              ["Level 0", "1.0", "5 per cent"],
+              ["Level 1", "1.5", "5 per cent"],
+              ["Level 2", "2.0", "15 per cent"],
+              ["Level 3", "3.6", "30 per cent"],
+              ["Level 4", "4.0", "50 per cent"],
+            ],
+          },
+        },
+        "The access multipliers were revised downward during development, from earlier values of 3.0, 5.0 and 8.0 for the top three levels, after the author's research established that documented sources support only about 2.5 to 3.6 times at Level 3 and nothing above about 4 times at Level 4. Level 4 remains marked as directionally plausible but unconfirmed, and the project's backlog lists it as the outstanding unvalidated cost parameter. A further penalty is applied from D4, and the terrain and seasonal multipliers apply here too, because bad roads make delivery expensive whether people are leaving or staying.",
+        "Only the lowest of the loss rates has any published anchor: OCHA monitoring of Gaza during the ceasefire period in late 2025 recorded under two per cent of cargo looted or intercepted under active monitoring, and the model uses 5 per cent as a planning buffer including spoilage. The three higher figures are internal planning estimates with no published equivalent that the author could find. A low D3, meaning consent is absent, adds further to the loss rate, and a low D7, meaning poor information, adds a coordination overhead.",
         "The third part is emergency extraction. The model assumes that some proportion of the population will have to be pulled out in an emergency at some point, and prices that in advance. The probability of this happening rises over time along a saturating curve: it starts near zero and approaches a ceiling. The daily rate driving that curve was fitted against historical cases and is 0.021 for Level 4, 0.010 for Level 3, 0.005 for Level 2 and 0.002 for Level 1. The Level 4 figure comes from averaging Mariupol in 2022 and Aleppo in 2016; the Level 3 figure from Mosul, Goma and the Central African Republic. The Level 2 and Level 1 figures have no historical anchor at all and are described as structurally plausible interpolations that require validation.",
         "The curve is capped at 95 per cent for Level 4, 80 for Level 3, 60 for Level 2 and 30 for Level 1. Two modifiers then apply: a blocked corridor, meaning a low D3, raises the probability, and high urgency imposes a floor, 85 per cent when D6 is 5 and 60 per cent when D6 is 4. The floor exists because of Srebrenica, where the crisis unfolded over three days and no duration-based curve would have registered it.",
         "The cost of extraction is anchored to the United Nations Humanitarian Air Service, which is the World Food Programme's air service flying humanitarian staff and light cargo into places commercial aviation does not serve. Its published operating cost was 2.08 US dollars per passenger kilometre in 2023. Ground extraction is priced at 30 per cent of that rate, which the code describes as an internal heuristic with no published source. Air medical evacuation is priced at three times the rate, on the reasoning that a medical flight carries far fewer passengers. At Level 4 the whole extraction cost is multiplied by 2.5 for a helicopter premium, which the author records as unconfirmed, since UNHAS does not publish separate helicopter and fixed-wing rates.",
@@ -204,10 +359,19 @@ export const ercfReport = {
         "Separately from cost, the tool estimates how many people would die and be injured if the population stayed. The author's framing is that this provides scale context for a planning decision, and both the README and the concept document state that the mortality model is indicative rather than predictive and that the financial estimates are substantially more reliable.",
         "Each risk level has a baseline death rate expressed per 10,000 people per day. The current values are 0.777 at Level 0, 0.964 at Level 1, 3.625 at Level 2, 1.805 at Level 3 and 1.000 at Level 4. A reader will immediately notice that these are not in ascending order, which looks wrong and requires explanation. The explanation given in the code is that these are not standalone death rates but base rates that get multiplied by three further factors, and that Level 3 in the historical corpus is dominated by urban sieges and city fighting where a high proportion of the population is directly exposed, while Level 4 is dominated by large-enclave operations across much bigger populations where per-capita exposure is lower. The ordering was produced by the fitting procedure rather than assumed, and the author flags it explicitly as empirically validated but counterintuitive.",
         "The confinement multiplier captures whether people are trapped. It is calculated as 5 minus D3, multiplied by D4, divided by 5. In plain words: when consent for movement is absent and logistics have collapsed at the same time, people cannot get out, and mortality rises sharply. The resulting score is converted into a multiplier in steps: half at the lowest, then 1, then 2, then 4, then 8 at the highest. An eightfold difference from a single factor is a very large lever, and its stepwise rather than smooth form is listed by the author as a known limitation. The anchors given are Aleppo and Kosovo at a multiplier of 2, Mosul at 1, and the Kherson evacuation, which had an open corridor, at 0.5.",
+        {
+          formula: "confinement score = ((5 - D3) x D4) / 5",
+          note: "The score is then mapped to a multiplier in steps: 0.5, 1, 2, 4, 8.",
+        },
         "The displacement protection factor applies where part of the population has already left, since the remaining exposure is lower. The tool reduces the death rate by 60 per cent of the share that has departed. The 60 per cent coefficient, rather than 100, reflects that displaced people still face risk on the road, at checkpoints and from exposure. There is then an important refinement: in a siege, defined as a D3 of 2 or below combined with a D1 of 4 or above and a population of 500,000 or fewer, the coefficient is halved to 30 per cent. The reasoning is that in an encircled city, movement itself is lethal, because civilians pass checkpoints under fire and buses have been attacked. Displacement is still safer than staying, but only half as much safer as in an open corridor.",
         "The geographic exposure factor recognises that not everyone in a conflict area is under fire at the same time. Four conflict shapes are recognised, with the fraction of the population treated as simultaneously exposed given in brackets: urban siege such as Mariupol or Aleppo (0.85), enclave such as Gaza (0.65), city conflict where a front line moves through a city, such as Mosul or Kherson (0.40), and regional dispersed conflict such as Sudan, the Central African Republic or the eastern Democratic Republic of the Congo (0.12). When the planner has not specified a shape, the tool infers one from D1 and the population size, on the logic that higher kinetic threat means more direct fire while a larger population means more dispersion. The population term uses a logarithm raised to the power 1.4, a refinement introduced specifically because the earlier formula did not fall away fast enough for continental-scale conflicts and overestimated Sudan by a wide margin.",
         "Cumulative deaths accumulate linearly for the first 90 days and then decelerate along a square-root curve, on the reasoning that populations adapt and survivors relocate. This also marks the outer edge of the model's intended planning window. Injuries are set at four times deaths, following the ICRC planning ratio. The code notes that a peer-reviewed systematic review implies a ratio closer to 3.3 to 1, and that frontline-specific figures from Ukraine run far higher, and retains 4 to 1 as a mid-range planning estimate.",
         "The infrastructure-denial multiplier applies only where there is primary source documentation that survival infrastructure was deliberately destroyed. It is calculated as 1 plus 0.4251 times D1 minus 3, times D4 minus 3, and only when D1 is at least 4.5 and D4 at least 4.0. It is switched on for four documented cases: Mariupol, Aleppo, Vukovar and Huambo, giving effective multipliers between roughly 1.6 and 2.3. The supporting documentation cited is a 2024 report on starvation as a method of warfare in Mariupol, the UN Commission of Inquiry on Syria for hospital bombing in Aleppo, ICTY proceedings for Vukovar, and Human Rights Watch and Amnesty reporting on Angola for Huambo. Critically, this multiplier is switched off by default for live scenarios. The code records why: an earlier version activated it automatically whenever the dimension thresholds were met, and calibration accuracy collapsed from 80 per cent to 20 per cent. It is a finding about deliberate atrocity, not a threshold that can be inferred from slider positions.",
+        {
+          formula:
+            "infrastructure-denial multiplier = 1 + (0.4251 x (D1 - 3) x (D4 - 3))",
+          note: "Applied only where D1 is at least 4.5 and D4 at least 4.0, and only with primary source documentation. Off by default for live scenarios.",
+        },
       ],
     },
     {

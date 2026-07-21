@@ -9,9 +9,16 @@
 // The source paper follows those rules; keep them if you edit this file.
 // ─────────────────────────────────────────────────────────────────────────
 
-/** A paragraph is either plain prose, or prose introduced by a bold lead-in
- *  (used for the labelled limitation entries). */
-export type Paragraph = string | { lead: string; text: string };
+/** A paragraph is plain prose, prose introduced by a bold lead-in (used for
+ *  the labelled limitation entries), a bulleted or numbered list, or a table.
+ *  The list and table variants carry structure the source paper had: the
+ *  numbered objectives, the eleven party profile fields, the seventeen tactic
+ *  terms, the four randomised conditions, and the scoreboard measures. */
+export type Paragraph =
+  | string
+  | { lead: string; text: string }
+  | { intro?: string; list: string[]; ordered?: boolean }
+  | { table: { caption?: string; headers: string[]; rows: string[][] } };
 
 export interface ReportSection {
   id: string;
@@ -102,10 +109,18 @@ export const diplomaticSimulatorReport = {
       number: "03",
       title: "Objectives",
       paragraphs: [
-        "The prototype is designed to reproduce the structure of a multi-party crisis negotiation, including confidential mandates, public plenary statements, coalition formation, and a convening mediator.",
-        "It is designed to preserve information isolation, so that no delegation gains an advantage the corresponding human team would not have had, and to produce a complete and inspectable record of each session, including what each delegation said, which negotiating tactics it used, and how an independent analyst judged the result.",
-        "It is designed to express the outcome in variables simple enough for a non-specialist to read, while keeping the reasoning behind each variable visible, and to test how sensitive each outcome is to conditions no negotiator controls, by re-running each scenario under randomly varied external shocks and moods.",
-        "Finally, it is designed to document its own method and its own failures, including the specific point at which an orchestration run broke and had to be repeated.",
+        {
+          intro: "The prototype is designed to:",
+          ordered: true,
+          list: [
+            "Reproduce the structure of a multi-party crisis negotiation, including confidential mandates, public plenary statements, coalition formation, and a convening mediator.",
+            "Preserve information isolation, so that no delegation gains an advantage the corresponding human team would not have had.",
+            "Produce a complete and inspectable record of each session, including what each delegation said, which negotiating tactics it used, and how an independent analyst judged the result.",
+            "Express the outcome in variables simple enough for a non-specialist to read, while keeping the reasoning behind each variable visible.",
+            "Test how sensitive each outcome is to conditions no negotiator controls, by re-running each scenario under randomly varied external shocks and moods.",
+            "Document its own method and its own failures, including the specific point at which an orchestration run broke and had to be repeated.",
+          ],
+        },
       ],
     },
     {
@@ -147,32 +162,59 @@ export const diplomaticSimulatorReport = {
       paragraphs: [
         "Everything the simulator produces rests on a small number of variables, each of which has a plain meaning. When an agent reads a country's confidential instructions, it fills in eleven fields. Together they constitute the delegation's entire identity.",
         {
-          lead: "Delegation role.",
-          text: "One sentence describing who this delegation formally is and how much authority it holds. The Russian profile in the Arctic scenario, for example, records a foreign ministry delegation mandated to defend Arctic sovereignty while deferring major deviations to the Foreign Minister. This field exists because a negotiator's freedom to concede is itself a variable, and a delegation that must telephone home behaves differently from one that can sign.",
-        },
-        {
-          lead: "Fundamental principles and desired end states.",
-          text: "The standing commitments the government would assert regardless of this particular crisis give the agent something to argue from when the transcript moves somewhere its specific instructions did not anticipate. End states are recorded as a primary and an alternate. This is the delegation's definition of victory, and its definition of an acceptable substitute. Having two rather than one is deliberate. A negotiator with only a maximum position cannot trade.",
-        },
-        {
-          lead: "Key positions and red lines.",
-          text: "The government's stated line on each numbered issue is stored issue by issue, which keeps a delegation consistent across rounds and prevents it from quietly abandoning a position it took an hour earlier. Red lines are the commitments the delegation states it will not cross. In negotiation practice a red line is a declared non-negotiable limit whose value depends entirely on whether other parties believe it. The simulator makes this measurable, because the analyst later records how many of a delegation's red lines were crossed by others.",
-        },
-        {
-          lead: "BATNA.",
-          text: "This is a term of art from negotiation theory, introduced by Roger Fisher and William Ury in Getting to Yes in 1981. It stands for Best Alternative to a Negotiated Agreement, and it means the outcome a party falls back on if the talks collapse. It is the benchmark against which every proposal should be judged: a rational party accepts nothing worse than its BATNA. Recording it explicitly is what allows an agent to walk away credibly. Russia's Arctic BATNA, for instance, is to proceed unilaterally with resource extraction and sea-route regulation backed by its partnership with China. A delegation with an attractive fallback has little reason to concede, and the simulator makes that logic explicit rather than leaving it to chance.",
-        },
-        {
-          lead: "Concessions, coalitions, style, and private instructions.",
-          text: "What the delegation is authorised to give away determines what can be traded; without it a negotiation of principled statements never becomes a negotiation of packages. Coalition leanings record which other delegations this one expects to work with or against, which allows blocs to form early rather than emerging only by accident. Negotiating style records how the delegation speaks, whether legalistic, conciliatory, or blunt, and tone is part of what is later being judged. Private instructions are the secret material the delegation must never state verbatim, and that field is the reason information isolation matters. If it were shared, the exercise would collapse into a game of open cards.",
+          intro: "The eleven fields are as follows.",
+          list: [
+            "Delegation role. One sentence describing who this delegation formally is and how much authority it holds. The Russian profile in the Arctic scenario records a foreign ministry delegation mandated to defend Arctic sovereignty while deferring major deviations to the Foreign Minister. This field exists because a negotiator's freedom to concede is itself a variable, and a delegation that must telephone home behaves differently from one that can sign.",
+            "Fundamental principles. The standing commitments the government would assert regardless of this particular crisis. These give the agent something to argue from when the transcript moves somewhere its specific instructions did not anticipate.",
+            "Desired end state, primary. The delegation's definition of victory.",
+            "Desired end state, alternate. Its definition of an acceptable substitute. Having two rather than one is deliberate: a negotiator with only a maximum position cannot trade.",
+            "Key positions by issue. The government's stated line on each numbered issue in the public brief, stored issue by issue. This is what keeps a delegation consistent across rounds and prevents it from quietly abandoning a position it took an hour earlier.",
+            "Red lines. The commitments the delegation states it will not cross. In negotiation practice a red line is a declared non-negotiable limit whose value depends entirely on whether other parties believe it. The simulator makes this measurable, because the analyst later records how many of a delegation's red lines were crossed by others.",
+            "BATNA. A term of art from negotiation theory, introduced by Roger Fisher and William Ury in Getting to Yes in 1981. It stands for Best Alternative to a Negotiated Agreement, and it means the outcome a party falls back on if the talks collapse. It is the benchmark against which every proposal should be judged: a rational party accepts nothing worse than its BATNA. Russia's Arctic BATNA is to proceed unilaterally with resource extraction and sea-route regulation backed by its partnership with China. A delegation with an attractive fallback has little reason to concede, and recording it explicitly is what allows an agent to walk away credibly.",
+            "Concessions willing. What the delegation is authorised to give away, and therefore what can be traded. Without this field a negotiation of principled statements never becomes a negotiation of packages.",
+            "Coalition leanings. Which other delegations this one expects to work with or against. This is what allows blocs to form early rather than emerging only by accident.",
+            "Negotiating style. How the delegation speaks: legalistic, conciliatory, blunt. Style is not decoration. In a transcript that will later be judged, tone is part of what is being judged.",
+            "Private instructions. The secret material the delegation must never state verbatim. This field is the reason information isolation matters. If it were shared, the exercise would collapse into a game of open cards.",
+          ],
         },
         "Every statement in the transcript is stored with six pieces of information: which delegation spoke, which round it was, what kind of statement it was, the full text, the list of tactics the delegation applied, and the list of other delegations it aligned itself with. The last two are what turn a wall of prose into something that can be counted.",
-        "Delegations label their own moves from a fixed list of seventeen terms, set in the public brief. The Arctic list runs: anchoring, counter-anchoring, conditional-offer, red-line-signaled, verification-demand, deadline-pressure, coalition-building, issue-linkage, appeal-to-law, appeal-to-precedent, sovereignty-assertion, freedom-of-navigation-frame, side-payment, delay-tactic, principled-bargaining-frame, environmental-frame, and indigenous-inclusion-frame.",
+        {
+          intro:
+            "Delegations label their own moves from a fixed list of seventeen terms, set in the public brief. The Arctic list runs:",
+          list: [
+            "anchoring",
+            "counter-anchoring",
+            "conditional-offer",
+            "red-line-signaled",
+            "verification-demand",
+            "deadline-pressure",
+            "coalition-building",
+            "issue-linkage",
+            "appeal-to-law",
+            "appeal-to-precedent",
+            "sovereignty-assertion",
+            "freedom-of-navigation-frame",
+            "side-payment",
+            "delay-tactic",
+            "principled-bargaining-frame",
+            "environmental-frame",
+            "indigenous-inclusion-frame",
+          ],
+        },
         "Several of these are established concepts rather than inventions of the project. Anchoring is the practice of stating an extreme opening figure in order to drag the eventual settlement toward it, and it draws on the anchoring effect documented by Amos Tversky and Daniel Kahneman in Science in 1974, who found that an arbitrary starting number measurably shifted people's later estimates even when they were paid to be accurate. Issue-linkage means refusing to settle one question except as part of a package with another. A side-payment is a benefit offered outside the disputed issue to buy agreement on it. Principled-bargaining-frame refers to the approach set out in Getting to Yes, which urges parties to argue from interests and objective criteria rather than from fixed positions.",
         "Because agents do not always use the exact word from the list, a short standardising table in the assembly code folds synonyms into the canonical term. Logrolling, package-linkage, and linkage all become issue-linkage. Batna-signaling and red-line-reaffirmation both become red-line-signaled. Face-saving-formula and consensus-appeal both become principled-bargaining-frame. This is a small piece of housekeeping with a real effect on the counts, and it is worth knowing that it happens.",
         "Each tactic label is stored as a detection record carrying a fixed confidence value of 0.8 and a source marked as self-tagging. That number is not a measurement. It is a constant, recording the fact that the label came from the speaker rather than from an independent observer. A reader should treat the tactic counts as a description of what each delegation said it was doing.",
         "The resulting counts are informative in aggregate. In the Arctic session, coalition-building was tagged twenty-five times and red-line-signaled sixteen, against a single appeal-to-precedent. In the South China Sea session, coalition-building appears twenty-four times and conditional-offer fourteen, with delay-tactic appearing only twice. The shape of a negotiation is legible in these numbers before anyone reads a word of the transcript.",
-        "The analyst agent then produces four numbers for each delegation. Satisfaction, on a scale from 0 to 1, expresses how well the analyst judges that a delegation achieved the objectives recorded in its own profile. It is scored against that delegation's stated end states, not against any external standard of a good outcome, which is why a delegation can score well in a session that produced no agreement at all. In the Arctic session, Denmark scored 0.75 and Russia 0.38. Agreements won is a simple count of the understandings the delegation secured, and Canada won six in the Arctic session, the highest of the seven. Red lines crossed counts the delegation's declared limits that other parties breached, and Russia's three in the Arctic session, against zero for Denmark, is the clearest single indicator of why the two scored so differently. Self-rating is a separate figure the delegation assigns to its own performance in its debrief. The United States gave itself 3.3 while the analyst assigned it a satisfaction of 0.6. Keeping the two apart is a useful discipline, since the gap between how a delegation rates itself and how a neutral observer rates it is itself diplomatically interesting.",
+        {
+          intro:
+            "The analyst agent then produces four numbers for each delegation.",
+          list: [
+            "Satisfaction, on a scale from 0 to 1. This expresses how well the analyst judges that a delegation achieved the objectives recorded in its own profile. It is scored against that delegation's stated end states, not against any external standard of a good outcome, which is why a delegation can score well in a session that produced no agreement at all. In the Arctic session, Denmark scored 0.75 and Russia 0.38.",
+            "Agreements won, a simple count of the understandings the delegation secured. Canada won six in the Arctic session, the highest of the seven.",
+            "Red lines crossed, a count of the delegation's declared limits that other parties breached. Russia's three in the Arctic session, against zero for Denmark, is the clearest single indicator of why the two scored so differently.",
+            "Self-rating, a separate figure the delegation assigns to its own performance in its debrief. The United States gave itself 3.3 while the analyst assigned it a satisfaction of 0.6. Keeping the two apart is a useful discipline, since the gap between how a delegation rates itself and how a neutral observer rates it is itself diplomatically interesting.",
+          ],
+        },
         "Each debrief also lists the delegation's goals individually. Every goal carries a priority, either critical or high, a status of achieved, partial, or failed, and a short list of evidence quoting the rounds in which the outcome was settled. This is the part of the output that resists being reduced to a number, and it is the part a reader should check before trusting the number.",
       ],
     },
@@ -217,7 +259,16 @@ export const diplomaticSimulatorReport = {
       paragraphs: [
         "A Monte Carlo simulation estimates the range of possible outcomes by running a model many times with randomly drawn inputs and counting how often each result occurs. The technique was devised at Los Alamos in 1946 by Stanislaw Ulam and developed with John von Neumann and Nicholas Metropolis, who supplied the name; Metropolis later recorded that it referred to an uncle of Ulam's who kept borrowing money because he just had to go to Monte Carlo.",
         "A single run tells one story. Whether that story was inevitable or a fluke is a different question, and it is usually the more useful one. Saying that a deal fails in two runs out of eight, and specifically when a hardline shock coincides with a confrontational mood, tells a reader far more about fragility than any single result can.",
-        "Each trial draws a fresh value for four things no delegation controls. External shock is drawn from a list written for each scenario. The Arctic list includes a record ice-free summer opening new routes, a Russian naval incident involving a NATO vessel, and a major hydrocarbon discovery in contested waters. The Central Asian list includes a severe drought collapsing Syr Darya flows and a deadly border clash. The South China Sea list includes a collision at Second Thomas Shoal and the declaration of an air defence identification zone. One option on every list is that no major shock occurs, so that the absence of a crisis is itself a sampled condition. Mediator pressure is set to low, medium, or high, representing how hard the convening envoy pushes for a result. Overall mood is set to cooperative, neutral, or confrontational, representing the atmosphere in the room, which experienced negotiators treat as a real variable rather than a soft one. Momentum records which delegation enters with the initiative.",
+        {
+          intro:
+            "Each trial draws a fresh value for four things no delegation controls.",
+          list: [
+            "External shock, drawn from a list written for each scenario. The Arctic list includes a record ice-free summer opening new routes, a Russian naval incident involving a NATO vessel, and a major hydrocarbon discovery in contested waters. The Central Asian list includes a severe drought collapsing Syr Darya flows and a deadly border clash. The South China Sea list includes a collision at Second Thomas Shoal and the declaration of an air defence identification zone. One option on every list is that no major shock occurs, so that the absence of a crisis is itself a sampled condition.",
+            "Mediator pressure, set to low, medium, or high. This represents how hard the convening envoy pushes for a result.",
+            "Overall mood, set to cooperative, neutral, or confrontational. This represents the atmosphere in the room, which experienced negotiators treat as a real variable rather than a soft one.",
+            "Momentum, recording which delegation enters with the initiative.",
+          ],
+        },
         "An agent simulates the outcome under that specific draw and reports the type of deal reached, each party's satisfaction, whether each party's primary goal was achieved, partial, or failed, whether its red line held, and which coalitions formed. Deal types are recorded on a five-point ordered scale: comprehensive, framework, partial, stalemate, breakdown. Ordinary code, with no model involved, then counts the deal types, computes each delegation's satisfaction as a mean, a standard deviation, a median, and a lowest and highest value, calculates the percentage of trials in which each red line held, and ranks the coalitions by how often they recurred. A wide spread means the outcome depends on conditions; a narrow one means it is robust.",
         "Eight trials were run for each scenario. Across every trial of every scenario, not one produced a comprehensive settlement. Central Asia was the most stable, returning a framework agreement in six trials of eight. The Arctic returned a framework in five and a partial in three, with no failures at all. Cyprus was by a wide margin the most fragile, returning two outright breakdowns and one stalemate against three frameworks. The Strait of Hormuz session likewise produced two breakdowns. Individual variables are equally revealing: in the Arctic trials, China's red line held in only thirty-eight per cent of runs and the United States red line in eighty-eight per cent, while the five other delegations held theirs in every single trial.",
         "The methodology page is explicit that each trial is a reduced-form outcome simulation conditioned on the random draw, not a complete re-run of the multi-round negotiation. What the exercise samples is the model's own distribution over plausible outcomes. It is not an empirical distribution of real events, and the randomised conditions are illustrative rather than calibrated probabilities. The right reading is how sensitive the model thinks this outcome is to shocks and mood, and nothing stronger.",

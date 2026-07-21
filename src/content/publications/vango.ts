@@ -8,9 +8,16 @@
 // The source paper follows those rules; keep them if you edit this file.
 // ─────────────────────────────────────────────────────────────────────────
 
-/** A paragraph is either plain prose, or prose introduced by a bold lead-in
- *  (used for the labelled limitation entries). */
-export type Paragraph = string | { lead: string; text: string };
+/** A paragraph is plain prose, prose introduced by a bold lead-in (used for
+ *  the labelled limitation entries), a bulleted or numbered list, or a table.
+ *  The paper is mostly prose; the list and table variants are used only where
+ *  it genuinely enumerated, namely the numbered objectives, the catalogue
+ *  entries, and the fields the server stores. */
+export type Paragraph =
+  | string
+  | { lead: string; text: string }
+  | { intro?: string; list: string[]; ordered?: boolean }
+  | { table: { caption?: string; headers: string[]; rows: string[][] } };
 
 export interface ReportSection {
   id: string;
@@ -113,11 +120,17 @@ export const vangoReport = {
       number: "03",
       title: "Objectives",
       paragraphs: [
-        "The prototype is designed to give a visitor a durable, personal, and pleasing record of the individual works of art they have gone to see.",
-        "To reduce the cost of participation for an institution to the price of printing a sheet of paper, so that a small studio can take part on the same terms as a national museum.",
-        "To work without a network connection to any central service, and without requiring the visitor to create an account, so that a person can use the tool with no disclosure of personal information at all.",
-        "To present the record in a form that is legible across languages, including a West African language, rather than defaulting to English and the major European languages alone.",
-        "And to ensure that a given artwork's stamp looks the same in every visitor's passport, so that the stamp functions as a shared emblem of the work rather than as decoration generated afresh for each person.",
+        {
+          intro: "The prototype is designed to:",
+          ordered: true,
+          list: [
+            "Give a visitor a durable, personal, and pleasing record of the individual works of art they have gone to see.",
+            "Reduce the cost of participation for an institution to the price of printing a sheet of paper, so that a small studio can take part on the same terms as a national museum.",
+            "Work without a network connection to any central service, and without requiring the visitor to create an account, so that a person can use the tool with no disclosure of personal information at all.",
+            "Present the record in a form that is legible across languages, including a West African language, rather than defaulting to English and the major European languages alone.",
+            "Ensure that a given artwork's stamp looks the same in every visitor's passport, so that the stamp functions as a shared emblem of the work rather than as decoration generated afresh for each person.",
+          ],
+        },
       ],
     },
     {
@@ -128,8 +141,21 @@ export const vangoReport = {
         "The application has four moving parts: a catalogue of artworks, a way of capturing a code, a book in which stamps are stored, and an optional account.",
         {
           lead: "The catalogue.",
-          text: "The catalogue is a fixed list held inside the application itself. Each entry consists of a code and three pieces of descriptive text: the title of the work, the artist, and the venue. The seven current entries are Chromatic Drift, Fault Lines, Hollow Choir, Echo Garden, Voidwalk, Bura Ceramics, and David. Because the catalogue is written into the application, a new artwork can only be added by editing the software and publishing it again. The README file documents how to do this. There is no facility for a gallery to register its own work without a developer.",
+          text: "The catalogue is a fixed list held inside the application itself. Each entry consists of a code and three pieces of descriptive text: the title of the work, the artist, and the venue.",
         },
+        {
+          intro: "The seven current entries are:",
+          list: [
+            "Chromatic Drift",
+            "Fault Lines",
+            "Hollow Choir",
+            "Echo Garden",
+            "Voidwalk",
+            "Bura Ceramics",
+            "David",
+          ],
+        },
+        "Because the catalogue is written into the application, a new artwork can only be added by editing the software and publishing it again. The README file documents how to do this. There is no facility for a gallery to register its own work without a developer.",
         {
           lead: "Capturing a code.",
           text: "A visitor opens the add-stamp panel and chooses one of two methods. The first uses the phone's camera to read a QR code. The second is a text box in which the code is typed. A third route exists for institutions that would rather share a web link than print a barcode: a specially formed web address carries the code within it, and opening that link adds the stamp directly.",
@@ -229,7 +255,20 @@ export const vangoReport = {
         },
         {
           lead: "What the server stores.",
-          text: "The database holds two lists. The first is people: email address, hashed password, name, uploaded picture, membership date, passport number, and the moment the account was created. The second is stamps: which person, which artwork code, and on what date. That is the entire extent of it. The server does not record where the visitor was, what device they used, or how long they looked at anything.",
+          text: "The database holds two lists, and that is the entire extent of it. The server does not record where the visitor was, what device they used, or how long they looked at anything.",
+        },
+        {
+          table: {
+            caption: "Everything the server stores.",
+            headers: ["List", "Fields held"],
+            rows: [
+              [
+                "People",
+                "Email address, hashed password, name, uploaded picture, membership date, passport number, and the moment the account was created",
+              ],
+              ["Stamps", "Which person, which artwork code, and on what date"],
+            ],
+          },
         },
         {
           lead: "An important practical caveat.",

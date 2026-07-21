@@ -9,9 +9,16 @@
 // The source paper follows those rules; keep them if you edit this file.
 // ─────────────────────────────────────────────────────────────────────────
 
-/** A paragraph is either plain prose, or prose introduced by a bold lead-in
- *  (used for the labelled limitation entries). */
-export type Paragraph = string | { lead: string; text: string };
+/** A paragraph is plain prose, prose introduced by a bold lead-in (used for
+ *  the labelled limitation entries), or a bulleted list. The source paper
+ *  uses lists for the endangerment risk factors, the feasibility
+ *  sub-questions, the live data sources, and the IHL provisions; those are
+ *  reference material a reader scans rather than reads, so they are kept as
+ *  lists here. */
+export type Paragraph =
+  | string
+  | { lead: string; text: string }
+  | { intro?: string; list: string[]; ordered?: boolean };
 
 export interface ReportSection {
   id: string;
@@ -111,12 +118,17 @@ export const ceraiReport = {
       number: "03",
       title: "Objectives",
       paragraphs: [
-        "The tool is designed to provide a transparent and repeatable method for assessing civilian risk during a potential evacuation.",
-        "It separates the assessment of danger, or endangerment, from the assessment of operational possibility, or feasibility, so that legal obligations are not obscured by practical constraints.",
-        "It makes explicit how population vulnerability, including the presence of children, elderly people, people at risk of gender-based violence, and those with limited resources or mobility, changes the real level of risk faced by a community.",
-        "It anchors each assessment against documented historical cases, surfacing which past operations most resemble the current situation.",
-        "It communicates the resulting analysis in a form useful to humanitarian coordinators, political decision-makers, and legal reviewers, including explicit references to the relevant IHL obligations.",
-        "And it is honest about uncertainty, showing how confident the assessment is and how sensitive the conclusion is to assumptions.",
+        {
+          intro: "The tool is designed to do the following.",
+          list: [
+            "Provide a transparent and repeatable method for assessing civilian risk during a potential evacuation.",
+            "Separate the assessment of danger, or endangerment, from the assessment of operational possibility, or feasibility, so that legal obligations are not obscured by practical constraints.",
+            "Make explicit how population vulnerability, including the presence of children, elderly people, people at risk of gender-based violence, and those with limited resources or mobility, changes the real level of risk faced by a community.",
+            "Anchor each assessment against documented historical cases, surfacing which past operations most resemble the current situation.",
+            "Communicate the resulting analysis in a form useful to humanitarian coordinators, political decision-makers, and legal reviewers, including explicit references to the relevant IHL obligations.",
+            "Be honest about uncertainty, by showing how confident the assessment is and how sensitive the conclusion is to assumptions.",
+          ],
+        },
       ],
     },
     {
@@ -127,13 +139,33 @@ export const ceraiReport = {
         "The tool is organised around three connected dimensions. A user works through them by answering structured questions, and the tool presents the results on a set of easy-to-read dials and summaries.",
         {
           lead: "Dimension 1, endangerment.",
-          text: "How dangerous is it to remain? The analyst provides information across a range of risk factors, including the intensity of ongoing hostilities, how close armed groups are to the civilian population, indicators that an attack may be imminent, the risk of the conflict escalating, the presence of chemical or biological threats, non-conflict hazards such as extreme weather or disease, the availability of food, water, and energy, and the proportion of the population that is especially vulnerable.",
+          text: "How dangerous is it to remain? The analyst provides information across a range of risk factors, including the following.",
+        },
+        {
+          list: [
+            "The intensity of ongoing hostilities.",
+            "How close armed groups are to the civilian population.",
+            "Indicators that an attack may be imminent.",
+            "The risk of the conflict escalating.",
+            "The presence of chemical or biological threats.",
+            "Non-conflict hazards, such as extreme weather or disease.",
+            "The availability of food, water, and energy.",
+            "The proportion of the population that is especially vulnerable.",
+          ],
         },
         "Each factor is weighted according to how central it is to the corresponding legal obligation. For example, the intensity of hostilities carries the largest single weight, reflecting the core IHL protection of civilians from attack. The tool combines these into a single endangerment score, displayed on a gauge with a clearly marked threshold.",
         {
           lead: "Dimension 2, feasibility.",
-          text: "Is an organised evacuation possible now? This dimension assesses whether an evacuation could actually be carried out safely, broken into three sub-questions. Zone exit asks whether people can get out of the danger zone at all: is a corridor open, have armed groups consented, are routes mined, is an attack imminent. Route conditions asks whether the journey is survivable, covering weather, daylight, availability of transport, mines along the route, and the distance to safety. Protection at destination asks whether the place people are moving to is actually safe and able to receive them, covering shelter, medical capacity, security, willingness to receive, and consent of relevant actors. Each sub-question produces its own score, and the three are combined into a composite feasibility score.",
+          text: "Is an organised evacuation possible now? This dimension assesses whether an evacuation could actually be carried out safely, broken into three sub-questions.",
         },
+        {
+          list: [
+            "Zone exit asks whether people can get out of the danger zone at all: is a corridor open, have armed groups consented, are routes mined, is an attack imminent.",
+            "Route conditions asks whether the journey is survivable, covering weather, daylight, availability of transport, mines along the route, and the distance to safety.",
+            "Protection at destination asks whether the place people are moving to is actually safe and able to receive them, covering shelter, medical capacity, security, willingness to receive, and consent of relevant actors.",
+          ],
+        },
+        "Each sub-question produces its own score, and the three are combined into a composite feasibility score.",
         {
           lead: "Dimension 3, vulnerability.",
           text: "Who is most at risk, and how does that change the picture? The same objective situation is not equally dangerous for everyone. A route that an able-bodied adult can walk may be impassable for young children, the elderly, or the chronically ill. This dimension captures the make-up of the affected population and produces an adjustment multiplier that can raise or lower the risk picture within defined bounds.",
@@ -189,7 +221,16 @@ export const ceraiReport = {
       number: "07",
       title: "Connections to Live Data",
       paragraphs: [
-        "To move beyond manual entry, the prototype connects to several external, publicly available data sources. Nominatim, drawing on OpenStreetMap, converts a place name into coordinates. Open-Meteo retrieves current weather conditions for the assessed location. ACLED retrieves recorded conflict-event data, which can drive a data-based trajectory calculation. GDELT surfaces recent news articles relevant to the location.",
+        {
+          intro:
+            "To move beyond manual entry, the prototype connects to several external, publicly available data sources.",
+          list: [
+            "Location look-up, using Nominatim and OpenStreetMap, converts a place name into coordinates.",
+            "Weather, using Open-Meteo, retrieves current weather conditions for the assessed location.",
+            "Conflict events, using ACLED, retrieves recorded conflict-event data, which can drive a data-based trajectory calculation.",
+            "News signals, using GDELT, surface recent news articles relevant to the location.",
+          ],
+        },
         "The documentation also describes planned future connections to established humanitarian data systems, including UN OCHA and ReliefWeb access monitoring, the EU Global Conflict Risk Index, FEWS NET and IPC food-security data, and the INFORM Severity Index, as pathways to make the tool more automatically data-driven over time.",
         "Each manually entered figure can also be tagged with a source credibility level, ranging from unverified, through media and NGO reporting, to UN and ICRC verified, and with a data-freshness indicator, so that the reliability and age of the underlying evidence are visible in the assessment itself.",
       ],
@@ -199,8 +240,19 @@ export const ceraiReport = {
       number: "08",
       title: "Grounding in International Humanitarian Law",
       paragraphs: [
-        "A defining feature of CERAI is that its structure is tied directly to specific IHL obligations. The weighting of each risk factor is justified by reference to the legal provision it relates to. Examples cited in the tool include Article 49 of the Fourth Geneva Convention on evacuation where security demands; Article 51 of Additional Protocol I on the protection of civilians from attack; Article 57 of Additional Protocol I on precautions in attack, including effective advance warning; and Article 58 of Additional Protocol I on passive precautions, keeping civilians away from military objectives.",
-        "It also draws on Article 54 of the Fourth Geneva Convention and Article 70 of Additional Protocol I on the prohibition of starvation and the provision of relief, the special protections for children and the elderly in Articles 16 and 24 of the Fourth Geneva Convention and Articles 77 and 78 of Additional Protocol I, and the principles of non-refoulement and the safety of the receiving location.",
+        "A defining feature of CERAI is that its structure is tied directly to specific IHL obligations. The weighting of each risk factor is justified by reference to the legal provision it relates to.",
+        {
+          intro: "Examples cited in the tool include the following.",
+          list: [
+            "Fourth Geneva Convention, Article 49: evacuation where security demands.",
+            "Additional Protocol I, Article 51: protection of civilians from attack.",
+            "Additional Protocol I, Article 57: precautions in attack, including effective advance warning.",
+            "Additional Protocol I, Article 58: passive precautions, keeping civilians away from military objectives.",
+            "Fourth Geneva Convention, Article 54, and Additional Protocol I, Article 70: prohibition of starvation and provision of relief.",
+            "Special protections for children and the elderly: Fourth Geneva Convention, Articles 16 and 24, and Additional Protocol I, Articles 77 and 78.",
+            "Principles of non-refoulement and the safety of the receiving location.",
+          ],
+        },
         "The tool references established humanitarian doctrine and coordination frameworks from bodies including the ICRC, UN OCHA, UNHCR, WHO, IOM, and UN mine-action services, as well as the Ottawa Treaty on landmines and the Chemical Weapons Convention.",
         "The legal design principle is stated plainly: low feasibility must never be allowed to appear to extinguish the obligation to protect civilians. A high-danger, low-feasibility situation is precisely the case that should escalate political engagement rather than be quietly resolved by an algorithm.",
       ],

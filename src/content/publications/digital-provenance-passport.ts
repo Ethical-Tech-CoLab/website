@@ -9,9 +9,17 @@
 // The source paper follows those rules; keep them if you edit this file.
 // ─────────────────────────────────────────────────────────────────────────
 
-/** A paragraph is either plain prose, or prose introduced by a bold lead-in
- *  (used for the labelled limitation entries). */
-export type Paragraph = string | { lead: string; text: string };
+/** A paragraph is plain prose, prose introduced by a bold lead-in (used for
+ *  the labelled limitation entries), a bulleted or numbered list, or a table.
+ *  The list and table variants carry structure the source paper had and that
+ *  reads badly when flattened: the numbered objectives, the reliability
+ *  tiers with their weights, the red flags with their point deductions, and
+ *  the permitted-source list. */
+export type Paragraph =
+  | string
+  | { lead: string; text: string }
+  | { intro?: string; list: string[]; ordered?: boolean }
+  | { table: { caption?: string; headers: string[]; rows: string[][] } };
 
 export interface ReportSection {
   id: string;
@@ -115,13 +123,19 @@ export const provenancePassportReport = {
       number: "04",
       title: "Objectives",
       paragraphs: [
-        "The prototype is designed to reduce the time required to produce a first-pass provenance summary for a named object, from days of archival work to a single automated run.",
-        "It is designed to make hallucinated history structurally impossible to record, by refusing to enter any claim that does not carry the address of the source that made it.",
-        "It expresses the reliability of a provenance record as a single explicit number, accompanied by the itemised reasons that number is not higher.",
-        "It surfaces the specific categories of concern that matter in cultural-property law and in anti-money-laundering practice: undocumented periods, looting and restitution signals, origin in a country with active repatriation claims, and prices that bear no relation to an object's market value.",
-        "It demonstrates that an automated researcher can obtain paid due-diligence data on its own initiative, under a spending limit, and disclose in the final record exactly what it bought and what it paid.",
-        "It produces a record that is portable and tamper-evident, so that an assessment can be passed between a museum, a buyer, an insurer, and a regulator without any of them having to trust the others not to have edited it.",
-        "And it shows its working. Every score, flag, source, and payment decision appears in the output, and the underlying rules are short enough to be read and disputed by a non-programmer with the code in front of them.",
+        {
+          intro: "The prototype is designed to:",
+          ordered: true,
+          list: [
+            "Reduce the time required to produce a first-pass provenance summary for a named object, from days of archival work to a single automated run.",
+            "Make hallucinated history structurally impossible to record, by refusing to enter any claim that does not carry the address of the source that made it.",
+            "Express the reliability of a provenance record as a single explicit number, accompanied by the itemised reasons that number is not higher.",
+            "Surface the specific categories of concern that matter in cultural-property law and in anti-money-laundering practice: undocumented periods, looting and restitution signals, origin in a country with active repatriation claims, and prices that bear no relation to an object's market value.",
+            "Demonstrate that an automated researcher can obtain paid due-diligence data on its own initiative, under a spending limit, and disclose in the final record exactly what it bought and what it paid.",
+            "Produce a record that is portable and tamper-evident, so that an assessment can be passed between a museum, a buyer, an insurer, and a regulator without any of them having to trust the others not to have edited it.",
+            "Show its working. Every score, flag, source, and payment decision appears in the output, and the underlying rules are short enough to be read and disputed by a non-programmer with the code in front of them.",
+          ],
+        },
       ],
     },
     {
@@ -163,9 +177,30 @@ export const provenancePassportReport = {
           text: "Title is the only required field, and the anchor for every subsequent search. Artist is optional and used to disambiguate, and it matters far more for paintings than for antiquities, which are usually anonymous and identified by culture and period instead. Origin is the country or culture the object came from, and it is checked directly against a list of countries with active restitution claims. Known history is whatever the user has already been told, treated as text to be scanned for warning language rather than as established fact, which is the correct treatment: the story a seller tells is evidence about the seller as much as about the object. Asking price and estimated market value together enable the pricing check; supplying neither disables it.",
         },
         {
-          lead: "The reliability tiers.",
-          text: "Every fact recorded carries one of three tiers, which describe how strongly it is backed rather than how important it is: verified by authority, meaning a museum record, a UNESCO document, a registry entry, or a government record; reported in press, meaning a news outlet or secondary coverage; and inferred, meaning drawn by the software from cited context, and the least trustworthy of the three. These tiers are assigned mechanically from the address of the source. Each tier carries a numeric weight of 0.92, 0.60, and 0.30 respectively. The gap between the first two is deliberate and large. It encodes the judgment that an institution's own record of an object it holds is a materially different kind of evidence from a newspaper account of the same object, and the drop to 0.30 for inference marks the point at which a reader should stop treating a line as a finding.",
+          table: {
+            caption:
+              "The three reliability tiers. Every fact recorded carries one of them, describing how strongly it is backed rather than how important it is. Tiers are assigned mechanically from the address of the source: a page on the Metropolitan Museum's domain is treated as verified by authority, and anything outside the recognised institutions falls to reported in press.",
+            headers: ["Tier", "What it means", "Weight"],
+            rows: [
+              [
+                "Verified by authority",
+                "A museum record, a UNESCO document, a registry entry, or a government record",
+                "0.92",
+              ],
+              [
+                "Reported in press",
+                "A news outlet or secondary coverage",
+                "0.60",
+              ],
+              [
+                "Inferred",
+                "Drawn by the software from cited context, and the least trustworthy of the three",
+                "0.30",
+              ],
+            ],
+          },
         },
+        "The gap between the first two weights is deliberate and large. It encodes the judgment that an institution's own record of an object it holds is a materially different kind of evidence from a newspaper account of the same object, and the drop to 0.30 for inference marks the point at which a reader should stop treating a line as a finding.",
         {
           lead: "The confidence score.",
           text: "The headline number runs from 0 to 100, and it measures how well-documented the provenance appears, not how valuable or how important the object is. A high score means a clean, traceable record. A low score means gaps, warning signals, or both. The score is a measure of the evidence, not a verdict on the object.",
@@ -173,29 +208,59 @@ export const provenancePassportReport = {
         "The repository contains two implementations of this score, reflecting the fact that the project was built by more than one hand under time pressure. The web interface uses a deduction model. The score starts at 100, on the presumption that an object is well documented until something suggests otherwise, and named deductions are subtracted for each warning condition found, with the final figure held within the range 0 to 100. The command-line agent uses an accumulation model, which runs in the opposite direction. It starts at 30, a deliberately low base representing an object about which nothing has yet been established, and adds 18 points for every event confirmed by an authoritative institution and 8 points for every event reported in the press, capped at 100. It then subtracts 12 if the early history is undated or incomplete.",
         "The two models express the same intuition from opposite ends. The deduction model asks what is wrong with this record. The accumulation model asks how much of this record has actually been established. The second is the more conservative of the two, since an object with no published history at all scores 30 rather than 100. Neither has been validated against expert judgment, and the divergence between them is one of the prototype's clearer unfinished edges.",
         {
-          lead: "Provenance gap, minus 25 points, severity high.",
-          text: "Triggered when the gathered text contains language indicating an undocumented period, including the words undocumented, unknown owner, gap, missing, and no record, and also the years 1933, 1939, and 1945. Those three years are not arbitrary: they mark the Nazi accession to power, the outbreak of the Second World War in Europe, and its end, which is the period the Washington Principles are concerned with. This receives the second-largest deduction because a gap is the single most common signature of an illegitimate acquisition. Objects with clean histories tend to have documented ones.",
+          table: {
+            caption:
+              "The deductions used by the web pipeline. Each condition that matches produces a red flag carrying its category, its severity, and a sentence of evidence.",
+            headers: [
+              "Red flag",
+              "Deduction",
+              "Severity",
+              "What triggers it",
+            ],
+            rows: [
+              [
+                "Provenance gap",
+                "25 points",
+                "High",
+                "Language indicating an undocumented period: undocumented, unknown owner, gap, missing, no record, and the years 1933, 1939, and 1945",
+              ],
+              [
+                "Source-country origin",
+                "15 points",
+                "Medium",
+                "The stated origin, or the gathered text, mentions one of fourteen countries with active repatriation claims",
+              ],
+              [
+                "Looting signal",
+                "20 points",
+                "High",
+                "Looting or illicit-trade vocabulary: looted, stolen, tomb, excavated, smuggled, repatriated, illicit, or tombaroli",
+              ],
+              [
+                "Valuation outlier",
+                "30 points",
+                "High",
+                "An asking price more than three times the stated market estimate",
+              ],
+              [
+                "High value with no comparison",
+                "10 points",
+                "Low",
+                "An asking price above ten million United States dollars supplied with no market estimate to check it against",
+              ],
+              [
+                "Registry match",
+                "40 points",
+                "High",
+                "The paid commercial check returns a match against a stolen or repatriated record",
+              ],
+            ],
+          },
         },
-        {
-          lead: "Source-country origin, minus 15 points, severity medium.",
-          text: "Triggered when the object's stated origin, or the gathered text, mentions any of fourteen countries: Italy, Greece, Egypt, Turkey, Cambodia, China, Iraq, Peru, Mexico, Nigeria, India, Syria, Cyprus, and Thailand. These are countries that have pursued active repatriation claims, and the list is a shorthand for elevated restitution exposure. The deduction is modest by design. Originating in Egypt is not a defect in an object; it is a reason to check the paperwork more carefully.",
-        },
-        {
-          lead: "Looting signal, minus 20 points, severity high.",
-          text: "Triggered when the text contains looting or illicit-trade vocabulary: looted, stolen, tomb, excavated, smuggled, repatriated, illicit, or tombaroli, the Italian term for the tomb robbers who supply the antiquities market. This is a signal that the object, or objects of its type, appear in the literature of illicit trade.",
-        },
-        {
-          lead: "Valuation outlier, minus 30 points, severity high.",
-          text: "Triggered when an asking price is more than three times the stated market estimate. This carries the largest single deduction of the language-based rules, and it is not really a provenance rule at all. It is a money-laundering rule. Art is a recognised vehicle for moving illicit value precisely because it has no fixed price, and a wildly inflated sale is a recognised laundering technique. The threshold of three times is a judgment call rather than a figure derived from evidence.",
-        },
-        {
-          lead: "High value with no comparison, minus 10 points, severity low.",
-          text: "Triggered when an asking price above ten million United States dollars is supplied with no market estimate to check it against. This is a flag about missing information rather than about the object, and its deduction is correspondingly small.",
-        },
-        {
-          lead: "Registry match, minus 40 points, severity high.",
-          text: "Applied only after the paid commercial check returns a match against a stolen or repatriated record. This is the largest single movement in the system, and rightly so: it is the only deduction triggered by a direct hit in a dedicated register rather than by language found in general sources. The command-line implementation adds two further categories: a repatriation precedent flag when the timeline itself cites a return or restitution event, and a transaction flag recording the result of screening the system's own payment for exposure to sanctioned addresses.",
-        },
+        "The three years named in the gap rule are not arbitrary: they mark the Nazi accession to power, the outbreak of the Second World War in Europe, and its end, which is the period the Washington Principles are concerned with. The gap rule carries the second-largest deduction because a gap is the single most common signature of an illegitimate acquisition. Objects with clean histories tend to have documented ones.",
+        "The fourteen source countries are Italy, Greece, Egypt, Turkey, Cambodia, China, Iraq, Peru, Mexico, Nigeria, India, Syria, Cyprus, and Thailand. The list is a shorthand for elevated restitution exposure, and its deduction is modest by design. Originating in Egypt is not a defect in an object; it is a reason to check the paperwork more carefully.",
+        "The valuation rule carries the largest deduction of the language-based rules, and it is not really a provenance rule at all. It is a money-laundering rule. Art is a recognised vehicle for moving illicit value precisely because it has no fixed price, and a wildly inflated sale is a recognised laundering technique. The threshold of three times is a judgment call rather than a figure derived from evidence.",
+        "The registry match is the largest single movement in the system, and rightly so: it is the only deduction triggered by a direct hit in a dedicated register rather than by language found in general sources. The command-line implementation adds two further categories: a repatriation precedent flag when the timeline itself cites a return or restitution event, and a transaction flag recording the result of screening the system's own payment for exposure to sanctioned addresses.",
         {
           lead: "The spending variables.",
           text: "Because the prototype can spend money on its own initiative, the numbers that constrain that behaviour are as important as the ones that score the object. The vendor price is set by default to five United States cents, the cost of one premium search from the simulated vendor. The maximum spend per run is set by default to twenty-five cents, a hard ceiling: if the price of a check plus what has already been spent would exceed it, the check is refused and the refusal is recorded in the output. The conclusive threshold is set at 90 in the command-line agent, above which the agent will not buy a check at all, on the reasoning that the result could not change the conclusion. The web pipeline applies a comparable rule at a confidence of 85 combined with a complete absence of red flags. The design intention behind these three numbers is that an autonomous purchaser should have a price it knows, a ceiling it cannot cross, and a standard of sufficiency at which it stops buying. It is worth noting the distance between the demonstration and reality here. A real single search of the Art Loss Register has been priced in the region of sixty pounds sterling plus tax, not five cents, and at that price the economic reasoning the agent performs would carry considerably more weight.",
@@ -226,7 +291,17 @@ export const provenancePassportReport = {
       number: "08",
       title: "Data Sources and the Permitted-Source List",
       paragraphs: [
-        "The single most consequential design decision in the prototype is that its research is confined to a fixed list of permitted sources. The search is restricted to the domains of the Metropolitan Museum of Art, UNESCO including its World Heritage Centre, the Art Loss Register, the International Council of Museums, and United States government cultural-heritage sites.",
+        {
+          intro:
+            "The single most consequential design decision in the prototype is that its research is confined to a fixed list of permitted sources. The search is restricted to the domains of:",
+          list: [
+            "The Metropolitan Museum of Art",
+            "UNESCO, including its World Heritage Centre",
+            "The Art Loss Register",
+            "The International Council of Museums",
+            "United States government cultural-heritage sites",
+          ],
+        },
         "The purpose of the restriction is to make the tier system meaningful. If the system may search anywhere, then a claim in a collector's forum post and a claim in a museum's own accession record arrive in the same shape and the distinction between them has to be reconstructed after the fact. By searching only recognised institutions, the prototype makes the authority of a claim a property of where it was found.",
         "The named institutions are worth introducing for a reader unfamiliar with the field. UNESCO is the United Nations Educational, Scientific and Cultural Organization, and is the custodian of the principal international instrument on trafficking in cultural property. The International Council of Museums is the global professional body for museums, and publishes the Red Lists that identify categories of object at particular risk of illicit trafficking from specific regions. The Art Loss Register is a private London company that operates the largest commercial database of stolen art and conducts due-diligence checks for auction houses, dealers, insurers, and law enforcement, reportedly running several hundred thousand checks a year. The Metropolitan Museum of Art is included both as a collection record and, unavoidably, as a party to several of the best-documented restitution cases in the field.",
         "The cost of the restriction is that the list is short, and its omissions are substantial. It does not include the Getty Provenance Index, the German Lost Art Foundation's database, Interpol's stolen works of art database, the Art Institute of Chicago, Europeana, or the national heritage authorities of any of the fourteen countries the system itself identifies as source countries. An object well documented in a French or Turkish archive and absent from these six domains will return little, and the tool will report a thin record rather than an absent one. The two are not the same thing, and the prototype does not currently distinguish them.",

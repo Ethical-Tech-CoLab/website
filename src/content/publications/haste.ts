@@ -13,9 +13,16 @@
 // The source paper follows those rules; keep them if you edit this file.
 // ─────────────────────────────────────────────────────────────────────────
 
-/** A paragraph is either plain prose, or prose introduced by a bold lead-in
- *  (used for the labelled variable and limitation entries). */
-export type Paragraph = string | { lead: string; text: string };
+/** A paragraph is plain prose, prose introduced by a bold lead-in (used for
+ *  the labelled variable and limitation entries), a bulleted list, or a small
+ *  data table. The objectives, the imagery providers, the label classes, and
+ *  the reported performance figures are all reference material the reader
+ *  scans rather than reads, so they keep their original structure. */
+export type Paragraph =
+  | string
+  | { lead: string; text: string }
+  | { intro?: string; list: string[]; ordered?: boolean }
+  | { table: { caption?: string; headers: string[]; rows: string[][] } };
 
 export interface ReportSection {
   id: string;
@@ -115,10 +122,17 @@ export const hasteReport = {
       number: "03",
       title: "Objectives",
       paragraphs: [
-        "The platform is designed to produce a building-level damage estimate from post-disaster imagery quickly enough to be useful inside the first days of a response, and to allow a non-programmer to fit a model to a specific event using only a map interface, a mouse, and their own visual judgment.",
-        "It is designed to keep a human in control of every consequential step, including the decision to release a result at all, and to express uncertainty honestly, by measuring the model against a separate human-labelled sample and reporting a margin of error on the headline damage figure rather than a single confident number.",
-        "It is designed to produce outputs in standard geographic file formats so that they can be opened in the mapping software humanitarian organisations already use, and published openly where appropriate.",
-        "Finally, it is designed to remain deployable by others. The platform can be run on a laptop for evaluation or installed on an organisation's own cloud infrastructure, in which case that organisation, and not Microsoft, controls the imagery and the outputs.",
+        {
+          intro: "The platform is designed to do the following.",
+          list: [
+            "Produce a building-level damage estimate from post-disaster imagery quickly enough to be useful inside the first days of a response.",
+            "Allow a non-programmer to fit a model to a specific event using only a map interface, a mouse, and their own visual judgment.",
+            "Keep a human in control of every consequential step, including the decision to release a result at all.",
+            "Express uncertainty honestly, by measuring the model against a separate human-labelled sample and reporting a margin of error on the headline damage figure rather than a single confident number.",
+            "Produce outputs in standard geographic file formats so that they can be opened in the mapping software humanitarian organisations already use, and published openly where appropriate.",
+            "Remain deployable by others. The platform can be run on a laptop for evaluation or installed on an organisation's own cloud infrastructure, in which case that organisation, and not Microsoft, controls the imagery and the outputs.",
+          ],
+        },
       ],
     },
     {
@@ -161,13 +175,31 @@ export const hasteReport = {
       paragraphs: [
         "This section is the heart of the report. Every number an analyst can adjust, and every number fixed inside the code, is described below in ordinary terms: what it represents, why it is set where it is, and what it changes about the answer.",
         {
-          lead: "Background, Building, Damaged Building.",
-          text: "These are the three default categories an analyst draws with. They are stored internally as class values 1, 2, and 3. The reason Background exists as a class in its own right is important: the model is only taught by the pixels the analyst actually marked, so if a damaged roof is labelled without the ground around it, the model is never told what the ground is, and can produce a blurry, spreading prediction without ever being penalised for it. Labelling a building together with its surroundings is what forces the model to learn a boundary.",
+          lead: "The label classes.",
+          text: "These are the categories an analyst draws with. Each is stored internally as a class value, and later steps identify a class by that position rather than by its name.",
         },
         {
-          lead: "Cloud.",
-          text: "A fourth class, used to mark areas where the imagery cannot be read. Cloudy buildings are excluded from the damage statistics rather than counted as intact, which would otherwise bias the result downward in exactly the wet, storm-affected conditions where damage assessment matters most.",
+          table: {
+            headers: ["Class", "Stored value", "What it marks"],
+            rows: [
+              ["Background", "1", "Ground and anything that is not a building."],
+              ["Building", "2", "An intact structure."],
+              [
+                "Damaged Building",
+                "3",
+                "A structure showing damage. This is the class the damage figures are computed from.",
+              ],
+              [
+                "Cloud",
+                "4",
+                "Areas where cloud or shadow makes the imagery impossible to read.",
+              ],
+            ],
+            caption:
+              "The four positional label classes and the values they are stored as.",
+          },
         },
+        "Two of these choices carry more weight than they appear to. The reason Background exists as a class in its own right is that the model is only taught by the pixels the analyst actually marked, so if a damaged roof is labelled without the ground around it, the model is never told what the ground is, and can produce a blurry, spreading prediction without ever being penalised for it. Labelling a building together with its surroundings is what forces the model to learn a boundary. And cloudy buildings are excluded from the damage statistics rather than counted as intact, which would otherwise bias the result downward in exactly the wet, storm-affected conditions where damage assessment matters most.",
         {
           lead: "No Damage and Flood Extent.",
           text: "Two additional classes offered for earthquake, fire, and flood event types respectively. Flood Extent lets the analyst mark standing water, which HASTE can intersect with building outlines to say which buildings are in water. It does not estimate how deep that water is.",
@@ -317,7 +349,17 @@ export const hasteReport = {
       paragraphs: [
         {
           lead: "Imagery.",
-          text: "HASTE holds no imagery of its own; the analyst supplies it. The documentation records that in past activations imagery has come from Planet, a commercial operator of a large constellation of small satellites that publishes disaster imagery openly; Maxar, now Vantor, a commercial provider of high-resolution imagery with its own open data programme for disasters; the Airbus Foundation; Sentinel-1 and Sentinel-2, the radar and optical satellites of the European Union's Copernicus programme, whose data is free to all; products from the Copernicus Emergency Management Service; and aerial imagery from the United States National Oceanic and Atmospheric Administration. Only GeoTIFF files are accepted.",
+          text: "HASTE holds no imagery of its own; the analyst supplies it. Only GeoTIFF files are accepted. The documentation records that in past activations imagery has come from the following providers.",
+        },
+        {
+          list: [
+            "Planet, a commercial operator of a large constellation of small satellites that publishes disaster imagery openly.",
+            "Maxar, now Vantor, a commercial provider of high-resolution imagery with its own open data programme for disasters.",
+            "The Airbus Foundation.",
+            "Sentinel-1 and Sentinel-2, the radar and optical satellites of the European Union's Copernicus programme, whose data is free to all.",
+            "Products from the Copernicus Emergency Management Service.",
+            "Aerial imagery from the United States National Oceanic and Atmospheric Administration.",
+          ],
         },
         "The software itself has no live connection to any of these providers. Placeholder functions for fetching imagery directly from Maxar and Planet exist in the code but are empty. In practice the analyst supplies a link to a file, and for security reasons those links may point only at Azure Blob Storage or Amazon S3, the two hosting services on the platform's permitted list. Public disaster imagery from the major providers is generally published on one of those, which is why the restriction is workable.",
         "HASTE does adjust for the provider in one respect. Different satellites record their colour bands in different orders, and some record bands the human eye cannot see, so the platform holds a lookup table of band orders for Planet Scope, Planet Skysat, Maxar, Sentinel-2, and one partner-specific format, and uses it to assemble a correct colour picture. Where the source is unknown it falls back to reading the labels embedded in the file, and failing that assumes the first three bands are red, green, and blue.",
@@ -341,9 +383,32 @@ export const hasteReport = {
       title: "Evidence of Performance",
       paragraphs: [
         "The research paper published alongside the platform, HASTE: A Platform for Rapid Post-Disaster Building Damage Assessment (arXiv:2607.11838), reports experiments on xBD, a public benchmark dataset of paired pre-event and post-event satellite imagery with expert damage annotations. The team collapsed the benchmark's minor, major, and destroyed categories into a single damaged category and measured how well each embedding method performed as the number of labels was varied.",
-        "The reported finding is that with as little as one per cent of the available labels, the strongest embedding reached a discrimination score of 0.84, rising to 0.91 at ten per cent, against 0.88 for a fully supervised ResNet-50 model trained on all of the labels. The practical claim, that a handful of labels plus a good general-purpose image description can match a conventionally trained model, is what makes the fast route viable.",
+        {
+          table: {
+            headers: ["Approach", "Labels used", "Discrimination score"],
+            rows: [
+              ["Strongest embedding", "1 per cent", "0.84"],
+              ["Strongest embedding", "10 per cent", "0.91"],
+              ["Fully supervised ResNet-50", "All labels", "0.88"],
+            ],
+            caption:
+              "Reported performance on the xBD benchmark as the number of labels was varied.",
+          },
+        },
+        "The practical claim, that a handful of labels plus a good general-purpose image description can match a conventionally trained model, is what makes the fast route viable.",
         "The same paper reports thirty-one field deployments since early 2023, including four cities assessed within three days of the February 2023 Türkiye earthquakes, a tornado assessment in Rolling Fork delivered in under two hours at 0.86 precision and 0.80 recall against field ground truth, and the August 2023 Maui wildfire, where imagery available at nine in the morning yielded an assessment by one in the afternoon identifying roughly 1,700 damaged buildings.",
-        "For Hurricane Melissa in Jamaica in late 2025, four areas covering about 2,300 square kilometres were assessed. In Black River, some 110,000 building outlines were examined, of which around 65,000 were obscured by cloud; the validated result was 96 per cent recall at 82 per cent precision, with an estimated 31,000 damaged buildings. In Montego Bay the corresponding figures were 86 per cent recall and 71 per cent precision.",
+        "For Hurricane Melissa in Jamaica in late 2025, four areas covering about 2,300 square kilometres were assessed. In Black River, some 110,000 building outlines were examined, of which around 65,000 were obscured by cloud.",
+        {
+          table: {
+            headers: ["Area", "Recall", "Precision", "Estimated damaged"],
+            rows: [
+              ["Black River", "96 per cent", "82 per cent", "31,000 buildings"],
+              ["Montego Bay", "86 per cent", "71 per cent", "Not reported"],
+            ],
+            caption:
+              "Validated results for two of the areas assessed during the Hurricane Melissa response.",
+          },
+        },
         "These numbers deserve to be read carefully. The variation between Black River and Montego Bay, on the same event with the same team days apart, is substantial, and the very large share of cloud-obscured buildings in Black River is a reminder that a headline damage estimate can rest on a minority of the buildings actually present.",
       ],
     },

@@ -13,9 +13,17 @@
 // The source paper follows those rules; keep them if you edit this file.
 // ─────────────────────────────────────────────────────────────────────────
 
-/** A paragraph is either plain prose, or prose introduced by a bold lead-in
- *  (used for the labelled limitation entries). */
-export type Paragraph = string | { lead: string; text: string };
+/** A paragraph is plain prose, prose introduced by a bold lead-in (used for
+ *  the labelled limitation entries), a bulleted or numbered list, or a table.
+ *  The list and table variants carry structure the source paper had: the
+ *  numbered objectives, the seven factors, the four statuses and their
+ *  scores, the confidence bands, the eight evacuee archetypes with their
+ *  vulnerability values, the composite weights, and the cited sources. */
+export type Paragraph =
+  | string
+  | { lead: string; text: string }
+  | { intro?: string; list: string[]; ordered?: boolean }
+  | { table: { caption?: string; headers: string[]; rows: string[][] } };
 
 export interface ReportSection {
   id: string;
@@ -122,12 +130,18 @@ export const erusReport = {
       number: "03",
       title: "Objectives",
       paragraphs: [
-        "Make the propagation of uncertainty through an evacuation decision visible and measurable, rather than asserted.",
-        "Express readiness as a distribution of possible outcomes rather than as a single point estimate that conceals its own fragility.",
-        "Encode the fact that certain conditions are not tradeable. A site under active threat cannot be redeemed by an excellent food supply, and the arithmetic of the model must refuse to allow that trade.",
-        "Keep the distinction between an unresolved question and a settled refusal, so that an unresolvable exclusion is never presented as an intelligence gap.",
-        "Identify which specific unknowns, if resolved, would most improve the predicted outcome, so that scarce assessment capacity can be pointed at the questions that matter.",
-        "Make every result exactly reproducible by anyone who has four numbers, so that a claim made from the tool can be independently regenerated and checked.",
+        {
+          intro: "The simulator sets itself six objectives:",
+          ordered: true,
+          list: [
+            "Make the propagation of uncertainty through an evacuation decision visible and measurable, rather than asserted.",
+            "Express readiness as a distribution of possible outcomes rather than as a single point estimate that conceals its own fragility.",
+            "Encode the fact that certain conditions are not tradeable. A site under active threat cannot be redeemed by an excellent food supply, and the arithmetic of the model must refuse to allow that trade.",
+            "Keep the distinction between an unresolved question and a settled refusal, so that an unresolvable exclusion is never presented as an intelligence gap.",
+            "Identify which specific unknowns, if resolved, would most improve the predicted outcome, so that scarce assessment capacity can be pointed at the questions that matter.",
+            "Make every result exactly reproducible by anyone who has four numbers, so that a claim made from the tool can be independently regenerated and checked.",
+          ],
+        },
       ],
     },
     {
@@ -169,18 +183,74 @@ export const erusReport = {
       paragraphs: [
         "This section is the substance of the report. Every number the tool uses is listed below in plain terms: what it represents, why it was set where it was set, and how it reaches the result.",
         {
-          lead: "The seven factors.",
-          text: "Each destination is described by seven qualities. Security, whether the site is under threat. Authority consent, whether the relevant host authority has agreed to the movement. Willingness, whether the host community itself is prepared to receive people. Those three are gatekeepers, marked as such in the code. The remaining four are Capacity, whether there is room; Shelter, whether there is somewhere to sleep; Food and water, whether basic provisions exist; and Medical capacity, whether there is clinical care.",
+          table: {
+            caption:
+              "The seven factors by which each destination is described. The three gatekeepers are marked as such in the code.",
+            headers: ["Factor", "What it asks", "Role"],
+            rows: [
+              [
+                "Security",
+                "Whether the site is under threat",
+                "Gatekeeper",
+              ],
+              [
+                "Authority consent",
+                "Whether the relevant host authority has agreed to the movement",
+                "Gatekeeper",
+              ],
+              [
+                "Willingness",
+                "Whether the host community itself is prepared to receive people",
+                "Gatekeeper",
+              ],
+              ["Capacity", "Whether there is room", "Standard"],
+              ["Shelter", "Whether there is somewhere to sleep", "Standard"],
+              [
+                "Food and water",
+                "Whether basic provisions exist",
+                "Standard",
+              ],
+              [
+                "Medical capacity",
+                "Whether there is clinical care",
+                "Standard",
+              ],
+            ],
+          },
         },
         "The three gatekeepers were chosen because each represents a condition that cannot be compensated for by anything else. The project's concept note states the reasoning plainly for Security: a site under active threat cannot be made viable by good food supply. Willingness was originally an ordinary factor and was promoted to gatekeeper status during development, precisely because as an ordinary factor it allowed strong shelter, food, and medical scores to arithmetically outweigh an outright refusal.",
         {
-          lead: "The four statuses.",
-          text: "Every factor, at every destination, holds one of four values, which convert to numbers as follows. Operational scores 1.0, the factor is in good order. Partial scores 0.5, the factor is degraded but functioning. Blocked scores 0.0, the factor has failed. Unknown scores 0.30 before any adjustment.",
+          table: {
+            caption:
+              "Every factor, at every destination, holds one of four statuses, which convert to numbers as follows.",
+            headers: ["Status", "Score", "Meaning"],
+            rows: [
+              ["Operational", "1.0", "The factor is in good order"],
+              ["Partial", "0.5", "The factor is degraded but functioning"],
+              ["Blocked", "0.0", "The factor has failed"],
+              [
+                "Unknown",
+                "0.30 before any adjustment",
+                "The factor has not been assessed",
+              ],
+            ],
+          },
         },
         "The choice of 0.30 for Unknown is the model's stance on ignorance. It is deliberately below Partial. An unassessed factor is not treated as probably fine. It is treated as more likely to be a problem than not, which the documentation calls epistemic conservatism, meaning caution about what one does not know.",
         {
           lead: "Confidence, and why it is applied twice.",
-          text: "Each factor also carries a base confidence, a number between zero and one describing how well that particular thing was assessed. The generator assigns it by status. An Unknown factor gets a low base confidence, between 0.05 and 0.50. A Blocked factor gets a middling one, between 0.40 and 0.75. An Operational or Partial factor gets a high one, between 0.60 and 0.95. The logic is that a field team reporting a functioning clinic has usually seen it, whereas a team reporting that they do not know has by definition seen less.",
+          text: "Each factor also carries a base confidence, a number between zero and one describing how well that particular thing was assessed. The generator assigns it by status. The logic is that a field team reporting a functioning clinic has usually seen it, whereas a team reporting that they do not know has by definition seen less.",
+        },
+        {
+          table: {
+            caption: "Base confidence assigned by status.",
+            headers: ["Status", "Base confidence"],
+            rows: [
+              ["Unknown", "0.05 to 0.50"],
+              ["Blocked", "0.40 to 0.75"],
+              ["Operational or Partial", "0.60 to 0.95"],
+            ],
+          },
         },
         "Separately, the Field Uncertainty slider produces a single confidence multiplier applied to every factor at once. If the slider reads thirty per cent uncertainty, the multiplier is 0.70, and every factor's confidence is reduced to seventy per cent of what it was. This is the whole-environment term: how degraded is the information picture right now, across the board. The two multiply together to give an effective confidence for each factor. This is the pairing the concept note calls uncertainty twice over.",
         {
@@ -198,18 +268,68 @@ export const erusReport = {
         },
         {
           lead: "The evacuee groups.",
-          text: "Groups are drawn from eight fixed population types, described in the methodology as grounded in field taxonomy and in the categories of persons afforded specific protection under international humanitarian law. Only the size of a group is randomised, between 50 and 2,000 people. Each type carries three fixed properties. Elderly and mobility-impaired: vulnerability 5, mobility needs, immediate urgency. Wounded and medical cases: vulnerability 5, medical needs, immediate urgency. Unaccompanied minors: vulnerability 5, medical needs, immediate urgency. Families with children: vulnerability 4, no special need, urgent. Pregnant women: vulnerability 4, medical needs, urgent. Journalists and aid workers: vulnerability 2, no special need, urgent. Unaccompanied adults: vulnerability 2, no special need, can wait. Mixed general population: vulnerability 2, no special need, can wait.",
+          text: "Groups are drawn from eight fixed population types, described in the methodology as grounded in field taxonomy and in the categories of persons afforded specific protection under international humanitarian law. Only the size of a group is randomised, between 50 and 2,000 people. Each type carries three fixed properties.",
+        },
+        {
+          table: {
+            caption:
+              "The eight evacuee archetypes and their fixed properties.",
+            headers: ["Group", "Vulnerability", "Special need", "Urgency"],
+            rows: [
+              [
+                "Elderly and mobility-impaired",
+                "5",
+                "Mobility",
+                "Immediate",
+              ],
+              ["Wounded and medical cases", "5", "Medical", "Immediate"],
+              ["Unaccompanied minors", "5", "Medical", "Immediate"],
+              ["Families with children", "4", "None", "Urgent"],
+              ["Pregnant women", "4", "Medical", "Urgent"],
+              ["Journalists and aid workers", "2", "None", "Urgent"],
+              ["Unaccompanied adults", "2", "None", "Can wait"],
+              ["Mixed general population", "2", "None", "Can wait"],
+            ],
+          },
         },
         "Vulnerability runs on a five-point scale. Urgency determines the order in which groups are assigned, which matters because assignment is sequential and capacity runs out. The special-needs marker determines whether a destination's medical provision is treated as decisive for that group.",
         {
           lead: "The composite score, and its four weights.",
-          text: "Readiness alone does not decide where a group goes. The tool ranks destinations for each group using a composite score built from four parts. Readiness, weight 0.40, the quality of protection at the site. Capacity fit, weight 0.30, the site's capacity divided by the group's size, capped at 1.0, since a site twice the size of the group scores the same as one ten times its size and surplus beyond sufficiency adds nothing. Proximity, weight 0.20, one minus the distance divided by the 400 kilometre maximum, so a nearby site scores near 1.0 and the furthest scores near zero. Vulnerability match, weight 0.10, a binary: 1.0 if the group has a special need and the site's medical capacity is Operational, and 0.5 in every other case.",
+          text: "Readiness alone does not decide where a group goes. The tool ranks destinations for each group using a composite score built from four parts.",
+        },
+        {
+          table: {
+            headers: ["Component", "Weight", "What it measures"],
+            rows: [
+              ["Readiness", "0.40", "The quality of protection at the site"],
+              [
+                "Capacity fit",
+                "0.30",
+                "The site's capacity divided by the group's size, capped at 1.0, since a site twice the size of the group scores the same as one ten times its size and surplus beyond sufficiency adds nothing",
+              ],
+              [
+                "Proximity",
+                "0.20",
+                "One minus the distance divided by the 400 kilometre maximum, so a nearby site scores near 1.0 and the furthest scores near zero",
+              ],
+              [
+                "Vulnerability match",
+                "0.10",
+                "A binary: 1.0 if the group has a special need and the site's medical capacity is Operational, and 0.5 in every other case",
+              ],
+            ],
+          },
         },
         "The in-app methodology states the ordering these weights encode: protection quality first, physical fit second, operational burden third, population needs fourth.",
         "One observation worth recording. Because vulnerability match is checked only against medical capacity, a group whose stated need is mobility rather than medical is rewarded by the presence of a clinic. The mobility need has no separate representation anywhere in the scoring. This is a simplification the documentation does not flag.",
         {
-          lead: "The Monte Carlo variables.",
-          text: "Three numbers govern the simulation of uncertainty. Runs, set to 500 per group and destination pair, is how many times each pairing is tested; more runs give a tighter estimate at the cost of speed, and the information-value panel uses a cheaper 100 runs whose output the documentation says should be read as directional only. Maximum perturbation probability, set to 0.85, is the ceiling on how likely a factor's assessment is to be wrong in a given trial, so that at an effective confidence of zero a factor still has a fifteen per cent chance of being reported correctly and the tool never assumes information is entirely worthless. The perturbation step is fixed at one level: when a factor is judged to be misreported it moves exactly one place better or worse along the sequence, with an even chance of each direction. The documentation acknowledges this as a simplification, noting that a real mis-assessment could jump multiple levels, such as an Operational site being reported as Blocked.",
+          intro:
+            "Three numbers govern the simulation of uncertainty itself:",
+          list: [
+            "Runs, set to 500 per group and destination pair. This is how many times each pairing is tested. More runs give a tighter estimate at the cost of speed, and the information-value panel uses a cheaper 100 runs whose output the documentation says should be read as directional only.",
+            "Maximum perturbation probability, set to 0.85. This is the ceiling on how likely a factor's assessment is to be wrong in a given trial, so that at an effective confidence of zero a factor still has a fifteen per cent chance of being reported correctly. The tool never assumes information is entirely worthless.",
+            "The perturbation step, fixed at one level. When a factor is judged to be misreported it moves exactly one place better or worse along the sequence, with an even chance of each direction. The documentation acknowledges this as a simplification, noting that a real mis-assessment could jump multiple levels, such as an Operational site being reported as Blocked.",
+          ],
         },
         "Factors already recorded as Unknown are never perturbed. Uncertainty about an unknown is already expressed in its low score and low confidence.",
         {
@@ -276,11 +396,17 @@ export const erusReport = {
       title: "Grounding in Humanitarian Standards and Law",
       paragraphs: [
         "The tool's own source table is explicit about a boundary that matters. No real dataset is used anywhere. The sources listed inform the design of the model, meaning which factors exist, which are gatekeepers, and where thresholds come from. They do not supply data.",
-        "The Sphere Handbook, fourth edition, 2018, sits behind the Shelter and Food and water factors. Sphere is a voluntary set of minimum standards for humanitarian response, developed by a coalition of humanitarian organisations. The two figures the tool cites from it are accurate: a minimum of 15 litres of water per person per day, and 3.5 square metres of covered living space per person.",
-        "The UNHCR Handbook for Emergencies, third edition, 2007, is cited as the origin of the forty per cent minimum readiness threshold. UNHCR is the United Nations refugee agency.",
-        "Inter-Agency Standing Committee guidance from 2007 is cited behind the Authority consent gatekeeper. The Inter-Agency Standing Committee is the main coordination forum of the United Nations and non-governmental humanitarian system. Its guidance in this area establishes that humanitarian operations require the consent of the host government, which is the principle the gatekeeper encodes.",
-        "Additional Protocol I to the Geneva Conventions, 1977, Articles 12 and 58, sits behind the Medical capacity and Security factors. Article 12 protects medical units from attack. Article 58 requires parties to a conflict to take precautions to protect civilians under their own control from the effects of attacks.",
-        "An ICRC publication from 2013 on violence and the use of force is cited as grounding the Security gatekeeper. The ICRC is the International Committee of the Red Cross, the body with a specific mandate under the Geneva Conventions. Park and Miller, 1988, is cited for the random number generator, which is a computing citation rather than a humanitarian one.",
+        {
+          intro: "The sources the tool names are as follows.",
+          list: [
+            "The Sphere Handbook, fourth edition, 2018, behind the Shelter and Food and water factors. Sphere is a voluntary set of minimum standards for humanitarian response, developed by a coalition of humanitarian organisations. The two figures the tool cites from it are accurate: a minimum of 15 litres of water per person per day, and 3.5 square metres of covered living space per person.",
+            "The UNHCR Handbook for Emergencies, third edition, 2007, cited as the origin of the forty per cent minimum readiness threshold. UNHCR is the United Nations refugee agency.",
+            "Inter-Agency Standing Committee guidance from 2007, cited behind the Authority consent gatekeeper. The Inter-Agency Standing Committee is the main coordination forum of the United Nations and non-governmental humanitarian system. Its guidance in this area establishes that humanitarian operations require the consent of the host government, which is the principle the gatekeeper encodes.",
+            "Additional Protocol I to the Geneva Conventions, 1977, Articles 12 and 58, behind the Medical capacity and Security factors. Article 12 protects medical units from attack. Article 58 requires parties to a conflict to take precautions to protect civilians under their own control from the effects of attacks.",
+            "An ICRC publication from 2013 on violence and the use of force, cited as grounding the Security gatekeeper. The ICRC is the International Committee of the Red Cross, the body with a specific mandate under the Geneva Conventions.",
+            "Park and Miller, 1988, for the random number generator, which is a computing citation rather than a humanitarian one.",
+          ],
+        },
         "A reader should treat these citations as the origin of design choices rather than as validation of the numbers. The tool does not claim that Sphere endorses a weight of 2 for gatekeepers, and it should not be read as claiming so.",
       ],
     },

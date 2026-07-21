@@ -9,9 +9,17 @@
 // The source paper follows those rules; keep them if you edit this file.
 // ─────────────────────────────────────────────────────────────────────────
 
-/** A paragraph is either plain prose, or prose introduced by a bold lead-in
- *  (used for the labelled limitation entries). */
-export type Paragraph = string | { lead: string; text: string };
+/** A paragraph is plain prose, prose introduced by a bold lead-in (used for
+ *  the labelled limitation entries), a bulleted or numbered list, or a table.
+ *  The list and table variants carry structure the source paper had: the
+ *  numbered objectives, the three input routes, the watchlist domains and the
+ *  institutions behind them, the four score penalties, the display bands, and
+ *  the restricted domain list. */
+export type Paragraph =
+  | string
+  | { lead: string; text: string }
+  | { intro?: string; list: string[]; ordered?: boolean }
+  | { table: { caption?: string; headers: string[]; rows: string[][] } };
 
 export interface ReportSection {
   id: string;
@@ -108,10 +116,18 @@ export const provenanceSearchReport = {
       number: "03",
       title: "Objectives",
       paragraphs: [
-        "The tool is designed to assemble, from free and public sources only, whatever documented ownership history exists for a named artwork, without requiring the user to hold a subscription to any commercial database.",
-        "It presents that history as a dated chronological timeline in which every entry carries the source it came from, so that a reader can follow any claim back to its origin. It reports the absence of information as a finding in its own right, rather than presenting an incomplete chain as though it were complete.",
-        "It raises an explicit, high-severity alert when the search turns up material on the public sites of the recognised stolen-art and looted-art registries, and it expresses overall reliability as a single number produced by a fixed published rule, so that the score cannot drift with the mood of a language model and can be audited by anyone.",
-        "It is also designed to work in the setting where the question is most often asked, including on a mobile telephone in a gallery, by allowing the object to be photographed rather than described.",
+        {
+          intro: "The tool is designed to:",
+          ordered: true,
+          list: [
+            "Assemble, from free and public sources only, whatever documented ownership history exists for a named artwork, without requiring the user to hold a subscription to any commercial database.",
+            "Present that history as a dated chronological timeline in which every entry carries the source it came from, so that a reader can follow any claim back to its origin.",
+            "Report the absence of information as a finding in its own right, rather than presenting an incomplete chain as though it were complete.",
+            "Raise an explicit, high-severity alert when the search turns up material on the public sites of the recognised stolen-art and looted-art registries.",
+            "Express overall reliability as a single number produced by a fixed published rule, so that the score cannot drift with the mood of a language model and can be audited by anyone.",
+            "Work in the setting where the question is most often asked, including on a mobile telephone in a gallery, by allowing the object to be photographed rather than described.",
+          ],
+        },
       ],
     },
     {
@@ -122,8 +138,16 @@ export const provenanceSearchReport = {
         "The system has four stages. A user's request passes through all of them in a single operation that takes a few seconds.",
         {
           lead: "Stage one, describing the object.",
-          text: "The user supplies what they know through one of three routes: a text form with fields for title, artist, period or date, medium, and an optional last known sale price; an uploaded photograph of the object; or a photograph taken there and then with the device camera, which is the mode intended for use in a museum or a saleroom. If a photograph is supplied, it is sent to Gemini's image-reading capability, which returns its best guess at title, artist, period, and medium, together with its own self-reported certainty about that identification and a short note. Those values are written into the form, and the search then runs automatically. Only the title and the artist are strictly required to proceed. Large photographs are reduced in size before they are sent, so that a high-resolution telephone image does not exceed the limits of the free service.",
+          text: "The user supplies what they know through one of three routes.",
         },
+        {
+          list: [
+            "A text form with fields for title, artist, period or date, medium, and an optional last known sale price.",
+            "An uploaded photograph of the object.",
+            "A photograph taken there and then with the device camera, which is the mode intended for use in a museum or a saleroom.",
+          ],
+        },
+        "If a photograph is supplied, it is sent to Gemini's image-reading capability, which returns its best guess at title, artist, period, and medium, together with its own self-reported certainty about that identification and a short note. Those values are written into the form, and the search then runs automatically. Only the title and the artist are strictly required to proceed. Large photographs are reduced in size before they are sent, so that a high-resolution telephone image does not exceed the limits of the free service.",
         {
           lead: "Stage two, querying the sources.",
           text: "The title and artist are combined into a search phrase and sent to seven sources at the same time. Each source returns one of three verdicts about the object: a hit was found and it raises no alarm; a hit was found on a registry of lost or stolen property; or nothing matching was found.",
@@ -158,34 +182,77 @@ export const provenanceSearchReport = {
           text: "This optional figure exists to support a single check. If the user supplies a price, the model is asked whether that price is clearly out of line with a comparable figure actually present in the retrieved sources. If, and only if, such a comparable exists and the supplied price is inconsistent with it, the valuation is marked anomalous. The instruction is deliberately conservative: with no price supplied, or no comparable found, the answer is always no. A price far above or below the plausible market level is a recognised signal in art-market due diligence, since valuation is one of the few numbers that has to be stated openly and is therefore one of the few that can be checked against the record.",
         },
         {
-          lead: "What each source contributes.",
-          text: "Each of the seven sources returns one of three verdicts. Clear means the source found at least one matching record and nothing alarming. Flagged means the restricted web search returned a result hosted on one of the loss and stolen-property registries. Not found means the source returned nothing, or was skipped because no access key was configured, or failed. Only the primary web search can return the flagged verdict. The museum and reference sources can only ever say clear or not found, because they hold collection catalogues rather than loss reports.",
+          intro: "Each of the seven sources returns one of three verdicts.",
+          list: [
+            "Clear means the source found at least one matching record and nothing alarming.",
+            "Flagged means the restricted web search returned a result hosted on one of the loss and stolen-property registries.",
+            "Not found means the source returned nothing, or was skipped because no access key was configured, or failed.",
+          ],
         },
+        "Only the primary web search can return the flagged verdict. The museum and reference sources can only ever say clear or not found, because they hold collection catalogues rather than loss reports.",
         {
-          lead: "The watchlist rule.",
-          text: "Five internet domains are designated as the watchlist: interpol.int, artloss.com, lostart.de, lootedart.com, and fbi.gov. These correspond respectively to INTERPOL's stolen works of art work, the Art Loss Register, the German Lost Art Foundation's database, the Central Registry of Information on Looted Cultural Property, and the FBI's stolen art file. If any result returned by the primary web search is hosted on one of these five domains, the software adds a risk flag of type watchlist match at high severity, records which domain it came from, and links to the page.",
+          table: {
+            caption:
+              "The watchlist. If any result returned by the primary web search is hosted on one of these five domains, the software adds a risk flag of type watchlist match at high severity, records which domain it came from, and links to the page.",
+            headers: ["Domain", "Institution behind it"],
+            rows: [
+              ["interpol.int", "INTERPOL's stolen works of art database"],
+              ["artloss.com", "The Art Loss Register"],
+              ["lostart.de", "The German Lost Art Foundation's database"],
+              [
+                "lootedart.com",
+                "The Central Registry of Information on Looted Cultural Property",
+              ],
+              ["fbi.gov", "The FBI's stolen art file"],
+            ],
+          },
         },
         "This rule is deterministic. It runs in the server's own code after the model has finished, it compares the address of each returned page against the list of five, and it does not ask the model's opinion. That is a deliberate safeguard: the single most consequential signal the tool can produce is the one signal that a language model is not permitted to suppress or to invent. It is also the one signal that disappears entirely if the web-search service is not configured, a dependency the repository documents plainly.",
-        "The confidence score begins at 100 per cent and is reduced by four penalties. It is then held within the range of 0 to 100.",
         {
-          lead: "Minus 30 points for each custody gap.",
-          text: "A custody gap is any timeline entry the model marked as a period of unaccounted-for ownership. This is the heaviest penalty in the calculation, and the weighting reflects the professional convention that in provenance work an unexplained break in the chain is the primary warning sign, not a minor blemish. The severity of the penalty also means the score falls very fast. Two gaps alone remove 60 points. Three take the score to zero on their own.",
+          table: {
+            caption:
+              "The confidence score begins at 100 per cent, is reduced by these four penalties, and is then held within the range of 0 to 100. The result is divided by 100 and reported as a proportion, which the interface displays as a percentage.",
+            headers: ["Penalty", "Deduction", "When it applies"],
+            rows: [
+              [
+                "Custody gap",
+                "30 points each",
+                "Any timeline entry the model marked as a period of unaccounted-for ownership",
+              ],
+              [
+                "Thin corroboration",
+                "25 points",
+                "Fewer than three of the seven sources returned anything at all",
+              ],
+              [
+                "High-severity risk flag",
+                "10 points each",
+                "Automatic watchlist matches, and any high-severity flag the model raised from the retrieved material, such as a documented forced transfer or an unresolved legal claim",
+              ],
+              [
+                "Anomalous valuation",
+                "10 points",
+                "The supplied sale price was marked anomalous against a comparable figure found in the sources",
+              ],
+            ],
+          },
         },
-        {
-          lead: "Minus 25 points for thin corroboration.",
-          text: "This penalty applies if fewer than three of the seven sources returned anything at all. The term measures corroboration rather than content. A finding supported by one source is a lead; a finding that four independent sources recognise is an established record. The threshold of three out of seven is a judgment call by the developer rather than a derived figure. Note also that the test counts any verdict other than not found, so a flagged result counts towards corroboration in the same way a clear result does, on the reasoning that a registry hit still demonstrates that the object is known to the record.",
-        },
-        {
-          lead: "Minus 10 points for each high-severity risk flag.",
-          text: "This includes both the automatic watchlist matches and any high-severity flag the model itself raised from the retrieved material, such as a documented forced transfer or an unresolved legal claim.",
-        },
-        {
-          lead: "Minus 10 points for an anomalous valuation.",
-          text: "This applies where the supplied sale price was marked anomalous against a comparable figure found in the sources. The result of the whole calculation is divided by 100 and reported as a proportion, which the interface displays as a percentage.",
-        },
+        "The custody-gap penalty is the heaviest in the calculation, and the weighting reflects the professional convention that in provenance work an unexplained break in the chain is the primary warning sign, not a minor blemish. Its severity also means the score falls very fast. Two gaps alone remove 60 points. Three take the score to zero on their own.",
+        "The corroboration term measures corroboration rather than content. A finding supported by one source is a lead; a finding that four independent sources recognise is an established record. The threshold of three out of seven is a judgment call by the developer rather than a derived figure. Note also that the test counts any verdict other than not found, so a flagged result counts towards corroboration in the same way a clear result does, on the reasoning that a registry hit still demonstrates that the object is known to the record.",
         "Two properties of this calculation deserve to be stated clearly, because they shape how the number should be interpreted. First, the score measures how well documented the ownership history is, not how likely it is that the object is legitimate. A famous work with a complete and well-known history that includes a documented wartime confiscation will score very low, because that confiscation registers as a break in title and attracts high-severity flags. An obscure object about which almost nothing is known may also score low, because too few sources returned anything. The two cases are very different in substance and can look similar in the number. The written rationale that accompanies the score is intended to distinguish them, and a reader should always read it.",
         "Second, because the penalties are subtractive and large, the score reaches zero easily and then stops. Once it is at zero, further findings do not change it. Zero therefore means at least this bad rather than a measured floor. The repository's own worked example, a demonstration record for Egon Schiele's Portrait of Wally, scores zero for exactly this reason, with several custody gaps and several high-severity flags in combination.",
-        "The interface colours the score in three bands: below 40 per cent in red, between 40 and 70 per cent in amber, and 70 per cent or above in green. These are presentational thresholds only. Nothing in the software behaves differently according to which band a score falls into, and the bands carry no legal or institutional meaning.",
+        {
+          table: {
+            caption:
+              "The display bands. These are presentational thresholds only. Nothing in the software behaves differently according to which band a score falls into, and the bands carry no legal or institutional meaning.",
+            headers: ["Score", "Colour"],
+            rows: [
+              ["Below 40 per cent", "Red"],
+              ["40 to 70 per cent", "Amber"],
+              ["70 per cent or above", "Green"],
+            ],
+          },
+        },
       ],
     },
     {
@@ -222,7 +289,25 @@ export const provenanceSearchReport = {
       paragraphs: [
         {
           lead: "Tavily.",
-          text: "A commercial web-search service designed to be used by software rather than by a person browsing. In this project it is the primary research engine, and it is restricted to a fixed list of thirteen websites so that it cannot return results from the open web. The list is metmuseum.org, getty.edu, interpol.int, unesco.org, artloss.com, lostart.de, lootedart.com, christies.com, sothebys.com, artnet.com, fbi.gov, ifar.org, and wikipedia.org. The query sent is the title and artist followed by the words provenance, ownership, history, looting, theft, and restitution.",
+          text: "A commercial web-search service designed to be used by software rather than by a person browsing. In this project it is the primary research engine, and it is restricted to a fixed list of thirteen websites so that it cannot return results from the open web. The query sent is the title and artist followed by the words provenance, ownership, history, looting, theft, and restitution.",
+        },
+        {
+          intro: "The thirteen permitted domains are:",
+          list: [
+            "metmuseum.org",
+            "getty.edu",
+            "interpol.int",
+            "unesco.org",
+            "artloss.com",
+            "lostart.de",
+            "lootedart.com",
+            "christies.com",
+            "sothebys.com",
+            "artnet.com",
+            "fbi.gov",
+            "ifar.org",
+            "wikipedia.org",
+          ],
         },
         "For a reader not familiar with the field: INTERPOL maintains the only global database of police-certified records of stolen cultural objects, publicly searchable since 2021 through its free ID-Art application. The FBI's National Stolen Art File, established in 1997, is a publicly searchable United States register of stolen art and cultural property, populated only by law-enforcement agencies. The German Lost Art Foundation's Lost Art Database records cultural assets seized between 1933 and 1945 as a result of persecution, and objects whose history cannot exclude such a seizure; it is free and public. lootedart.com is the Central Registry of Information on Looted Cultural Property 1933 to 1945, established in 2001 by the Commission for Looted Art in Europe, and holds both a documentary database and an object database.",
         "The Art Loss Register is a private London-based commercial company operating what it describes as the largest private database of stolen art; its data is not publicly accessible and searches are a paid service. The Getty Research Institute's Provenance Index is a large free scholarly resource built from transcribed sale catalogues, dealer stock books, and household inventories, weighted towards Western European art from the sixteenth to the early twentieth century. IFAR, the International Foundation for Art Research, was a New York non-profit founded in 1969 whose provenance guide has long been a standard plain-language reference; it announced in 2024 that it was winding down operations. Christie's, Sotheby's, and Artnet are commercial auction and art-market sources whose catalogue entries frequently include provenance statements.",

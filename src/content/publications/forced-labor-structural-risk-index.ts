@@ -9,9 +9,16 @@
 // The source paper follows those rules; keep them if you edit this file.
 // ─────────────────────────────────────────────────────────────────────────
 
-/** A paragraph is either plain prose, or prose introduced by a bold lead-in
- *  (used for the labelled limitation entries). */
-export type Paragraph = string | { lead: string; text: string };
+/** A paragraph is plain prose, prose introduced by a bold lead-in (used for
+ *  the labelled limitation entries), a bulleted list, or a small data table.
+ *  The objectives, the ILO's eleven case-level indicators, the eleven scored
+ *  domains, and the anchor ranges are reference material the reader scans
+ *  rather than reads, so they keep their original structure. */
+export type Paragraph =
+  | string
+  | { lead: string; text: string }
+  | { intro?: string; list: string[]; ordered?: boolean }
+  | { table: { caption?: string; headers: string[]; rows: string[][] } };
 
 export interface ReportSection {
   id: string;
@@ -103,11 +110,19 @@ export const forcedLaborRiskReport = {
       number: "03",
       title: "Objectives",
       paragraphs: [
-        "The index is designed to measure the structural conditions associated with forced labour across almost all countries, on a single comparable scale, without estimating prevalence.",
-        "It sets out to make the underlying theory explicit, by separating exposure to recruitment from the conditions for unchecked exploitation and requiring both to be present before a country scores high. Every indicator is grounded in a real, citable, cross-national dataset, with the source, vintage, coverage, licence, and required citation recorded for each one.",
-        "It refuses to fabricate. Missing data is never silently converted to zero, and countries whose evidence base is too thin are left unscored. It guards against circularity by excluding inputs that are themselves measures or detections of forced labour and trafficking, wherever using them would mean predicting forced labour with a measure of forced labour.",
-        "It reports, rather than engineers away, the index's association with weak governance, while demonstrating that the index is not reducible to a governance ranking. It publishes uncertainty alongside every score, and directs readers toward tiers rather than exact ranks.",
-        "Finally, it aims to support prevention and triage by identifying where structural risk concentrates, including below the national level, and where in the structure a government, a buyer, or a non-governmental organisation might act.",
+        {
+          intro: "The index is designed to do the following.",
+          list: [
+            "Measure the structural conditions associated with forced labour across almost all countries, on a single comparable scale, without estimating prevalence.",
+            "Make the underlying theory explicit, by separating exposure to recruitment from the conditions for unchecked exploitation and requiring both to be present before a country scores high.",
+            "Ground every indicator in a real, citable, cross-national dataset, with the source, vintage, coverage, licence, and required citation recorded for each one.",
+            "Refuse to fabricate. Missing data is never silently converted to zero, and countries whose evidence base is too thin are left unscored.",
+            "Guard against circularity by excluding inputs that are themselves measures or detections of forced labour and trafficking, wherever using them would mean predicting forced labour with a measure of forced labour.",
+            "Report, rather than engineer away, the index's association with weak governance, while demonstrating that the index is not reducible to a governance ranking.",
+            "Publish uncertainty alongside every score, and direct readers toward tiers rather than exact ranks.",
+            "Support prevention and triage by identifying where structural risk concentrates, including below the national level, and where in the structure a government, a buyer, or a non-governmental organisation might act.",
+          ],
+        },
       ],
     },
     {
@@ -116,7 +131,24 @@ export const forcedLaborRiskReport = {
       title: "The Legal and Normative Frame",
       paragraphs: [
         "Forced labour has a settled definition in international law. The International Labour Organization's Forced Labour Convention, 1930 (No. 29), Article 2(1), defines forced or compulsory labour as all work or service which is exacted from any person under the menace of any penalty and for which the said person has not offered himself voluntarily. The Abolition of Forced Labour Convention, 1957 (No. 105), prohibits the use of forced labour for specified purposes including political coercion, labour discipline, and discrimination. The 2014 Protocol to Convention No. 29 obliges ratifying states to take effective measures on prevention, on the protection of victims, and on access to remedies including compensation. It entered into force in November 2016.",
-        "To help identify forced labour in practice, the ILO publishes a set of eleven indicators of forced labour, first issued in 2012 and reissued in a revised edition in 2025. The eleven are abuse of vulnerability, deception, restriction of movement, isolation, physical and sexual violence, intimidation and threats, retention of identity documents, withholding of wages, debt bondage, abusive working and living conditions, and excessive overtime. The ILO describes their purpose as assisting law enforcement officials, labour inspectors, trade union officers, and non-governmental organisation staff to identify people who may be trapped in forced labour and may need urgent help.",
+        {
+          intro:
+            "To help identify forced labour in practice, the ILO publishes a set of eleven indicators of forced labour, first issued in 2012 and reissued in a revised edition in 2025. The eleven are these.",
+          list: [
+            "Abuse of vulnerability.",
+            "Deception.",
+            "Restriction of movement.",
+            "Isolation.",
+            "Physical and sexual violence.",
+            "Intimidation and threats.",
+            "Retention of identity documents.",
+            "Withholding of wages.",
+            "Debt bondage.",
+            "Abusive working and living conditions.",
+            "Excessive overtime.",
+          ],
+        },
+        "The ILO describes their purpose as assisting law enforcement officials, labour inspectors, trade union officers, and non-governmental organisation staff to identify people who may be trapped in forced labour and may need urgent help.",
         "The ILO is careful about how much weight any one indicator carries. Its guidance states that the presence of a single indicator may in some cases imply the existence of forced labour, while in other cases several indicators must be read together before a case can be said to exist. The eleven are a screening aid for practitioners, not a legal test, and they are frequently over-read as a checklist. That caution matters for an index built on the same vocabulary.",
         "These are operational indicators for recognising a case in front of you. FLSRI works at a different level: it measures the standing country conditions that make those case-level indicators more likely to arise, and its documentation states that its domain set is broadly aligned with these indicators and with the vulnerability dimensions used in the Walk Free Global Slavery Index.",
         "The obligation is not only a state obligation. The United Nations Guiding Principles on Business and Human Rights, endorsed by the UN Human Rights Council in 2011, rest on three pillars: the state duty to protect human rights, the corporate responsibility to respect them, and access to remedy for those harmed. The Guiding Principles on human rights due diligence require enterprises to identify, prevent, mitigate, and account for how they address their human rights impacts, including impacts in their supply chains and business relationships. A structural risk measure is directly relevant to that first step: an enterprise or a public procurement body cannot prioritise due diligence without some defensible view of where risk is concentrated.",
@@ -140,13 +172,96 @@ export const forcedLaborRiskReport = {
         },
         {
           lead: "The phase.",
-          text: "A phase is one side of the structural claim. Recruitment contains eight domains; Exploitation contains three. A phase score is the plain average of the domains scored inside it.",
+          text: "A phase is one side of the structural claim. Recruitment contains eight domains; Exploitation contains three. A phase score is the plain average of the domains scored inside it. The eleven are set out below and described one by one in the next section.",
+        },
+        {
+          table: {
+            headers: ["Phase", "Domain", "Mechanism it is meant to capture"],
+            rows: [
+              [
+                "Recruitment",
+                "Economic precarity",
+                "Needs that the available work cannot meet",
+              ],
+              [
+                "Recruitment",
+                "Debt and financialised dependency",
+                "Obligation that turns a voluntary arrangement into an inescapable one",
+              ],
+              [
+                "Recruitment",
+                "Constrained mobility",
+                "Inability to move legally or affordably",
+              ],
+              [
+                "Recruitment",
+                "Ascriptive exclusion",
+                "Exclusion by group membership rather than by conduct",
+              ],
+              [
+                "Recruitment",
+                "Legal non-recognition",
+                "Inability to prove who you are and so to claim protection",
+              ],
+              [
+                "Recruitment",
+                "Gendered labour",
+                "Concentration of women in exploitation-exposed work",
+              ],
+              [
+                "Recruitment",
+                "Age and childhood structuring",
+                "Direct exploitability of children and household labour exhaustion",
+              ],
+              [
+                "Recruitment",
+                "Structural disruption",
+                "Conflict, displacement, and disaster shocks",
+              ],
+              [
+                "Exploitation",
+                "Foreclosed exit",
+                "The cost of walking away from a bad situation",
+              ],
+              [
+                "Exploitation",
+                "Economic structure and demand",
+                "How much of the economy sits in high-risk work",
+              ],
+              [
+                "Exploitation",
+                "State production of unfreedom",
+                "Unfreedom generated by legal architecture and impunity",
+              ],
+            ],
+            caption:
+              "The eleven scored domains and the phase each belongs to. The Monetization lens is computed separately and excluded from the headline score.",
+          },
         },
         {
           lead: "The composite.",
           text: "The published score is the geometric mean of the two phases, that is, the square root of Recruitment multiplied by Exploitation. If either phase cannot be scored for a country, the composite is not scored. There is no substitution of zero for a missing phase.",
         },
-        "Indicators are rescaled by what the project calls absolute anchoring. For each indicator, a floor value and a ceiling value are fixed in advance. The floor is the raw value that maps to 0 and the ceiling is the raw value that maps to 1; anything beyond either end is clamped. For example, the share of employment in agriculture is anchored between 0 and 80 per cent, the gender gap in labour force participation between 0 and 50 percentage points, and conflict deaths between 0 and 100 per 100,000 people.",
+        "Indicators are rescaled by what the project calls absolute anchoring. For each indicator, a floor value and a ceiling value are fixed in advance. The floor is the raw value that maps to 0 and the ceiling is the raw value that maps to 1; anything beyond either end is clamped.",
+        {
+          table: {
+            headers: ["Indicator", "Floor, mapping to 0", "Ceiling, mapping to 1"],
+            rows: [
+              ["Share of employment in agriculture", "0 per cent", "80 per cent"],
+              [
+                "Gender gap in labour force participation",
+                "0 percentage points",
+                "50 percentage points",
+              ],
+              [
+                "Conflict deaths",
+                "0 per 100,000 people",
+                "100 per 100,000 people",
+              ],
+            ],
+            caption: "Three examples of the anchor ranges the pipeline uses.",
+          },
+        },
         "Anchoring to fixed reference points rather than to the best and worst countries observed is a deliberate choice. It means a country's score does not move simply because a different set of countries happened to have data this year, and it makes scores comparable across refreshes of the underlying data. Where a quantity depends on the size of a country, it is first converted to a rate, a share, or a gap before scaling, so that a large country is not scored as riskier merely for being large.",
         "Each indicator carries an explicit direction. Most point the same way as risk: more poverty means more risk. Some are protective and are inverted, so that a high raw value becomes a low risk score. Trade union density, collective bargaining coverage, labour inspector density, freedom of movement, and visa-free passport access are all protective indicators entered in inverted form. By the time any indicator reaches the scoring stage, every value points in the same direction, with higher meaning more risk.",
         "The documentation is candid that several anchors were set from the observed distribution, for instance a ceiling near the 95th percentile, which reintroduces a degree of dependence on the particular sample of countries into a scale that is presented as absolute. Locking these anchors and testing how much the results move if they shift is listed as outstanding work.",

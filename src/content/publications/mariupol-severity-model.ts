@@ -14,9 +14,18 @@
 // load-bearing. Do not flatten it into direct assertion.
 // ─────────────────────────────────────────────────────────────────────────
 
-/** A paragraph is either plain prose, or prose introduced by a bold lead-in
- *  (used for the labelled limitation entries). */
-export type Paragraph = string | { lead: string; text: string };
+/** A paragraph is plain prose, prose introduced by an accent lead-in (used
+ *  for the labelled limitation entries), a formula rendered in monospace, a
+ *  bulleted list, or a data table. The paper's tables and its consent ladder
+ *  are restored here as structure rather than prose, because the figures are
+ *  meant to be scanned and compared. The vulnerability formula is kept
+ *  alongside its plain-language description rather than instead of it. */
+export type Paragraph =
+  | string
+  | { lead: string; text: string }
+  | { formula: string; note?: string }
+  | { intro?: string; list: string[]; ordered?: boolean }
+  | { table: { caption?: string; headers: string[]; rows: string[][] } };
 
 export interface ReportSection {
   id: string;
@@ -118,12 +127,17 @@ export const mariupolReport = {
       number: "03",
       title: "Objectives",
       paragraphs: [
-        "The model is designed to produce a transparent daily measure of how dangerous it was for civilians to remain in Mariupol on any given date between 5 March and 20 May 2022.",
-        "It gives equal analytical standing to the slow harms of a siege, cold, deprivation, and the destruction of shelter, alongside the fast harms of shelling, so that a lull in attacks cannot by itself lower the assessment.",
-        "It turns the question of consent into a measurable quantity, by scoring how many announced corridors were honoured and on whose terms passage was permitted.",
-        "It anchors each component to the International Humanitarian Law provision it bears on, so that the model measures the factual predicate for an obligation rather than pronouncing on the obligation itself.",
-        "It generates, for any selected date, a written situation assessment naming the corridor regime in force, the dominant driver of severity, and the legal provisions engaged.",
-        "And it makes every step of the calculation inspectable, including the arithmetic, so that a reader who disagrees with a threshold can see exactly what changing it would do.",
+        {
+          intro: "The model is designed to:",
+          list: [
+            "Produce a transparent daily measure of how dangerous it was for civilians to remain in Mariupol on any given date between 5 March and 20 May 2022.",
+            "Give equal analytical standing to the slow harms of a siege, cold, deprivation, and the destruction of shelter, alongside the fast harms of shelling, so that a lull in attacks cannot by itself lower the assessment.",
+            "Turn the question of consent into a measurable quantity, by scoring how many announced corridors were honoured and on whose terms passage was permitted.",
+            "Anchor each component to the International Humanitarian Law provision it bears on, so that the model measures the factual predicate for an obligation rather than pronouncing on the obligation itself.",
+            "Generate, for any selected date, a written situation assessment naming the corridor regime in force, the dominant driver of severity, and the legal provisions engaged.",
+            "Make every step of the calculation inspectable, including the arithmetic, so that a reader who disagrees with a threshold can see exactly what changing it would do.",
+          ],
+        },
       ],
     },
     {
@@ -152,8 +166,18 @@ export const mariupolReport = {
         },
         {
           lead: "Consent and filtration exposure.",
-          text: "The fourth sub-indicator is an ordered ladder describing the legal and political basis on which people were moving: 0.25 for passage negotiated with a neutral third-party escort; 0.40 for passage negotiated bilaterally between the parties; 0.50 for a corridor announced unilaterally by one party; 0.75 where no ceasefire is in effect at all; and 0.90 where movement is subject to screening by the adversary, the process reported as filtration. Choosing a destination controlled by the adversary raises the effective value to 0.90 or above.",
+          text: "The fourth sub-indicator is an ordered ladder describing the legal and political basis on which people were moving, running as follows.",
         },
+        {
+          list: [
+            "0.25, negotiated with a neutral third-party escort.",
+            "0.40, negotiated bilaterally between the parties.",
+            "0.50, announced unilaterally by one party.",
+            "0.75, no ceasefire in effect at all.",
+            "0.90, movement subject to screening by the adversary, the process reported as filtration.",
+          ],
+        },
+        "Choosing a destination controlled by the adversary raises the effective value to 0.90 or above.",
         "Two of the four sub-indicators measure what was done to civilians; two measure what was promised to them and whether it held. The repository states that the last two operationalise the consent conditions attached to evacuation and to the passage of relief under the Fourth Geneva Convention and Additional Protocol I. The practical effect is that a corridor which exists on paper but not in fact raises the severity score rather than lowering it. That is the correct direction of travel, and it is not how a simple access indicator would behave. The four sub-indicators are averaged without weighting, which is an explicit choice rather than an oversight, but it is a choice: the proportion of attacks aimed at civilians and the legal basis of a corridor are treated as equally informative about protection risk.",
         {
           lead: "Component four, cold burden.",
@@ -180,12 +204,43 @@ export const mariupolReport = {
         "The repository states, correctly and importantly, that the sixth powers are an internal weighting device and are not shares of causation. The number 0.33 for infrastructure damage, raised to the sixth power, becomes 0.0013 and effectively disappears from the sum. That does not mean the destruction of a third of the city mattered little. It means this particular arithmetic is designed to report the worst thing happening, and everything that is not the worst thing recedes.",
         {
           lead: "The five severity phases.",
-          text: "The resulting score is placed in one of five bands, each carrying a stated posture. Phase 1, below 0.20, Minimal, routine monitoring. Phase 2, 0.20 to 0.40, Concern, contingency planning and registration of vulnerable groups. Phase 3, 0.40 to 0.55, Serious, evacuation planning and negotiation of access. Phase 4, 0.55 to 0.70, High, evacuation warranted. Phase 5, 0.70 and above, Critical, immediate protective action.",
+          text: "The resulting score is placed in one of five bands, each carrying a stated posture.",
+        },
+        {
+          table: {
+            headers: ["Phase", "Score range", "Label", "Indicated posture"],
+            rows: [
+              ["1", "below 0.20", "Minimal", "routine monitoring"],
+              [
+                "2",
+                "0.20 to 0.40",
+                "Concern",
+                "contingency planning; register vulnerable groups",
+              ],
+              [
+                "3",
+                "0.40 to 0.55",
+                "Serious",
+                "evacuation planning; negotiate access",
+              ],
+              ["4", "0.55 to 0.70", "High", "evacuation warranted"],
+              [
+                "5",
+                "0.70 and above",
+                "Critical",
+                "immediate protective action",
+              ],
+            ],
+          },
         },
         "The five-band shape is borrowed deliberately. The INFORM Severity Index, run by ACAPS with the European Commission's Joint Research Centre as scientific lead, sorts every humanitarian crisis in the world into five severity categories. The Integrated Food Security Phase Classification, the partnership of United Nations agencies and non-governmental organisations that classifies food crises, uses a five-phase ladder that humanitarian readers know well. Adopting the same shape makes the output legible to people who already work with those systems. The thresholds themselves, however, are the author's own conventions. They were not derived from data and they have not been validated by expert elicitation. The repository says so.",
         {
           lead: "Vulnerability weighting.",
           text: "The final step adjusts for who was in the city. The weight is 1 plus 0.3 times the share of the population who were children or elderly, plus 0.3 times the share living with a disability, with a pre-siege population of 343,598, children numbering 32,926, elderly 73,723, and people with disabilities approximately 24,288. These figures yield a vulnerability weight of 1.114, and the priority index is simply the severity score multiplied by that weight.",
+        },
+        {
+          formula: "Vw = 1 + 0.3 x (children + elderly) / N + 0.3 x (disabled / N)",
+          note: "N is the pre-siege population of 343,598. The figures above give Vw of 1.114.",
         },
         "The population figures come from WorldPop, a research programme based at the University of Southampton that estimates how many people live in each small square of ground by taking official census totals for large areas and distributing them using satellite evidence about where buildings are. The boundaries used are from GADM, a free global database of administrative area outlines. The disability share of 7.07 per cent is taken from Ministry of Social Policy pension-system statistics as reported by the World Bank.",
         "The repository is candid that the 0.3 increments are placeholders pending calibration. They are chosen to mirror the categories of person given special protection under the Fourth Geneva Convention and under Article 11 of the Convention on the Rights of Persons with Disabilities, which requires States to take all necessary measures to ensure the protection and safety of persons with disabilities in situations of armed conflict. The weight is applied as a multiplier on exposure rather than added in as a seventh component, mirroring the INFORM Severity separation between how bad the threat is and how many vulnerable people it falls on. The repository calls 1.114 conservative, because the World Bank source itself notes that true disability prevalence in Ukraine is likely closer to the World Health Organization's international rate of around 16 per cent than to the 7.07 per cent recorded in the pension system.",
@@ -197,8 +252,28 @@ export const mariupolReport = {
       number: "05",
       title: "A Worked Example: 14 March 2022",
       paragraphs: [
-        "The repository works through a single day in full, and it is worth following because it demonstrates the model's central argument better than any description. 14 March 2022 was the day the first private cars got out of Mariupol and reached Zaporizhzhia.",
-        "Hostility intensity that day was 4.8 events per day divided by 10, for a score of 0.480. Kinetic proximity was 2.17 plus half of 2.33, divided by 6, for 0.556. Protection risk was the average of 0.483, 0.860, 0.670 and 0.750, for 0.691. Cold burden was 18 minus minus 5.3, divided by 28, for 0.832. The deprivation clock was 12 days divided by 60, for 0.200. Infrastructure damage sat at the UNOSAT anchor for 14 March, 0.040.",
+        "The repository works through a single day in full, and it is worth following because it demonstrates the model's central argument better than any description. 14 March 2022 was the day the first private cars got out of Mariupol and reached Zaporizhzhia. The six components on that day were:",
+        {
+          table: {
+            headers: ["Component", "Calculation", "Score"],
+            rows: [
+              ["Hostility intensity", "4.8 events per day divided by 10", "0.480"],
+              [
+                "Kinetic proximity",
+                "(2.17 plus half of 2.33) divided by 6",
+                "0.556",
+              ],
+              [
+                "Protection risk",
+                "average of 0.483, 0.860, 0.670, 0.750",
+                "0.691",
+              ],
+              ["Cold burden", "(18 minus minus 5.3) divided by 28", "0.832"],
+              ["Deprivation clock", "12 days divided by 60", "0.200"],
+              ["Infrastructure damage", "UNOSAT anchor for 14 March", "0.040"],
+            ],
+          },
+        },
         "The plain average of these six is 0.47. The worst of the six is 0.83. The weakest-link combination gives 0.66, which places the day in Phase 4 of 5, High, with the indicated posture that evacuation is warranted. Multiplied by the vulnerability weight, the priority index is 0.73.",
         "The reading the repository draws from this is the important part. On the day the first cars escaped, the gravest single threat to the people still inside was not shelling. It was cold: minus 5 degrees, no heating, day twelve of encirclement. A kinetic assessment, watching only the tempo of attacks, would have missed it entirely.",
       ],
