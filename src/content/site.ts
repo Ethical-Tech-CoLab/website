@@ -59,6 +59,7 @@ export const nav: NavItem[] = [
       { label: "Overview", href: "/portfolio" },
       { label: "Live Demos", href: "/demos" },
       { label: "Publications", href: "/publications" },
+      { label: "Media", href: "/media" },
     ],
   },
   // Cohorts tab removed — its content now lives on the Home page.
@@ -1093,8 +1094,62 @@ export const about = {
       },
       { name: "Gaia", about: "", url: "", logo: "" },
       { name: "Grid Bank", about: "", url: "", logo: "" },
+      {
+        name: "OSCE / ODIHR Anti-Trafficking",
+        about:
+          "Multilateral partner on anti-trafficking, platform safety, and human rights — a recurring voice at the Ethical Tech Summit.",
+        url: "https://www.osce.org/odihr",
+        logo: "",
+      },
+      {
+        name: "UN Commission on the Status of Women (CSW)",
+        about:
+          "Community-of-practice partner on human rights and platform safety, engaged through the Ethical Tech Summit.",
+        url: "",
+        logo: "",
+      },
+      {
+        name: "Coinbase & x402 Foundation",
+        about:
+          "Industry partners on agentic commerce and micropayment rails (x402), engaged through the Ethical Tech Summit.",
+        url: "https://www.x402.org",
+        logo: "",
+      },
     ] as PartnerOrg[],
   },
+};
+
+/** Ethical Tech Summit — media, past events, and moments (Portfolio › Media). */
+export const media = {
+  eyebrow: "Media · Ethical Tech Summit",
+  heading: "The Summit, in the room.",
+  intro:
+    "The Ethical Tech Summit is the public-facing capstone of the graduate course Harnessing Emerging Technology in Ethical Sourcing at the NYU SPS Center for Global Affairs. Each semester the Ethical Tech CoLab convenes students, technologists, and policy practitioners for a Summit and Hackathon on the live boundary between emerging technology and global affairs.",
+  threads:
+    "Recurring threads: agentic systems and the future of work; verifiable supply chains under UFLPA / NDAA; online grooming and platform safety; forced labor and human trafficking; and micropayment rails for vulnerable populations and creator economies.",
+  pastSummits: [
+    { term: "Spring 2026 · NYC", title: "Agentic Commerce & the Human Condition", blurb: "Student-led applied work on x402, agent-to-agent micropayments, and downstream effects on vulnerable populations and creator economies. Industry roundtable on responsible deployment.", tags: ["x402", "Agentic Commerce"] },
+    { term: "Fall 2025 · NYC", title: "Verifiable Supply Chains: From Compliance to Trust", blurb: "UFLPA / NDAA practitioner panel; demos of attestation patterns over the Supplychain Graph; student briefs on traceability gaps in critical-mineral pathways.", tags: ["UFLPA", "Traceability"] },
+    { term: "Spring 2025 · NYC", title: "Online Grooming, Platform Safety & Policy", blurb: "Joint session with multilateral and civil-society partners; student demos on detection patterns and trauma-informed design; closing panel on platform accountability.", tags: ["Platform Safety", "OSCE/ODIHR"] },
+    { term: "Fall 2024 · NYC", title: "Forced Labor, Structural Risk & Applied Research", blurb: "Launch of student-led applied-research projects on forced-labor structural risk; introduction of the Forced Labor Structural Risk Index methodology.", tags: ["Human Rights", "FLSRI"] },
+    { term: "Spring 2024 · NYC", title: "Inaugural Summit, Emerging Tech & Ethical Sourcing", blurb: "First convening of the Ethical Tech CoLab; framing session on how engineering practice can inform sourcing policy, and how policy can inform engineering boundaries.", tags: ["Inaugural", "Curriculum"] },
+  ],
+  gallery: [
+    { src: "/summit/speaker-amanda-lindsey.jpg", caption: "Speaker · Amanda Lindsey" },
+    { src: "/summit/speaker-deborah-berebichez.jpg", caption: "Speaker · Deborah Berebichez" },
+    { src: "/summit/speaker-ruchira-gupta.jpg", caption: "Speaker · Ruchira Gupta" },
+    { src: "/summit/ai-researcher.jpg", caption: "AI Researcher track" },
+    { src: "/summit/summit-floor.jpg", caption: "Summit floor" },
+    { src: "/summit/working-session.jpg", caption: "Working session" },
+    { src: "/summit/panel.jpg", caption: "Panel discussion" },
+    { src: "/summit/student-demo.jpg", caption: "Student demo" },
+    { src: "/summit/hackathon.jpg", caption: "Hackathon" },
+    { src: "/summit/convening.jpg", caption: "Convening" },
+    { src: "/summit/moment-1.jpg", caption: "Summit moment" },
+    { src: "/summit/moment-2.jpg", caption: "Summit moment" },
+  ],
+  cambridge:
+    "A next step is a Belfer-co-hosted edition scoped around one of three themes — critical supply chains, agentic governance, or AI-mediated diplomacy — producing a structured recommendations memo and a published convening summary.",
 };
 
 export interface TeamMember {
