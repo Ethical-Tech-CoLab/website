@@ -253,8 +253,10 @@ export const researchAreas: ResearchArea[] = [
       {
         name: "Diplomatic Simulator",
         summary:
-          "An AI-mediated environment where negotiators rehearse high-stakes diplomacy with culturally grounded agents that model historical context, incentives, and red lines, training practitioners for situations textbooks cannot capture.",
+          "A multi-party AI negotiation table where each delegation argues from its own confidential 'privileged instructions.' Five crises — Arctic, Central Asia (Fergana Valley), Cyprus, South China Sea, and Iran–US Strait of Hormuz — each with a live-negotiation replay, an interactive analysis dashboard (parties' strategy, proposals, detector hits), and Monte Carlo runs over randomized conditions.",
         status: "Active",
+        repo: "https://github.com/Ethical-Tech-CoLab/diplomatic-simulator",
+        demo: "https://ethical-tech-colab.github.io/diplomatic-simulator/",
       },
     ],
   },
@@ -321,7 +323,7 @@ export const publications = {
       summary:
         "A report on AI-mediated environments where negotiators rehearse against agents that model historical context, incentives, and red lines.",
       status: "In preparation",
-      url: "https://yorkerhodes3.github.io/nova-portfolio-ofsd7xep/diplomacy-session-report.html",
+      url: "https://ethical-tech-colab.github.io/diplomatic-simulator/methodology.html",
     },
     {
       index: "05",
@@ -483,6 +485,7 @@ export const productThemes = [
   "Cultural heritage",
   "Traceability",
   "Storytelling",
+  "Diplomacy",
   "Research",
 ];
 
@@ -490,6 +493,35 @@ export const productThemes = [
 export const productTerms = ["Summer 2026", "Fall 2025", "Spring 2025"];
 
 export const products: Product[] = [
+  {
+    name: "Diplomatic Simulator",
+    repoName: "diplomatic-simulator",
+    term: "Summer 2026",
+    repo: "https://github.com/Ethical-Tech-CoLab/diplomatic-simulator",
+    demos: [
+      {
+        label: "Watch a live negotiation",
+        href: "https://ethical-tech-colab.github.io/diplomatic-simulator/live.html",
+      },
+      {
+        label: "Interactive dashboard",
+        href: "https://ethical-tech-colab.github.io/diplomatic-simulator/dashboard.html",
+      },
+      {
+        label: "Monte Carlo analysis",
+        href: "https://ethical-tech-colab.github.io/diplomatic-simulator/montecarlo.html",
+      },
+      {
+        label: "Methodology & AI use",
+        href: "https://ethical-tech-colab.github.io/diplomatic-simulator/methodology.html",
+      },
+    ],
+    blurb:
+      "A multi-party AI negotiation table where each delegation argues from its own confidential 'privileged instructions.' Five crises — Arctic, Central Asia, Cyprus, South China Sea, and Iran–US Strait of Hormuz — each with a live-negotiation replay, an interactive analysis dashboard (parties' strategy, proposals, detector hits), and Monte Carlo runs over randomized conditions.",
+    language: "HTML",
+    theme: "Diplomacy",
+    featured: true,
+  },
   {
     name: "Exodus — Civilian Evacuation Risk Platform",
     repoName: "Exodus",
