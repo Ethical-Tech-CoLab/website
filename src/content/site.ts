@@ -366,6 +366,149 @@ export const publications = {
       // Internal route (starts with "/") — rendered on-site, see the card logic.
       url: "/publications/evacuation-inform-index",
     },
+    {
+      index: "08",
+      area: "Evacuation",
+      question:
+        "How dangerous is it to stay, and is leaving actually possible?",
+      title:
+        "The Civilian Evacuation Risk Anticipation Index: A Decision-Support Tool for Protecting Civilians During Evacuations in Armed Conflict",
+      summary:
+        "A plain-language report on a prototype that keeps two questions apart: how dangerous it is for civilians to remain, and whether an organised evacuation is possible at all. Separating them matters legally, because the duty to protect arises from danger, not from operational convenience.",
+      status: "Published",
+      date: "2026",
+      url: "/publications/cerai",
+    },
+    {
+      index: "09",
+      area: "Evacuation",
+      question:
+        "What does it actually cost to move a besieged population, and what does staying cost?",
+      title:
+        "The Evacuation Risk and Cost Framework: Estimating the Human and Financial Cost of Civilian Evacuation in Armed Conflict",
+      summary:
+        "A report on a framework that scores seven weighted risk dimensions, estimates the cost of evacuating against the cost of staying, and finds the point at which those two curves cross. Calibrated against 31 documented historical operations.",
+      status: "Published",
+      date: "2026",
+      url: "/publications/ercf",
+    },
+    {
+      index: "10",
+      area: "Evacuation",
+      question:
+        "How much does poor field information degrade an evacuation decision?",
+      title:
+        "The Evacuation Readiness and Uncertainty Simulator: Showing How Poor Field Information Degrades Evacuation Decisions",
+      summary:
+        "A report on a simulator that models what happens when planners act on incomplete intelligence. All data is synthetic and reproducible from a seed, so the mechanism rather than any particular place is what is on display.",
+      status: "Published",
+      date: "2026",
+      url: "/publications/erus",
+    },
+    {
+      index: "11",
+      area: "Evacuation",
+      question:
+        "How do information and demographics decide who actually leaves?",
+      title:
+        "The Evacuation Simulator: An Agent-Based Model of How Civilians Decide to Leave During Armed Conflict",
+      summary:
+        "A report on an agent-based model of household evacuation behaviour, tracing how warnings spread through a community and how age, mobility, and trust shape who reaches safety and who does not.",
+      status: "Published",
+      date: "2026",
+      url: "/publications/evacuation-simulation",
+    },
+    {
+      index: "12",
+      area: "Evacuation",
+      question:
+        "Could a daily severity measure have shown the danger in Mariupol as it unfolded?",
+      title:
+        "The Mariupol Corridor Severity Model: A Daily Measure of Civilian Danger During the Siege of Mariupol, March to May 2022",
+      summary:
+        "A retrospective report scoring 77 days of the siege on a daily severity measure built from open sources. Conduct descriptions are attributed to their sources rather than adjudicated, and contested figures are left contested.",
+      status: "Published",
+      date: "July 2026",
+      url: "/publications/mariupol-severity-model",
+    },
+    {
+      index: "13",
+      area: "Cultural heritage",
+      question:
+        "Can an artwork's ownership history be checked automatically, and how far should that be trusted?",
+      title:
+        "The Digital Provenance Passport: An Automated Assistant for Tracing the Ownership History of Artworks and Cultural Objects",
+      summary:
+        "A report on an assistant that assembles a provenance timeline, flags looting and valuation risk, and issues a signed record. Candid about how much of the demonstration runs on fixtures rather than live sources.",
+      status: "Published",
+      date: "July 2026",
+      url: "/publications/digital-provenance-passport",
+    },
+    {
+      index: "14",
+      area: "Cultural heritage",
+      question:
+        "What can be established about an object's history from free public sources alone?",
+      title:
+        "Provenance Search: An Automated Ownership-History Check for Artworks and Cultural Objects",
+      summary:
+        "A report on a tool that queries seven public sources and scores confidence with a fixed, inspectable algorithm, deliberately flagging what cannot be verified rather than filling the gaps.",
+      status: "Published",
+      date: "July 2026",
+      url: "/publications/provenance-search",
+    },
+    {
+      index: "15",
+      area: "Cultural heritage",
+      question:
+        "What is worth recording about a visit to a work of art?",
+      title:
+        "VANGO: A Digital Passport for Recording Visits to Works of Art",
+      summary:
+        "A report on a digital souvenir passport that records attendance at art experiences. It performs no provenance or authenticity checking, and the report is explicit that nothing it records is evidence of ownership or lawful origin.",
+      status: "Published",
+      date: "2026",
+      url: "/publications/vango",
+    },
+    {
+      index: "16",
+      area: "Traceability",
+      question:
+        "Where are the conditions that make forced labour likely, before any case is detected?",
+      title:
+        "The Forced Labor Structural Risk Index: A Country-Level Measure of the Conditions Under Which Forced Labour Becomes More Likely",
+      summary:
+        "A report on an index scoring 184 countries across 11 domains and 43 indicators, measuring the conditions that enable forced labour rather than counting cases. Ships with uncertainty bands and is meant to be read in tiers, not as a league table.",
+      status: "Published",
+      date: "2026",
+      url: "/publications/forced-labor-structural-risk-index",
+    },
+    {
+      index: "17",
+      area: "Diplomacy",
+      question:
+        "Can practitioners rehearse a multi-party negotiation against AI agents?",
+      title:
+        "The Diplomatic Simulator: A Multi-Party Negotiation Simulator Driven by Artificial Intelligence Agents",
+      summary:
+        "A report on a simulator in which AI delegations negotiate a live crisis, producing a structured record of positions, concessions, and tactics. Across every Monte Carlo trial run, no comprehensive settlement was reached.",
+      status: "Published",
+      date: "July 2026",
+      url: "/publications/diplomatic-simulator",
+    },
+    {
+      index: "18",
+      area: "Disaster response",
+      question:
+        "How fast can building damage be assessed after a disaster, and with how few labels?",
+      title:
+        "HASTE: High-speed Assessment and Satellite Tracking for Emergencies",
+      summary:
+        "A plain-language report on a satellite damage-assessment platform built by the Microsoft AI for Good Lab, used in 31 field deployments. The software is Microsoft's; only this report is the CoLab's.",
+      status: "Published",
+      date: "2026",
+      url: "/publications/haste",
+    },
   ] as Publication[],
 };
 
