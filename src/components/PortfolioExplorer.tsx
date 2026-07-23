@@ -15,11 +15,24 @@ import {
   type RunnableDemo,
 } from "@/components/DemoRunner";
 
-/** repo URL -> the product it maps to, so a project can link straight to its
- * card on the Live Demos page (and know whether a live demo exists). */
+/** A project finds its Live Demos product by repo URL, falling back to demo
+ *  URL. Repo alone was too brittle: a portfolio entry that lists only a demo
+ *  link (FLSRI) matched nothing, so it opened with no poster and no credits
+ *  even though its product sat right there in the catalogue. */
 const productByRepo = new Map(
   products.filter((p) => p.repo).map((p) => [p.repo as string, p]),
 );
+const productByDemo = new Map(
+  products.filter((p) => p.demo).map((p) => [p.demo as string, p]),
+);
+
+function productFor(project: SubProject) {
+  return (
+    (project.repo && productByRepo.get(project.repo)) ||
+    (project.demo && productByDemo.get(project.demo)) ||
+    undefined
+  );
+}
 
 /** A portfolio project, in the shape the runner understands. A project can
  *  carry its own demo URL, or inherit the richer entry (several named demos,
@@ -166,9 +179,7 @@ export function PortfolioExplorer() {
                     </p>
                     <ul className="mt-4 space-y-4">
                       {area.projects.map((project) => {
-                        const product = project.repo
-                          ? productByRepo.get(project.repo)
-                          : undefined;
+                        const product = productFor(project);
                         const runnable = toRunnable(project, product);
                         const hasDemo = Boolean(runTarget(runnable));
                         return (
