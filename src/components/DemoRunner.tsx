@@ -83,7 +83,7 @@ export function DemoRunner({
       {/* control bar */}
       <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-2.5">
         <div className="min-w-0">
-          <h3 className="truncate font-heading text-base uppercase tracking-wide">
+          <h3 className="truncate font-heading text-xl uppercase tracking-[0.02em] sm:text-2xl">
             {demo.name}
           </h3>
           <p className="truncate font-mono text-[10px] text-muted">

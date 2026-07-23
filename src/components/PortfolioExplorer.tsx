@@ -209,7 +209,7 @@ export function PortfolioExplorer() {
 
                               <div className="min-w-0 flex-1">
                                 <div className="flex items-center justify-between gap-3">
-                                  <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">
+                                  <h3 className="text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">
                                     {project.name}
                                   </h3>
                                   {hasDemo ? (

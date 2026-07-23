@@ -44,7 +44,7 @@ function PubCard({ pub }: { pub: Publication }) {
               </div>
 
               {/* h3: the topic heading this section carries is the h2 above. */}
-              <h3 className="mt-4 font-heading text-xl uppercase leading-snug tracking-wide sm:text-2xl">
+              <h3 className="mt-4 font-heading text-2xl uppercase leading-[1.12] tracking-[0.02em] sm:text-3xl">
                 {pub.title}
               </h3>
               {pub.date && (

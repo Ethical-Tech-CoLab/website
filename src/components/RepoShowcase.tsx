@@ -181,7 +181,7 @@ function Poster({
 
           {/* Colour set as a utility, not inline: an inline style would beat
               the hover variant and the title would never take the accent. */}
-          <h3 className="mt-1.5 font-heading text-xl uppercase leading-[0.95] tracking-wide text-[color:var(--poster-ink)] transition-colors group-hover/poster:text-[color:var(--poster-accent)]">
+          <h3 className="mt-1.5 font-heading text-2xl uppercase leading-[1.05] tracking-[0.02em] text-[color:var(--poster-ink)] transition-colors group-hover/poster:text-[color:var(--poster-accent)]">
             {product.name}
           </h3>
 

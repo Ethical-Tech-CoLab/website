@@ -61,7 +61,7 @@ export function ArchiveExplorer() {
                       aria-expanded={isOpen}
                       className="group flex w-full items-start justify-between gap-3 text-left"
                     >
-                      <h4 className="font-heading text-xl uppercase tracking-wide sm:text-2xl group-hover:text-accent">
+                      <h4 className="font-heading text-2xl uppercase leading-[1.12] tracking-[0.02em] sm:text-3xl group-hover:text-accent">
                         {project.name}
                       </h4>
                       <span
@@ -74,7 +74,7 @@ export function ArchiveExplorer() {
                       </span>
                     </button>
                   ) : (
-                    <h4 className="font-heading text-xl uppercase tracking-wide sm:text-2xl">
+                    <h4 className="font-heading text-2xl uppercase leading-[1.12] tracking-[0.02em] sm:text-3xl">
                       {project.name}
                     </h4>
                   )}

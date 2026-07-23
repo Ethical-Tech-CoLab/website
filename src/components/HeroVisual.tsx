@@ -7,9 +7,13 @@ import Link from "next/link";
 export function HeroVisual({
   term,
   caption,
+  href = "/#cohorts",
 }: {
   term: string;
   caption: string;
+  /** Where the overlay links. Defaults to the cohorts strip further down the
+   *  home page; the current cohort points at its own report instead. */
+  href?: string;
 }) {
   return (
     <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-border">

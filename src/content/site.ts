@@ -389,7 +389,26 @@ export const publications = {
       // Internal route (starts with "/") — rendered on-site, see the card logic.
       url: "/publications/ai-carbon-footprint",
     },
-        {
+    {
+      // The Summer 2026 cohort's synthesis report. It leads the Evacuation
+      // section because it reads the whole portfolio at once and then carries
+      // it past the corridor, so it is the right entry point for a reader who
+      // has not met the individual prototypes yet.
+      index: "27",
+      area: "Evacuation",
+      topic: "Evacuation",
+      question:
+        "How can AI inform evacuation decisions, and what happens after?",
+      title:
+        "After the Corridor: From AI-Informed Evacuation to Digital Public Goods for Refugee Economic Inclusion",
+      summary:
+        "The Summer 2026 cohort's synthesis report. It reads the five fielded evacuation prototypes and the forced-labour risk index together, states plainly what is validated and what is not, and extends the arc to the camp: the measurement, financial-modeling, and rights infrastructure that can shorten protracted displacement, grounded at Dzaleka Refugee Camp, Malawi. It also names the one thing the lab refuses to build, biometric identity for displaced people, and says why that refusal is itself a public good.",
+      status: "Published",
+      date: "July 2026",
+      // Internal route (starts with "/") — rendered on-site, see the card logic.
+      url: "/publications/after-the-corridor",
+    },
+    {
       index: "07",
       area: "Evacuation",
       topic: "Evacuation",
