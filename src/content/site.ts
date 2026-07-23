@@ -729,6 +729,12 @@ export interface ArchivedProject {
   demo?: string;
   /** Several live demos (e.g. shared videos) — rendered as links when expanded. */
   demos?: DemoLink[];
+  /**
+   * Route of this project's written-up report, e.g. "/publications/ercf".
+   * Archived work is the most likely to be looked up for its writing rather
+   * than its demo, so the report gets a link of its own here too.
+   */
+  publication?: string;
 }
 
 export const archivedProjects: ArchivedProject[] = [
@@ -752,6 +758,9 @@ export const archivedProjects: ArchivedProject[] = [
     summary:
       "Measuring the energy and carbon cost of AI systems, with guidance for lower-impact, more accountable deployment.",
     tags: ["Sustainability", "AI impact", "Policy"],
+    repo: "https://github.com/Ethical-Tech-CoLab/ai-carbon-footprint",
+    demo: "https://ethical-tech-colab.github.io/ai-carbon-footprint/",
+    publication: "/publications/ai-carbon-footprint",
   },
   {
     name: "Generative AI for Good — Avatar Storytelling",
@@ -769,6 +778,7 @@ export const archivedProjects: ArchivedProject[] = [
     tags: ["Traceability", "Human rights", "Data"],
     repo: "https://github.com/aml1045/forced-labor-structural-risk-index",
     demo: "https://aml1045.github.io/forced-labor-structural-risk-index/",
+    publication: "/publications/forced-labor-structural-risk-index",
   },
   {
     name: "AI Research Question Assistant",
@@ -778,6 +788,7 @@ export const archivedProjects: ArchivedProject[] = [
     tags: ["LLM", "Research", "Tooling"],
     repo: "https://github.com/Ethical-Tech-CoLab/ai-research-question-assistant",
     demo: "https://ethical-tech-colab.github.io/ai-research-question-assistant/",
+    publication: "/publications/ai-research-assistant",
   },
 ];
 
@@ -1757,6 +1768,7 @@ export const team = {
       org: "Ethical Tech CoLab",
       photo: "/team/hannah.jpg",
       slug: "hannah-zhao",
+      bio: "Artist and engineer. She uses multi-media installations and infrastructures to highlight and explore human conditions and interaction immersion.",
     },
     {
       initials: "KC",

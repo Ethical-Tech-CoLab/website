@@ -35,6 +35,13 @@ export function Avatar({
           width={size}
           height={size}
           loading="lazy"
+          // A cached image can already be complete before React attaches
+          // onLoad, in which case that event never fires and the photo stays
+          // at opacity 0 for good. Catching it on the ref covers that case;
+          // onLoad still covers the one that is genuinely still loading.
+          ref={(el) => {
+            if (el?.complete && el.naturalWidth > 0) setLoaded(true);
+          }}
           onLoad={() => setLoaded(true)}
           onError={() => setFailed(true)}
           style={{ opacity: loaded ? 1 : 0 }}
