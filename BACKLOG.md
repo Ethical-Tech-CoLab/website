@@ -184,6 +184,12 @@ gap is invisible — do not renumber, it would reshuffle every cover.
 - [ ] **Alex Du & Hannah Zhao** were Spring 2025 fellows but are listed in their
       current roles (Staff / Collaborator), not under Spring 2025 Alumni. Decide
       whether to also list them there.
+- [ ] **Summer 2026 cohort card says "Four projects" over five bullets**
+      (`cohorts` in `src/content/site.ts`). The heading was corrected to four on
+      2026-07-23 to match the four research areas on `/portfolio`, and keeping
+      all five bullets was a deliberate call — AI Models Research is cohort work
+      but not one of the four portfolio questions. Either drop that bullet, or
+      reword the heading so the count is not read as a count of the list.
 - [ ] **Notify past cohorts / alumni** — message old cohort members (Spring 2025,
       Fall 2025, and any earlier) to let them know their profile is now live on
       the website, so they can review it and flag any corrections.
@@ -213,6 +219,50 @@ gap is invisible — do not renumber, it would reshuffle every cover.
 - [ ] **ACLED API keys — evacuation projects.** Verify the ACLED API keys are
       still preserved (and valid) in the evacuation projects, so the data feeds
       don't silently break.
+
+### Left open by the favicon sweep (2026-07-23)
+
+All twenty ETC Pages sites now serve the purple ETC mark as `etc-icon.svg` +
+`etc-icon.png`, verified live. These are the things that pass could not settle.
+
+- [ ] **FLSRI: subresource-integrity hardening is committed but not deployed**
+      (`forced-labor-structural-risk-index`). `main`'s `public/` adds SRI
+      `integrity`/`crossorigin` attributes to the Leaflet and topojson CDN tags,
+      and pins topojson to 3.1.0; the `gh-pages` branch has none of it. The
+      favicon went onto `gh-pages` on its own rather than shipping that change
+      as a side effect, so five files (`index.html`, `bundle.html`,
+      `pages/explore.html`, `pages/profiles.html`, `pages/simulate.html`) still
+      differ between the two branches. Deploying `public/` → `gh-pages` is a
+      call for whoever wrote the hardening.
+- [ ] **grant-valuation-tool cannot be rebuilt from source.** The `gh-pages`
+      branch holds a Next.js static build, but the repo has no
+      `output: "export"`, no deploy script, and no workflow — the branch was
+      pushed by hand, so nothing regenerates it. The favicon was applied to the
+      branch directly for that reason; `src/app/icon.svg` on `main` only helps
+      once a real build path exists. Worth adding an export config + deploy
+      workflow before the next content change, or the branch drifts further
+      from source.
+- [ ] **arts-provenance-agent: the watchlist work is still uncommitted.** The
+      stolen-art watchlist (`public/app.js`, `public/index.html`,
+      `public/styles.css`, `src/web/server.ts`, plus three new files) sits in the
+      working copy. The favicon was staged separately so it did not sweep that
+      in. Once the watchlist lands, `npm run build:pages && npm run deploy:pages`
+      republishes `gh-pages` — the build now copies image assets out of `public/`
+      by discovery, so the icon survives.
+- [ ] **The `gh` token has no `workflow` scope.** Any push touching
+      `.github/workflows/*` in an ETC repo is rejected outright. It forced a
+      redesign in `ercf` (the icon href is relative so no build-time rewrite is
+      needed, which is the better fix anyway) but it will block the next
+      workflow change. Re-authorise with `workflow` scope when convenient.
+- [ ] **ethicaltechlab.org did not resolve.** The live site answered on
+      <https://ethical-tech-colab.github.io/website/>; the apex domain returned
+      nothing when tested on 2026-07-23. Could be local network rather than DNS,
+      but worth confirming the custom domain is still pointed and the CNAME set,
+      since the site's `metadataBase` names it.
+- [ ] **provenance-search's Pages site is only a redirect.** What GitHub serves
+      is a meta-refresh to a Railway app, so the URL dead-ends if that app ever
+      lapses. Both pages carry the icon, but the redirect is worth revisiting —
+      a static snapshot would survive Railway going away.
 
 ---
 
