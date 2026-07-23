@@ -559,8 +559,14 @@ export interface DemoLink {
   href: string;
 }
 
-/** The Avatar Storytelling live demos (D-ID), shared by the Spring 2025 cohort
- * card, the portfolio archive, and the Live Demos page so they never drift. */
+/** The Avatar Storytelling demos, shared by the Spring 2025 cohort card, the
+ * portfolio archive, and the Live Demos page so they never drift.
+ *
+ * Demos 1-4 are the D-ID avatar pieces themselves. The impact dashboard is a
+ * recorded walkthrough rather than an interactive avatar, so it is labelled for
+ * what it is instead of continuing the "Live demo N" numbering — and it is kept
+ * last so the first entry, which the poster card uses as the project's primary
+ * link, remains an actual avatar piece. */
 export const avatarStorytellingDemos: DemoLink[] = [
   {
     label: "Live demo 1",
@@ -577,6 +583,10 @@ export const avatarStorytellingDemos: DemoLink[] = [
   {
     label: "Live demo 4",
     href: "https://studio.d-id.com/share?id=6c979fe11446cabaa5988f0922f0bd33&utm_source=copy",
+  },
+  {
+    label: "Impact dashboard walkthrough",
+    href: "https://drive.google.com/file/d/1DlPUT1UUuEdgB40p2cHeOjpULopAPIEC/view",
   },
 ];
 
