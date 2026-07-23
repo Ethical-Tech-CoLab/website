@@ -59,12 +59,20 @@ export default function AfterTheCorridorPage() {
           <Reveal delay={0.2}>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
-                href={afterTheCorridorReport.repoUrl}
+                href={afterTheCorridorReport.pdfUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-sweep inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.03]"
               >
-                The open-source portfolio <span aria-hidden>↗</span>
+                Download the PDF <span aria-hidden>↗</span>
+              </a>
+              <a
+                href={afterTheCorridorReport.repoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-sweep inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-border-strong"
+              >
+                Source and citation <span aria-hidden>↗</span>
               </a>
               <Link
                 href="/demos"

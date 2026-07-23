@@ -21,7 +21,9 @@ export const afterTheCorridorReport = {
   date: "July 2026",
   authors:
     "Carolina de Almeida Pernambuco Moron, Christine Lumen, Alana Robertson, Melanie MacKew, Carlos D. Ruiz, India Clarke, and Yago Rocha, with Teresa Cantero (PhD Candidate, Universidad Carlos III de Madrid; Adjunct Professor, IE University; Visiting Scholar, NYU CGA). Faculty directors: Prof. Yorke E. Rhodes III and Sylvia Maier.",
-  repoUrl: "https://github.com/Ethical-Tech-CoLab",
+  repoUrl: "https://github.com/Ethical-Tech-CoLab/after-the-corridor-report",
+  pdfUrl:
+    "https://ethical-tech-colab.github.io/after-the-corridor-report/pdf/After-the-Corridor-ETC-Research-Report.pdf",
   disclaimer:
     "The Ethical Tech CoLab is a research initiative of the NYU School of Professional Studies Center for Global Affairs, conducted in collaboration with Microsoft. Views and findings are those of the researchers and do not represent the official positions of New York University, Microsoft, UNHCR, WFP, or any partner institution. External programs cited are referenced as evidence, not as CoLab partnerships.",
 
