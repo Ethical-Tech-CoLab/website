@@ -242,13 +242,15 @@ All twenty ETC Pages sites now serve the purple ETC mark as `etc-icon.svg` +
       once a real build path exists. Worth adding an export config + deploy
       workflow before the next content change, or the branch drifts further
       from source.
-- [ ] **arts-provenance-agent: the watchlist work is still uncommitted.** The
-      stolen-art watchlist (`public/app.js`, `public/index.html`,
-      `public/styles.css`, `src/web/server.ts`, plus three new files) sits in the
-      working copy. The favicon was staged separately so it did not sweep that
-      in. Once the watchlist lands, `npm run build:pages && npm run deploy:pages`
-      republishes `gh-pages` — the build now copies image assets out of `public/`
-      by discovery, so the icon survives.
+- [x] **arts-provenance-agent: watchlist and methodology — ✅ shipped.** The
+      stolen-art watchlist landed via PR #6 and the limits copy via PR #7. A
+      Methodology tab was added on 2026-07-23 (run order, every source and how
+      each is actually reached, metadata, scoring, watchlist query, passport
+      signature, payment, limits), and `gh-pages` was republished, so the live
+      site is current. Two things that page now states publicly are worth
+      carrying into the write-ups if they are not there yet: the web pipeline
+      still runs the non-canonical deduction scorer, and the catalogue's
+      confidence scores are researched by hand rather than computed.
 - [ ] **The `gh` token has no `workflow` scope.** Any push touching
       `.github/workflows/*` in an ETC repo is rejected outright. It forced a
       redesign in `ercf` (the icon href is relative so no build-time rewrite is
