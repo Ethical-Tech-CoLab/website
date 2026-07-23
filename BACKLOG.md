@@ -306,3 +306,286 @@ genuinely open, i.e. not yet fixed anywhere.
       would turn documented instances into rates. Backlogged in that repo. The
       site's copy already states what the comparison does and does not license,
       so this only comes back here if the numbers change.
+
+---
+
+## 10. UX/UI review — 2026-07-23
+
+An expert-review pass over every page, run against the core user task for each
+surface, looking at usability heuristics, cognitive load and flow, and basic
+accessibility.
+
+**Method and its limits.** This was read from source and built HTML, not from a
+browser session with real users, so it catches structural and heuristic problems
+rather than anything you would only learn from watching someone use the site.
+Three claims were checked empirically rather than assumed, and one of them came
+back negative — noted inline. Nothing here is a defect in the sense of "broken";
+the site builds clean and every link resolves. These are friction points.
+
+### 10.1 Site-wide chrome
+
+*Core task: get oriented and reach the thing you came for.*
+
+**The breakdown**
+
+1. **The intro curtain blocks the home page on every fresh load.**
+   `IntroCurtain` renders a full-screen overlay, sets `body.overflow = "hidden"`,
+   and waits for a click — with a 5-second failsafe that dismisses it if no
+   click lands. There is no persistence, so a returning visitor pays the toll
+   every full page load, and someone arriving from search hits a logo before
+   the content they were promised. This is a "user control and freedom"
+   violation: the site decides when the visitor may proceed.
+2. **Its dismiss target is a `div`, not a button.** `role="button"` plus
+   `tabIndex={0}` plus a hand-rolled Enter/Space handler reimplements what a
+   real `<button>` does natively, and does it slightly differently for assistive
+   tech.
+3. **"Tap to enter" assumes a touchscreen.** On desktop — where most of a
+   conference or funder audience will see it — the instruction names a gesture
+   that does not exist.
+4. **`/about` returns a 404.** For an organisation's site, About is the first
+   place a new visitor looks to answer "who are you and why should I trust
+   this". Any external link or search result pointing there hard-fails. See §7.
+5. **The newsletter block is a control that cannot be operated.** A disabled
+   email input next to a "Coming soon" button reads as a form, invites a click,
+   and returns nothing. A dead control is worse than no control.
+
+**Actionable fixes**
+
+1. Gate the curtain on first visit only: set a `localStorage` flag on dismiss
+   and skip it when present. One `useEffect`, no layout change. If it should
+   stay on every load, cut the failsafe to ~1.5s so it never feels like a wait.
+2. Add a visible skip affordance — a small "Skip →" in a corner — so the exit
+   is discoverable rather than "click anywhere and hope".
+3. Swap the `motion.div` for `motion.button`; drop the manual key handler and
+   the `role`/`tabIndex` pair. Fixes the a11y semantics and clears the
+   `set-state-in-effect` lint error in one edit.
+4. Change the label to "Enter" or "Click to enter", or detect a coarse pointer
+   and vary the word.
+5. Decide `/about` (§7). If it stays hidden, at minimum make `/about` redirect
+   to `/team` rather than 404, so the URL is not a dead end.
+6. Until Mailchimp is wired (§6), replace the newsletter form with a single
+   "Email us to be added" link to `site.email`. Restore the form when the
+   action URL exists.
+
+### 10.2 `/demos` — Live Demos
+
+*Core task: find a demo and run it.*
+
+**The breakdown**
+
+1. **On a phone there is no sign the rails scroll.** The arrow buttons are
+   `hidden sm:flex`, and the rail hides its scrollbar (`no-scrollbar`). A rail
+   can hold nine posters; a phone shows about two. Everything past the second
+   is undiscoverable unless the visitor happens to swipe a region that looks
+   like a static card. This is the single biggest flow problem on the site.
+2. **The primary call to action is invisible on touch.** The "▶ Run" badge is
+   `opacity-0` until `group-hover` or `group-focus-visible`. Touch devices have
+   neither. A mobile visitor sees a poster with a "Live" chip and no instruction
+   that pressing it runs anything.
+3. **Two filter rows, no combined reset.** Semester and Theme are independent,
+   and clearing both means finding "All" in each row. After filtering into an
+   empty result the visitor gets "No demos match those filters" with no button
+   to undo it.
+4. **The runner has no failure state.** `DemoRunner` drops the URL into an
+   `<iframe>` with no `onError` and no timeout. *Checked: none of the current
+   hosts — Railway, Vercel, Netlify, GitHub Pages, D-ID — send
+   `X-Frame-Options` or a `frame-ancestors` CSP, so nothing is broken today.*
+   But the day any host adds one, the visitor gets a blank white pane and no
+   explanation, on the page the site is proudest of.
+5. **`sandbox="allow-scripts allow-same-origin"` is not a sandbox.** Those two
+   tokens together let framed content reach its own origin and remove its own
+   sandboxing. Low risk while every frame is CoLab-owned, but it is not
+   providing the protection its presence implies.
+
+**Actionable fixes**
+
+1. Show the rail's overflow on small screens: either reveal the scrollbar below
+   `sm`, or fade the right edge with a gradient mask whenever `atEnd` is false —
+   an edge fade is the cheapest honest "there is more this way" signal.
+2. Render the arrows at all breakpoints. They are already positioned and
+   already hide themselves when the rail fits, so dropping `hidden sm:flex` is
+   close to a one-word change.
+3. Make the "Run" badge permanently visible on coarse pointers —
+   `@media (hover: none) { opacity: 1 }` — or simply always show it on cards
+   that are `live`. The scrim already guarantees it will read.
+4. Add a "Clear filters" chip that appears only when a filter is active, and
+   put the same action inside the empty state so the dead end has an exit.
+5. Give the iframe an `onError` and a load timeout that swaps in a short
+   message plus the "Open in new tab" link that already exists in the control
+   bar. The escape hatch is built — it just is not reachable from the failure.
+6. Drop `allow-same-origin`, or drop `sandbox` entirely and say plainly in a
+   comment that these are first-party frames. The middle position is the one
+   that misleads.
+
+### 10.3 `/publications`
+
+*Core task: find the report answering a question you have.*
+
+**The breakdown**
+
+1. **The first shelf is the one most visitors cannot open.** `publicationTopics`
+   puts "Guidelines" first, and all seven guides are `access: "internal"`,
+   pointing at private repos. The catalogue opens on a row of things that turn
+   the visitor away.
+2. **Same rail-discoverability problem as §10.2** — `PublicationsShowcase` uses
+   the same `PosterRail`, so every fix there applies here.
+3. **The status filter is now two near-identical chips.** Since every entry has
+   a `url`, "All" and "Readable now" differ only by the seven internal guides.
+   Two controls that produce almost the same list invite a pointless click.
+4. **27 entries across 7 rails is a lot of vertical travel** with no way to jump
+   to a topic other than the filter chips at the top, which scroll away.
+
+**Actionable fixes**
+
+1. Move "Guidelines" to the end of `publicationTopics`, or split it below a
+   "For CoLab members" rule so the public work leads. One array reorder.
+2. Apply the §10.2 rail fixes — they are shared components, so both catalogues
+   improve at once.
+3. Either relabel the pair to something with an obvious difference ("Everything"
+   / "Public reports only"), or drop the status row and mark the guides visually
+   in the rail instead.
+4. Make the topic chips sticky under the header, so the way to jump shelves
+   stays reachable at any scroll depth.
+
+### 10.4 `/portfolio`
+
+*Core task: understand what the cohort is working on.*
+
+**The breakdown**
+
+1. **The archive's key instruction is far from the thing it describes.** "Open a
+   project with a `+` to launch its live demo" sits in the section intro; the
+   cards it explains are below the fold. A card with no `+` gives no hint why.
+2. **Two different interaction models on one page.** `PortfolioExplorer`
+   (expanding research questions) and `ArchiveExplorer` (year-grouped cards)
+   behave differently, and the page does not signal the shift.
+3. **Four archive projects still have no demo, repo, or write-up** (§4), so they
+   read as inert names — the visitor cannot tell "nothing here yet" from
+   "you are missing the affordance".
+
+**Actionable fixes**
+
+1. Move the `+` explanation into the archive card grid as a one-line legend
+   directly above the cards, and give demo-less cards a quiet "Write-up coming"
+   marker so their state is stated rather than inferred.
+2. Give the archive a visibly different section treatment — it already has
+   `bg-surface/40`; add the year as a sticky sub-heading so the grouping is
+   legible while scrolling.
+3. Close out §4 so the name-only cards get content.
+
+### 10.5 `/team`
+
+*Core task: see who is behind the work, and who backs it.*
+
+**The breakdown**
+
+1. **Four org cards promise details they do not have.** Every card in the
+   Partners & collaborators grid says "View details →", but **100x, Apne Aap
+   Women Worldwide, Gaia, and Grid Bank** have an empty `about`, and 100x, Gaia,
+   and Grid Bank also have no `url`. Clicking opens a modal containing a logo
+   and a name. Now that all 19 organisations sit in one grid (2026-07-23), these
+   dead ends are adjacent to rich ones, which makes them more obvious.
+2. **The page is very long** — hero, founder, researchers, alumni, advisors,
+   collaborators, then 19 organisations — with no in-page navigation.
+3. **Five participants still have no bio** (§7), so their cards and profile
+   pages show no blurb while their neighbours' do.
+
+**Actionable fixes**
+
+1. Suppress the "View details →" line when an org has neither `about` nor `url`,
+   and make those cards non-interactive — a logo and a name, presented as such.
+   Roughly three lines in `OrgShowcase`. Then fill the four blurbs (§3).
+2. Add a sticky sub-nav for the team page (Founder · Researchers · Alumni ·
+   Advisors · Partners), mirroring `SectionTabs` on the portfolio pages.
+3. Close out the missing bios in §7.
+
+### 10.6 `/contact`
+
+*Core task: start a conversation.*
+
+**The breakdown**
+
+1. **There is no contact form.** The page's entire conversion path is a
+   `mailto:` link and two links to LinkedIn. This is the page whose single job
+   is capturing an inbound enquiry.
+2. **Both channels have real drop-off.** LinkedIn requires an account and a
+   login, which excludes plenty of institutional and government contacts;
+   `mailto:` does nothing useful for anyone on webmail, and on mobile it can
+   open an unconfigured mail app.
+3. **`README.md` claims a `ContactForm` component that does not exist** in
+   `src/components/`. Anyone picking up the repo will look for it.
+
+**Actionable fixes**
+
+1. Add a form. With a static export there is no server, so post to a
+   third-party endpoint — Formspree, Netlify Forms, or a Google Form embed —
+   and keep the email and LinkedIn links as alternates beneath it. This is the
+   highest-value single addition on the site.
+2. Until then, make the email address the primary visual CTA rather than
+   LinkedIn: it is the channel with no account requirement.
+3. Correct the component list in `README.md`.
+
+### 10.7 Report pages (`/publications/<slug>` ×15)
+
+*Core task: read a report and judge whether to trust it.*
+
+**The breakdown**
+
+1. **No reading affordances on a very long document.** `ScrollProgress` exists
+   as a component, but these pages carry no table of contents and no
+   section jump, so a reader who wants section 07 must scroll for it.
+2. **Only one report offers a PDF** (After the Corridor). For an academic
+   audience that expects to download and cite, that is an inconsistent contract
+   across the set.
+3. **References are a flat list.** With no back-links from the citation to the
+   point it supports, checking a claim means scrolling away and losing place.
+
+**Actionable fixes**
+
+1. Add a sticky table of contents from the section headings `ReportBody`
+   already receives — the data to build it is in hand.
+2. Decide the PDF question as a set: either generate one per report or drop the
+   affordance from After the Corridor, so the offer is consistent.
+3. Number the references and link each in-text marker to its entry, with a
+   return link back.
+
+### 10.8 Accessibility — cross-cutting
+
+**The breakdown**
+
+1. **Muted text passes AA with almost no margin.** Measured:
+   `--muted` over `--background` is **4.76:1** dark and **4.69:1** light; over
+   `--card` it is **4.63:1**. The AA threshold is 4.5:1, so every one of these
+   passes — but with under 6% headroom, and all fail AAA (7:1). Any future
+   darkening of the token or lightening of a surface silently breaks
+   compliance.
+2. **That token is used at very small sizes** — `text-xs` (12px) and, on the
+   posters, `text-[10px]` and `text-[9px]`. Small text at barely-AA contrast is
+   the combination most likely to fail a real reader even while passing the
+   automated check.
+3. **Hover-only affordances** (§10.2) are keyboard-reachable via
+   `focus-visible` but not touch-reachable at all.
+4. **The intro curtain's non-native button** (§10.1).
+
+**Actionable fixes**
+
+1. Raise `--muted` opacity from `0.52` to about `0.62` dark and `0.60` to `0.68`
+   light. That lifts every instance clear of the threshold — roughly 6.2:1 —
+   and costs nothing but a slightly less recessive grey.
+2. Set a floor of 12px for anything using `text-muted`; for the 9–10px poster
+   metadata, use `--foreground` at reduced opacity instead so the contrast
+   budget is spent where the text is smallest.
+3. Apply the touch fixes in §10.2.
+4. Apply the button fix in §10.1.
+
+### 10.9 Suggested order
+
+Ranked by visitor impact against effort, not by section number:
+
+1. `/contact` gets a form (§10.6) — biggest functional gap on the site.
+2. Rail affordance and the touch-invisible Run badge (§10.2) — affects every
+   mobile visitor to the two catalogue pages.
+3. Muted-contrast bump (§10.8) — one token, whole-site effect.
+4. Intro curtain: first-visit-only, real button, skip control (§10.1).
+5. Suppress dead "View details →" on the four empty org cards (§10.5).
+6. Move Guidelines off the front of the publications catalogue (§10.3).
