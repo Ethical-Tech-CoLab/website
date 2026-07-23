@@ -46,11 +46,11 @@ export default function MediaPage() {
       <div className="mx-auto max-w-6xl px-6 py-20">
         <Reveal>
           <h2 className="font-heading text-2xl uppercase tracking-wide">
-            Past summits
+            Past events
           </h2>
         </Reveal>
         <div className="mt-8 grid gap-6 sm:grid-cols-2">
-          {media.pastSummits.map((s) => (
+          {media.pastEvents.map((s) => (
             <Reveal key={s.title}>
               <article className="card-glow flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-colors hover:border-border-strong">
                 <p className="font-mono text-xs text-accent">{s.term}</p>

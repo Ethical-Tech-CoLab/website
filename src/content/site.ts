@@ -1573,11 +1573,15 @@ export const media = {
     "The Ethical Tech Summit is the public-facing capstone of the graduate course Harnessing Emerging Technology in Ethical Sourcing at the NYU SPS Center for Global Affairs. Each semester the Ethical Tech CoLab convenes students, technologists, and policy practitioners for a Summit and Hackathon on the live boundary between emerging technology and global affairs.",
   threads:
     "Recurring threads: agentic systems and the future of work; verifiable supply chains under UFLPA / NDAA; online grooming and platform safety; forced labor and human trafficking; and micropayment rails for vulnerable populations and creator economies.",
-  pastSummits: [
+  pastEvents: [
     { term: "Spring 2026 · NYC", title: "Agentic Commerce & the Human Condition", blurb: "Student-led applied work on x402, agent-to-agent micropayments, and downstream effects on vulnerable populations and creator economies. Industry roundtable on responsible deployment.", tags: ["x402", "Agentic Commerce"] },
     { term: "Fall 2025 · NYC", title: "Verifiable Supply Chains: From Compliance to Trust", blurb: "UFLPA / NDAA practitioner panel; demos of attestation patterns over the Supplychain Graph; student briefs on traceability gaps in critical-mineral pathways.", tags: ["UFLPA", "Traceability"] },
+    { term: "Sept 2025 · NYC", title: "NY UN Climate Week Side Event", blurb: "Ethical Tech CoLab side event during NY UN Climate Week, connecting the CoLab's emerging-technology and human-rights work to the climate agenda.", tags: ["Climate Week", "Side Event"] },
+    { term: "June 2025 · NYC", title: "NY Tech Week Side Event", blurb: "Ethical Tech CoLab gathering during NY Tech Week, convening technologists, students, and partners across the CoLab's emerging-technology and ethical-sourcing work.", tags: ["NY Tech Week", "Side Event"] },
     { term: "Spring 2025 · NYC", title: "Online Grooming, Platform Safety & Policy", blurb: "Joint session with multilateral and civil-society partners; student demos on detection patterns and trauma-informed design; closing panel on platform accountability.", tags: ["Platform Safety", "OSCE/ODIHR"] },
     { term: "Fall 2024 · NYC", title: "Forced Labor, Structural Risk & Applied Research", blurb: "Launch of student-led applied-research projects on forced-labor structural risk; introduction of the Forced Labor Structural Risk Index methodology.", tags: ["Human Rights", "FLSRI"] },
+    { term: "Sept 2024 · NYC", title: "NY UN Climate Week Side Event", blurb: "Ethical Tech CoLab side event during NY UN Climate Week, bringing the CoLab's technologists and policy practitioners into the climate conversation.", tags: ["Climate Week", "Side Event"] },
+    { term: "June 2024 · NYC", title: "NY Tech Week Side Event", blurb: "Ethical Tech CoLab gathering during NY Tech Week, bringing students and partners together around the CoLab's emerging-technology and human-rights work.", tags: ["NY Tech Week", "Side Event"] },
     { term: "Spring 2024 · NYC", title: "Inaugural Summit, Emerging Tech & Ethical Sourcing", blurb: "First convening of the Ethical Tech CoLab; framing session on how engineering practice can inform sourcing policy, and how policy can inform engineering boundaries.", tags: ["Inaugural", "Curriculum"] },
   ],
   decks: [
