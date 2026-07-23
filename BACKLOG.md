@@ -37,10 +37,20 @@ Partners:
 - [ ] `osce-odihr-anti-trafficking.*`
 - [ ] `un-commission-on-the-status-of-women-csw.*`
 - [ ] `coinbase-x402-foundation.*`
+- [ ] **Better source files for the two screenshot logos** — Art & Antiquities
+      Blockchain Consortium and Blockchain for Social Impact were supplied as
+      screen grabs, so they carry their page background (cream and white) rather
+      than transparency, and cannot scale cleanly. Ask each for a PNG/SVG on
+      transparent.
+- [ ] **Sayari renders small** — the supplied wordmark is ~5.7:1, so inside the
+      56px square tile it lands about 56×10px. A stacked or icon-only mark would
+      read better.
 
 *Done:* Microsoft (`microsoft.svg`), NYU SPS + CGA (`nyu-sps-cga-logo.jpg`),
 and added 2026-07-23 from the local "Partners Logos" folder — Generative AI for
-Good, D_ID, Rivr, 100x, Apne Aap Women Worldwide, Gaia, Grid Bank. Each is
+Good, D_ID, Rivr, 100x, Apne Aap Women Worldwide, Gaia, Grid Bank — plus
+Sayari, Art & Antiquities Blockchain Consortium, and Blockchain for Social
+Impact, which were new organisations and needed `partners` entries too. Each is
 wired to an explicit `logo:` path in `site.ts` so the browser skips the
 extension-probe fallback. Gaia's supplied file was near-white on transparency
 and would have been invisible on the white logo tile, so it was recoloured to
@@ -53,6 +63,13 @@ brand team provides one.
       **SupplyTrace**, **Rivr**. (D_ID, Mesur.io, BlockApps already linked.)
 - [ ] Short "what we do together" blurbs + URLs for partners: **100x**,
       **Apne Aap Women Worldwide** (url set), **Gaia**, **Grid Bank**.
+- [ ] **Confirm the collaboration for the three partners added 2026-07-23** —
+      **Sayari**, **Art & Antiquities Blockchain Consortium**, and **Blockchain
+      for Social Impact**. Their `about` text currently describes what each
+      organisation *does*, sourced from its own site, because the CoLab's actual
+      relationship with each was not confirmed. Rewrite each as a "what we do
+      together" line (as OSCE/ODIHR and Coinbase have) once known — and check
+      they belong under Partners rather than Clients.
 
 ## 4. Live demos / project links
 

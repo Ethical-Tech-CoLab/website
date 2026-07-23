@@ -253,7 +253,7 @@ export const researchAreas: ResearchArea[] = [
         summary:
           "An interactive index that scores structural forced-labor risk across regions and sectors, turning scattered supply-chain and labor signals into a comparable measure buyers and regulators can act on. Built by Amanda Lindsey in the Fall 2025 cohort.",
         status: "Active",
-        demo: "https://aml1045.github.io/forced-labor-structural-risk-index/",
+        demo: "https://ethical-tech-colab.github.io/forced-labor-structural-risk-index/",
         publication: "/publications/forced-labor-structural-risk-index",
       },
     ],
@@ -776,8 +776,8 @@ export const archivedProjects: ArchivedProject[] = [
     summary:
       "An interactive index mapping the structural conditions that enable forced labor across 184 countries on a 0–1 risk scale, with national and sub-national layers.",
     tags: ["Traceability", "Human rights", "Data"],
-    repo: "https://github.com/aml1045/forced-labor-structural-risk-index",
-    demo: "https://aml1045.github.io/forced-labor-structural-risk-index/",
+    repo: "https://github.com/Ethical-Tech-CoLab/forced-labor-structural-risk-index",
+    demo: "https://ethical-tech-colab.github.io/forced-labor-structural-risk-index/",
     publication: "/publications/forced-labor-structural-risk-index",
   },
   {
@@ -1035,8 +1035,8 @@ export const products: Product[] = [
     name: "Forced Labor Structural Risk Index",
     repoName: "forced-labor-structural-risk-index",
     term: "Fall 2025",
-    repo: "https://github.com/aml1045/forced-labor-structural-risk-index",
-    demo: "https://aml1045.github.io/forced-labor-structural-risk-index/",
+    repo: "https://github.com/Ethical-Tech-CoLab/forced-labor-structural-risk-index",
+    demo: "https://ethical-tech-colab.github.io/forced-labor-structural-risk-index/",
     blurb:
       "An interactive index mapping the structural conditions that enable forced labor across 184 countries on a 0–1 risk scale — with a choropleth world map, national and sub-national layers, rankings, and sources. Built by Amanda Lindsey in the Fall 2025 cohort.",
     language: "HTML",
@@ -1498,6 +1498,30 @@ export const about = {
           "Industry partners on agentic commerce and micropayment rails (x402), engaged through the Ethical Tech Summit.",
         url: "https://www.x402.org",
         logo: "",
+      },
+      // Added 2026-07-23. `about` describes what each organisation does, taken
+      // from its own site — not what it does *with* the CoLab, which is not
+      // confirmed yet. See BACKLOG §3 before presenting these as collaborations.
+      {
+        name: "Sayari",
+        about:
+          "Maps global corporate ownership and supply-chain relationships across more than 250 jurisdictions, surfacing hidden counterparty and compliance risk.",
+        url: "https://sayari.com",
+        logo: "/logos/sayari.jpg",
+      },
+      {
+        name: "Art & Antiquities Blockchain Consortium",
+        about:
+          "A consortium working on cultural-heritage ownership and repatriation, bringing stakeholders, technologies, and cultural artifacts together.",
+        url: "https://aabconsortium.org",
+        logo: "/logos/art-antiquities-blockchain-consortium.png",
+      },
+      {
+        name: "Blockchain for Social Impact",
+        about:
+          "A not-for-profit coalition that incubates and develops blockchain solutions addressing environmental and social challenges, convening nonprofits, governments, investors, and technologists.",
+        url: "https://blockchainforsocialimpact.com",
+        logo: "/logos/blockchain-for-social-impact.png",
       },
     ] as PartnerOrg[],
   },
