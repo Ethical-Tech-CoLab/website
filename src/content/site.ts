@@ -798,17 +798,6 @@ export const products: Product[] = [
     theme: "Cultural heritage",
   },
   {
-    name: "Evacuation Model",
-    repoName: "evacmodel",
-    term: "Summer 2026",
-    repo: "https://github.com/Ethical-Tech-CoLab/evacmodel",
-    demo: "https://ethical-tech-colab.github.io/evacmodel/",
-    blurb:
-      "An evacuation-modeling prototype exploring population movement and decision dynamics under crisis constraints.",
-    language: "HTML",
-    theme: "Evacuation",
-  },
-  {
     name: "ERCF — Evacuation Risk & Cost Framework",
     repoName: "ercf",
     term: "Summer 2026",
