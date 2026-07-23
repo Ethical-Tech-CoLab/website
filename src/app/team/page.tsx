@@ -4,7 +4,7 @@ import { Link } from "next-view-transitions";
 import { team } from "@/content/site";
 import { asset } from "@/lib/asset";
 import { excerpt } from "@/lib/team";
-import { Avatar } from "@/components/TeamAvatar";
+import { Avatar, LinkedInLink } from "@/components/TeamAvatar";
 import { ResearchersExplorer } from "@/components/ResearchersExplorer";
 import { AlumniSection } from "@/components/AlumniSection";
 import { Reveal } from "@/components/motion/Reveal";
@@ -61,10 +61,9 @@ export default function TeamPage() {
           </p>
           <h2 className="mt-3 fluid-h2 font-heading uppercase">Founder</h2>
 
-          <Link
-            href={`/team/${team.founder.slug}`}
-            className="group card-glow mt-10 flex flex-col gap-6 rounded-2xl border border-border bg-card p-7 transition-colors hover:border-border-strong sm:flex-row sm:items-center"
-          >
+          {/* A wrapper, not one big Link, so the LinkedIn anchor can live
+              inside it. The bio link still covers the card via the overlay. */}
+          <div className="group card-glow relative mt-10 flex flex-col gap-6 rounded-2xl border border-border bg-card p-7 transition-colors hover:border-border-strong sm:flex-row sm:items-center">
             <Avatar
               initials={team.founder.initials}
               photo={team.founder.photo}
@@ -80,11 +79,21 @@ export default function TeamPage() {
                   {team.founder.org}
                 </p>
               )}
-              <span className="mt-3 inline-block text-sm text-muted transition-colors group-hover:text-accent">
-                Read full bio →
-              </span>
+              <div className="mt-3 flex items-center gap-3">
+                <Link
+                  href={`/team/${team.founder.slug}`}
+                  className="text-sm text-muted transition-colors after:absolute after:inset-0 after:content-[''] group-hover:text-accent"
+                >
+                  Read full bio →
+                </Link>
+                <LinkedInLink
+                  href={team.founder.linkedin}
+                  name={team.founder.name}
+                  className="relative z-10"
+                />
+              </div>
             </div>
-          </Link>
+          </div>
         </div>
       </section>
 
@@ -135,12 +144,15 @@ export default function TeamPage() {
                       {excerpt(member.bio)}
                     </p>
                   )}
-                  <Link
-                    href={`/team/${member.slug}`}
-                    className="mt-2 inline-block text-sm text-muted transition-colors hover:text-accent"
-                  >
-                    View profile →
-                  </Link>
+                  <div className="mt-2 flex items-center gap-3">
+                    <Link
+                      href={`/team/${member.slug}`}
+                      className="text-sm text-muted transition-colors hover:text-accent"
+                    >
+                      View profile →
+                    </Link>
+                    <LinkedInLink href={member.linkedin} name={member.name} />
+                  </div>
                 </div>
               </div>
             ))}
@@ -184,22 +196,15 @@ export default function TeamPage() {
                       {excerpt(member.bio)}
                     </p>
                   )}
-                  <Link
-                    href={`/team/${member.slug}`}
-                    className="mt-2 inline-block text-sm text-muted transition-colors hover:text-accent"
-                  >
-                    View profile →
-                  </Link>
-                  {member.linkedin && (
-                    <a
-                      href={member.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-2 inline-block text-sm text-muted transition-colors hover:text-accent"
+                  <div className="mt-2 flex items-center gap-3">
+                    <Link
+                      href={`/team/${member.slug}`}
+                      className="text-sm text-muted transition-colors hover:text-accent"
                     >
-                      LinkedIn ↗
-                    </a>
-                  )}
+                      View profile →
+                    </Link>
+                    <LinkedInLink href={member.linkedin} name={member.name} />
+                  </div>
                   {member.org && (
                     <p className="mt-2 text-sm text-foreground/70">
                       {member.org}

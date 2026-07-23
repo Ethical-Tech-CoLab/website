@@ -52,6 +52,43 @@ export function Avatar({
   );
 }
 
+/**
+ * A person's LinkedIn, as an icon button.
+ *
+ * It used to render as the words "LinkedIn ↗" stacked under "View profile",
+ * which put a link to someone's actual profile at the bottom of a column of
+ * small grey text. The mark is recognised instantly and gives a proper tap
+ * target, so it sits on the same row as the profile link instead.
+ *
+ * Renders nothing without a href, so a member with no LinkedIn on file simply
+ * has no icon rather than a dead one.
+ */
+export function LinkedInLink({
+  href,
+  name,
+  className = "",
+}: {
+  href?: string;
+  name?: string;
+  className?: string;
+}) {
+  if (!href) return null;
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={name ? `${name} on LinkedIn` : "LinkedIn profile"}
+      title={name ? `${name} on LinkedIn` : "LinkedIn profile"}
+      className={`inline-grid h-8 w-8 shrink-0 place-items-center rounded-full border border-border text-muted transition-colors hover:border-accent hover:text-accent focus-visible:border-accent focus-visible:outline-none ${className}`}
+    >
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className="h-3.5 w-3.5">
+        <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.12 20.45H3.55V9h3.57v11.45ZM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0Z" />
+      </svg>
+    </a>
+  );
+}
+
 /** Renders a bio string, splitting blank-line-separated paragraphs. */
 export function Bio({ text, className }: { text: string; className?: string }) {
   return (

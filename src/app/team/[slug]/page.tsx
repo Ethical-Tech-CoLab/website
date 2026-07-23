@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Link } from "next-view-transitions";
 import { notFound } from "next/navigation";
-import { Avatar, Bio } from "@/components/TeamAvatar";
+import { Avatar, Bio, LinkedInLink } from "@/components/TeamAvatar";
 import { findTeamMemberBySlug, getTeamMemberSlugs } from "@/lib/team";
 
 export function generateStaticParams() {
@@ -58,17 +58,8 @@ export default async function TeamMemberPage({
             {member.org && (
               <p className="mt-1 text-sm text-foreground/70">{member.org}</p>
             )}
-            <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
-              {member.linkedin && (
-                <a
-                  href={member.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block text-sm text-muted transition-colors hover:text-accent"
-                >
-                  LinkedIn ↗
-                </a>
-              )}
+            <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+              <LinkedInLink href={member.linkedin} name={member.name} />
               {member.website && (
                 <a
                   href={member.website}

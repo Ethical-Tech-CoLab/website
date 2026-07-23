@@ -48,9 +48,9 @@ export const diplomaticSimulatorReport = {
   // Figures pulled from the body for the hero stat band.
   stats: [
     {
-      value: "94",
+      value: "133",
       label:
-        "statements of record produced by twenty-nine delegation agents across four multi-party scenarios",
+        "statements of record produced by forty-two delegation agents across six multi-party scenarios",
     },
     {
       value: "17",
@@ -58,7 +58,7 @@ export const diplomaticSimulatorReport = {
         "negotiating tactics in the fixed vocabulary delegations use to label their own moves",
     },
     {
-      value: "8",
+      value: "20",
       label:
         "Monte Carlo trials run for each scenario under randomly varied shocks, pressure, and mood",
     },
@@ -76,10 +76,10 @@ export const diplomaticSimulatorReport = {
       title: "Executive Summary",
       paragraphs: [
         "The Diplomatic Simulator replays multi-party diplomatic negotiations in which every national delegation is played by an artificial intelligence agent, that is, a language program instructed to speak and reason in the voice of one government. It is a teaching and exploration tool. It is not a forecasting system, and its authors state plainly that it must not be used to inform real policy, negotiation, or intelligence judgements.",
-        "Four scenarios have been simulated to date: the Arctic, with seven delegations; Central Asia and the Fergana Valley, with seven; Cyprus reunification, with six; and the South China Sea, with nine. An earlier two-party session on the Strait of Hormuz, involving Iran and the United States, is preserved as the original demonstration. Across the four multi-party scenarios, twenty-nine delegation agents produced ninety-four statements of record.",
+        "Six scenarios have been simulated to date: the Arctic, with seven delegations; Central Asia and the Fergana Valley, with seven; Cyprus reunification, with six; the South China Sea, with nine; the Korean Peninsula Six-Party Talks, with six; and Jammu and Kashmir, with seven. An earlier two-party session on the Strait of Hormuz, involving Iran and the United States, is preserved as the original demonstration. Across the six multi-party scenarios, forty-two delegation agents produced one hundred and thirty-three statements of record.",
         "The organising principle of the design is information isolation. When a delegation agent writes its statement for a round, it receives only its own confidential brief, a neutral public brief that everyone shares, and the public transcript of what has already been said aloud. It never sees another government's private instructions, and it never sees another delegation's private reasoning. This mirrors the informational structure of real diplomacy, where the public record is common property and the mandate is not.",
         "The scenario material is not invented. The confidential briefs are adapted from crisis-negotiation exercise packs associated with the United States Army War College International Strategic Crisis Negotiation Exercise programme, which are taken to universities. The file names preserved in the repository record where each pack was used, including New York University, Penn, Syracuse, and the University of Minnesota.",
-        "After the talks conclude, a separate analyst agent reads the whole transcript and produces a scoreboard, a debrief for each delegation, and a neutral summary written in the voice of a convening envoy. A further layer re-runs each scenario eight times under randomly varied external conditions, in order to show which outcomes are stable and which depend on luck.",
+        "After the talks conclude, a separate analyst agent reads the whole transcript and produces a scoreboard, a debrief for each delegation, and a neutral summary written in the voice of a convening envoy. A further layer re-runs each scenario twenty times under randomly varied external conditions, in order to show which outcomes are stable and which depend on luck.",
         "The repository is candid that every number on the site is one artificial intelligence system's subjective judgement of another artificial intelligence system's writing. There is no ground truth anywhere in the tool. The most serious structural limitation is that a single underlying model plays every side of every table, so the adversaries are not genuinely independent minds.",
       ],
     },
@@ -232,7 +232,7 @@ export const diplomaticSimulatorReport = {
     {
       id: "scenarios",
       number: "07",
-      title: "The Four Scenarios",
+      title: "The Six Scenarios",
       paragraphs: [
         {
           lead: "The Arctic.",
@@ -249,6 +249,14 @@ export const diplomaticSimulatorReport = {
         {
           lead: "The South China Sea.",
           text: "Nine delegations, the largest table. The issues are the competing maritime claims, the application of the Law of the Sea Convention, freedom of navigation, and the long-running attempt to agree a code of conduct between China and the states of the Association of Southeast Asian Nations.",
+        },
+        {
+          lead: "The Korean Peninsula.",
+          text: "Six delegations, three rounds, convened in Beijing under a Chinese chair as a resumption of the Six-Party Talks. The parties are China, North Korea, South Korea, Japan, Russia, and the United States. The issues are guarantees of the non-use of force and whether a Korean War peace treaty falls inside the process; whether a North Korea returned to the Non-Proliferation Treaty in good standing may hold a civilian nuclear programme; diplomatic normalisation and whether a formal end to the war precedes or follows denuclearisation; sanctions relief and the timing of humanitarian assistance; complete verified dismantlement in one comprehensive package against a rewarded step-by-step sequence; and light-water reactors under a revived Korean Energy Development Organisation. The convening report recorded that Beijing reopened three negotiating channels and kept the Six-Party framework alive without reaching a settlement.",
+        },
+        {
+          lead: "Jammu and Kashmir.",
+          text: "Seven delegations, three rounds, convened in Geneva under a United Nations Special Representative pursuant to Security Council Resolution 2900, and joined for the first time by a delegation from Jammu and Kashmir itself alongside India, Pakistan, China, Russia, the United Kingdom, and the United States. The talks are organised into three chapters. The territory chapter covers sovereignty over the former princely state, whether the Line of Control becomes an international border, and the Sino-Indian claims to Aksai Chin and the Shaksam Valley. The governance chapter covers the end state for Jammu and Kashmir, the status of Article 370, and the terms of any plebiscite under the troop-withdrawal conditions of Resolution 47. The human rights chapter covers whether violations are investigated internationally or domestically, the status and repatriation of roughly 950,000 displaced people, and access to the camps and the Kashmir Valley. The convening report recorded that Geneva closed with a single converged instrument, a screened humanitarian relief mechanism for the displaced.",
         },
       ],
     },
@@ -270,7 +278,7 @@ export const diplomaticSimulatorReport = {
           ],
         },
         "An agent simulates the outcome under that specific draw and reports the type of deal reached, each party's satisfaction, whether each party's primary goal was achieved, partial, or failed, whether its red line held, and which coalitions formed. Deal types are recorded on a five-point ordered scale: comprehensive, framework, partial, stalemate, breakdown. Ordinary code, with no model involved, then counts the deal types, computes each delegation's satisfaction as a mean, a standard deviation, a median, and a lowest and highest value, calculates the percentage of trials in which each red line held, and ranks the coalitions by how often they recurred. A wide spread means the outcome depends on conditions; a narrow one means it is robust.",
-        "Eight trials were run for each scenario. Across every trial of every scenario, not one produced a comprehensive settlement. Central Asia was the most stable, returning a framework agreement in six trials of eight. The Arctic returned a framework in five and a partial in three, with no failures at all. Cyprus was by a wide margin the most fragile, returning two outright breakdowns and one stalemate against three frameworks. The Strait of Hormuz session likewise produced two breakdowns. Individual variables are equally revealing: in the Arctic trials, China's red line held in only thirty-eight per cent of runs and the United States red line in eighty-eight per cent, while the five other delegations held theirs in every single trial.",
+        "Twenty trials were run for each scenario, nineteen for the South China Sea. Across every trial of every scenario, not one produced a comprehensive settlement. Central Asia was the most stable, returning a framework agreement in fourteen trials of twenty and a partial in the remaining six, with no failures at all. The Arctic returned a framework in nine and a partial in ten, with a single stalemate and no breakdowns. Cyprus was the most fragile of the original four, returning six stalemates and two breakdowns against eight frameworks. Of the two scenarios added later, the Korean Peninsula proved the most fragile table in the whole set, reaching a framework in only three trials against six partials, eight stalemates, and three breakdowns, while Jammu and Kashmir returned three frameworks, nine partials, six stalemates, and two breakdowns. Individual variables are equally revealing: in the Arctic trials, China's red line held in forty-five per cent of runs and the United States red line in seventy-five per cent, while the five other delegations held theirs in every single trial.",
         "The methodology page is explicit that each trial is a reduced-form outcome simulation conditioned on the random draw, not a complete re-run of the multi-round negotiation. What the exercise samples is the model's own distribution over plausible outcomes. It is not an empirical distribution of real events, and the randomised conditions are illustrative rather than calibrated probabilities. The right reading is how sensitive the model thinks this outcome is to shocks and mood, and nothing stronger.",
       ],
     },
@@ -323,11 +331,11 @@ export const diplomaticSimulatorReport = {
         },
         {
           lead: "The samples are small.",
-          text: "Eight trials per scenario is enough to show that Cyprus is fragile and Central Asia is not. It is not enough to support a percentage figure quoted on its own.",
+          text: "Twenty trials per scenario is enough to show that Cyprus is fragile and Central Asia is not, and that the two scenarios added later, Korea and Jammu and Kashmir, are more fragile still. It is not enough to support a percentage figure quoted on its own.",
         },
         {
-          lead: "One accounting discrepancy.",
-          text: "The methodology page describes the Monte Carlo run as thirty-two trials, counting the four multi-party scenarios. The aggregated data file also holds eight trials for the earlier Strait of Hormuz session, giving forty in total. Neither figure is wrong, but they count different things.",
+          lead: "The trial count.",
+          text: "The Monte Carlo layer now holds twenty trials for each scenario, with nineteen for the South China Sea, and a further twenty for the earlier Strait of Hormuz session, for one hundred and thirty-nine in total. Anyone reconciling this figure against an earlier count should note that the run was topped up from an initial eight trials per scenario.",
         },
         {
           lead: "The project records a failure honestly.",

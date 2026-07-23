@@ -1,6 +1,6 @@
 import { Link } from "next-view-transitions";
 import { cohortTerms, team } from "@/content/site";
-import { Avatar } from "@/components/TeamAvatar";
+import { Avatar, LinkedInLink } from "@/components/TeamAvatar";
 import { excerpt } from "@/lib/team";
 
 const CURRENT_TERM = cohortTerms[cohortTerms.length - 1];
@@ -32,10 +32,13 @@ export function ResearchersExplorer() {
 
       <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {visible.map((member) => (
-          <Link
+          /* The card is a wrapper rather than one big Link so the LinkedIn
+             anchor can sit inside it — an anchor nested in an anchor is
+             invalid, and the profile link still covers the whole card via
+             the inset overlay below. */
+          <div
             key={member.name}
-            href={`/team/${member.slug}`}
-            className="group card-glow flex flex-col items-start rounded-2xl border border-border bg-card p-6 transition-colors hover:border-border-strong"
+            className="group card-glow relative flex flex-col items-start rounded-2xl border border-border bg-card p-6 transition-colors hover:border-border-strong"
           >
             <Avatar
               initials={member.initials}
@@ -54,10 +57,21 @@ export function ResearchersExplorer() {
                 {excerpt(member.bio)}
               </p>
             )}
-            <span className="mt-4 inline-block text-sm text-muted transition-colors group-hover:text-accent">
-              View profile →
-            </span>
-          </Link>
+            <div className="mt-4 flex w-full items-center gap-3">
+              <Link
+                href={`/team/${member.slug}`}
+                className="text-sm text-muted transition-colors after:absolute after:inset-0 after:content-[''] group-hover:text-accent"
+              >
+                View profile →
+              </Link>
+              {/* Above the card-wide overlay, so the icon stays clickable. */}
+              <LinkedInLink
+                href={member.linkedin}
+                name={member.name}
+                className="relative z-10 ml-auto"
+              />
+            </div>
+          </div>
         ))}
 
         {visible.length === 0 && (

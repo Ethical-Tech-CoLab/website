@@ -1,6 +1,6 @@
 import { Link } from "next-view-transitions";
 import { cohortTerms, team, type TeamMember } from "@/content/site";
-import { Avatar } from "@/components/TeamAvatar";
+import { Avatar, LinkedInLink } from "@/components/TeamAvatar";
 import { excerpt } from "@/lib/team";
 
 const CURRENT_TERM = cohortTerms[cohortTerms.length - 1];
@@ -55,10 +55,12 @@ export function AlumniSection() {
 
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {group.members.map((member: TeamMember) => (
-                <Link
+                /* A wrapper, not one big Link: the LinkedIn anchor has to sit
+                   inside the card and an anchor cannot nest in an anchor. The
+                   profile link still covers the card via the inset overlay. */
+                <div
                   key={member.name}
-                  href={`/team/${member.slug}`}
-                  className="group card-glow flex flex-col items-start rounded-2xl border border-border bg-card p-6 transition-colors hover:border-border-strong"
+                  className="group card-glow relative flex flex-col items-start rounded-2xl border border-border bg-card p-6 transition-colors hover:border-border-strong"
                 >
                   <Avatar
                     initials={member.initials}
@@ -74,10 +76,20 @@ export function AlumniSection() {
                       {excerpt(member.bio)}
                     </p>
                   )}
-                  <span className="mt-4 inline-block text-sm text-muted transition-colors group-hover:text-accent">
-                    View profile →
-                  </span>
-                </Link>
+                  <div className="mt-4 flex w-full items-center gap-3">
+                    <Link
+                      href={`/team/${member.slug}`}
+                      className="text-sm text-muted transition-colors after:absolute after:inset-0 after:content-[''] group-hover:text-accent"
+                    >
+                      View profile →
+                    </Link>
+                    <LinkedInLink
+                      href={member.linkedin}
+                      name={member.name}
+                      className="relative z-10 ml-auto"
+                    />
+                  </div>
+                </div>
               ))}
             </div>
           </div>
