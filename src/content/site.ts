@@ -510,6 +510,20 @@ export const publications = {
       date: "2026",
       url: "/publications/haste",
     },
+    {
+      index: "19",
+      area: "AI systems",
+      question:
+        "Which AI model should be selected for a task, and on what evidence?",
+      title:
+        "AI Model Performance: Capabilities, Accuracy, Speed, Energy Use, and Token Economics",
+      summary:
+        "A comparative review of frontier, open-weight, and efficient model families, separating independently verified measurement from provider marketing. Every figure carries its source, its date, and its evidence grade. Ships with a live cost-per-accepted-task calculator and a validated data layer.",
+      status: "Published",
+      date: "July 2026",
+      // Internal route (starts with "/") — rendered on-site, see the card logic.
+      url: "/publications/ai-models-research",
+    },
   ] as Publication[],
 };
 
