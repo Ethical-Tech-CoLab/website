@@ -258,6 +258,35 @@ export const diplomaticSimulatorReport = {
           lead: "Jammu and Kashmir.",
           text: "Seven delegations, three rounds, convened in Geneva under a United Nations Special Representative pursuant to Security Council Resolution 2900, and joined for the first time by a delegation from Jammu and Kashmir itself alongside India, Pakistan, China, Russia, the United Kingdom, and the United States. The talks are organised into three chapters. The territory chapter covers sovereignty over the former princely state, whether the Line of Control becomes an international border, and the Sino-Indian claims to Aksai Chin and the Shaksam Valley. The governance chapter covers the end state for Jammu and Kashmir, the status of Article 370, and the terms of any plebiscite under the troop-withdrawal conditions of Resolution 47. The human rights chapter covers whether violations are investigated internationally or domestically, the status and repatriation of roughly 950,000 displaced people, and access to the camps and the Kashmir Valley. The convening report recorded that Geneva closed with a single converged instrument, a screened humanitarian relief mechanism for the displaced.",
         },
+        {
+          lead: "Convening plausibility.",
+          text: "A separate question is how plausible it is, in the real world of 2026, that these parties would actually convene and bargain in good faith in the format each scenario stages. This is an editorial judgement about real-world posture, offered as a caveat rather than a result: it is not an output of the simulator and it is not a forecast. A scenario can be a first-rate teaching exercise while describing a table that no government would currently join, and the zero-settlement finding partly measures how far each pack sits from a real, willing negotiation. The ratings below are the author's, on a simple scale of low, moderate, and high.",
+        },
+        {
+          lead: "Central Asia, high.",
+          text: "The rare case where good-faith multilateral bargaining actually succeeded: Kyrgyzstan, Tajikistan, and Uzbekistan signed the Treaty of Khujand fixing their border tripoint on 31 March 2025, following the Kyrgyz-Tajik delimitation treaty of the same month. Real negotiation in roughly this format is live and productive.",
+        },
+        {
+          lead: "Cyprus, moderate.",
+          text: "The leaders and guarantors do convene under the United Nations, and a fresh informal round was in preparation through 2026, but since the collapse of the Crans-Montana talks in 2017 the sides remain split between a bizonal federation and a two-state settlement, so a good-faith settlement of this scope is not currently in reach.",
+        },
+        {
+          lead: "The Arctic, low.",
+          text: "The Arctic Council's political track between Russia and the seven Western states has been suspended since Russia's 2022 invasion of Ukraine, and United States pressure on Denmark over Greenland compounds the freeze. A good-faith seven-party table is not currently thinkable, and China is not a Council member.",
+        },
+        {
+          lead: "The South China Sea, low.",
+          text: "China declares the 2016 arbitral award null and void and insists on bilateral rather than multilateral resolution, and the nearest real analogue, the ASEAN-China Code of Conduct, has crawled since 2018 without conclusion.",
+        },
+        {
+          lead: "The Korean Peninsula, low.",
+          text: "The Six-Party Talks have been defunct since 2009; North Korea has written its nuclear status into its constitution, adopted a hostile-two-states doctrine renouncing unification, and secured through its 2024 partnership with Russia much of what it once sought at the table.",
+        },
+        {
+          lead: "Jammu and Kashmir, low.",
+          text: "India treats the territory as strictly internal, a stance hardened after the 2019 revocation of Article 370, and refuses third-party mediation, so a Security Council conference seating a separate Jammu and Kashmir delegation is unthinkable to New Delhi even as Pakistan seeks exactly that.",
+        },
+        "Four of the six scenarios rate low, which is a caution against reading any negotiation result here as commentary on how these disputes are likely to move. The packs were built to be teachable, which often means describing a table more balanced and more willing than the real one.",
       ],
     },
     {
@@ -407,6 +436,26 @@ export const diplomaticSimulatorReport = {
     },
     {
       ref: "United States Army War College, Center for Strategic Leadership. International Strategic Crisis Negotiation Exercise. Source of the adapted scenario packs and confidential briefs.",
+    },
+    {
+      ref: "Convening plausibility, Central Asia. Uzbekistan, Tajikistan, and Kyrgyzstan sign landmark border agreement (Treaty of Khujand), 31 March 2025.",
+      url: "https://kun.uz/en/news/2025/03/31/uzbekistan-tajikistan-and-kyrgyzstan-sign-landmark-border-agreement",
+    },
+    {
+      ref: "Convening plausibility, Cyprus. UN Secretary-General to visit Cyprus for stalled peace talks, 2026.",
+      url: "https://www.turkishminute.com/2026/07/17/un-secretary-general-guterres-to-visit-cyprus-for-stalled-peace-talks/",
+    },
+    {
+      ref: "Convening plausibility, South China Sea. Wang Yi reiterates China's rejection of the 2016 arbitration ruling, South China Morning Post, 2025.",
+      url: "https://www.scmp.com/news/china/article/3317953/wang-yi-reiterates-chinas-rejection-south-china-sea-ruling",
+    },
+    {
+      ref: "Convening plausibility, Korea. Kim Jong Un's 'two hostile states' declaration and its legal implications, Daily NK.",
+      url: "https://www.dailynk.com/english/kim-jong-uns-two-hostile-states-declaration-legal-implications-for-the-korean-peninsula/",
+    },
+    {
+      ref: "Convening plausibility, Jammu and Kashmir. Modi tells Trump India will not accept third-party mediation on Kashmir, BBC, 2025.",
+      url: "https://feeds.bbci.co.uk/news/articles/c89ew9wde3lo",
     },
   ] as Citation[],
 
