@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { media } from "@/content/site";
 import { SectionTabs } from "@/components/SectionTabs";
+import { SlideDeck } from "@/components/SlideDeck";
 import { Reveal } from "@/components/motion/Reveal";
 import { asset } from "@/lib/asset";
 
@@ -70,6 +71,25 @@ export default function MediaPage() {
                   ))}
                 </div>
               </article>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal>
+          <h2 className="mt-20 font-heading text-2xl uppercase tracking-wide">
+            From the stage
+          </h2>
+        </Reveal>
+        <Reveal delay={0.05}>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
+            Decks presented at the Summit, in full. Use the arrows to advance, or
+            open a deck in Slides for full screen.
+          </p>
+        </Reveal>
+        <div className="mt-8 space-y-10">
+          {media.decks.map((d) => (
+            <Reveal key={d.id}>
+              <SlideDeck deck={d} />
             </Reveal>
           ))}
         </div>

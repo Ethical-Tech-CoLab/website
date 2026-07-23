@@ -28,6 +28,9 @@ Partners:
 - `apne-aap-women-worldwide.png` — Apne Aap Women Worldwide
 - `gaia.png` — Gaia
 - `grid-bank.png` — Grid Bank
+- `tavily.svg` — Tavily (already added; the square mark from tavily.com)
+- `microsoft-garage.png` — The Microsoft Garage (already added; the site logo
+  from microsoft.com/en-us/garage)
 
 To use a different name for any org, set its `logo` field in
 `src/content/site.ts` to the exact path (e.g. `logo: "/logos/blockapps.png"`).

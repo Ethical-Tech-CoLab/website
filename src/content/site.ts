@@ -437,7 +437,8 @@ export const publications = {
       summary:
         "A report on a simulator that models what happens when planners act on incomplete intelligence. All data is synthetic and reproducible from a seed, so the mechanism rather than any particular place is what is on display.",
       status: "Published",
-      date: "2026",
+      // Matches erus.ts, which dates the report to the month.
+      date: "July 2026",
       url: "/publications/erus",
     },
     {
@@ -560,6 +561,9 @@ export const publications = {
     // access: "internal" on each, so the card says so instead of advertising
     // a link that 404s for anyone outside the org. Make those repos public
     // (or transcribe the guides on-site) and these become ordinary entries.
+    // Dates are each guide's own commit date in its repo (July 2026), so the
+    // cards carry a date like every other entry rather than falling back to
+    // the status line.
     {
       index: "20",
       area: "Guidelines",
@@ -569,6 +573,7 @@ export const publications = {
       summary:
         "A beginner's reference for Git and GitHub from day one — what the two actually are and how they differ, the key concepts, setting up, and the handful of commands that cover almost everything you will do in the first months.",
       status: "Internal guide",
+      date: "July 2026",
       access: "internal",
       url: "https://github.com/Ethical-Tech-CoLab/Getting-Going/blob/main/docs/github-101.md",
     },
@@ -581,6 +586,7 @@ export const publications = {
       summary:
         "The collaborative loop, step by step: the GitHub flow at a glance, creating and managing branches, opening a pull request that can be reviewed, and what to look for when reviewing someone else's.",
       status: "Internal guide",
+      date: "July 2026",
       access: "internal",
       url: "https://github.com/Ethical-Tech-CoLab/Getting-Going/blob/main/docs/github-workflow.md",
     },
@@ -593,6 +599,7 @@ export const publications = {
       summary:
         "Publishing a free site straight from a repository, written for first-time users — no server to rent, nothing to install. Includes an honest account of what GitHub Pages can and cannot do, which is where most first attempts come unstuck.",
       status: "Internal guide",
+      date: "July 2026",
       access: "internal",
       url: "https://github.com/Ethical-Tech-CoLab/Getting-Going/blob/main/docs/github-pages-101.md",
     },
@@ -606,6 +613,7 @@ export const publications = {
       summary:
         "Generating data algorithmically rather than collecting it: why you would (developing before real data exists, forcing edge cases, sharing something realistic without privacy exposure, reproducing a dataset from a seed), and how to do it without fooling yourself about what the results mean.",
       status: "Internal guide",
+      date: "July 2026",
       access: "internal",
       url: "https://github.com/Ethical-Tech-CoLab/Getting-Going/blob/main/synthetic-data/SYNTHETIC_DATA_GUIDE.md",
     },
@@ -619,6 +627,7 @@ export const publications = {
       summary:
         "The companion training material to the synthetic-data guide — a self-contained walkthrough for running the topic as a session rather than reading it alone.",
       status: "Internal guide",
+      date: "July 2026",
       access: "internal",
       url: "https://github.com/Ethical-Tech-CoLab/Getting-Going/blob/main/synthetic-data/synthetic-data-training.html",
     },
@@ -632,6 +641,7 @@ export const publications = {
       summary:
         "A cross-agent skill wrapping the Tavily REST API — search, extract, crawl and map — with a dependency-free client in both Python and Node. It calls the API directly, so it still works where a Tavily MCP server cannot be launched, such as under IT policy that blocks local npx.",
       status: "Internal guide",
+      date: "July 2026",
       access: "internal",
       url: "https://github.com/Ethical-Tech-CoLab/Getting-Going/tree/main/tavily-research",
     },
@@ -644,6 +654,7 @@ export const publications = {
       summary:
         "One-time setup, about five minutes: installing cloudflared for the secure tunnel, creating an SSH key if you do not have one, and connecting from macOS, Windows or Linux.",
       status: "Internal guide",
+      date: "July 2026",
       access: "internal",
       url: "https://github.com/Ethical-Tech-CoLab/Getting-started-on-CloudGPU-/blob/main/remote-gpu-how-to-guide.md",
     },
@@ -1527,9 +1538,32 @@ export const about = {
         url: "https://blockchainforsocialimpact.com",
         logo: "/logos/blockchain-for-social-impact.png",
       },
+      {
+        name: "The Microsoft Garage",
+        about:
+          "Microsoft's worldwide innovation program — local Garage sites, the Global Hackathon, and the Innovation Studio platform — where employees and customers turn experimental ideas into working projects.",
+        url: "https://www.microsoft.com/en-us/garage/",
+        logo: "/logos/microsoft-garage.png",
+      },
+      {
+        name: "Tavily",
+        about:
+          "A web search and extraction API built for AI agents rather than people, returning clean extracted text with the source address of every result. The CoLab uses it as the restricted research engine behind the provenance work and the tavily-research agent skill.",
+        url: "https://tavily.com",
+        logo: "/logos/tavily.svg",
+      },
     ] as PartnerOrg[],
   },
 };
+
+/** A Google Slides deck shown on the Media page. `id` is the Slides file ID
+ *  from its URL; the deck must be shared "anyone with the link can view". */
+export interface SummitDeck {
+  id: string;
+  term: string;
+  title: string;
+  blurb?: string;
+}
 
 /** Ethical Tech Summit — media, past events, and moments (Portfolio › Media). */
 export const media = {
@@ -1546,6 +1580,15 @@ export const media = {
     { term: "Fall 2024 · NYC", title: "Forced Labor, Structural Risk & Applied Research", blurb: "Launch of student-led applied-research projects on forced-labor structural risk; introduction of the Forced Labor Structural Risk Index methodology.", tags: ["Human Rights", "FLSRI"] },
     { term: "Spring 2024 · NYC", title: "Inaugural Summit, Emerging Tech & Ethical Sourcing", blurb: "First convening of the Ethical Tech CoLab; framing session on how engineering practice can inform sourcing policy, and how policy can inform engineering boundaries.", tags: ["Inaugural", "Curriculum"] },
   ],
+  decks: [
+    {
+      id: "1hLSiDnyG-YsO_kSDwBRtSpUGy-zTRYa3bBlreOcEcjA",
+      term: "Fall 2024 · NYC",
+      title: "Avatar Impact Storyboard",
+      blurb:
+        "Summit presentation on telling the stories of people who can't tell them themselves — human trafficking and child labor — and on whether generative AI can convey the magnitude of the problem. Built in the Ethical Tech CoLab by NYU SPS Center for Global Affairs students, who wrote the stories from real-world cases and produced the avatar videos, and NYU Stern students, who built the interactive storyboard.",
+    },
+  ] as SummitDeck[],
   gallery: [
     { src: "/summit/speaker-amanda-lindsey.jpg", caption: "Speaker · Amanda Lindsey" },
     { src: "/summit/speaker-deborah-berebichez.jpg", caption: "Speaker · Deborah Berebichez" },
