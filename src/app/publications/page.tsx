@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Link } from "next-view-transitions";
 import { publications } from "@/content/site";
 import { SectionTabs } from "@/components/SectionTabs";
 import { Reveal } from "@/components/motion/Reveal";
+import { PublicationsGrid } from "@/components/PublicationsGrid";
 
 export const metadata: Metadata = {
   title: "Publications",
@@ -37,69 +37,7 @@ export default function PublicationsPage() {
 
       <SectionTabs />
 
-      <div className="mx-auto max-w-6xl px-6 py-20">
-        <div className="grid gap-6 sm:grid-cols-2">
-          {publications.items.map((pub) => (
-            <Reveal key={pub.index}>
-              <article className="card-glow flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-colors hover:border-border-strong">
-                <div className="flex items-center justify-between gap-3">
-                  <p className="font-mono text-sm text-accent">
-                    {pub.index} / {pub.area}
-                  </p>
-                  {pub.url ? (
-                    <span className="shrink-0 rounded-full bg-accent px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-accent-ink">
-                      ● Published
-                    </span>
-                  ) : (
-                    <span className="shrink-0 rounded-full border border-border px-2.5 py-0.5 text-[10px] uppercase tracking-wider text-muted">
-                      {pub.status}
-                    </span>
-                  )}
-                </div>
-
-                <h2 className="mt-4 font-heading text-xl uppercase leading-snug tracking-wide sm:text-2xl">
-                  {pub.title}
-                </h2>
-                {pub.date && (
-                  <p className="mt-2 font-mono text-xs text-muted">{pub.date}</p>
-                )}
-                <p className="mt-2 text-sm font-medium text-muted">
-                  {pub.question}
-                </p>
-                <p className="mt-4 text-sm leading-relaxed text-muted">
-                  {pub.summary}
-                </p>
-
-                <div className="mt-auto pt-6">
-                  {pub.url ? (
-                    pub.url.startsWith("/") ? (
-                      <Link
-                        href={pub.url}
-                        className="btn-sweep inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.03]"
-                      >
-                        Read report <span aria-hidden>→</span>
-                      </Link>
-                    ) : (
-                      <a
-                        href={pub.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-sweep inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.03]"
-                      >
-                        Read report <span aria-hidden>↗</span>
-                      </a>
-                    )
-                  ) : (
-                    <span className="inline-flex items-center gap-2 rounded-full border border-dashed border-border px-5 py-2.5 text-sm text-muted">
-                      Academic report — coming soon
-                    </span>
-                  )}
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-      </div>
+      <PublicationsGrid />
     </>
   );
 }

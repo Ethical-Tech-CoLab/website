@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { Link } from "next-view-transitions";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { asset } from "@/lib/asset";
 import {
   researchAreas,
   products,
@@ -184,45 +186,91 @@ export function PortfolioExplorer() {
                         const hasDemo = Boolean(runTarget(runnable));
                         return (
                           <li key={project.name}>
-                            {/* Opens the demo here rather than navigating to
-                                the Live Demos page. The old link was labelled
-                                "Open live demo" but only jumped to the card
-                                on another page, which never opened anything. */}
-                            <button
-                              type="button"
-                              onClick={() => setOpenDemo(runnable)}
-                              className="group card-glow flex w-full flex-col rounded-xl border border-border p-6 text-left transition-colors hover:border-border-strong"
-                            >
-                              <div className="flex items-center justify-between gap-3">
-                                <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">
-                                  {project.name}
-                                </h3>
-                                {hasDemo ? (
-                                  <span className="shrink-0 rounded-full bg-accent px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-accent-ink">
-                                    ● Live
-                                  </span>
-                                ) : (
-                                  project.status && (
-                                    <span
-                                      className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-                                        project.status === "Active"
-                                          ? "bg-accent text-accent-ink"
-                                          : "border border-border text-muted"
-                                      }`}
-                                    >
-                                      {project.status}
+                            {/* An article, not one big button: the card carries
+                                a demo action AND a link to the write-up, and a
+                                link nested inside a button is invalid. The
+                                poster and title stay clickable for the demo. */}
+                            <article className="group card-glow flex gap-5 rounded-xl border border-border p-5 transition-colors hover:border-border-strong sm:p-6">
+                              {runnable.posterKey && (
+                                <button
+                                  type="button"
+                                  onClick={() => setOpenDemo(runnable)}
+                                  aria-label={`Open ${project.name}`}
+                                  className="hidden w-[92px] shrink-0 overflow-hidden rounded-lg border border-border bg-cover bg-top transition-transform hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:block"
+                                  style={{
+                                    aspectRatio: "2 / 3",
+                                    backgroundImage: `url(${asset(
+                                      `/repos/${runnable.posterKey}.jpg`,
+                                    )})`,
+                                    backgroundColor: "var(--poster-ground)",
+                                  }}
+                                />
+                              )}
+
+                              <div className="min-w-0 flex-1">
+                                <div className="flex items-center justify-between gap-3">
+                                  <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">
+                                    {project.name}
+                                  </h3>
+                                  {hasDemo ? (
+                                    <span className="shrink-0 rounded-full bg-accent px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-accent-ink">
+                                      ● Live
                                     </span>
-                                  )
-                                )}
+                                  ) : (
+                                    project.status && (
+                                      <span
+                                        className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                                          project.status === "Active"
+                                            ? "bg-accent text-accent-ink"
+                                            : "border border-border text-muted"
+                                        }`}
+                                      >
+                                        {project.status}
+                                      </span>
+                                    )
+                                  )}
+                                </div>
+
+                                <p className="mt-3 text-base leading-relaxed text-muted">
+                                  {project.summary}
+                                </p>
+
+                                <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium">
+                                  <button
+                                    type="button"
+                                    onClick={() => setOpenDemo(runnable)}
+                                    className="inline-flex items-center gap-1 text-muted transition-colors hover:text-accent"
+                                  >
+                                    {hasDemo
+                                      ? "Open live demo"
+                                      : "Project details"}{" "}
+                                    <span aria-hidden>→</span>
+                                  </button>
+
+                                  {project.publication && (
+                                    <Link
+                                      href={project.publication}
+                                      className="inline-flex items-center gap-1 text-muted transition-colors hover:text-accent"
+                                    >
+                                      Read the report{" "}
+                                      <span aria-hidden>→</span>
+                                    </Link>
+                                  )}
+
+                                  {runnable.repo && (
+                                    <a
+                                      href={runnable.repo}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="inline-flex items-center gap-1 text-muted transition-colors hover:text-accent"
+                                    >
+                                      View code{" "}
+                                      <span aria-hidden>↗</span>
+                                    </a>
+                                  )}
+                                </div>
                               </div>
-                              <p className="mt-3 text-base leading-relaxed text-muted">
-                                {project.summary}
-                              </p>
-                              <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-muted transition-colors group-hover:text-accent">
-                                {hasDemo ? "Open live demo" : "Project details"}{" "}
-                                <span aria-hidden>→</span>
-                              </span>
-                            </button>
+                            </article>
                           </li>
                         );
                       })}

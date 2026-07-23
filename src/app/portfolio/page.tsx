@@ -3,7 +3,7 @@ import Image from "next/image";
 import { PortfolioExplorer } from "@/components/PortfolioExplorer";
 import { SectionTabs } from "@/components/SectionTabs";
 import { ArchiveExplorer } from "@/components/ArchiveExplorer";
-import { archivedProjects } from "@/content/site";
+import { archivedProjects, researchAreas } from "@/content/site";
 import { asset } from "@/lib/asset";
 import { Reveal } from "@/components/motion/Reveal";
 
@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   description:
     "Research questions the current cohort is exploring across disaster response, cultural heritage, supply chains, and diplomacy.",
 };
+
+const WORDS = ["Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine"];
+const questionCount = WORDS[researchAreas.length] ?? researchAreas.length;
 
 export default function PortfolioPage() {
   return (
@@ -39,8 +42,11 @@ export default function PortfolioPage() {
             </p>
           </Reveal>
           <Reveal delay={0.05}>
+            {/* Counted from the data, not written in: the heading said "Four"
+                through a stretch when there were five areas. */}
             <h1 className="mt-4 fluid-hero font-heading uppercase leading-[0.9]">
-              Four questions. <span className="display-em">One frontier.</span>
+              {questionCount} questions.{" "}
+              <span className="display-em">One frontier.</span>
             </h1>
           </Reveal>
           <Reveal delay={0.1}>

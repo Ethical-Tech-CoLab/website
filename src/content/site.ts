@@ -81,6 +81,12 @@ export interface SubProject {
    * project carry its own demo without needing to appear in the `products` list.
    */
   demo?: string;
+  /**
+   * Route of this project's written-up report, e.g. "/publications/ercf".
+   * Set it where a report exists so the portfolio card can link straight to the
+   * reading, rather than making someone find it again on the publications page.
+   */
+  publication?: string;
 }
 
 /** A research question that opens to reveal the projects exploring it. */
@@ -118,6 +124,7 @@ export const researchAreas: ResearchArea[] = [
           "Humanitarian practice tends to treat evacuation as the obvious good, but the journey carries its own risk, and a crisis can be both catastrophic to endure and impossible to escape. This index scores 104 active crises on those two risks separately, drawing on INFORM Severity data, a twelve-factor vulnerability profile, and live conflict reporting, so that the comparison between leaving and staying becomes visible rather than assumed.",
         status: "Active",
         repo: "https://github.com/Ethical-Tech-CoLab/evacuation-inform-index-carolina",
+        publication: "/publications/evacuation-inform-index",
       },
       {
         name: "Exodus — Civilian Evacuation Risk Platform",
@@ -132,6 +139,7 @@ export const researchAreas: ResearchArea[] = [
           "A decision-support tool that estimates the human and financial cost of civilian evacuation in armed conflict, scoring scenarios across seven risk dimensions and comparing the cost of evacuating against the cost of staying in the zone.",
         status: "Active",
         repo: "https://github.com/Ethical-Tech-CoLab/ercf",
+        publication: "/publications/ercf",
       },
       {
         name: "Evacuation Behavior Simulator",
@@ -139,6 +147,7 @@ export const researchAreas: ResearchArea[] = [
           "An interactive, agent-based model of community evacuation behavior, modeling family clusters, information-seeking, neighbor social influence, and elder and child delays across an UNAWARE → SEEKING → MILLING → EVACUATING → DONE lifecycle.",
         status: "Active",
         repo: "https://github.com/Ethical-Tech-CoLab/Evac-Sim-Melanie",
+        publication: "/publications/evacuation-simulation",
       },
       {
         name: "Evacuation Routing Simulator",
@@ -146,6 +155,7 @@ export const researchAreas: ResearchArea[] = [
           "An interactive evacuation simulator that models how routing and assignment choices shape who reaches safety, with shareable scenario state and a built-in explainer walkthrough.",
         status: "Active",
         repo: "https://github.com/Ethical-Tech-CoLab/India-EvacSimulation",
+        publication: "/publications/erus",
       },
       {
         name: "Mariupol 2022 — Corridor Severity Model",
@@ -154,6 +164,7 @@ export const researchAreas: ResearchArea[] = [
         status: "Active",
         repo: "https://github.com/Ethical-Tech-CoLab/mariupol-evacuation-model",
         demo: "https://ethical-tech-colab.github.io/mariupol-evacuation-model/",
+        publication: "/publications/mariupol-severity-model",
       },
     ],
   },
@@ -180,6 +191,7 @@ export const researchAreas: ResearchArea[] = [
         status: "Active",
         repo: "https://github.com/Ethical-Tech-CoLab/arts-provenance-agent",
         demo: "https://ethical-tech-colab.github.io/arts-provenance-agent/",
+        publication: "/publications/digital-provenance-passport",
       },
       {
         name: "Provenance Search — Provenance Intelligence",
@@ -187,6 +199,7 @@ export const researchAreas: ResearchArea[] = [
           "Looks up an artwork's ownership history across free public sources — Tavily search (restricted to the Met, Getty, INTERPOL, UNESCO, Art Loss Register and more), the Met and Art Institute of Chicago APIs, MoMA, Wikidata, and Europeana — and emits a provenance passport with a confidence score computed by a fixed algorithm, not the AI. Supports text, image upload, and live camera capture for use inside a museum.",
         status: "In development",
         repo: "https://github.com/Ethical-Tech-CoLab/provenance-search",
+        publication: "/publications/provenance-search",
       },
       {
         name: "Digital Art Passport (VANGO)",
@@ -195,6 +208,7 @@ export const researchAreas: ResearchArea[] = [
         status: "Active",
         repo: "https://github.com/Ethical-Tech-CoLab/VANGO",
         demo: "https://ethical-tech-colab.github.io/VANGO/",
+        publication: "/publications/vango",
       },
       {
         name: "3D Online Gallery",
@@ -232,6 +246,7 @@ export const researchAreas: ResearchArea[] = [
           "An interactive index that scores structural forced-labor risk across regions and sectors, turning scattered supply-chain and labor signals into a comparable measure buyers and regulators can act on. Built by Amanda Lindsey in the Fall 2025 cohort.",
         status: "Active",
         demo: "https://aml1045.github.io/forced-labor-structural-risk-index/",
+        publication: "/publications/forced-labor-structural-risk-index",
       },
     ],
   },
@@ -258,41 +273,33 @@ export const researchAreas: ResearchArea[] = [
         status: "Active",
         repo: "https://github.com/Ethical-Tech-CoLab/diplomatic-simulator",
         demo: "https://ethical-tech-colab.github.io/diplomatic-simulator/",
-      },
-    ],
-  },
-  {
-    index: "05",
-    key: "AI systems",
-    question: "Which AI model should be selected for a task, and on what evidence?",
-    tags: ["AI systems", "Evaluation", "Sustainability"],
-    summary:
-      "Model selection treated as a constrained optimisation over verified quality, reliability, latency, cost, and energy, rather than a leaderboard position.",
-    detail:
-      "Projects under this question separate independently verified measurement from provider marketing, price the whole task rather than the token, and publish the data layer and the validation tooling alongside the findings.",
-    stack: [
-      "Benchmark synthesis",
-      "Evidence grading",
-      "Cost and energy modelling",
-      "Interactive calculators",
-    ],
-    projects: [
-      {
-        name: "AI Models Research",
-        summary:
-          "A comparative review of frontier, open-weight, and efficient model families across benchmark performance, factual accuracy, latency, token economics, and energy use. Every figure names the party that produced it and carries one of three evidence grades, so provider-reported results are never presented as independent replication. Ships with a cost-per-accepted-task calculator and a validated data layer.",
-        status: "Active",
-        repo: "https://github.com/Ethical-Tech-CoLab/AI-Models-Research",
-        demo: "https://ethical-tech-colab.github.io/AI-Models-Research/",
+        publication: "/publications/diplomatic-simulator",
       },
     ],
   },
 ];
 
 /** An academic report / write-up tied to one of the research questions. */
+/** Topics shown in the publications filter, in the order the chips render.
+ *  A topic groups reports by what they are *for*, which is not always the
+ *  research area they came out of: the two AI-practice write-ups sit under
+ *  Guidelines because they are advice on doing the work, not findings about a
+ *  domain. Every publication must carry one of these. */
+export const publicationTopics = [
+  "Evacuation",
+  "Cultural heritage",
+  "Traceability",
+  "Diplomacy",
+  "Guidelines",
+  "Sustainability",
+  "Disaster response",
+];
+
 export interface Publication {
   index: string;
   area: string;
+  /** Filter bucket on the publications page. See `publicationTopics`. */
+  topic: string;
   question: string;
   title: string;
   summary: string;
@@ -301,6 +308,12 @@ export interface Publication {
   date?: string;
   /** Link to the published report/PDF. Empty string = placeholder, not yet out. */
   url: string;
+  /**
+   * Set on write-ups that live in a private CoLab repo. The card then says so
+   * and labels the link honestly, instead of showing "Published" over a link
+   * that 404s for everyone outside the org.
+   */
+  access?: "internal";
 }
 
 export const publications = {
@@ -312,6 +325,7 @@ export const publications = {
     {
       index: "01",
       area: "Evacuation",
+      topic: "Evacuation",
       question: "How can AI inform evacuation decisions?",
       title: "AI-Informed Evacuation Decision-Making Under Crisis Constraints",
       summary:
@@ -322,6 +336,7 @@ export const publications = {
     {
       index: "02",
       area: "Cultural heritage",
+      topic: "Cultural heritage",
       question:
         "How can technology support the ethical return of cultural artifacts?",
       title:
@@ -334,6 +349,7 @@ export const publications = {
     {
       index: "03",
       area: "Traceability",
+      topic: "Traceability",
       question: "How can ethical claims in supply chains be made verifiable?",
       title: "Making Ethical Supply-Chain Claims Verifiable",
       summary:
@@ -344,6 +360,7 @@ export const publications = {
     {
       index: "04",
       area: "Diplomacy",
+      topic: "Diplomacy",
       question: "How can AI help practitioners rehearse high-stakes diplomacy?",
       title:
         "Rehearsing High-Stakes Diplomacy with Culturally Grounded AI Agents",
@@ -355,6 +372,7 @@ export const publications = {
     {
       index: "05",
       area: "Sustainability",
+      topic: "Sustainability",
       question:
         "How large is AI's environmental footprint — and how can it be reduced?",
       title: "AI's Carbon Footprint: The Environmental Impact of AI",
@@ -368,6 +386,7 @@ export const publications = {
     {
       index: "06",
       area: "Research",
+      topic: "Guidelines",
       question:
         "How can AI help researchers formulate rigorous research questions?",
       title: "AI-Powered Assistance in Formulating Research Questions",
@@ -382,6 +401,7 @@ export const publications = {
     {
       index: "07",
       area: "Evacuation",
+      topic: "Evacuation",
       question:
         "Is leaving actually safer than staying, and how would anyone know?",
       title:
@@ -396,6 +416,7 @@ export const publications = {
     {
       index: "08",
       area: "Evacuation",
+      topic: "Evacuation",
       question:
         "How dangerous is it to stay, and is leaving actually possible?",
       title:
@@ -409,6 +430,7 @@ export const publications = {
     {
       index: "09",
       area: "Evacuation",
+      topic: "Evacuation",
       question:
         "What does it actually cost to move a besieged population, and what does staying cost?",
       title:
@@ -422,6 +444,7 @@ export const publications = {
     {
       index: "10",
       area: "Evacuation",
+      topic: "Evacuation",
       question:
         "How much does poor field information degrade an evacuation decision?",
       title:
@@ -435,6 +458,7 @@ export const publications = {
     {
       index: "11",
       area: "Evacuation",
+      topic: "Evacuation",
       question:
         "How do information and demographics decide who actually leaves?",
       title:
@@ -448,6 +472,7 @@ export const publications = {
     {
       index: "12",
       area: "Evacuation",
+      topic: "Evacuation",
       question:
         "Could a daily severity measure have shown the danger in Mariupol as it unfolded?",
       title:
@@ -461,6 +486,7 @@ export const publications = {
     {
       index: "13",
       area: "Cultural heritage",
+      topic: "Cultural heritage",
       question:
         "Can an artwork's ownership history be checked automatically, and how far should that be trusted?",
       title:
@@ -474,6 +500,7 @@ export const publications = {
     {
       index: "14",
       area: "Cultural heritage",
+      topic: "Cultural heritage",
       question:
         "What can be established about an object's history from free public sources alone?",
       title:
@@ -487,6 +514,7 @@ export const publications = {
     {
       index: "15",
       area: "Cultural heritage",
+      topic: "Cultural heritage",
       question:
         "What is worth recording about a visit to a work of art?",
       title:
@@ -500,6 +528,7 @@ export const publications = {
     {
       index: "16",
       area: "Traceability",
+      topic: "Traceability",
       question:
         "Where are the conditions that make forced labour likely, before any case is detected?",
       title:
@@ -513,6 +542,7 @@ export const publications = {
     {
       index: "17",
       area: "Diplomacy",
+      topic: "Diplomacy",
       question:
         "Can practitioners rehearse a multi-party negotiation against AI agents?",
       title:
@@ -526,6 +556,7 @@ export const publications = {
     {
       index: "18",
       area: "Disaster response",
+      topic: "Disaster response",
       question:
         "How fast can building damage be assessed after a disaster, and with how few labels?",
       title:
@@ -539,6 +570,7 @@ export const publications = {
     {
       index: "19",
       area: "AI systems",
+      topic: "Guidelines",
       question:
         "Which AI model should be selected for a task, and on what evidence?",
       title:
@@ -549,6 +581,101 @@ export const publications = {
       date: "July 2026",
       // Internal route (starts with "/") — rendered on-site, see the card logic.
       url: "/publications/ai-models-research",
+    },
+
+    // ── Practice guides ──────────────────────────────────────────────────
+    // The CoLab's how-to material, written for people arriving without the
+    // background rather than for readers of the research. These live in the
+    // Getting-Going and CloudGPU repos, both of which are PRIVATE — hence
+    // access: "internal" on each, so the card says so instead of advertising
+    // a link that 404s for anyone outside the org. Make those repos public
+    // (or transcribe the guides on-site) and these become ordinary entries.
+    {
+      index: "20",
+      area: "Guidelines",
+      topic: "Guidelines",
+      question: "How does someone with no Git background start contributing?",
+      title: "GitHub 101: Getting Started with Git and GitHub",
+      summary:
+        "A beginner's reference for Git and GitHub from day one — what the two actually are and how they differ, the key concepts, setting up, and the handful of commands that cover almost everything you will do in the first months.",
+      status: "Internal guide",
+      access: "internal",
+      url: "https://github.com/Ethical-Tech-CoLab/Getting-Going/blob/main/docs/github-101.md",
+    },
+    {
+      index: "21",
+      area: "Guidelines",
+      topic: "Guidelines",
+      question: "How does a team actually collaborate in a shared repository?",
+      title: "GitHub Workflow: Branching, Pull Requests and Code Review",
+      summary:
+        "The collaborative loop, step by step: the GitHub flow at a glance, creating and managing branches, opening a pull request that can be reviewed, and what to look for when reviewing someone else's.",
+      status: "Internal guide",
+      access: "internal",
+      url: "https://github.com/Ethical-Tech-CoLab/Getting-Going/blob/main/docs/github-workflow.md",
+    },
+    {
+      index: "22",
+      area: "Guidelines",
+      topic: "Guidelines",
+      question: "How do you put a project on the web without paying for hosting?",
+      title: "GitHub Pages 101",
+      summary:
+        "Publishing a free site straight from a repository, written for first-time users — no server to rent, nothing to install. Includes an honest account of what GitHub Pages can and cannot do, which is where most first attempts come unstuck.",
+      status: "Internal guide",
+      access: "internal",
+      url: "https://github.com/Ethical-Tech-CoLab/Getting-Going/blob/main/docs/github-pages-101.md",
+    },
+    {
+      index: "23",
+      area: "Guidelines",
+      topic: "Guidelines",
+      question:
+        "How do you build and test a data product before you have real data?",
+      title: "Creating Synthetic Data and Seeding Models: A Beginner's Guide",
+      summary:
+        "Generating data algorithmically rather than collecting it: why you would (developing before real data exists, forcing edge cases, sharing something realistic without privacy exposure, reproducing a dataset from a seed), and how to do it without fooling yourself about what the results mean.",
+      status: "Internal guide",
+      access: "internal",
+      url: "https://github.com/Ethical-Tech-CoLab/Getting-Going/blob/main/synthetic-data/SYNTHETIC_DATA_GUIDE.md",
+    },
+    {
+      index: "24",
+      area: "Guidelines",
+      topic: "Guidelines",
+      question:
+        "How do you teach synthetic-data generation to a room of beginners?",
+      title: "Synthetic Data: Training Deck",
+      summary:
+        "The companion training material to the synthetic-data guide — a self-contained walkthrough for running the topic as a session rather than reading it alone.",
+      status: "Internal guide",
+      access: "internal",
+      url: "https://github.com/Ethical-Tech-CoLab/Getting-Going/blob/main/synthetic-data/synthetic-data-training.html",
+    },
+    {
+      index: "25",
+      area: "Guidelines",
+      topic: "Guidelines",
+      question:
+        "How can an agent do live web research from any runtime, including locked-down ones?",
+      title: "tavily-research: A Portable Agent Skill for Live Web Research",
+      summary:
+        "A cross-agent skill wrapping the Tavily REST API — search, extract, crawl and map — with a dependency-free client in both Python and Node. It calls the API directly, so it still works where a Tavily MCP server cannot be launched, such as under IT policy that blocks local npx.",
+      status: "Internal guide",
+      access: "internal",
+      url: "https://github.com/Ethical-Tech-CoLab/Getting-Going/tree/main/tavily-research",
+    },
+    {
+      index: "26",
+      area: "Guidelines",
+      topic: "Guidelines",
+      question: "How do you get a terminal on the CoLab's GPU machine?",
+      title: "Getting Started on Cloud GPU: SSH Access to the B3IQ Machine",
+      summary:
+        "One-time setup, about five minutes: installing cloudflared for the secure tunnel, creating an SSH key if you do not have one, and connecting from macOS, Windows or Linux.",
+      status: "Internal guide",
+      access: "internal",
+      url: "https://github.com/Ethical-Tech-CoLab/Getting-started-on-CloudGPU-/blob/main/remote-gpu-how-to-guide.md",
     },
   ] as Publication[],
 };
@@ -674,13 +801,18 @@ export interface Product {
   featured?: boolean;
 }
 
+/** Subject rails on the Live Demos page, in the order they stack. A theme not
+ *  listed here renders no rail, so a product carrying one would vanish from the
+ *  catalogue — add the theme here whenever you add the first product using it. */
 export const productThemes = [
   "Evacuation",
   "Cultural heritage",
   "Traceability",
-  "Storytelling",
+  "Early warning",
   "Diplomacy",
   "Research",
+  "Operations",
+  "Storytelling",
 ];
 
 /** Semesters shown in the Live Demos filter, newest first. */
@@ -842,6 +974,30 @@ export const products: Product[] = [
     featured: true,
   },
   {
+    name: "Provenance Search — Arts & Artifacts",
+    repoName: "provenance-search",
+    term: "Summer 2026",
+    repo: "https://github.com/Ethical-Tech-CoLab/provenance-search",
+    // The Pages URL is a meta-refresh stub pointing here. Framing the stub
+    // would redirect inside the iframe, so link the app the redirect lands on.
+    demo: "https://provenance-search-production.up.railway.app",
+    blurb:
+      "Traces the ownership chain of an artwork across museum collections, cultural archives and loss registries, then issues a provenance passport carrying a rule-based confidence score you can inspect rather than a verdict you have to trust. Seven sources checked, three ways to search, no sign-up.",
+    language: "HTML",
+    theme: "Cultural heritage",
+  },
+  {
+    name: "Digital Passport for Artworks",
+    repoName: "digital-passport-artworks",
+    term: "Summer 2026",
+    repo: "https://github.com/Ethical-Tech-CoLab/digital-passport-artworks",
+    demo: "https://ethical-tech-colab.github.io/digital-passport-artworks/",
+    blurb:
+      "Upload one photograph and watch the whole chain run in order: fingerprint the image, search for a prior record, score it for forgery risk, and only once it clears — or a reviewer overrides — sign and issue the passport. Real ECDSA cryptography, entirely in the browser. Originally by Christine Lumen.",
+    language: "HTML",
+    theme: "Cultural heritage",
+  },
+  {
     name: "Forced Labor Structural Risk Index",
     repoName: "forced-labor-structural-risk-index",
     term: "Fall 2025",
@@ -863,6 +1019,50 @@ export const products: Product[] = [
       "A survey and toolkit for how AI helps researchers move from a broad interest to a well-formed research question — finding gaps, generating candidate questions, summarizing the state of the art, and flagging contradictions, with guardrails against hallucinated citations. Ships with a reusable Copilot 'Researcher' prompt and a journal-credibility rubric. Built by the Fall 2025 cohort.",
     language: "HTML",
     theme: "Research",
+  },
+  {
+    name: "AI's Carbon Footprint",
+    repoName: "ai-carbon-footprint",
+    term: "Spring 2025",
+    repo: "https://github.com/Ethical-Tech-CoLab/ai-carbon-footprint",
+    demo: "https://ethical-tech-colab.github.io/ai-carbon-footprint/",
+    blurb:
+      "A report on what artificial intelligence costs the environment: energy drawn across training and inference, the data-center and hardware toll behind it, and the mitigations, regulations and policies that could bend the curve. 1,287 MWh went into training GPT-3 alone — roughly what 130 US households use in a year.",
+    language: "HTML",
+    theme: "Research",
+  },
+  {
+    name: "War Games",
+    repoName: "War-Games",
+    term: "Summer 2026",
+    repo: "https://github.com/Ethical-Tech-CoLab/War-Games",
+    demo: "https://ethical-tech-colab.github.io/War-Games/",
+    blurb:
+      "A terminal thriller in the shape of WarGames (1983), reframed around a modern AI agent: the only winning move is to understand the machine. Ships with a Monte Carlo simulation harness and a written case study behind the fiction.",
+    language: "JavaScript",
+    theme: "Diplomacy",
+  },
+  {
+    name: "Malawi Prevention Platform (MVDC)",
+    repoName: "MVDC",
+    term: "Summer 2026",
+    repo: "https://github.com/carolina-moron/MVDC",
+    demo: "https://hilarious-llama-c8e989.netlify.app",
+    blurb:
+      "Gathers publicly reported conflict and human-rights incidents across Malawi, classifies each against a rights-based taxonomy, traces it to a likely root cause, and matches it to the Malawian organisation best placed to respond. 258 incidents across 26 of 28 districts, with 46 response actors. The working half of the Malawi Voice Data Commons, which aims to let someone report by voice, in Chichewa, from a basic phone.",
+    language: "TypeScript",
+    theme: "Early warning",
+  },
+  {
+    name: "ETC Grant Valuator",
+    repoName: "grant-valuation-tool",
+    term: "Summer 2026",
+    repo: "https://github.com/Ethical-Tech-CoLab/grant-valuation-tool",
+    demo: "https://ethical-tech-colab.github.io/grant-valuation-tool/",
+    blurb:
+      "AI-assisted grant valuation and pipeline tracking for the CoLab: open grants weighted by win probability into an expected value, ranked by what most needs working on next, with a discovery step for finding calls worth entering.",
+    language: "TypeScript",
+    theme: "Operations",
   },
   {
     name: "Generative AI for Good — Avatar Storytelling",
