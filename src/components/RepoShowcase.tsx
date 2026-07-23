@@ -79,65 +79,76 @@ function Poster({
             ? `Open the ${product.name} demo`
             : `${product.name}, source only`
         }
-        className="group/poster flex h-full w-full flex-col overflow-hidden rounded-xl border border-border bg-card text-left transition-colors hover:border-accent focus-visible:border-accent focus-visible:outline-none"
+        className="group/poster relative flex aspect-[2/3] h-full w-full flex-col justify-end overflow-hidden rounded-xl border border-border p-4 text-left transition-colors hover:border-accent focus-visible:border-accent focus-visible:outline-none"
+        style={{ background: "var(--poster-ground)" }}
       >
-        {/* Still: the screenshot, with a monogram field behind it so a project
-            without artwork still gets a composed poster rather than a hole.
-            Square, so the card as a whole lands near a poster's proportions.
-            The theme is not repeated here: the shelf heading already says it. */}
-        <div className="relative aspect-square w-full overflow-hidden border-b border-border bg-surface">
-          <span
-            aria-hidden
-            className="absolute inset-0 flex items-center justify-center font-heading text-5xl uppercase text-accent/25"
-            style={{ background: "var(--secondary)" }}
-          >
-            {monogram(product.name)}
-          </span>
-          <span
-            aria-hidden
-            className="absolute inset-0 bg-cover bg-top transition-transform duration-500 group-hover/poster:scale-[1.04]"
-            style={{
-              backgroundImage: `url(${asset(`/repos/${product.repoName}.jpg`)})`,
-            }}
-          />
-          {/* Fade into the title block below */}
-          <span
-            aria-hidden
-            className="absolute inset-x-0 bottom-0 h-1/3"
-            style={{
-              background:
-                "linear-gradient(180deg, transparent, color-mix(in oklab, var(--card) 92%, transparent))",
-            }}
-          />
-          {/* Status rides the still, the way a poster carries its rating */}
-          <span className="absolute right-2 top-2">
-            {live ? (
-              <span className="rounded-full bg-accent px-2 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-wider text-accent-ink">
-                Live
-              </span>
-            ) : (
-              <span className="rounded-full border border-border bg-background/80 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-muted">
-                Source
-              </span>
-            )}
-          </span>
-          {live && (
-            <span className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover/poster:opacity-100 group-focus-visible/poster:opacity-100">
-              <span className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-ink shadow-lg">
-                ▶ Run
-              </span>
+        {/* The screenshot is texture, not subject. These are all pale, dense
+            dashboard captures; at poster size they read as identical grey
+            noise and drown the title. Desaturated, tinted to the brand purple
+            and held well back, they give each poster a distinct field without
+            competing with the type. Behind it sits a monogram, so a project
+            with no capture still gets a composed poster rather than a hole. */}
+        <span
+          aria-hidden
+          className="absolute inset-0 flex items-center justify-center font-heading text-7xl uppercase text-accent/[0.07]"
+        >
+          {monogram(product.name)}
+        </span>
+        <span
+          aria-hidden
+          className="absolute inset-0 bg-cover bg-top opacity-30 mix-blend-luminosity transition-all duration-500 group-hover/poster:scale-[1.04] group-hover/poster:opacity-45"
+          style={{
+            backgroundImage: `url(${asset(`/repos/${product.repoName}.jpg`)})`,
+          }}
+        />
+        {/* Scrim: keeps the credits and title legible over any field */}
+        <span
+          aria-hidden
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, color-mix(in oklab, var(--poster-ground) 30%, transparent) 0%, color-mix(in oklab, var(--poster-ground) 80%, transparent) 45%, var(--poster-ground) 100%)",
+          }}
+        />
+
+        {/* Status rides the poster, the way one carries its rating */}
+        <span className="absolute right-3 top-3">
+          {live ? (
+            <span className="rounded-full bg-accent px-2 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-wider text-accent-ink">
+              Live
+            </span>
+          ) : (
+            <span
+              className="rounded-full border border-border px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider"
+              style={{ color: "var(--poster-ink-muted)" }}
+            >
+              Source
             </span>
           )}
-        </div>
+        </span>
 
-        {/* Title */}
-        <div className="flex flex-1 flex-col px-4 pb-4 pt-3">
-          <h3 className="font-heading text-lg uppercase leading-[1.05] tracking-wide transition-colors group-hover/poster:text-accent sm:text-xl">
+        {live && (
+          <span className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover/poster:opacity-100 group-focus-visible/poster:opacity-100">
+            <span className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-ink shadow-lg">
+              ▶ Run
+            </span>
+          </span>
+        )}
+
+        {/* The title is the artwork. Everything above is its ground. */}
+        <div className="relative">
+          {/* Colour set as a utility, not inline: an inline style would beat
+              the hover variant and the title would never take the accent. */}
+          <h3 className="font-heading text-2xl uppercase leading-[0.92] tracking-wide text-[color:var(--poster-ink)] transition-colors group-hover/poster:text-accent sm:text-[1.75rem]">
             {product.name}
           </h3>
 
-          {/* Credits block */}
-          <div className="mt-auto pt-3 font-mono text-[10px] uppercase tracking-wider text-muted">
+          <div className="mt-3 h-px w-10 bg-accent" />
+
+          <div
+            className="mt-3 font-mono text-[10px] uppercase tracking-wider"
+            style={{ color: "var(--poster-ink-muted)" }}
+          >
             <div className="flex items-center gap-1.5">
               <span
                 aria-hidden
@@ -150,9 +161,7 @@ function Poster({
               </span>
               <span className="shrink-0">{product.term}</span>
             </div>
-            {count > 1 && (
-              <div className="mt-1 text-accent">{count} demos</div>
-            )}
+            {count > 1 && <div className="mt-1 text-accent">{count} demos</div>}
           </div>
         </div>
       </button>
