@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Link } from "next-view-transitions";
 import { archivedProjects, cohortTerms } from "@/content/site";
 
 /**
@@ -45,7 +46,8 @@ export function ArchiveExplorer() {
               const hasLinks =
                 Boolean(project.demo) ||
                 Boolean(project.demos?.length) ||
-                Boolean(project.repo);
+                Boolean(project.repo) ||
+                Boolean(project.publication);
               const isOpen = Boolean(open[project.name]);
               return (
                 <article
@@ -115,6 +117,14 @@ export function ArchiveExplorer() {
                           ▶ {d.label}
                         </a>
                       ))}
+                      {project.publication && (
+                        <Link
+                          href={project.publication}
+                          className="inline-flex items-center gap-1 text-sm font-medium text-accent transition-opacity hover:opacity-80"
+                        >
+                          Read the report <span aria-hidden>→</span>
+                        </Link>
+                      )}
                       {project.repo && (
                         <a
                           href={project.repo}
