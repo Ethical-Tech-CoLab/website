@@ -56,7 +56,7 @@ export const evacuationIndexReport = {
         "vulnerability factors, ten that raise assessed risk and two that lower it",
     },
     {
-      value: "9",
+      value: "10",
       label:
         "limitations the prototype states about itself, including that its weights are unvalidated",
     },
@@ -81,6 +81,9 @@ export const evacuationIndexReport = {
       paragraphs: [
         "The Evacuation Inform Index is a browser based research prototype. It presents a world map of active crises, a panel of live developments for each one, a methodology section, a catalogue of data sources, and a reference list.",
         "It scores 104 active humanitarian crises on two dimensions: the risk of remaining in place, and the risk of attempting to leave. It expresses the relationship between them as a single ratio, while always displaying the two component scores that produced it.",
+        "The map can be filtered to a crisis type. INFORM's driver labels are grouped into four families: environmental, covering floods, drought, cyclone and earthquake; conflict and violence; international displacement; and political or economic crisis. Crises routinely carry several drivers, so the groups overlap deliberately and a crisis appears whenever any of its drivers is selected. All four are selected by default and every crisis belongs to at least one, so the unfiltered map is the whole dataset, and whenever a filter narrows the view the legend says how many crises are being shown.",
+        "Two further layers address the roads. A transparent road network overlay can be switched on over any base layer, so streets and highways read against the satellite imagery rather than replacing it. Separately, the road access reports gathered for each crisis can be pinned on the map. A pin marks the crisis a report belongs to and never the blockage itself, because news prose carries no coordinates: a report that a named road has been cut identifies no point that can be plotted.",
+        "Every legal provision cited in the methodology section is clickable and opens an explanation written for a reader with no legal training. Each has four parts: what the provision requires in plain words, its operative text so that the plain language rendering can be checked against the source, why this index invokes it, and how far that invocation is justified. The fourth part is the reason the feature exists. A citation that is only ever displayed reads as authority the model has not earned, and several of these do not survive the examination. The endangerment threshold is labelled with Article 49 of the Fourth Geneva Convention on every crisis, including floods and droughts where an article governing occupied territory has no application, and Article 17 of Additional Protocol II is the more relevant rule for most of the armed conflicts shown and goes unused.",
         "It is not deployed in any operational setting, has no institutional mandate, and produces no output that any organisation is obliged to act upon. The distinction between what is implemented and what is planned is marked throughout the interface rather than left to the reader to infer.",
       ],
     },
@@ -135,7 +138,7 @@ export const evacuationIndexReport = {
       number: "07",
       title: "What the Index Does Not Do",
       paragraphs: [
-        "The repository states nine limitations. They are reproduced here because they are the most important part of the document for any reader considering what weight to give the tool.",
+        "The repository states ten limitations. The most consequential are reproduced here, because they are the most important part of the document for any reader considering what weight to give the tool.",
         {
           lead: "Proxy construct.",
           text: "Endangerment and feasibility derive from INFORM sub scores supplemented by conflict and weather data. They should be read as a faithful architectural proxy, not a validated instrument.",
@@ -159,6 +162,10 @@ export const evacuationIndexReport = {
         {
           lead: "No modelling of political will.",
           text: "The index cannot represent actor behaviour, negotiation status, sudden shifts in belligerent intent, or the granting and withdrawal of consent. In many real evacuations these are the determining factors.",
+        },
+        {
+          lead: "Partial road access coverage.",
+          text: "The road access search has been run for 42 of the 104 crises, and the remaining 62 have never been searched at all. An absence of road reports therefore carries two entirely different meanings the data cannot distinguish: searched and nothing found, or never looked at. On a tool about whether people can leave, the silent reading of a crisis with no reports, that its roads are passable, is the dangerous one, so both the map layer and the crisis panel state the coverage split rather than presenting an unpinned crisis as a clear one.",
         },
         {
           lead: "Correlation, not causation.",
