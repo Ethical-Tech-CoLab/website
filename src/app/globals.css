@@ -142,6 +142,65 @@ body::after {
   background-size: 160px 160px;
 }
 
+/* Site-wide photographic ground (see components/SiteBackground.tsx).
+   Sits above the flat purple body background but below all content, so a
+   Greenwich Village / NYU photograph reads faintly *under* the purple. The
+   image is desaturated and the whole layer is washed with the background
+   colour, keeping the purple dominant at high transparency. */
+.site-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1; /* above body's ground, behind every section */
+  pointer-events: none;
+  overflow: hidden;
+}
+.site-bg__img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  /* Strip most colour and lift contrast a touch so the shapes survive the
+     wash; the purple scrim above supplies the hue. */
+  filter: grayscale(0.7) contrast(1.06) brightness(1.05);
+  opacity: 0.16;
+  /* A slow fade-in on route change, so switching sections is not a hard cut. */
+  animation: site-bg-in 0.9s ease both;
+}
+.site-bg__scrim {
+  position: absolute;
+  inset: 0;
+  /* Purple wash on top of the photo: a soft violet pool at the top where the
+     hero sits, over a vertical fade to the near-solid ground at the fold. */
+  background:
+    radial-gradient(
+      120% 82% at 50% -8%,
+      color-mix(in oklab, var(--glow) 26%, transparent),
+      transparent 58%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--background) 46%, transparent) 0%,
+      color-mix(in oklab, var(--background) 72%, transparent) 46%,
+      color-mix(in oklab, var(--background) 88%, transparent) 100%
+    );
+}
+/* Daylight: the ground is light, so a dark photo needs less presence and the
+   wash comes from the (now light) background colour automatically. */
+[data-theme="light"] .site-bg__img {
+  filter: grayscale(0.8) contrast(1.02);
+  opacity: 0.1;
+}
+@keyframes site-bg-in {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-bg__img {
+    animation: none;
+  }
+}
+
 /* Registered custom prop so the aura angle can actually interpolate. */
 @property --aura-rot {
   syntax: "<angle>";
