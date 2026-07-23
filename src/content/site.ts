@@ -409,7 +409,7 @@ export const publications = {
       summary:
         "A plain-language report on a prototype that keeps two questions apart: how dangerous it is for civilians to remain, and whether an organised evacuation is possible at all. Separating them matters legally, because the duty to protect arises from danger, not from operational convenience.",
       status: "Published",
-      date: "2026",
+      date: "July 2026",
       url: "/publications/cerai",
     },
     {
@@ -423,7 +423,7 @@ export const publications = {
       summary:
         "A report on a framework that scores seven weighted risk dimensions, estimates the cost of evacuating against the cost of staying, and finds the point at which those two curves cross. Calibrated against 31 documented historical operations.",
       status: "Published",
-      date: "2026",
+      date: "July 2026",
       url: "/publications/ercf",
     },
     {
@@ -452,7 +452,7 @@ export const publications = {
       summary:
         "A report on an agent-based model of household evacuation behaviour, tracing how warnings spread through a community and how age, mobility, and trust shape who reaches safety and who does not.",
       status: "Published",
-      date: "2026",
+      date: "July 2026",
       url: "/publications/evacuation-simulation",
     },
     {
@@ -508,7 +508,7 @@ export const publications = {
       summary:
         "A report on a digital souvenir passport that records attendance at art experiences. It performs no provenance or authenticity checking, and the report is explicit that nothing it records is evidence of ownership or lawful origin.",
       status: "Published",
-      date: "2026",
+      date: "July 2026",
       url: "/publications/vango",
     },
     {
@@ -522,7 +522,7 @@ export const publications = {
       summary:
         "A report on an index scoring 184 countries across 11 domains and 43 indicators, measuring the conditions that enable forced labour rather than counting cases. Ships with uncertainty bands and is meant to be read in tiers, not as a league table.",
       status: "Published",
-      date: "2026",
+      date: "December 2025",
       url: "/publications/forced-labor-structural-risk-index",
     },
     {
@@ -550,7 +550,7 @@ export const publications = {
       summary:
         "A plain-language report on a satellite damage-assessment platform built by the Microsoft AI for Good Lab, used in 31 field deployments. The software is Microsoft's; only this report is the CoLab's.",
       status: "Published",
-      date: "2026",
+      date: "July 2026",
       url: "/publications/haste",
     },
     

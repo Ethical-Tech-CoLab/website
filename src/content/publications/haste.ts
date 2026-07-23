@@ -42,7 +42,7 @@ export const hasteReport = {
   subtitle: "Rapid Post-Disaster Building Damage Assessment",
   org: "Software by the Microsoft AI for Good Lab · Report by Ethical Tech CoLab",
   advisor: "NYU Center for Global Affairs",
-  date: "2026",
+  date: "July 2026",
   authors:
     "HASTE was developed by the Microsoft AI for Good Lab and released as open-source software under the MIT Licence. The contributors recorded in the repository's commit history are Meygha Machado, Caleb Robinson, Joaquín Rivero, Cameron Birge, Marcelo Duarte, and Anthony Cintron Roman. The accompanying research paper additionally credits Anthony Ortiz, Simone Fobi Nsutezo, Kevin White, Inbal Becker-Reshef, and Juan M. Lavista Ferres. This plain-language report was prepared under the Ethical Tech CoLab at the NYU Center for Global Affairs as part of masters research (2026), on the fork of the project held at Ethical-Tech-CoLab/haste.",
   thesis:

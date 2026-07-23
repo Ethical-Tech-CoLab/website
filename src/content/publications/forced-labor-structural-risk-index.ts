@@ -39,7 +39,7 @@ export const forcedLaborRiskReport = {
     "A Country-Level Measure of the Conditions Under Which Forced Labour Becomes More Likely",
   org: "Ethical Tech CoLab",
   advisor: "NYU Center for Global Affairs",
-  date: "2026",
+  date: "December 2025",
   authors:
     "Prepared as masters research at the NYU Center for Global Affairs.",
   thesis:

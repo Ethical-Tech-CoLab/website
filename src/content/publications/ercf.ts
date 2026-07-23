@@ -41,7 +41,7 @@ export const ercfReport = {
     "Estimating the Human and Financial Cost of Civilian Evacuation in Armed Conflict",
   org: "Ethical Tech CoLab",
   advisor: "NYU Center for Global Affairs",
-  date: "2026",
+  date: "July 2026",
   authors:
     "Yago Rocha. Developed as part of research on International Humanitarian Law and civilian protection at the NYU Center for Global Affairs, under the Ethical Tech CoLab. The repository records the work as presented to Teresa Cantero, PhD Researcher, whose suggestions are cited in the project backlog.",
   thesis:

@@ -39,7 +39,7 @@ export const ceraiReport = {
     "A Decision-Support Tool for Protecting Civilians During Evacuations in Armed Conflict",
   org: "Ethical Tech CoLab",
   advisor: "Advised by Teresa Cantero",
-  date: "2026",
+  date: "July 2026",
   authors:
     "Development advised by Teresa Cantero, PhD candidate in Spain and an alum of the NYU Center for Global Affairs, as part of masters research on International Humanitarian Law and artificial intelligence.",
   thesis:

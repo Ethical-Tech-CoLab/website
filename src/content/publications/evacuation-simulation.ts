@@ -41,7 +41,7 @@ export const evacuationSimulationReport = {
     "An Agent-Based Model of How Civilians Decide to Leave During Armed Conflict",
   org: "Ethical Tech CoLab",
   advisor: "NYU Center for Global Affairs",
-  date: "2026",
+  date: "July 2026",
   authors:
     "Melanie MacKew. Developed as part of masters research at the NYU Center for Global Affairs, under the Ethical Tech CoLab.",
   thesis:
