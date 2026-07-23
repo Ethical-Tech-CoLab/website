@@ -109,16 +109,6 @@ export default function MediaPage() {
           ))}
         </div>
 
-        <Reveal>
-          <div className="mt-16 rounded-2xl border border-border bg-card p-7">
-            <h3 className="font-heading text-lg uppercase tracking-wide">
-              Cambridge co-host concept
-            </h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted">
-              {media.cambridge}
-            </p>
-          </div>
-        </Reveal>
       </div>
     </>
   );

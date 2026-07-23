@@ -1556,8 +1556,6 @@ export const media = {
     { src: "/summit/moment-1.jpg", caption: "Summit moment" },
     { src: "/summit/moment-2.jpg", caption: "Summit moment" },
   ],
-  cambridge:
-    "A next step is a Belfer-co-hosted edition scoped around one of three themes — critical supply chains, agentic governance, or AI-mediated diplomacy — producing a structured recommendations memo and a published convening summary.",
 };
 
 export interface TeamMember {
