@@ -134,7 +134,7 @@ export default function Home() {
               href="/portfolio"
               className="link-underline hidden text-sm text-accent sm:block"
             >
-              View all four →
+              View all five →
             </Link>
           </div>
         </Reveal>
@@ -159,6 +159,12 @@ export default function Home() {
               </Link>
             </StaggerItem>
           ))}
+          {/* The grid draws its hairlines by showing bg-border through a 1px
+              gap, so an odd card count would leave the empty cell as a solid
+              block of border colour. Fill it with the page background. */}
+          {researchAreas.length % 2 === 1 && (
+            <div aria-hidden className="hidden bg-background sm:block" />
+          )}
         </Stagger>
       </section>
 

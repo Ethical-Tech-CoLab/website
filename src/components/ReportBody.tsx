@@ -1,12 +1,14 @@
 import type { Paragraph } from "@/content/publications/types";
+import { DataTable } from "@/components/DataTable";
+import { ReportChart } from "@/components/ReportChart";
 
 /**
  * Renders the body of a publication section.
  *
  * Reports are transcribed from markdown papers that use prose, labelled
- * entries, lists, tables, and the occasional formula. This component is the
- * single place those block types are styled, so every report page renders
- * them identically.
+ * entries, lists, tables, charts, and the occasional formula. This component
+ * is the single place those block types are styled, so every report page
+ * renders them identically.
  */
 export function ReportBody({ paragraphs }: { paragraphs: Paragraph[] }) {
   return (
@@ -60,46 +62,15 @@ export function ReportBody({ paragraphs }: { paragraphs: Paragraph[] }) {
           );
         }
 
-        // Table. Scrolls inside its own container so the page body never
-        // scrolls horizontally on narrow screens.
+        if ("chart" in para) {
+          return <ReportChart key={i} chart={para.chart} />;
+        }
+
+        // Table. Used for categorical material, where there is no magnitude
+        // to plot; quantitative comparisons take a chart block instead.
         return (
           <figure key={i}>
-            <div className="overflow-x-auto rounded-xl border border-border">
-              <table className="w-full border-collapse text-left text-sm">
-                <thead className="bg-card">
-                  <tr>
-                    {para.table.headers.map((h, n) => (
-                      <th
-                        key={n}
-                        scope="col"
-                        className="whitespace-nowrap border-b border-border px-4 py-3 font-heading text-xs uppercase tracking-wider text-accent"
-                      >
-                        {h}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {para.table.rows.map((row, r) => (
-                    <tr key={r} className="border-b border-border last:border-0">
-                      {row.map((cell, c) => (
-                        <td
-                          key={c}
-                          className="px-4 py-3 align-top text-foreground/85"
-                        >
-                          {cell}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            {para.table.caption && (
-              <figcaption className="mt-3 text-sm text-muted">
-                {para.table.caption}
-              </figcaption>
-            )}
+            <DataTable data={para.table} />
           </figure>
         );
       })}

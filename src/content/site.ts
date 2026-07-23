@@ -261,6 +261,32 @@ export const researchAreas: ResearchArea[] = [
       },
     ],
   },
+  {
+    index: "05",
+    key: "AI systems",
+    question: "Which AI model should be selected for a task, and on what evidence?",
+    tags: ["AI systems", "Evaluation", "Sustainability"],
+    summary:
+      "Model selection treated as a constrained optimisation over verified quality, reliability, latency, cost, and energy, rather than a leaderboard position.",
+    detail:
+      "Projects under this question separate independently verified measurement from provider marketing, price the whole task rather than the token, and publish the data layer and the validation tooling alongside the findings.",
+    stack: [
+      "Benchmark synthesis",
+      "Evidence grading",
+      "Cost and energy modelling",
+      "Interactive calculators",
+    ],
+    projects: [
+      {
+        name: "AI Models Research",
+        summary:
+          "A comparative review of frontier, open-weight, and efficient model families across benchmark performance, factual accuracy, latency, token economics, and energy use. Every figure names the party that produced it and carries one of three evidence grades, so provider-reported results are never presented as independent replication. Ships with a cost-per-accepted-task calculator and a validated data layer.",
+        status: "Active",
+        repo: "https://github.com/Ethical-Tech-CoLab/AI-Models-Research",
+        demo: "https://ethical-tech-colab.github.io/AI-Models-Research/",
+      },
+    ],
+  },
 ];
 
 /** An academic report / write-up tied to one of the research questions. */
@@ -682,6 +708,28 @@ export const products: Product[] = [
     featured: true,
   },
   {
+    name: "AI Models Research",
+    repoName: "AI-Models-Research",
+    term: "Summer 2026",
+    repo: "https://github.com/Ethical-Tech-CoLab/AI-Models-Research",
+    demo: "https://ethical-tech-colab.github.io/AI-Models-Research/",
+    demos: [
+      {
+        label: "Read the handbook",
+        href: "https://ethical-tech-colab.github.io/AI-Models-Research/",
+      },
+      {
+        label: "Cost-per-accepted-task calculator",
+        href: "https://ethical-tech-colab.github.io/AI-Models-Research/interactive/",
+      },
+    ],
+    blurb:
+      "A comparative review of frontier, open-weight, and efficient model families across benchmark performance, factual accuracy, latency, token economics, and energy use. Three evidence grades separate independently verified measurement from institutional research and from provider marketing, and every figure names the party that produced it. Ships with a live cost-per-accepted-task calculator over a validated data layer.",
+    language: "Python",
+    theme: "Research",
+    featured: true,
+  },
+  {
     name: "Exodus — Civilian Evacuation Risk Platform",
     repoName: "Exodus",
     term: "Summer 2026",
@@ -878,14 +926,15 @@ export const cohorts: Cohort[] = [
     index: "03",
     term: "Summer 2026",
     current: true,
-    title: "Four projects, one frontier.",
-    body: "The current cohort takes four research projects from question to fielded prototype.",
+    title: "Five projects, one frontier.",
+    body: "The current cohort takes five research projects from question to fielded prototype.",
     items: [
       "7 researchers",
       "Evacuation Information Index",
       "Digital Art Passport",
       "Ethical Supply Chain & Traceability",
       "Diplomatic Simulator",
+      "AI Models Research",
     ],
   },
 ];

@@ -18,6 +18,18 @@
   --glow: #7b5cff; /* electric-violet radial glow */
   --glow-2: #b8d400; /* olive secondary glow */
   --grain-opacity: 0.04;
+
+  /* Chart series. Two categorical slots, in fixed order, drawn from the lime
+     and violet brand hues and snapped to the step that clears the palette
+     checks against --card: lightness band, chroma floor, CVD separation, and
+     contrast. The signature #c8f04b sits at L 0.90, far above the dark-mode
+     band, and next to violet it reads as one loud series and one quiet one,
+     so charts use this darker lime step instead of the UI accent. */
+  --chart-1: #89a000;
+  --chart-2: #7b5cff;
+  /* Unfilled bar track and range washes: one step off the chart surface. */
+  --chart-track: rgba(233, 228, 244, 0.1);
+  --chart-wash: rgba(137, 160, 0, 0.22);
 }
 
 /* Light palette: keeps the purple/lime identity, inverted for daylight. */
@@ -36,6 +48,13 @@
   --glow: #6d28d9;
   --glow-2: #7c9a00;
   --grain-opacity: 0.03;
+
+  /* Light-mode chart series. Same two hues, re-stepped and re-validated
+     against the light --card rather than flipped from the dark values. */
+  --chart-1: #5f6b00;
+  --chart-2: #6d28d9;
+  --chart-track: rgba(26, 16, 32, 0.1);
+  --chart-wash: rgba(95, 107, 0, 0.18);
 }
 
 @theme inline {

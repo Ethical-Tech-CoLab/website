@@ -103,17 +103,53 @@ export const aiModelsResearchReport = {
           text: "A mixture-of-experts model stores many parameters but activates a smaller subset for each token. That reduces compute per token relative to a dense model of the same stored size, but it does not eliminate memory, routing, communication, or serving overhead. Active parameter count should be reported alongside total parameters, precision, hardware, batch size, and measured throughput.",
         },
         {
-          table: {
+          chart: {
+            kind: "bars",
             caption:
-              "Share of stored parameters activated per token, from disclosed architectures. Provider architecture disclosures, Grade B.",
-            headers: ["Model", "Total stored", "Active per token", "Share"],
+              "Share of stored parameters activated per token, from disclosed architectures. Provider architecture disclosures, Grade B. The dense model activates everything it stores; the mixture-of-experts models activate a twentieth or less, which is why stored size alone predicts neither compute nor cost.",
+            max: 100,
             rows: [
-              ["Mistral Medium 3.5", "128B, dense", "128B", "100 percent"],
-              ["Mistral Small 4", "119B", "6B", "about 5 percent"],
-              ["DeepSeek V4 Flash", "284B", "13B", "about 5 percent"],
-              ["Llama 4 Maverick", "400B", "17B", "about 4 percent"],
-              ["DeepSeek V4 Pro", "1.6T", "49B", "about 3 percent"],
+              {
+                label: "Mistral Medium 3.5",
+                note: "128B active of 128B stored, dense",
+                value: 100,
+                valueLabel: "100 percent",
+              },
+              {
+                label: "Mistral Small 4",
+                note: "6B active of 119B stored",
+                value: 5.0,
+                valueLabel: "about 5 percent",
+              },
+              {
+                label: "DeepSeek V4 Flash",
+                note: "13B active of 284B stored",
+                value: 4.6,
+                valueLabel: "about 5 percent",
+              },
+              {
+                label: "Llama 4 Maverick",
+                note: "17B active of 400B stored",
+                value: 4.3,
+                valueLabel: "about 4 percent",
+              },
+              {
+                label: "DeepSeek V4 Pro",
+                note: "49B active of 1.6T stored",
+                value: 3.1,
+                valueLabel: "about 3 percent",
+              },
             ],
+            data: {
+              headers: ["Model", "Total stored", "Active per token", "Share"],
+              rows: [
+                ["Mistral Medium 3.5", "128B, dense", "128B", "100 percent"],
+                ["Mistral Small 4", "119B", "6B", "about 5 percent"],
+                ["DeepSeek V4 Flash", "284B", "13B", "about 5 percent"],
+                ["Llama 4 Maverick", "400B", "17B", "about 4 percent"],
+                ["DeepSeek V4 Pro", "1.6T", "49B", "about 3 percent"],
+              ],
+            },
           },
         },
       ],
@@ -140,41 +176,78 @@ export const aiModelsResearchReport = {
         },
         "Benchmark progress through 2026 is real but uneven. Models approach saturation on some mathematics and knowledge tests while remaining materially weaker on application construction, long-horizon agents, and open-world computer use.",
         {
-          table: {
+          chart: {
+            kind: "dumbbell",
             caption:
-              "Best reported model results against human baselines on interactive benchmarks. Stanford HAI, AI Index Report 2026, Technical Performance chapter. Grade B. Snapshots, not permanent rankings.",
-            headers: [
-              "Benchmark",
-              "Capability",
-              "Best reported",
-              "Human baseline",
-            ],
+              "Best reported model results against human baselines on interactive benchmarks. Stanford HAI, AI Index Report 2026, Technical Performance chapter. Grade B. Snapshots, not permanent rankings. Human scores are frequently measured under different time, tool, and incentive conditions than model scores, so the distance between the two dots is indicative rather than exact.",
+            keys: ["Best reported model", "Human baseline"],
+            max: 100,
             rows: [
-              [
-                "OSWorld",
-                "Computer use in realistic desktop environments",
-                "66.3 percent",
-                "72.35 percent",
-              ],
-              [
-                "WebArena",
-                "Web navigation and task completion",
-                "74.3 percent",
-                "78.24 percent",
-              ],
-              [
-                "Terminal-Bench 2.0",
-                "Terminal-based coding and system tasks",
-                "77.3 percent",
-                "Not reported",
-              ],
-              [
-                "Vibe Code Bench",
-                "End-to-end application construction",
-                "About 57.6 percent",
-                "Not reported",
-              ],
+              {
+                label: "OSWorld",
+                note: "Computer use in realistic desktop environments",
+                a: 66.3,
+                aLabel: "66.3 percent",
+                b: 72.35,
+                bLabel: "72.35 percent human",
+              },
+              {
+                label: "WebArena",
+                note: "Web navigation and task completion",
+                a: 74.3,
+                aLabel: "74.3 percent",
+                b: 78.24,
+                bLabel: "78.24 percent human",
+              },
+              {
+                label: "Terminal-Bench 2.0",
+                note: "Terminal-based coding and system tasks",
+                a: 77.3,
+                aLabel: "77.3 percent",
+                missingLabel: "no human baseline reported",
+              },
+              {
+                label: "Vibe Code Bench",
+                note: "End-to-end application construction",
+                a: 57.6,
+                aLabel: "about 57.6 percent",
+                missingLabel: "no human baseline reported",
+              },
             ],
+            data: {
+              headers: [
+                "Benchmark",
+                "Capability",
+                "Best reported",
+                "Human baseline",
+              ],
+              rows: [
+                [
+                  "OSWorld",
+                  "Computer use in realistic desktop environments",
+                  "66.3 percent",
+                  "72.35 percent",
+                ],
+                [
+                  "WebArena",
+                  "Web navigation and task completion",
+                  "74.3 percent",
+                  "78.24 percent",
+                ],
+                [
+                  "Terminal-Bench 2.0",
+                  "Terminal-based coding and system tasks",
+                  "77.3 percent",
+                  "Not reported",
+                ],
+                [
+                  "Vibe Code Bench",
+                  "End-to-end application construction",
+                  "About 57.6 percent",
+                  "Not reported",
+                ],
+              ],
+            },
           },
         },
         "Two readings follow. Agents approach human performance on these benchmarks without consistently exceeding it. And building a functioning application remains materially harder than completing an isolated task, which is what a long-horizon workload actually requires. Human scores are frequently measured under different time, tool, and incentive conditions than model scores, so the gap is indicative rather than exact.",
@@ -301,20 +374,66 @@ export const aiModelsResearchReport = {
         },
         "Nominal per-token price is not total cost. Output tokens are frequently priced three to six times above input tokens, and reasoning workflows can generate large hidden or visible outputs. Tokenizer changes move cost without moving price: Anthropic notes that Claude Sonnet 5 uses a tokenizer that can produce about 30 percent more tokens for the same text than its predecessor, so an unchanged per-token rate still raises the cost of an equivalent request.",
         {
-          table: {
+          chart: {
+            kind: "stack",
             caption:
-              "Nominal cost of one identical document-analysis request: 100,000 uncached input tokens and 5,000 output tokens. Computed from public prices on 22 July 2026, provider-reported. Excludes tools, long-context surcharges, caching, batch discounts, and tax. Quality is not held constant.",
-            headers: ["Model", "Input cost", "Output cost", "Nominal total"],
+              "Nominal cost of one identical document-analysis request: 100,000 uncached input tokens and 5,000 output tokens. Computed from public prices on 22 July 2026, provider-reported. Excludes tools, long-context surcharges, caching, batch discounts, and tax. Quality is not held constant, so the bars compare price for an identical request, not price for an identical result.",
+            keys: ["Input tokens", "Output tokens"],
             rows: [
-              ["Claude Fable 5", "1.00 USD", "0.25 USD", "1.25 USD"],
-              ["GPT-5.6 Sol", "0.50 USD", "0.15 USD", "0.65 USD"],
-              ["Claude Opus 4.8", "0.50 USD", "0.125 USD", "0.625 USD"],
-              ["Claude Sonnet 5", "0.30 USD", "0.075 USD", "0.375 USD"],
-              ["GPT-5.6 Terra", "0.25 USD", "0.075 USD", "0.325 USD"],
-              ["Grok 4.5", "0.20 USD", "0.03 USD", "0.23 USD"],
-              ["GPT-5.6 Luna", "0.10 USD", "0.03 USD", "0.13 USD"],
-              ["DeepSeek V4 Pro", "0.0435 USD", "0.00435 USD", "0.04785 USD"],
+              {
+                label: "Claude Fable 5",
+                parts: [1.0, 0.25],
+                valueLabel: "1.25 USD",
+              },
+              {
+                label: "GPT-5.6 Sol",
+                parts: [0.5, 0.15],
+                valueLabel: "0.65 USD",
+              },
+              {
+                label: "Claude Opus 4.8",
+                parts: [0.5, 0.125],
+                valueLabel: "0.625 USD",
+              },
+              {
+                label: "Claude Sonnet 5",
+                parts: [0.3, 0.075],
+                valueLabel: "0.375 USD",
+              },
+              {
+                label: "GPT-5.6 Terra",
+                parts: [0.25, 0.075],
+                valueLabel: "0.325 USD",
+              },
+              {
+                label: "Grok 4.5",
+                parts: [0.2, 0.03],
+                valueLabel: "0.23 USD",
+              },
+              {
+                label: "GPT-5.6 Luna",
+                parts: [0.1, 0.03],
+                valueLabel: "0.13 USD",
+              },
+              {
+                label: "DeepSeek V4 Pro",
+                parts: [0.0435, 0.00435],
+                valueLabel: "0.04785 USD",
+              },
             ],
+            data: {
+              headers: ["Model", "Input cost", "Output cost", "Nominal total"],
+              rows: [
+                ["Claude Fable 5", "1.00 USD", "0.25 USD", "1.25 USD"],
+                ["GPT-5.6 Sol", "0.50 USD", "0.15 USD", "0.65 USD"],
+                ["Claude Opus 4.8", "0.50 USD", "0.125 USD", "0.625 USD"],
+                ["Claude Sonnet 5", "0.30 USD", "0.075 USD", "0.375 USD"],
+                ["GPT-5.6 Terra", "0.25 USD", "0.075 USD", "0.325 USD"],
+                ["Grok 4.5", "0.20 USD", "0.03 USD", "0.23 USD"],
+                ["GPT-5.6 Luna", "0.10 USD", "0.03 USD", "0.13 USD"],
+                ["DeepSeek V4 Pro", "0.0435 USD", "0.00435 USD", "0.04785 USD"],
+              ],
+            },
           },
         },
         {
@@ -331,6 +450,47 @@ export const aiModelsResearchReport = {
         "Training energy is a large, episodic expenditure. Inference energy is distributed across every production request. Neither is interpretable without a stated system boundary covering direct accelerator energy, host and network energy, facility overhead, embodied impacts, and water and grid effects. Two correctly computed figures for the same workload can differ by a large factor because they draw that boundary differently.",
         "Fernandez and colleagues evaluated inference across workloads, hardware, serving frameworks, batching, decoding strategies, and parallelism. They report that estimates derived from floating-point operation counts understate real energy use, and that appropriate combinations of optimisations reduced energy by as much as 73 percent against an unoptimised baseline. That is the strongest argument against attaching a single energy number to a model name: the same weights on the same hardware under two serving configurations are two different energy propositions.",
         "Oviedo and colleagues developed a bottom-up estimate for frontier-scale inference. Under stated H100 utilisation and power usage effectiveness assumptions, the median estimate was 0.34 watt-hours per representative query, with an interquartile range of 0.18 to 0.67 watt-hours. Raising token use by a factor of 15 for test-time scaling raised the median to 4.32 watt-hours, about 13 times higher. Combined model, serving, and hardware improvements were estimated to offer an 8 to 20 times efficiency opportunity. These are analytical estimates, not measurements of a named commercial service.",
+        {
+          chart: {
+            kind: "range",
+            caption:
+              "Estimated inference energy for one representative frontier-scale query, and for the same query under test-time scaling. Oviedo and colleagues, bottom-up analytical estimate under stated H100 utilisation and power usage effectiveness assumptions. Grade B. The band is the interquartile range of the estimate, not a measurement interval, and the scaled condition is a single reported median. Nothing here is a measurement of a named commercial service.",
+            bandKey: "Interquartile range of the estimate",
+            pointKey: "Median estimate",
+            max: 4.5,
+            rows: [
+              {
+                label: "Representative query",
+                note: "Interquartile range 0.18 to 0.67 watt-hours",
+                low: 0.18,
+                high: 0.67,
+                point: 0.34,
+                pointLabel: "0.34 Wh",
+              },
+              {
+                label: "Same query at fifteen times the token use",
+                note: "About 13 times the median of the representative query. No interquartile range reported for this condition.",
+                point: 4.32,
+                pointLabel: "4.32 Wh",
+              },
+            ],
+            data: {
+              headers: ["Condition", "Median estimate", "Interquartile range"],
+              rows: [
+                [
+                  "Representative query",
+                  "0.34 Wh",
+                  "0.18 to 0.67 Wh",
+                ],
+                [
+                  "Same query at fifteen times the token use",
+                  "4.32 Wh",
+                  "Not reported",
+                ],
+              ],
+            },
+          },
+        },
         {
           lead: "Do not divide sector totals by a presumed query count.",
           text: "The International Energy Agency projects global data-centre electricity consumption reaching about 945 terawatt-hours in 2030 in its base case, roughly double the 2024 level, and reports that data-centre electricity demand grew 17 percent in 2025 with AI-focused facilities growing faster. That aggregate covers every data-centre workload, not AI queries alone, and utilisation patterns differ across them.",

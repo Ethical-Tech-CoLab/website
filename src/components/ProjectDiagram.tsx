@@ -295,11 +295,120 @@ function Diplomacy() {
   );
 }
 
+/* ── 05 · AI systems — graded evidence feeding a measured model comparison ── */
+function AiSystems() {
+  // Evidence grades, strongest at the top; opacity carries the grade.
+  const grades = [
+    { y: 40, letter: "A", opacity: 1 },
+    { y: 68, letter: "B", opacity: 0.72 },
+    { y: 96, letter: "C", opacity: 0.44 },
+  ];
+  // Measured candidates. The tallest is the selection, drawn filled.
+  const bars = [
+    { x: 176, h: 26 },
+    { x: 198, h: 45 },
+    { x: 220, h: 63 },
+    { x: 242, h: 34 },
+  ];
+  const base = 112;
+  const best = 2;
+
+  return (
+    <>
+      <Title>Evidence · Measured Selection</Title>
+
+      {/* graded evidence chips */}
+      {grades.map((g) => (
+        <g key={g.letter} opacity={g.opacity}>
+          <rect
+            data-pop
+            x="14"
+            y={g.y - 9}
+            width="34"
+            height="18"
+            rx="4"
+            fill="var(--surface)"
+            stroke="var(--accent)"
+            strokeWidth="1.4"
+          />
+          <text
+            x="31"
+            y={g.y + 3.5}
+            fill="var(--accent)"
+            fontSize="9"
+            textAnchor="middle"
+            style={{ fontFamily: FONT }}
+          >
+            {g.letter}
+          </text>
+          {/* into the evaluation gate */}
+          <path
+            data-draw
+            d={`M 48 ${g.y} C 84 ${g.y} 92 68 122 68`}
+            fill="none"
+            stroke="var(--muted)"
+            strokeWidth="1"
+            opacity="0.6"
+          />
+        </g>
+      ))}
+      <text
+        x="31"
+        y="122"
+        fill="var(--muted)"
+        fontSize="6"
+        letterSpacing="0.6"
+        textAnchor="middle"
+        style={{ fontFamily: FONT }}
+      >
+        GRADES
+      </text>
+
+      {/* evaluation gate */}
+      <circle cx="134" cy="68" r="12" fill="var(--surface)" stroke="var(--accent)" strokeWidth="1.6" />
+      <circle className="diagram-runner" cx="134" cy="68" r="3.5" fill="var(--accent)" />
+      <path data-draw d="M 146 68 L 166 68" fill="none" stroke="var(--muted)" strokeWidth="1" opacity="0.6" />
+
+      {/* measured comparison */}
+      <line x1="168" y1={base} x2="256" y2={base} stroke="var(--muted)" strokeWidth="1" opacity="0.5" />
+      {bars.map((b, i) => (
+        <rect
+          data-pop
+          key={b.x}
+          x={b.x}
+          y={base - b.h}
+          width="12"
+          height={b.h}
+          rx="2"
+          fill={i === best ? "var(--accent)" : "none"}
+          stroke="var(--accent)"
+          strokeWidth="1.3"
+          opacity={i === best ? 1 : 0.5}
+        />
+      ))}
+      <text
+        x="212"
+        y="124"
+        fill="var(--muted)"
+        fontSize="6"
+        letterSpacing="0.6"
+        textAnchor="middle"
+        style={{ fontFamily: FONT }}
+      >
+        COST · SPEED · ENERGY · QUALITY
+      </text>
+
+      <CheckBadge x={288} y={44} />
+    </>
+  );
+}
+
 const VARIANTS: Record<string, () => React.ReactElement> = {
   Evacuation,
   "Cultural heritage": CulturalHeritage,
   Traceability,
   Diplomacy,
+  "AI systems": AiSystems,
 };
 
 export function ProjectDiagram({

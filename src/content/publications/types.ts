@@ -35,12 +35,98 @@ export interface ListBlock {
 }
 
 /** A simple data table. Rows must all have the same length as `headers`. */
+export interface TableData {
+  caption?: string;
+  headers: string[];
+  rows: string[][];
+}
+
 export interface TableBlock {
-  table: {
-    caption?: string;
-    headers: string[];
-    rows: string[][];
-  };
+  table: TableData;
+}
+
+// ── Charts ───────────────────────────────────────────────────────────────
+//
+// Quantitative comparisons render as charts rather than tables: a reader
+// comparing eight prices or four benchmark scores is asking a question about
+// magnitude, and a bar answers it faster than a column of numerals.
+//
+// Categorical tables stay tables. A chart of "risk tier to control posture"
+// would be a bar chart of nothing.
+//
+// Every chart carries its own `data` table, rendered in a disclosure beneath
+// it. The figures are therefore never gated behind the graphic: screen
+// readers, print, and anyone who wants the exact numbers get the table.
+
+/** One labelled row on any of the chart forms. */
+interface ChartRowBase {
+  label: string;
+  /** Optional second line under the row label, e.g. "6B active of 119B". */
+  note?: string;
+}
+
+/** Single-series horizontal bars. Nominal categories, so every bar takes the
+ *  same hue: bar length already encodes the value, and spending the identity
+ *  channel on it as well would say nothing new. */
+export interface BarsChart {
+  kind: "bars";
+  caption?: string;
+  /** Axis maximum. Defaults to the largest value in the set. */
+  max?: number;
+  rows: (ChartRowBase & { value: number; valueLabel: string })[];
+  data: TableData;
+}
+
+/** Two-segment stacked bars, for a total that decomposes into two parts. */
+export interface StackChart {
+  kind: "stack";
+  caption?: string;
+  /** Legend labels for the two segments, in stacking order. */
+  keys: [string, string];
+  max?: number;
+  rows: (ChartRowBase & { parts: [number, number]; valueLabel: string })[];
+  data: TableData;
+}
+
+/** Paired dots joined by a connector: two measures of the same row where the
+ *  distance between them is the point. `b` may be absent when the second
+ *  measure was not reported, in which case `missingLabel` says so. */
+export interface DumbbellChart {
+  kind: "dumbbell";
+  caption?: string;
+  keys: [string, string];
+  max?: number;
+  rows: (ChartRowBase & {
+    a: number;
+    aLabel: string;
+    b?: number;
+    bLabel?: string;
+    missingLabel?: string;
+  })[];
+  data: TableData;
+}
+
+/** A point estimate with an optional uncertainty band around it. Used where
+ *  reporting the central figure alone would overstate its precision. */
+export interface RangeChart {
+  kind: "range";
+  caption?: string;
+  max?: number;
+  /** Legend label for the band, e.g. "Interquartile range". */
+  bandKey?: string;
+  /** Legend label for the point, e.g. "Median estimate". */
+  pointKey: string;
+  rows: (ChartRowBase & {
+    low?: number;
+    high?: number;
+    point: number;
+    pointLabel: string;
+  })[];
+  data: TableData;
+}
+
+export interface ChartBlock {
+  chart: BarsChart | StackChart | DumbbellChart | RangeChart;
 }
 
 export type Paragraph =
@@ -48,7 +134,8 @@ export type Paragraph =
   | LeadParagraph
   | FormulaBlock
   | ListBlock
-  | TableBlock;
+  | TableBlock
+  | ChartBlock;
 
 export interface ReportSection {
   id: string;
