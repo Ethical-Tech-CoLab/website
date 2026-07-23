@@ -4,7 +4,7 @@ Living checklist of open items. Everything not listed here is done and live at
 <https://ethical-tech-colab.github.io/website/>. After adding any asset below,
 run `npm run sync:static`, then commit + push (or ask me to).
 
-Last updated: 2026-07-13.
+Last updated: 2026-07-23.
 
 ---
 
@@ -24,21 +24,28 @@ Emily Harrington, Natasha Nagarajan).
 Drop into `public/logos/` (auto-discovered by filename; falls back to a
 monogram). See `public/logos/README.md`.
 
+These render in the **Clients & partners** band at the bottom of `/team`. They
+used to live only on `/about`, which is hidden (§7), so until 2026-07-23 any
+logo added here appeared nowhere.
+
 Clients:
-- [ ] `generative-ai-for-good.png`
-- [ ] `d-id.png`
-- [ ] `mesur-io.png`
-- [ ] `supplytrace.png`
-- [ ] `rivr.png`
-- [ ] `human-generated-by-blockapps.png`
+- [ ] `mesur-io.*`
+- [ ] `supplytrace.*`
+- [ ] `human-generated-by-blockapps.*`
 
 Partners:
-- [ ] `100x.png`
-- [ ] `apne-aap-women-worldwide.png`
-- [ ] `gaia.png`
-- [ ] `grid-bank.png`
+- [ ] `osce-odihr-anti-trafficking.*`
+- [ ] `un-commission-on-the-status-of-women-csw.*`
+- [ ] `coinbase-x402-foundation.*`
 
-*Done:* Microsoft (`microsoft.svg`), NYU SPS + CGA (`nyu-sps-cga-logo.jpg`).
+*Done:* Microsoft (`microsoft.svg`), NYU SPS + CGA (`nyu-sps-cga-logo.jpg`),
+and added 2026-07-23 from the local "Partners Logos" folder — Generative AI for
+Good, D_ID, Rivr, 100x, Apne Aap Women Worldwide, Gaia, Grid Bank. Each is
+wired to an explicit `logo:` path in `site.ts` so the browser skips the
+extension-probe fallback. Gaia's supplied file was near-white on transparency
+and would have been invisible on the white logo tile, so it was recoloured to
+the light-theme ink (`#1a1020`); swap in a dark-on-transparent original if the
+brand team provides one.
 
 ## 3. Client / partner details (`src/content/site.ts`)
 
@@ -76,14 +83,26 @@ Partners:
       cohorts' projects (Spring 2025 and Fall 2025) so the archive cards and
       Live Demos page are complete rather than name-only.
 
-## 5. Publications (`src/content/site.ts` → `publications`)
+## 5. Publications (`src/content/site.ts` → `publications`) — ✅ complete
 
-Four academic-report cards are placeholders ("coming soon"). Add a `url` to each
-as reports are published — the card auto-switches to a "Read report" button.
-- [ ] Evacuation — *AI-Informed Evacuation Decision-Making*
-- [ ] Cultural heritage — *Verifiable Provenance for the Ethical Return…*
-- [ ] Traceability — *Making Ethical Supply-Chain Claims Verifiable*
-- [ ] Diplomacy — *Rehearsing High-Stakes Diplomacy with Culturally Grounded AI Agents*
+The four umbrella placeholder cards (indices 01–04: *AI-Informed Evacuation
+Decision-Making*, *Verifiable Provenance for the Ethical Return…*, *Making
+Ethical Supply-Chain Claims Verifiable*, *Rehearsing High-Stakes Diplomacy…*)
+were removed on 2026-07-23. Each promised a synthesis report that did not
+exist, and every area they covered is served by published reports already on
+the site — Evacuation by 07–12 and 27, Cultural heritage by 13–15, Traceability
+by 16, Diplomacy by 17. Every catalogue entry now has a report behind it.
+
+Two consequences worth knowing:
+- The **"In preparation" filter chip** on `/publications` was removed with them
+  — with nothing unpublished left it returned an empty page. Restore it
+  alongside the first entry that ships without a `url`.
+- **"Readable now"** now filters on `readable()` (has a url *and* is not
+  `access: "internal"`), not on `url` alone, so it excludes the seven CoLab-only
+  guides rather than matching everything.
+
+`index` is a React key and cover-art seed only, never displayed, so the 01–04
+gap is invisible — do not renumber, it would reshuffle every cover.
 
 ## 6. Social & newsletter
 
@@ -113,6 +132,16 @@ as reports are published — the card auto-switches to a "Read report" button.
 - [ ] **Notify past cohorts / alumni** — message old cohort members (Spring 2025,
       Fall 2025, and any earlier) to let them know their profile is now live on
       the website, so they can review it and flag any corrections.
+- [ ] **Dead reference link — UN R2P** (`after-the-corridor.ts`). The citation
+      "UN Office on Genocide Prevention and the Responsibility to Protect…"
+      points at `.../about-responsibility-to-protect.shtml`, which 404s since
+      un.org migrated off `.shtml`. Three sibling dead links were fixed on
+      2026-07-23 (Copernicus EMS → `rapidmapping.emergency.copernicus.eu`,
+      Meta → the 2024 sustainability report, UCI → the guide root), but un.org
+      blocks automated requests with a redirect loop, so the replacement could
+      not be verified from the CLI. Open it in a browser, grab the current URL,
+      and paste it in.
+
 - [ ] **About page is hidden** — the whole `/about` page is currently disabled
       (removed from the nav; the route serves a 404). Nothing is deleted: the
       full layout is preserved as comments in `src/app/about/page.tsx`, and all

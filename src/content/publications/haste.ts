@@ -566,7 +566,7 @@ export const hasteReport = {
     },
     {
       ref: "European Commission. Copernicus Emergency Management Service, Rapid Mapping.",
-      url: "https://emergency.copernicus.eu/mapping",
+      url: "https://rapidmapping.emergency.copernicus.eu/",
     },
     {
       ref: "European Union. Copernicus Sentinel-1 and Sentinel-2 radar and optical satellite data.",

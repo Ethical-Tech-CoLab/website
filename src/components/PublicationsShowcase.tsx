@@ -643,13 +643,15 @@ function PublicationSheet({
 
 export function PublicationsShowcase() {
   const [topic, setTopic] = useState<string | null>(null);
-  const [status, setStatus] = useState<"published" | "upcoming" | null>(null);
+  const [status, setStatus] = useState<"published" | null>(null);
   const [open, setOpen] = useState<Publication | null>(null);
 
   const visible = publications.items.filter((p) => {
     if (topic && p.topic !== topic) return false;
-    if (status === "published" && !p.url) return false;
-    if (status === "upcoming" && p.url) return false;
+    // "Readable now" means what the label says: a report a visitor can open.
+    // Filtering on `p.url` alone would keep the CoLab-only guides, which carry
+    // a url but resolve to a private repo.
+    if (status === "published" && !readable(p)) return false;
     return true;
   });
 
@@ -723,13 +725,11 @@ export function PublicationsShowcase() {
           >
             Readable now
           </button>
-          <button
-            type="button"
-            onClick={() => setStatus((v) => (v === "upcoming" ? null : "upcoming"))}
-            className={chip(status === "upcoming")}
-          >
-            In preparation
-          </button>
+          {/* An "In preparation" chip sat here until every catalogue entry had
+              a report behind it. With nothing unpublished left it always
+              returned an empty page, so it was removed rather than left as a
+              control that does nothing. Bring it back alongside the first
+              entry that ships without a url. */}
         </div>
       </div>
 

@@ -197,7 +197,7 @@ export const carbonReport = {
     { ref: "Masters DC. (n.d.). How data center cooling works and why it is brilliant.", url: "https://www.masterdc.com/blog/what-is-data-center-free-cooling-how-does-it-work/" },
     { ref: "Matheson, R. (2020, April 23). Reducing the carbon footprint of artificial intelligence. MIT News.", url: "https://news.mit.edu/2020/artificial-intelligence-ai-carbon-footprint-0423" },
     { ref: "McQuate, S. (2023, July 27). Q&A: UW researcher discusses just how much energy ChatGPT uses. UW News.", url: "https://www.washington.edu/news/2023/07/27/how-much-energy-does-chatgpt-use/" },
-    { ref: "Meta. (2024). Meta sustainability report 2024. Meta Sustainability.", url: "https://sustainability.atmeta.com/responsible-ai/" },
+    { ref: "Meta. (2024). Meta sustainability report 2024. Meta Sustainability.", url: "https://sustainability.atmeta.com/2024-sustainability-report/" },
     { ref: "Microsoft. (2023). Improving sustainability with AI. Microsoft Sustainability.", url: "https://www.microsoft.com/en-us/sustainability/learn/improving-sustainability-with-ai" },
     { ref: "MIT News. (2025). Explained: Generative AI's environmental impact.", url: "https://news.mit.edu/2025/explained-generative-ai-environmental-impact-0117" },
     { ref: "National Institute of Standards and Technology. (2023). Artificial intelligence risk management framework (AI RMF 1.0) (NIST AI 100-1).", url: "https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf" },
@@ -216,7 +216,9 @@ export const carbonReport = {
     { ref: "U.S. Department of Energy. (2024b, April 29). DOE announces new actions to enhance America's global leadership in artificial intelligence.", url: "https://www.energy.gov/articles/doe-announces-new-actions-enhance-americas-global-leadership-artificial-intelligence" },
     { ref: "UN Environment Programme. (2025, February 11). New coalition aims to put artificial intelligence on a more sustainable path.", url: "https://www.unep.org/news-and-stories/press-release/new-coalition-aims-put-artificial-intelligence-more-sustainable-path" },
     { ref: "UN Framework Convention on Climate Change. (n.d.). AI for climate action.", url: "https://unfccc.int/news/ai-for-climate-action-technology-mechanism-supports-transformational-climate-solutions" },
-    { ref: "University of California, Irvine Libraries. (n.d.). Ethics – AI in research.", url: "https://guides.lib.uci.edu/gen-ai/ethics" },
+    // The guide's standalone "Ethics" tab no longer exists; that material now
+    // sits across its Bias and Challenges pages, so this cites the guide itself.
+    { ref: "University of California, Irvine Libraries. (n.d.). Ethics – AI in research.", url: "https://guides.lib.uci.edu/gen-ai" },
     { ref: "Venkatesan, V., & Karibandi, A. (2024, September 16). Embracing modernization with a sustainability focus. Amazon Web Services.", url: "https://aws.amazon.com/blogs/migration-and-modernization/embracing-modernization-with-a-sustainability-focus/" },
     { ref: "Vertiv. (n.d.). Liquid cooling options for data centers.", url: "https://www.vertiv.com/en-us/solutions/learn-about/liquid-cooling-options-for-data-centers/" },
     { ref: "WEKA. (n.d.). Sustainable AI initiative.", url: "https://www.weka.io/company/sustainable-ai/" },

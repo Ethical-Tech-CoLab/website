@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Link } from "next-view-transitions";
-import { team } from "@/content/site";
+import { about, team } from "@/content/site";
 import { asset } from "@/lib/asset";
 import { excerpt } from "@/lib/team";
 import { Avatar, LinkedInLink } from "@/components/TeamAvatar";
 import { ResearchersExplorer } from "@/components/ResearchersExplorer";
 import { AlumniSection } from "@/components/AlumniSection";
+import { OrgShowcase } from "@/components/OrgShowcase";
 import { Reveal } from "@/components/motion/Reveal";
 
 export const metadata: Metadata = {
@@ -213,6 +214,55 @@ export default function TeamPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Clients & partners — closes the page on the organisations behind the
+          work. OrgShowcase used to appear only on /about, which is currently
+          hidden, so the logos in public/logos/ had nowhere to render. */}
+      <section className="border-t border-border bg-surface/40">
+        <div className="mx-auto max-w-6xl px-6 py-20">
+          <Reveal>
+            <p className="text-xs uppercase tracking-wider text-muted">
+              {team.orgs.eyebrow}
+            </p>
+            <h2 className="mt-3 fluid-h2 font-heading uppercase">
+              {team.orgs.heading}
+            </h2>
+          </Reveal>
+
+          <div className="mt-12">
+            <p className="text-xs uppercase tracking-wider text-muted">
+              {team.orgs.foundingLabel}
+            </p>
+            <p className="mt-2 text-sm text-muted">{team.orgs.foundingNote}</p>
+            <div className="mt-6">
+              <OrgShowcase
+                items={about.foundingPartners}
+                className="sm:grid-cols-3"
+              />
+            </div>
+          </div>
+
+          <div className="mt-14 border-t border-border pt-10">
+            <p className="text-xs uppercase tracking-wider text-muted">
+              {about.clients.label}
+            </p>
+            <p className="mt-2 text-sm text-muted">{team.orgs.clientsNote}</p>
+            <div className="mt-6">
+              <OrgShowcase items={about.clients.items} />
+            </div>
+          </div>
+
+          <div className="mt-14 border-t border-border pt-10">
+            <p className="text-xs uppercase tracking-wider text-muted">
+              {about.partners.label}
+            </p>
+            <p className="mt-2 text-sm text-muted">{about.partners.note}</p>
+            <div className="mt-6">
+              <OrgShowcase items={about.partners.items} />
+            </div>
           </div>
         </div>
       </section>
