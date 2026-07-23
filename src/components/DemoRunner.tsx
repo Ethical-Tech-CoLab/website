@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Link } from "next-view-transitions";
 import type { DemoLink } from "@/content/site";
 import { asset } from "@/lib/asset";
 
@@ -32,6 +33,8 @@ export interface RunnableDemo {
   /** Source lives in a private CoLab repo: the sheet says the link needs a
    *  sign-in rather than presenting it as openly readable. */
   access?: "internal";
+  /** Route of the written-up report, shown under the demo entries. */
+  publication?: string;
 }
 
 export function demoCount(d: RunnableDemo) {
@@ -183,7 +186,23 @@ export function DemoRunner({
                     </a>
                   ),
                 )}
-                {entries.length === 0 && (
+                {/* The research behind the thing you just ran. Sits with the
+                    run entries rather than in the footer meta, because having
+                    played with a tool is exactly when someone wants it. */}
+                {demo.publication && (
+                  <Link
+                    href={demo.publication}
+                    className="flex w-full items-center justify-between gap-4 rounded-xl border border-border bg-card px-5 py-4 transition-colors hover:border-accent"
+                  >
+                    <span className="font-semibold text-foreground">
+                      Read the research report
+                    </span>
+                    <span aria-hidden className="text-accent">
+                      →
+                    </span>
+                  </Link>
+                )}
+                {entries.length === 0 && !demo.publication && (
                   <p className="text-sm text-muted">
                     {demo.access === "internal"
                       ? "A written guide rather than a running demo. It lives in a private CoLab repository, so opening it needs a GitHub account with access to the org."

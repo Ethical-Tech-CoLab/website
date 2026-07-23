@@ -85,7 +85,14 @@ export default function Home() {
           {current && (
             <Reveal delay={0.35} className="mt-16 w-full max-w-sm">
               <Tilt3D max={7}>
-                <HeroVisual term={current.term} caption={current.title} />
+                {/* The current cohort's card opens its synthesis report,
+                    which is the thing a visitor clicking "Summer 2026"
+                    actually wants, rather than the cohorts strip below. */}
+                <HeroVisual
+                  term={current.term}
+                  caption={current.title}
+                  href="/publications/after-the-corridor"
+                />
               </Tilt3D>
             </Reveal>
           )}

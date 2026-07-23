@@ -836,6 +836,12 @@ export interface Product {
   term: string;
   featured?: boolean;
   /**
+   * Route of this project's written-up report, e.g. "/publications/ercf".
+   * The runner links to it under the demo, so someone who has just played
+   * with a tool can go straight to the research behind it.
+   */
+  publication?: string;
+  /**
    * Set on entries whose source lives in a private CoLab repo. The poster then
    * reads "CoLab only" instead of "Live", and the runner labels its link as
    * needing sign-in, rather than offering a link that 404s for the public.
@@ -890,6 +896,7 @@ export const products: Product[] = [
     language: "HTML",
     theme: "Diplomacy",
     featured: true,
+      publication: "/publications/diplomatic-simulator",
   },
   {
     name: "AI Models Research",
@@ -912,6 +919,7 @@ export const products: Product[] = [
     language: "Python",
     theme: "Research",
     featured: true,
+      publication: "/publications/ai-models-research",
   },
   {
     name: "Exodus — Civilian Evacuation Risk Platform",
@@ -936,6 +944,7 @@ export const products: Product[] = [
     language: "HTML",
     theme: "Evacuation",
     featured: true,
+      publication: "/publications/evacuation-inform-index",
   },
   {
     name: "Evacuation Routing Simulator",
@@ -947,6 +956,7 @@ export const products: Product[] = [
       "An interactive simulator modeling how routing and assignment choices shape who reaches safety, with shareable scenario state and a built-in explainer walkthrough.",
     language: "HTML",
     theme: "Evacuation",
+      publication: "/publications/erus",
   },
   {
     name: "Mariupol 2022 — Corridor Severity Model",
@@ -958,6 +968,7 @@ export const products: Product[] = [
       "A corridor-severity model reconstructing the 2022 Mariupol evacuation, scoring the risk and viability of humanitarian corridors under siege conditions.",
     language: "HTML",
     theme: "Evacuation",
+      publication: "/publications/mariupol-severity-model",
   },
   {
     name: "Evacuation Behavior Simulator",
@@ -969,6 +980,7 @@ export const products: Product[] = [
       "An agent-based model of community evacuation behavior — family clusters, information-seeking, neighbor influence, and elder and child delays across an UNAWARE → SEEKING → MILLING → EVACUATING → DONE lifecycle.",
     language: "JavaScript",
     theme: "Evacuation",
+      publication: "/publications/evacuation-simulation",
   },
   {
     name: "Digital Art Passport (VANGO)",
@@ -980,6 +992,7 @@ export const products: Product[] = [
       "A digital provenance passport for cultural artifacts, pairing verifiable credentials with collaborative cataloguing to support repatriation, attribution, and ethical stewardship.",
     language: "HTML",
     theme: "Cultural heritage",
+      publication: "/publications/vango",
   },
   {
     name: "ERCF — Evacuation Risk & Cost Framework",
@@ -991,6 +1004,7 @@ export const products: Product[] = [
       "A decision-support framework estimating the human and financial cost of civilian evacuation in armed conflict, scoring scenarios across seven risk dimensions and comparing evacuating against staying.",
     language: "Python",
     theme: "Evacuation",
+      publication: "/publications/ercf",
   },
   {
     name: "CERAI — Civilian Evacuation Risk Anticipation Index",
@@ -1002,6 +1016,7 @@ export const products: Product[] = [
       "A composite index anticipating civilian risk during evacuation operations, scoring weighted categories — hazards, infrastructure, population vulnerability, information environment, and weather — with Monte Carlo sensitivity analysis, ACLED conflict-event lookup, and source-credibility tagging on every indicator, so evacuation-risk reasoning stays auditable for IHL compliance review. Built by Alana Robertson in the Summer 2026 cohort, on Teresa Cantero's doctoral research into AI and the protection and evacuation of civilians under IHL.",
     language: "HTML",
     theme: "Evacuation",
+      publication: "/publications/cerai",
   },
   {
     name: "Arts Provenance Agent",
@@ -1014,6 +1029,7 @@ export const products: Product[] = [
     language: "TypeScript",
     theme: "Cultural heritage",
     featured: true,
+      publication: "/publications/digital-provenance-passport",
   },
   {
     name: "Provenance Search — Arts & Artifacts",
@@ -1027,6 +1043,7 @@ export const products: Product[] = [
       "Traces the ownership chain of an artwork across museum collections, cultural archives and loss registries, then issues a provenance passport carrying a rule-based confidence score you can inspect rather than a verdict you have to trust. Seven sources checked, three ways to search, no sign-up.",
     language: "HTML",
     theme: "Cultural heritage",
+      publication: "/publications/provenance-search",
   },
   {
     name: "Digital Passport for Artworks",
@@ -1050,6 +1067,7 @@ export const products: Product[] = [
     language: "HTML",
     theme: "Traceability",
     featured: true,
+      publication: "/publications/forced-labor-structural-risk-index",
   },
   {
     name: "AI Research Question Assistant",
@@ -1061,6 +1079,7 @@ export const products: Product[] = [
       "A survey and toolkit for how AI helps researchers move from a broad interest to a well-formed research question — finding gaps, generating candidate questions, summarizing the state of the art, and flagging contradictions, with guardrails against hallucinated citations. Ships with a reusable Copilot 'Researcher' prompt and a journal-credibility rubric. Built by the Fall 2025 cohort.",
     language: "HTML",
     theme: "Research",
+      publication: "/publications/ai-research-assistant",
   },
   {
     name: "AI's Carbon Footprint",
@@ -1072,6 +1091,7 @@ export const products: Product[] = [
       "A report on what artificial intelligence costs the environment: energy drawn across training and inference, the data-center and hardware toll behind it, and the mitigations, regulations and policies that could bend the curve. 1,287 MWh went into training GPT-3 alone — roughly what 130 US households use in a year.",
     language: "HTML",
     theme: "Research",
+      publication: "/publications/ai-carbon-footprint",
   },
 
   // ── Practice guides ──────────────────────────────────────────────────

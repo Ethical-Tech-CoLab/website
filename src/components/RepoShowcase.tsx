@@ -38,6 +38,7 @@ function toRunnable(p: Product): RunnableDemo {
     posterKey: p.repoName,
     meta: [p.theme, p.term, p.language],
     access: p.access,
+    publication: p.publication,
   };
 }
 

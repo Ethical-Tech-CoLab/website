@@ -50,6 +50,7 @@ function toRunnable(project: SubProject, product?: Product): RunnableDemo {
     meta: [product?.theme, product?.term, product?.language].filter(
       (m): m is string => Boolean(m),
     ),
+    publication: project.publication ?? product?.publication,
   };
 }
 
