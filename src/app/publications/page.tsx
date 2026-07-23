@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { publications } from "@/content/site";
 import { SectionTabs } from "@/components/SectionTabs";
 import { Reveal } from "@/components/motion/Reveal";
-import { PublicationsGrid } from "@/components/PublicationsGrid";
+import { PublicationsShowcase } from "@/components/PublicationsShowcase";
 
 export const metadata: Metadata = {
   title: "Publications",
@@ -37,7 +37,9 @@ export default function PublicationsPage() {
 
       <SectionTabs />
 
-      <PublicationsGrid />
+      <div className="pt-12">
+        <PublicationsShowcase />
+      </div>
     </>
   );
 }

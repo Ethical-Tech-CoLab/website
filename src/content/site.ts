@@ -314,6 +314,11 @@ export interface Publication {
   date?: string;
   /** Link to the published report/PDF. Empty string = placeholder, not yet out. */
   url: string;
+  /** Direct PDF, when the report is also distributed as one. Offered as a
+   *  second action in the catalogue sheet, next to reading it on the site. */
+  pdf?: string;
+  /** Repository holding the report's source, when it has its own. */
+  repo?: string;
   /**
    * Set on write-ups that live in a private CoLab repo. The card then says so
    * and labels the link honestly, instead of showing "Published" over a link
@@ -326,7 +331,7 @@ export const publications = {
   eyebrow: "Publications · Academic reports",
   heading: "The research, written up.",
   intro:
-    "Each research question the CoLab takes on is being written up as an academic report. Titles are working drafts; links go live here as each report is published.",
+    "Each research question the CoLab takes on is written up as an academic report. Browse the catalogue by topic, pick a title to read what it asks and what it found, then open the report itself. Titles still in preparation are shelved alongside the published ones, so you can see where the work is going.",
   items: [
     {
       index: "01",
@@ -407,6 +412,8 @@ export const publications = {
       date: "July 2026",
       // Internal route (starts with "/") — rendered on-site, see the card logic.
       url: "/publications/after-the-corridor",
+      pdf: "https://ethical-tech-colab.github.io/after-the-corridor-report/pdf/After-the-Corridor-ETC-Research-Report.pdf",
+      repo: "https://github.com/Ethical-Tech-CoLab/after-the-corridor-report",
     },
     {
       index: "07",

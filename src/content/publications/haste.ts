@@ -46,14 +46,14 @@ export const hasteReport = {
   authors:
     "HASTE was developed by the Microsoft AI for Good Lab and released as open-source software under the MIT Licence. The contributors recorded in the repository's commit history are Meygha Machado, Caleb Robinson, Joaquín Rivero, Cameron Birge, Marcelo Duarte, and Anthony Cintron Roman. The accompanying research paper additionally credits Anthony Ortiz, Simone Fobi Nsutezo, Kevin White, Inbal Becker-Reshef, and Juan M. Lavista Ferres. This plain-language report was prepared under the Ethical Tech CoLab at the NYU Center for Global Affairs as part of masters research (2026), on the fork of the project held at Ethical-Tech-CoLab/haste.",
   thesis:
-    "In the hours after an earthquake, a hurricane, or a wildfire, the single most useful thing a relief coordinator can hold is a map of which buildings are still standing. The traditional answers are slow, and neither reliably delivers inside the first seventy-two hours, which is the window in which decisions about people, supplies, and attention are actually being made. HASTE lets a trained analyst who is not a machine-learning engineer take fresh imagery of a disaster zone, mark a small number of examples by hand, and have a computer extend those examples across the whole affected area. This report explains what it does, what each of its settings means, and what it cannot be trusted to do.",
+    "In the hours after an earthquake, a hurricane, or a wildfire, the single most useful thing a relief coordinator can hold is a map of which buildings are still standing. The traditional answers are slow, and neither reliably delivers inside the first days, which is the window in which decisions about people, supplies, and attention are actually being made. HASTE lets a trained analyst who is not a machine-learning engineer take fresh imagery of a disaster zone, mark a small number of examples by hand, and have a computer extend those examples across the whole affected area. This report explains what it does, what each of its settings means, and what it cannot be trusted to do.",
 
   // Figures pulled from the body for the hero stat band.
   stats: [
     {
       value: "31",
       label:
-        "field deployments since early 2023, reported in the paper published alongside the platform",
+        "field deployments since early 2023, a record of adoption rather than of accuracy, and reported by the platform's own developers",
     },
     {
       value: "3",
@@ -63,12 +63,12 @@ export const hasteReport = {
     {
       value: "0.1",
       label:
-        "damage threshold, the most consequential single number in the platform, set low on purpose",
+        "damage threshold, one tenth of a building's visible area, the most consequential single number in the platform and set low on purpose",
     },
     {
       value: "0.84",
       label:
-        "discrimination score from one per cent of labels, against 0.88 for a fully supervised model trained on all of them",
+        "area under the ROC curve from one per cent of labels, against 0.88 fully supervised. Parity arrives at ten per cent, where it reaches 0.91",
     },
   ],
 
@@ -79,7 +79,7 @@ export const hasteReport = {
       title: "Foreword",
       paragraphs: [
         "In the hours after an earthquake, a hurricane, or a wildfire, the single most useful thing a relief coordinator can hold is a map of which buildings are still standing. Where should search teams go first? Which neighbourhoods need shelter, and how many people are likely to need it? Which roads lead to places that no longer exist? Those questions have to be answered before anyone on the ground has been able to walk the affected area, and often before the affected area is safe to walk at all.",
-        "The traditional answers are slow. Teams fly helicopters over the damage, photograph it, and interpret the photographs by hand. Official mapping services task a satellite, wait for a cloud-free pass, and publish a product days later. Both are careful and both are valuable, but neither reliably delivers inside the first seventy-two hours, which is the window in which decisions about people, supplies, and attention are actually being made.",
+        "The traditional answers are slow. Teams fly helicopters over the damage, photograph it, and interpret the photographs by hand. Official mapping services task a satellite, wait for a cloud-free pass, and publish a product days later. Both are careful and both are valuable, but neither reliably delivers inside the first days, which is the window in which decisions about people, supplies, and attention are actually being made.",
         "HASTE, which stands for High-speed Assessment and Satellite Tracking for Emergencies, is an open-source research platform built to shorten that gap. It lets a trained analyst who is not a machine-learning engineer take fresh satellite or aerial imagery of a disaster zone, mark a small number of examples by hand, and have a computer extend those examples across the whole affected area to produce a building-by-building damage estimate. This report explains, in non-technical language, what HASTE does, how it does it, what each of its settings means, and what it cannot be trusted to do.",
       ],
     },
@@ -94,7 +94,7 @@ export const hasteReport = {
         "HASTE offers two routes from imagery to an answer. The faster route, Rapid Building Assessment, computes a numerical fingerprint for every building in the area, asks the analyst to label a handful of them, and trains a very small classifier inside the web browser that scores all the rest in seconds. The slower route, Damage Mapping, asks the analyst to draw damaged and undamaged areas by hand and trains a full image-segmentation model on a graphics processor, producing a continuous, pixel-level damage map.",
         "Both routes end at the same place: a per-building damage figure, a set of accuracy measures computed against a human-labelled validation sample, and an estimate of the total number of damaged buildings with a stated margin of error.",
         "The platform depends on outside data it does not produce. Imagery comes from commercial and public providers such as Planet, Maxar, Airbus, the European Union's Copernicus programme, and the United States National Oceanic and Atmospheric Administration. Building outlines come from the Overture Maps Foundation, which itself draws heavily on OpenStreetMap and on machine-derived building datasets. Where those outlines are missing or wrong, HASTE has nothing to attach its predictions to.",
-        "According to the research paper published alongside the platform, HASTE has been used in more than thirty disaster responses since early 2023, and its outputs have been released openly through the Humanitarian Data Exchange.",
+        "According to the research paper published alongside the platform, HASTE has been used in thirty-one field deployments since early 2023, and its outputs have been released openly through the Humanitarian Data Exchange.",
       ],
     },
     {
@@ -108,7 +108,7 @@ export const hasteReport = {
         },
         {
           lead: "The gap.",
-          text: "Established products have real strengths and known constraints. Copernicus Emergency Management Service Rapid Mapping, the European Union's free on-demand crisis mapping service, delivers standardised map products within hours to days of an activation, but must be formally activated by an authorised user and covers only large-scale emergencies. Manual aerial surveys are accurate but limited in geographic reach and slow to process. Neither easily absorbs the specific situational context that a particular responding organisation cares about, such as one parish, one road corridor, or one category of structure.",
+          text: "Established products have real strengths and known constraints. Copernicus Emergency Management Service Rapid Mapping, the European Union's free on-demand crisis mapping service, delivers standardised map products within hours to days of an activation, but must be formally activated by an authorised user and covers only large-scale emergencies. Manual aerial surveys are accurate but limited in geographic reach and slow to process. Neither easily absorbs the specific situational context that a particular responding organisation cares about, such as one parish, one road corridor, or one category of structure. Those two are not the nearest neighbours, though, and describing the field by them alone would make the platform look more novel than it is. HASTE is benchmarked on xBD, the dataset built for the xView2 building damage challenge, and that challenge produced a substantial body of automated damage classification work which is the real comparator. The honest claim is not that nothing existed. It is that the existing machine learning approaches assume a globally pretrained model applied to a new disaster, and HASTE trades that for a disposable per event model that an analyst fits by hand, in a browser, without writing code.",
         },
         {
           lead: "The response.",
@@ -146,7 +146,7 @@ export const hasteReport = {
           text: "An analyst first creates a project, which is simply a container for one disaster event. It records a name, a description, the date of the event, and the affected countries. The date and the countries are stored for reference and do not affect any calculation.",
         },
         "Into that project the analyst adds an image layer, which is the imagery being assessed. HASTE accepts GeoTIFF files, a standard image format that carries the geographic coordinates of every pixel alongside the picture itself. Several files covering the same area can be uploaded together and are merged into a single mosaic. Imagery from before the event is optional and is used for visual comparison, not for the calculation.",
-        "HASTE then obtains the outlines of every building in the area covered by the imagery. By default it downloads them automatically from Overture Maps, an open dataset maintained by the Overture Maps Foundation under the Linux Foundation, which combines OpenStreetMap with machine-derived building datasets from Microsoft and Google and covers roughly 2.3 billion buildings worldwide. An analyst who has better local data can upload their own outlines instead, as a GeoPackage file of up to 500 megabytes; HASTE converts it to the standard global coordinate system and trims it to the imagery area. When the layer is created the analyst chooses a workflow, Building or Standard, which determines which of the two routes is available.",
+        "HASTE then obtains the outlines of every building in the area covered by the imagery. By default it downloads them automatically from Overture Maps, an open dataset maintained by the Overture Maps Foundation under the Linux Foundation, which combines OpenStreetMap with machine-derived building datasets from Microsoft and Google and, on the foundation's own account, covers roughly 2.3 billion buildings worldwide. An analyst who has better local data can upload their own outlines instead, as a GeoPackage file of up to 500 megabytes; HASTE converts it to the standard global coordinate system and trims it to the imagery area. When the layer is created the analyst chooses a workflow, Building or Standard, which determines which of the two routes is available.",
         {
           lead: "Route A, Rapid Building Assessment.",
           text: "This route is available when building outlines exist and produces an answer in minutes with no separate training job. First, HASTE computes an embedding for every building. An embedding is a compact list of numbers that describes what the imagery around that building looks like: its texture, its colour, its edges. Two buildings that look alike receive similar lists of numbers. Nothing in the embedding knows anything about damage; it is simply a numerical description of appearance.",
@@ -382,7 +382,15 @@ export const hasteReport = {
       number: "08",
       title: "Evidence of Performance",
       paragraphs: [
-        "The research paper published alongside the platform, HASTE: A Platform for Rapid Post-Disaster Building Damage Assessment (arXiv:2607.11838), reports experiments on xBD, a public benchmark dataset of paired pre-event and post-event satellite imagery with expert damage annotations. The team collapsed the benchmark's minor, major, and destroyed categories into a single damaged category and measured how well each embedding method performed as the number of labels was varied.",
+        {
+          lead: "Everything in this section is the developer's own account.",
+          text: "The benchmark results, the deployment record, and the field precision and recall figures all originate from the Microsoft paper and repository. None of them has been independently reproduced or externally validated, here or elsewhere, so they should be read as what the team that built the platform reports about it rather than as third-party verification. That is not an accusation of overstatement. It is the provenance of the evidence, and it is the first thing a sceptical reader is entitled to know.",
+        },
+        {
+          lead: "Validated accuracy.",
+          text: "The research paper published alongside the platform, HASTE: A Platform for Rapid Post-Disaster Building Damage Assessment (arXiv:2607.11838), reports experiments on xBD, a public benchmark dataset of paired pre-event and post-event satellite imagery with expert damage annotations. The team collapsed the benchmark's minor, major, and destroyed categories into a single damaged category and measured how well each embedding method performed as the number of labels was varied.",
+        },
+        "The discrimination score in the table below is the area under the receiver operating characteristic curve, usually shortened to AUROC. In plain terms it is the probability that the model ranks a randomly chosen damaged building above a randomly chosen intact one. It runs from 0 to 1, a coin flip scores 0.5, and 1.0 would mean the model never gets a pair the wrong way round. It is worth knowing that this measure says nothing about where the threshold should sit: a model can rank buildings well and still mislabel a great many of them once a cutoff is applied.",
         {
           table: {
             headers: ["Approach", "Labels used", "Discrimination score"],
@@ -395,7 +403,12 @@ export const hasteReport = {
               "Reported performance on the xBD benchmark as the number of labels was varied.",
           },
         },
-        "The practical claim, that a handful of labels plus a good general-purpose image description can match a conventionally trained model, is what makes the fast route viable.",
+        "The practical claim is that a handful of labels plus a good general-purpose image description gets close to a conventionally trained model. It should be read precisely, because the headline figure is a modest deficit rather than a match: at one per cent of labels the score is 0.84 against the fully supervised 0.88, and it is at ten per cent, where it reaches 0.91, that the fast route actually overtakes the baseline. What one per cent buys is not equal accuracy but most of the accuracy, hours sooner and without a machine-learning engineer, which is a real trade and a different claim.",
+        "The table does not say which of the two embedding methods produced these scores, and this report cannot resolve it from the published material. Since the lightweight option is the default an analyst would run, and the heavier one is the more capable, that gap matters to anyone reading the figures as a prediction of what they will get.",
+        {
+          lead: "Deployment record.",
+          text: "The figures that follow are evidence of adoption rather than of correctness, and only the Rolling Fork assessment carries an accuracy measurement against field ground truth.",
+        },
         "The same paper reports thirty-one field deployments since early 2023, including four cities assessed within three days of the February 2023 Türkiye earthquakes, a tornado assessment in Rolling Fork delivered in under two hours at 0.86 precision and 0.80 recall against field ground truth, and the August 2023 Maui wildfire, where imagery available at nine in the morning yielded an assessment by one in the afternoon identifying roughly 1,700 damaged buildings.",
         "For Hurricane Melissa in Jamaica in late 2025, four areas covering about 2,300 square kilometres were assessed. In Black River, some 110,000 building outlines were examined, of which around 65,000 were obscured by cloud.",
         {
@@ -429,6 +442,10 @@ export const hasteReport = {
       title: "Limitations and Caveats",
       paragraphs: [
         "The repository documents its own weaknesses at length. The most consequential are these.",
+        {
+          lead: "Every performance figure in this report is developer-supplied.",
+          text: "This one is not in the repository's own list, and it is the limitation a sceptical reader should weigh first. The xBD benchmark results, the deployment record, and the field precision and recall figures all come from the Microsoft paper and repository. Nothing has been independently reproduced, here or elsewhere. The rest of this report reads the source code and reports what it finds, which is first-hand; the evidence of how well the platform performs is not, and the two should not be given the same weight.",
+        },
         {
           lead: "The output depends heavily on who did the labelling.",
           text: "Two competent analysts working the same event from the same imagery can produce materially different results. The documentation gives a concrete example from the Hurricane Melissa response, where an initial set of 153 labels produced predictions that described buildings as around 20 per cent damaged when they were in fact totally destroyed; the error was caught by visual inspection and corrected by adding a further 107 labels and retraining.",
