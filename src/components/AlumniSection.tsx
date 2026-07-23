@@ -43,7 +43,7 @@ export function AlumniSection() {
             className="mt-14 scroll-mt-24 first:mt-12"
           >
             <div className="flex items-center gap-4">
-              <h3 className="font-heading text-xl uppercase tracking-wide text-accent">
+              <h3 className="font-heading text-2xl uppercase leading-none tracking-[0.06em] text-accent sm:text-3xl">
                 {group.term}
               </h3>
               <span className="h-px flex-1 bg-border" />

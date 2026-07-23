@@ -1,7 +1,31 @@
 import { Link } from "next-view-transitions";
-import { cohorts } from "@/content/site";
+import { cohorts, type DemoLink } from "@/content/site";
 import { Tilt3D } from "@/components/motion/Tilt3D";
 import { Reveal } from "@/components/motion/Reveal";
+
+/**
+ * A cohort bullet's link. Cohort items were all off-site demos once, so every
+ * one opened in a new tab with an ↗. Now they also point at reports on this
+ * site, and those should route in place with a →.
+ */
+function CohortLink({ label, href }: DemoLink) {
+  const style =
+    "font-medium text-accent underline-offset-4 transition-opacity hover:underline hover:opacity-80";
+
+  if (href.startsWith("/")) {
+    return (
+      <Link href={href} className={style}>
+        {label} <span aria-hidden>→</span>
+      </Link>
+    );
+  }
+
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={style}>
+      {label} <span aria-hidden>↗</span>
+    </a>
+  );
+}
 
 /**
  * Cohort grid, shown on the Home page (the standalone /cohorts route was
@@ -55,10 +79,13 @@ export function CohortsShowcase() {
                   )}
                 </div>
 
-                <h3 className="mt-4 text-xl font-semibold tracking-tight">
+                {/* Bebas is condensed, so the term needs size and open
+                    tracking to stay readable — text-xl/tracking-tight read as
+                    a cramped label rather than the card's title. */}
+                <h3 className="mt-5 font-heading text-3xl uppercase leading-none tracking-[0.06em] sm:text-4xl">
                   {cohort.term}
                 </h3>
-                <p className="mt-1 text-sm font-medium text-accent">
+                <p className="mt-2 text-sm font-medium text-accent">
                   {cohort.title}
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-muted">
@@ -93,14 +120,7 @@ export function CohortsShowcase() {
                                   <span aria-hidden className="text-accent">
                                     ▸
                                   </span>
-                                  <a
-                                    href={link.href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="font-medium text-accent underline-offset-4 transition-opacity hover:underline hover:opacity-80"
-                                  >
-                                    {link.label} <span aria-hidden>↗</span>
-                                  </a>
+                                  <CohortLink {...link} />
                                 </li>
                               ))}
                             </ul>
@@ -114,14 +134,7 @@ export function CohortsShowcase() {
                         <span aria-hidden className="mt-1 text-accent">
                           ◦
                         </span>
-                        <a
-                          href={item.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="font-medium text-accent underline-offset-4 transition-opacity hover:underline hover:opacity-80"
-                        >
-                          {item.label} <span aria-hidden>↗</span>
-                        </a>
+                        <CohortLink {...item} />
                       </li>
                     );
                   })}

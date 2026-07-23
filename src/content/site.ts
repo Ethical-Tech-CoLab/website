@@ -101,6 +101,14 @@ export interface ResearchArea {
   projects: SubProject[];
 }
 
+/**
+ * URL fragment for a research area, e.g. "cultural-heritage". The home page
+ * links each question card to `/portfolio#<slug>`, and the portfolio explorer
+ * opens and scrolls to the matching question.
+ */
+export const areaSlug = (key: string) =>
+  key.toLowerCase().replace(/\s+/g, "-");
+
 export const researchAreas: ResearchArea[] = [
   {
     index: "01",
@@ -1269,8 +1277,8 @@ export const cohorts: Cohort[] = [
     index: "03",
     term: "Summer 2026",
     current: true,
-    title: "Five projects, one frontier.",
-    body: "The current cohort takes five research projects from question to fielded prototype.",
+    title: "Four projects, one frontier.",
+    body: "The current cohort takes four research projects from question to fielded prototype.",
     items: [
       "7 researchers",
       "Evacuation Inform Index",
@@ -1278,6 +1286,16 @@ export const cohorts: Cohort[] = [
       "Ethical Supply Chain & Traceability",
       "Diplomatic Simulator",
       "AI Models Research",
+      {
+        label: "Publications",
+        links: [
+          {
+            label: "After the Corridor — synthesis report",
+            href: "/publications/after-the-corridor",
+          },
+          { label: "All publications", href: "/publications" },
+        ],
+      },
     ],
   },
 ];

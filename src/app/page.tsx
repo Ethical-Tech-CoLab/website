@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Link } from "next-view-transitions";
-import { researchAreas, site } from "@/content/site";
+import { areaSlug, researchAreas, site } from "@/content/site";
 import { asset } from "@/lib/asset";
 import { HeroVisual } from "@/components/HeroVisual";
 import { HeroField } from "@/components/HeroField";
@@ -13,6 +13,11 @@ import { Tilt3D } from "@/components/motion/Tilt3D";
 import { WireframeGlobe } from "@/components/WireframeGlobe";
 import { CohortsShowcase } from "@/components/CohortsShowcase";
 import { cohorts } from "@/content/site";
+
+/* Counted from the data, not written in: the link read "all five" through a
+   stretch when there were four research areas. */
+const WORDS = ["zero","one","two","three","four","five","six","seven","eight","nine"];
+const areaCount = WORDS[researchAreas.length] ?? researchAreas.length;
 
 export default function Home() {
   const current = cohorts.find((c) => c.current);
@@ -141,7 +146,7 @@ export default function Home() {
               href="/portfolio"
               className="link-underline hidden text-sm text-accent sm:block"
             >
-              View all five →
+              View all {areaCount} →
             </Link>
           </div>
         </Reveal>
@@ -149,8 +154,10 @@ export default function Home() {
         <Stagger className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
           {researchAreas.map((area) => (
             <StaggerItem key={area.key}>
+              {/* Straight to this question on the portfolio, opened and
+                  scrolled into view — not the top of the page. */}
               <Link
-                href="/portfolio"
+                href={`/portfolio#${areaSlug(area.key)}`}
                 className="group card-glow flex h-full flex-col gap-3 bg-background p-8 transition-colors hover:bg-surface"
               >
                 <ProjectDiagram

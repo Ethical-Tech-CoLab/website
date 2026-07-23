@@ -69,10 +69,10 @@ export function HeroVisual({
         <p className="text-[0.65rem] uppercase tracking-[0.2em] text-muted">
           Current cohort
         </p>
-        <p className="mt-1 font-serif text-2xl font-semibold tracking-tight">
+        <p className="mt-2 font-heading text-4xl uppercase leading-none tracking-[0.06em]">
           {term}
         </p>
-        <p className="mt-1 text-sm text-muted">{caption}</p>
+        <p className="mt-2 text-sm leading-relaxed text-muted">{caption}</p>
       </Link>
     </div>
   );

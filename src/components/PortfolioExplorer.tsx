@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "next-view-transitions";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { asset } from "@/lib/asset";
 import {
+  areaSlug,
   researchAreas,
   products,
   type Product,
@@ -74,6 +75,30 @@ export function PortfolioExplorer() {
     Object.fromEntries(researchAreas.map((a) => [a.key, false])),
   );
 
+  /* Arriving from a home-page question card (/portfolio#cultural-heritage):
+     open that question and bring it into view. The hash alone can't do it —
+     the panel is collapsed by default, so there is nothing to scroll to until
+     it is expanded. Also listens for later hash changes, for a visitor already
+     on this page. */
+  useEffect(() => {
+    const openFromHash = () => {
+      const slug = decodeURIComponent(window.location.hash.slice(1));
+      const area = researchAreas.find((a) => areaSlug(a.key) === slug);
+      if (!area) return;
+      setActiveTag(null); // an active filter could be hiding the target
+      setOpen((o) => ({ ...o, [area.key]: true }));
+      requestAnimationFrame(() => {
+        document.getElementById(slug)?.scrollIntoView({
+          behavior: reduce ? "auto" : "smooth",
+          block: "start",
+        });
+      });
+    };
+    openFromHash();
+    window.addEventListener("hashchange", openFromHash);
+    return () => window.removeEventListener("hashchange", openFromHash);
+  }, [reduce]);
+
   const visible = activeTag
     ? researchAreas.filter((a) => a.tags.includes(activeTag))
     : researchAreas;
@@ -118,12 +143,13 @@ export function PortfolioExplorer() {
           return (
             <motion.div
               key={area.key}
+              id={areaSlug(area.key)}
               layout={!reduce}
               initial={{ opacity: 0, scale: reduce ? 1 : 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: reduce ? 1 : 0.98 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="card-glow rounded-2xl py-8"
+              className="card-glow scroll-mt-28 rounded-2xl py-8"
             >
               <div className="grid items-center gap-8 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
                 <ProjectDiagram
