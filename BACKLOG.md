@@ -71,6 +71,33 @@ brand team provides one.
       together" line (as OSCE/ODIHR and Coinbase have) once known — and check
       they belong under Partners rather than Clients.
 
+## 4a. Poster art (`public/repos/<key>.jpg`)
+
+Posters render in a **2:3 portrait** frame with `bg-cover bg-top`, in all three
+places they appear (`RepoShowcase`, `PortfolioExplorer`, `DemoRunner`). A
+1440×900 screenshot dropped in that frame shows only its **centre 42%**, so any
+screenshot with a flush-left headline gets sliced mid-word.
+
+Eleven posters were re-cropped left-anchored to 600×900 on 2026-07-23 — the
+four new project ones (Provenance Search, Digital Passport for Artworks, AI's
+Carbon Footprint, AI Research Question Assistant) and all seven practice-guide
+ones. The wide originals are in git history, in the commits that first added
+them.
+
+- [ ] **The other 16 posters are still wide** and centre-cropped. Most read
+      acceptably (War-Games and Avatar Storytelling centre well; MVDC shows its
+      map), so this is a look-and-see pass, not a defect list. Check each in the
+      2:3 frame before deciding.
+- [ ] **Consider a `posterFocus` field instead.** Re-cropping is lossy and has
+      to be redone if the frame ratio ever changes. A `"left" | "center"` field
+      on `Product` / `RunnableDemo`, mapped to `background-position` in the
+      three components, would keep the wide originals and fix the framing in
+      CSS. Not done on 2026-07-23 only because it touches five files and the
+      site was being presented that day.
+- [ ] **Synthetic Data & Seeding Models** has a *centred* title slide, so no 2:3
+      crop shows the whole title. It reads "Synthetic Da…" left-anchored. A
+      re-shot portrait screenshot is the only real fix.
+
 ## 4. Live demos / project links
 
 - [ ] **3D Online Gallery** — needs a hosted URL (Cultural-heritage project).
