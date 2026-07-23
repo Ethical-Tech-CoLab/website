@@ -1,16 +1,42 @@
 "use client";
 
 import { useState } from "react";
-import { Link } from "next-view-transitions";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { researchAreas, products } from "@/content/site";
+import {
+  researchAreas,
+  products,
+  type Product,
+  type SubProject,
+} from "@/content/site";
 import { ProjectDiagram } from "@/components/ProjectDiagram";
+import {
+  DemoRunner,
+  runTarget,
+  type RunnableDemo,
+} from "@/components/DemoRunner";
 
 /** repo URL -> the product it maps to, so a project can link straight to its
  * card on the Live Demos page (and know whether a live demo exists). */
 const productByRepo = new Map(
   products.filter((p) => p.repo).map((p) => [p.repo as string, p]),
 );
+
+/** A portfolio project, in the shape the runner understands. A project can
+ *  carry its own demo URL, or inherit the richer entry (several named demos,
+ *  poster art) from its matching Live Demos product. */
+function toRunnable(project: SubProject, product?: Product): RunnableDemo {
+  return {
+    name: project.name,
+    blurb: project.summary,
+    demo: project.demo ?? product?.demo,
+    demos: product?.demos,
+    repo: project.repo ?? product?.repo,
+    posterKey: product?.repoName,
+    meta: [product?.theme, product?.term, product?.language].filter(
+      (m): m is string => Boolean(m),
+    ),
+  };
+}
 
 const allTags = Array.from(new Set(researchAreas.flatMap((a) => a.tags)));
 const hashtag = (tag: string) => `#${tag.replace(/\s+/g, "")}`;
@@ -27,6 +53,7 @@ function chipClass(active: boolean, small = false) {
 export function PortfolioExplorer() {
   const reduce = useReducedMotion();
   const [activeTag, setActiveTag] = useState<string | null>(null);
+  const [openDemo, setOpenDemo] = useState<RunnableDemo | null>(null);
   const [open, setOpen] = useState<Record<string, boolean>>(() =>
     Object.fromEntries(researchAreas.map((a) => [a.key, false])),
   );
@@ -142,20 +169,18 @@ export function PortfolioExplorer() {
                         const product = project.repo
                           ? productByRepo.get(project.repo)
                           : undefined;
-                        const hasDemo =
-                          Boolean(project.demo) ||
-                          Boolean(product?.demo) ||
-                          Boolean(product?.demos?.length);
-                        // Link straight to this project's card on the Live Demos
-                        // page (anchored when it has a product there).
-                        const demosHref = product
-                          ? `/demos#${product.repoName}`
-                          : "/demos";
+                        const runnable = toRunnable(project, product);
+                        const hasDemo = Boolean(runTarget(runnable));
                         return (
                           <li key={project.name}>
-                            <Link
-                              href={demosHref}
-                              className="group card-glow flex flex-col rounded-xl border border-border p-6 transition-colors hover:border-border-strong"
+                            {/* Opens the demo here rather than navigating to
+                                the Live Demos page. The old link was labelled
+                                "Open live demo" but only jumped to the card
+                                on another page, which never opened anything. */}
+                            <button
+                              type="button"
+                              onClick={() => setOpenDemo(runnable)}
+                              className="group card-glow flex w-full flex-col rounded-xl border border-border p-6 text-left transition-colors hover:border-border-strong"
                             >
                               <div className="flex items-center justify-between gap-3">
                                 <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">
@@ -183,10 +208,10 @@ export function PortfolioExplorer() {
                                 {project.summary}
                               </p>
                               <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-muted transition-colors group-hover:text-accent">
-                                {hasDemo ? "Open live demo" : "See in Live Demos"}{" "}
+                                {hasDemo ? "Open live demo" : "Project details"}{" "}
                                 <span aria-hidden>→</span>
                               </span>
-                            </Link>
+                            </button>
                           </li>
                         );
                       })}
@@ -220,6 +245,14 @@ export function PortfolioExplorer() {
         <p className="py-16 text-muted">
           No research questions match that filter.
         </p>
+      )}
+
+      {openDemo && (
+        <DemoRunner
+          key={openDemo.name}
+          demo={openDemo}
+          onClose={() => setOpenDemo(null)}
+        />
       )}
     </div>
   );

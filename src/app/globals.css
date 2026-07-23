@@ -38,6 +38,10 @@
   --poster-ground: #241a35;
   --poster-ink: #f3eefb;
   --poster-ink-muted: rgba(233, 228, 244, 0.62);
+  /* The UI accent flips to a dark olive in light mode, which disappears
+     against a poster that stays dark. The poster keeps the lime. */
+  --poster-accent: #c8f04b;
+  --poster-accent-ink: #141414;
 }
 
 /* Light palette: keeps the purple/lime identity, inverted for daylight. */
@@ -438,4 +442,14 @@ body::after {
     animation-duration: 24s !important;
     animation-iteration-count: infinite !important;
   }
+}
+
+/* Horizontal rails (the Live Demos catalogue) scroll natively, so the bar
+   would sit under every row. Hidden visually; the scrolling itself, the
+   arrow buttons, and keyboard focus all still work. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
