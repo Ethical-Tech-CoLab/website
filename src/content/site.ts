@@ -113,9 +113,9 @@ export const researchAreas: ResearchArea[] = [
     ],
     projects: [
       {
-        name: "Evacuation Information Index",
+        name: "Evacuation Inform Index",
         summary:
-          "A real-time index measuring the quality, accessibility, and equity of evacuation information during crises. It synthesizes signals from public agencies, social networks, and on-the-ground reports to surface where critical information is missing, helping responders close gaps before they cost lives.",
+          "Humanitarian practice tends to treat evacuation as the obvious good, but the journey carries its own risk, and a crisis can be both catastrophic to endure and impossible to escape. This index scores 104 active crises on those two risks separately, drawing on INFORM Severity data, a twelve-factor vulnerability profile, and live conflict reporting, so that the comparison between leaving and staying becomes visible rather than assumed.",
         status: "Active",
         repo: "https://github.com/Ethical-Tech-CoLab/evacuation-inform-index-carolina",
       },
@@ -752,13 +752,13 @@ export const products: Product[] = [
     featured: true,
   },
   {
-    name: "Evacuation Information Index",
+    name: "Evacuation Inform Index",
     repoName: "evacuation-inform-index-carolina",
     term: "Summer 2026",
     repo: "https://github.com/Ethical-Tech-CoLab/evacuation-inform-index-carolina",
     demo: "https://ethical-tech-colab.github.io/evacuation-inform-index-carolina/",
     blurb:
-      "A real-time index measuring the quality, accessibility, and equity of evacuation information during crises — synthesizing agency, social, and on-the-ground signals to surface where critical information is missing.",
+      "A composite index scoring 104 active crises on the risk of staying and the risk of leaving, side by side, so the comparison between them can be argued with. Built on INFORM Severity data with live news and an ACLED conflict timeline, filterable by crisis type, and with every one of its thirteen legal citations explained — including how far each one is actually justified.",
     language: "HTML",
     theme: "Evacuation",
     featured: true,
@@ -929,7 +929,7 @@ export const cohorts: Cohort[] = [
     body: "The current cohort takes five research projects from question to fielded prototype.",
     items: [
       "7 researchers",
-      "Evacuation Information Index",
+      "Evacuation Inform Index",
       "Digital Art Passport",
       "Ethical Supply Chain & Traceability",
       "Diplomatic Simulator",
