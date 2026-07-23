@@ -129,3 +129,44 @@ as reports are published — the card auto-switches to a "Read report" button.
 - [ ] **ACLED API keys — evacuation projects.** Verify the ACLED API keys are
       still preserved (and valid) in the evacuation projects, so the data feeds
       don't silently break.
+
+---
+
+## 9. Peer-review findings still open across the reports
+
+Added 2026-07-23. The reports on this site are hand-transcribed from papers in
+the project repos, so a finding closed in a repo is not closed here until the
+copy in `src/content/publications/` is edited too. These are the ones still
+genuinely open, i.e. not yet fixed anywhere.
+
+- [ ] **ERUS reports no results** (`erus.ts`, and the paper in
+      `India-EvacSimulation`). The report poses three research questions and
+      answers none of them with a number: no worked scenario, no sensitivity
+      curve values, no information-value ranking, no assignment matrix. The
+      generator is seeded and deterministic, so one or two fully specified
+      runs would fix it and would let the report answer its own questions
+      rather than restate them. Backlogged in detail in that repo. Run it from
+      the browser; the page's top-level code is DOM-bound and lifting the
+      engine out is easy to get subtly wrong.
+- [ ] **AI's Carbon Footprint: the thesis qualifier is never argued**
+      (`ai-carbon-footprint.ts`, thesis / S1 / S7). The claim that mitigation
+      can cut the footprint "without hindering its development and role in
+      advancing society" is the clause that makes the report more than a
+      polemic, and nothing in the body defends it. Needs engagement with the
+      rebound problem, which the report's own "inference dominates at scale"
+      argument implies, and with the possibility that binding regulation slows
+      deployment. Either argue it or drop it.
+- [ ] **Digital Provenance Passport: extend the permitted-source list**
+      (`arts-provenance-agent`). The report and the source now both state the
+      coverage bias plainly and name this as the first substantive extension.
+      Adding the Getty Provenance Index, the German Lost Art Foundation,
+      Interpol, and source-country heritage authorities changes what every run
+      returns, so it needs validating against known cases rather than being
+      bundled into a documentation pass. Once done, `digital-provenance-passport.ts`
+      section 08 needs updating with it.
+- [ ] **Diplomatic Simulator: the mixed-model comparison is n = 1**
+      (`diplomatic-simulator.ts`, Limitations). Rotating tiers across seats,
+      replicating, and a blind second coding of the red-line audit are what
+      would turn documented instances into rates. Backlogged in that repo. The
+      site's copy already states what the comparison does and does not license,
+      so this only comes back here if the numbers change.
