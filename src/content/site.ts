@@ -286,16 +286,22 @@ export const researchAreas: ResearchArea[] = [
  *  Guidelines because they are advice on doing the work, not findings about a
  *  domain. Every publication must carry one of these. */
 export const publicationTopics = [
+  // Guidelines lead: they are the how-to material, written for someone
+  // arriving without the background, so they are the right first thing for a
+  // reader who does not yet know which of the research below they want.
+  "Guidelines",
   "Evacuation",
   "Cultural heritage",
   "Traceability",
   "Diplomacy",
-  "Guidelines",
   "Sustainability",
   "Disaster response",
 ];
 
 export interface Publication {
+  /** A stable unique key, nothing more. It is no longer shown on the card and
+   *  does not set display order — that comes from `publicationTopics` and from
+   *  the order entries appear in `items`. */
   index: string;
   area: string;
   /** Filter bucket on the publications page. See `publicationTopics`. */
@@ -383,22 +389,7 @@ export const publications = {
       // Internal route (starts with "/") — rendered on-site, see the card logic.
       url: "/publications/ai-carbon-footprint",
     },
-    {
-      index: "06",
-      area: "Research",
-      topic: "Guidelines",
-      question:
-        "How can AI help researchers formulate rigorous research questions?",
-      title: "AI-Powered Assistance in Formulating Research Questions",
-      summary:
-        "A survey of how AI supports researchers across the question-formulation workflow — finding gaps, generating candidate questions, summarizing the state of the art, and flagging contradictions — with guardrails against hallucinated citations and a red-team verification model. Ships with a reusable Copilot 'Researcher' prompt and a journal-credibility rubric.",
-      status: "Published",
-      date: "October 2025",
-      // Internal route (starts with "/") — rendered on-site, see the card logic.
-      // The published Google Doc is linked from the report page itself.
-      url: "/publications/ai-research-assistant",
-    },
-    {
+        {
       index: "07",
       area: "Evacuation",
       topic: "Evacuation",
@@ -567,22 +558,7 @@ export const publications = {
       date: "2026",
       url: "/publications/haste",
     },
-    {
-      index: "19",
-      area: "AI systems",
-      topic: "Guidelines",
-      question:
-        "Which AI model should be selected for a task, and on what evidence?",
-      title:
-        "AI Model Performance: Capabilities, Accuracy, Speed, Energy Use, and Token Economics",
-      summary:
-        "A comparative review of frontier, open-weight, and efficient model families, separating independently verified measurement from provider marketing. Every figure carries its source, its date, and its evidence grade. Ships with a live cost-per-accepted-task calculator and a validated data layer.",
-      status: "Published",
-      date: "July 2026",
-      // Internal route (starts with "/") — rendered on-site, see the card logic.
-      url: "/publications/ai-models-research",
-    },
-
+    
     // ── Practice guides ──────────────────────────────────────────────────
     // The CoLab's how-to material, written for people arriving without the
     // background rather than for readers of the research. These live in the
@@ -676,6 +652,36 @@ export const publications = {
       status: "Internal guide",
       access: "internal",
       url: "https://github.com/Ethical-Tech-CoLab/Getting-started-on-CloudGPU-/blob/main/remote-gpu-how-to-guide.md",
+    },
+{
+      index: "06",
+      area: "Research",
+      topic: "Guidelines",
+      question:
+        "How can AI help researchers formulate rigorous research questions?",
+      title: "AI-Powered Assistance in Formulating Research Questions",
+      summary:
+        "A survey of how AI supports researchers across the question-formulation workflow — finding gaps, generating candidate questions, summarizing the state of the art, and flagging contradictions — with guardrails against hallucinated citations and a red-team verification model. Ships with a reusable Copilot 'Researcher' prompt and a journal-credibility rubric.",
+      status: "Published",
+      date: "October 2025",
+      // Internal route (starts with "/") — rendered on-site, see the card logic.
+      // The published Google Doc is linked from the report page itself.
+      url: "/publications/ai-research-assistant",
+    },
+{
+      index: "19",
+      area: "AI systems",
+      topic: "Guidelines",
+      question:
+        "Which AI model should be selected for a task, and on what evidence?",
+      title:
+        "AI Model Performance: Capabilities, Accuracy, Speed, Energy Use, and Token Economics",
+      summary:
+        "A comparative review of frontier, open-weight, and efficient model families, separating independently verified measurement from provider marketing. Every figure carries its source, its date, and its evidence grade. Ships with a live cost-per-accepted-task calculator and a validated data layer.",
+      status: "Published",
+      date: "July 2026",
+      // Internal route (starts with "/") — rendered on-site, see the card logic.
+      url: "/publications/ai-models-research",
     },
   ] as Publication[],
 };

@@ -23,10 +23,11 @@ import { Reveal } from "@/components/motion/Reveal";
 function PubCard({ pub }: { pub: Publication }) {
   return (
             <article className="card-glow flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-colors hover:border-border-strong">
-              <div className="flex items-center justify-between gap-3">
-                <p className="font-mono text-sm text-accent">
-                  {pub.index} / {pub.topic}
-                </p>
+              {/* No "07 / Evacuation" eyebrow: the index numbers are internal
+                  ordering that means nothing to a reader, and the topic is
+                  already the heading this card sits under. The status badge
+                  keeps the row. */}
+              <div className="flex items-center justify-end gap-3">
                 {pub.access === "internal" ? (
                   <span className="shrink-0 rounded-full border border-border px-2.5 py-0.5 text-[10px] uppercase tracking-wider text-muted">
                     CoLab only
