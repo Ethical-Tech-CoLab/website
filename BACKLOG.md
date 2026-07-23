@@ -24,19 +24,23 @@ Emily Harrington, Natasha Nagarajan).
 Drop into `public/logos/` (auto-discovered by filename; falls back to a
 monogram). See `public/logos/README.md`.
 
-These render in the **Clients & partners** band at the bottom of `/team`. They
-used to live only on `/about`, which is hidden (§7), so until 2026-07-23 any
-logo added here appeared nowhere.
+These render in the **Partners & collaborators** band at the bottom of `/team`.
+They used to live only on `/about`, which is hidden (§7), so until 2026-07-23
+any logo added here appeared nowhere.
 
-Clients:
+That band is **one merged list** of 19 organisations — founding partners first,
+then everyone else. `about` still stores founding partners, clients, and
+partners as three separate arrays because the hidden `/about` page renders them
+that way; `/team` concatenates them. The "Clients" grouping was dropped from the
+public view on 2026-07-23: the client/partner split was not a distinction worth
+making to a visitor. If `/about` is ever restored, decide whether it should
+match `/team` or keep the three-way split.
+
+Still showing a monogram (no file yet):
 - [ ] `mesur-io.*`
 - [ ] `supplytrace.*`
 - [ ] `human-generated-by-blockapps.*`
-
-Partners:
 - [ ] `osce-odihr-anti-trafficking.*`
-- [ ] `un-commission-on-the-status-of-women-csw.*`
-- [ ] `coinbase-x402-foundation.*`
 - [ ] **Better source files for the two screenshot logos** — Art & Antiquities
       Blockchain Consortium and Blockchain for Social Impact were supplied as
       screen grabs, so they carry their page background (cream and white) rather
@@ -56,6 +60,13 @@ extension-probe fallback. Gaia's supplied file was near-white on transparency
 and would have been invisible on the white logo tile, so it was recoloured to
 the light-theme ink (`#1a1020`); swap in a dark-on-transparent original if the
 brand team provides one.
+
+Added later the same day: **NYU SPS** now has its own SPS lockup
+(`/logos/nyu-sps.jpg`, trimmed from a wide export and re-centred on NYU purple)
+— it had been pointing at the CGA logo, so the school and the centre showed the
+same mark. **Coinbase** and **x402 Foundation** were split out of a single
+"Coinbase & x402 Foundation" entry so each could carry its own logo. **UN
+Commission on the Status of Women (CSW)** was removed from partners entirely.
 
 ## 3. Client / partner details (`src/content/site.ts`)
 

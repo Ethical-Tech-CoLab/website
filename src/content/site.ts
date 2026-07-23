@@ -1445,7 +1445,9 @@ export const about = {
       about:
         "The NYU school that houses the Center for Global Affairs and the Ethical Tech CoLab.",
       url: "https://www.sps.nyu.edu",
-      logo: "/nyu-sps-cga-logo.jpg",
+      // Its own SPS lockup. This used to point at the CGA logo below, so the
+      // school and the centre showed the same mark.
+      logo: "/logos/nyu-sps.jpg",
     },
     {
       name: "Center for Global Affairs (CGA)",
@@ -1485,19 +1487,21 @@ export const about = {
         url: "https://www.osce.org/odihr",
         logo: "",
       },
+      // Split from a single "Coinbase & x402 Foundation" entry so each carries
+      // its own mark. They remain one relationship, engaged together.
       {
-        name: "UN Commission on the Status of Women (CSW)",
+        name: "Coinbase",
         about:
-          "Community-of-practice partner on human rights and platform safety, engaged through the Ethical Tech Summit.",
-        url: "",
-        logo: "",
+          "Industry partner on agentic commerce and micropayment rails, engaged through the Ethical Tech Summit.",
+        url: "https://www.coinbase.com",
+        logo: "/logos/coinbase.png",
       },
       {
-        name: "Coinbase & x402 Foundation",
+        name: "x402 Foundation",
         about:
-          "Industry partners on agentic commerce and micropayment rails (x402), engaged through the Ethical Tech Summit.",
+          "Stewards the x402 payment standard behind the CoLab's agentic-commerce and micropayment work, engaged through the Ethical Tech Summit.",
         url: "https://www.x402.org",
-        logo: "",
+        logo: "/logos/x402-foundation.jpg",
       },
       // Added 2026-07-23. `about` describes what each organisation does, taken
       // from its own site — not what it does *with* the CoLab, which is not
@@ -1588,12 +1592,16 @@ export const team = {
   // Closing band on /team: the organisations the CoLab works with, shown as
   // logo cards. The org data itself (and the logos) lives in `about` — this is
   // only the framing copy, so the two stay in step if `about` is restored.
+  //
+  // Presented as one list. The `about` object still keeps founding partners,
+  // clients, and partners as separate arrays (the hidden /about page renders
+  // them that way), but /team draws them into a single "Partners &
+  // collaborators" grid — the client/partner split was not a distinction worth
+  // making to a visitor.
   orgs: {
-    eyebrow: "Clients & partners",
+    eyebrow: "Partners & collaborators",
     heading: "The organisations behind the work.",
-    foundingLabel: "Founding partners",
-    foundingNote: "Click a partner to see their logo and role.",
-    clientsNote: "Click any client to see their logo and what we do together.",
+    note: "Click any organisation to see their logo and details.",
   },
   founder: {
     initials: "YR",

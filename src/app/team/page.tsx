@@ -218,9 +218,11 @@ export default function TeamPage() {
         </div>
       </section>
 
-      {/* Clients & partners — closes the page on the organisations behind the
-          work. OrgShowcase used to appear only on /about, which is currently
-          hidden, so the logos in public/logos/ had nowhere to render. */}
+      {/* Partners & collaborators — closes the page on the organisations behind
+          the work. One list, deliberately: `about` still holds founding
+          partners, clients, and partners separately for the hidden /about page,
+          but the client/partner split is not a distinction worth making to a
+          visitor. Founding partners lead, since they house and fund the lab. */}
       <section className="border-t border-border bg-surface/40">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <Reveal>
@@ -230,39 +232,17 @@ export default function TeamPage() {
             <h2 className="mt-3 fluid-h2 font-heading uppercase">
               {team.orgs.heading}
             </h2>
+            <p className="mt-4 text-sm text-muted">{team.orgs.note}</p>
           </Reveal>
 
-          <div className="mt-12">
-            <p className="text-xs uppercase tracking-wider text-muted">
-              {team.orgs.foundingLabel}
-            </p>
-            <p className="mt-2 text-sm text-muted">{team.orgs.foundingNote}</p>
-            <div className="mt-6">
-              <OrgShowcase
-                items={about.foundingPartners}
-                className="sm:grid-cols-3"
-              />
-            </div>
-          </div>
-
-          <div className="mt-14 border-t border-border pt-10">
-            <p className="text-xs uppercase tracking-wider text-muted">
-              {about.clients.label}
-            </p>
-            <p className="mt-2 text-sm text-muted">{team.orgs.clientsNote}</p>
-            <div className="mt-6">
-              <OrgShowcase items={about.clients.items} />
-            </div>
-          </div>
-
-          <div className="mt-14 border-t border-border pt-10">
-            <p className="text-xs uppercase tracking-wider text-muted">
-              {about.partners.label}
-            </p>
-            <p className="mt-2 text-sm text-muted">{about.partners.note}</p>
-            <div className="mt-6">
-              <OrgShowcase items={about.partners.items} />
-            </div>
+          <div className="mt-10">
+            <OrgShowcase
+              items={[
+                ...about.foundingPartners,
+                ...about.clients.items,
+                ...about.partners.items,
+              ]}
+            />
           </div>
         </div>
       </section>
