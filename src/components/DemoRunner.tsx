@@ -29,6 +29,9 @@ export interface RunnableDemo {
   posterKey?: string;
   /** Small facts for the footer row, e.g. theme, term, language. */
   meta?: string[];
+  /** Source lives in a private CoLab repo: the sheet says the link needs a
+   *  sign-in rather than presenting it as openly readable. */
+  access?: "internal";
 }
 
 export function demoCount(d: RunnableDemo) {
@@ -86,7 +89,9 @@ export function DemoRunner({
           <p className="truncate font-mono text-[10px] text-muted">
             {src
               ? new URL(src).host
-              : `${count} ${count === 1 ? "demo" : "demos"}`}
+              : demo.access === "internal"
+                ? "Practice guide"
+                : `${count} ${count === 1 ? "demo" : "demos"}`}
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-2">
@@ -180,8 +185,9 @@ export function DemoRunner({
                 )}
                 {entries.length === 0 && (
                   <p className="text-sm text-muted">
-                    This project ships as source only. There is no hosted demo
-                    to run.
+                    {demo.access === "internal"
+                      ? "A written guide rather than a running demo. It lives in a private CoLab repository, so opening it needs a GitHub account with access to the org."
+                      : "This project ships as source only. There is no hosted demo to run."}
                   </p>
                 )}
               </div>
@@ -195,7 +201,9 @@ export function DemoRunner({
                     rel="noopener noreferrer"
                     className="ml-auto text-foreground/80 transition-colors hover:text-accent"
                   >
-                    View source ↗
+                    {demo.access === "internal"
+                      ? "Open in the CoLab repo (sign-in required) ↗"
+                      : "View source ↗"}
                   </a>
                 )}
               </div>

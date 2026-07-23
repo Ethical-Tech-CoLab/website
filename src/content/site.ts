@@ -799,6 +799,13 @@ export interface Product {
    * per-semester filter on the Live Demos page. */
   term: string;
   featured?: boolean;
+  /**
+   * Set on entries whose source lives in a private CoLab repo. The poster then
+   * reads "CoLab only" instead of "Live", and the runner labels its link as
+   * needing sign-in, rather than offering a link that 404s for the public.
+   * Mirrors the same field on Publication.
+   */
+  access?: "internal";
 }
 
 /** Subject rails on the Live Demos page, in the order they stack. A theme not
@@ -1028,6 +1035,91 @@ export const products: Product[] = [
     blurb:
       "A report on what artificial intelligence costs the environment: energy drawn across training and inference, the data-center and hardware toll behind it, and the mitigations, regulations and policies that could bend the curve. 1,287 MWh went into training GPT-3 alone — roughly what 130 US households use in a year.",
     language: "HTML",
+    theme: "Research",
+  },
+
+  // ── Practice guides ──────────────────────────────────────────────────
+  // The CoLab's how-to material, alongside the research on the Research
+  // rail. These are documents rather than running demos, so the poster is
+  // the guide itself rendered, and each is marked access: "internal"
+  // because both source repos are private: the poster reads "CoLab only"
+  // and the link says sign-in is needed rather than 404ing the public.
+  // Same seven entries appear under Guidelines on the publications page.
+  {
+    name: "GitHub 101",
+    repoName: "github-101",
+    term: "Summer 2026",
+    access: "internal",
+    repo: "https://github.com/Ethical-Tech-CoLab/Getting-Going/blob/main/docs/github-101.md",
+    blurb:
+      "A beginner's reference for Git and GitHub from day one: what the two actually are and how they differ, the key concepts, setting up, and the handful of commands that cover almost everything you will do in the first months.",
+    language: "Markdown",
+    theme: "Research",
+  },
+  {
+    name: "GitHub Workflow",
+    repoName: "github-workflow",
+    term: "Summer 2026",
+    access: "internal",
+    repo: "https://github.com/Ethical-Tech-CoLab/Getting-Going/blob/main/docs/github-workflow.md",
+    blurb:
+      "The collaborative loop, step by step: the GitHub flow at a glance, creating and managing branches, opening a pull request that can actually be reviewed, and what to look for when reviewing someone else's.",
+    language: "Markdown",
+    theme: "Research",
+  },
+  {
+    name: "GitHub Pages 101",
+    repoName: "github-pages-101",
+    term: "Summer 2026",
+    access: "internal",
+    repo: "https://github.com/Ethical-Tech-CoLab/Getting-Going/blob/main/docs/github-pages-101.md",
+    blurb:
+      "Publishing a free site straight from a repository, for first-time users — no server to rent, nothing to install. Includes an honest account of what GitHub Pages can and cannot do, which is where most first attempts come unstuck.",
+    language: "Markdown",
+    theme: "Research",
+  },
+  {
+    name: "Synthetic Data Guide",
+    repoName: "synthetic-data-guide",
+    term: "Summer 2026",
+    access: "internal",
+    repo: "https://github.com/Ethical-Tech-CoLab/Getting-Going/blob/main/synthetic-data/SYNTHETIC_DATA_GUIDE.md",
+    blurb:
+      "Generating data algorithmically rather than collecting it: why you would — developing before real data exists, forcing edge cases, sharing something realistic without privacy exposure, reproducing a dataset from a seed — and how to do it without fooling yourself about what the results mean.",
+    language: "Markdown",
+    theme: "Research",
+  },
+  {
+    name: "Synthetic Data — Training Deck",
+    repoName: "synthetic-data-training",
+    term: "Summer 2026",
+    access: "internal",
+    repo: "https://github.com/Ethical-Tech-CoLab/Getting-Going/blob/main/synthetic-data/synthetic-data-training.html",
+    blurb:
+      "The companion training material to the synthetic-data guide — a self-contained walkthrough for running the topic as a session rather than reading it alone.",
+    language: "HTML",
+    theme: "Research",
+  },
+  {
+    name: "tavily-research",
+    repoName: "tavily-research",
+    term: "Summer 2026",
+    access: "internal",
+    repo: "https://github.com/Ethical-Tech-CoLab/Getting-Going/tree/main/tavily-research",
+    blurb:
+      "A cross-agent skill wrapping the Tavily REST API — search, extract, crawl and map — with a dependency-free client in both Python and Node. It calls the API directly, so it still works where a Tavily MCP server cannot be launched, such as under IT policy that blocks local npx.",
+    language: "Python · Node",
+    theme: "Research",
+  },
+  {
+    name: "Getting Started on Cloud GPU",
+    repoName: "cloud-gpu-guide",
+    term: "Summer 2026",
+    access: "internal",
+    repo: "https://github.com/Ethical-Tech-CoLab/Getting-started-on-CloudGPU-/blob/main/remote-gpu-how-to-guide.md",
+    blurb:
+      "Getting a terminal on the CoLab's B3IQ machine over SSH. One-time setup, about five minutes: installing cloudflared for the secure tunnel, creating an SSH key if you do not have one, and connecting from macOS, Windows or Linux.",
+    language: "Markdown",
     theme: "Research",
   },
   {

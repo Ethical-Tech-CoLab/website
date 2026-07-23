@@ -37,6 +37,7 @@ function toRunnable(p: Product): RunnableDemo {
     repo: p.repo,
     posterKey: p.repoName,
     meta: [p.theme, p.term, p.language],
+    access: p.access,
   };
 }
 
@@ -121,7 +122,11 @@ function Poster({
 
         {/* Status rides the poster, the way one carries its rating */}
         <span className="absolute right-3 top-3">
-          {live ? (
+          {product.access === "internal" ? (
+            <span className="rounded-full border border-white/35 bg-black/45 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-white/85 backdrop-blur">
+              CoLab only
+            </span>
+          ) : live ? (
             <span
               className="rounded-full px-2 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-wider"
               style={{
@@ -151,6 +156,16 @@ function Poster({
               }}
             >
               ▶ Run
+            </span>
+          </span>
+        )}
+
+        {/* Guides have nothing to run, but the card still opens — say so, or
+            the poster reads as inert. */}
+        {!live && product.access === "internal" && (
+          <span className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover/poster:opacity-100 group-focus-visible/poster:opacity-100">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/35 bg-black/60 px-4 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur">
+              Read the guide
             </span>
           </span>
         )}
