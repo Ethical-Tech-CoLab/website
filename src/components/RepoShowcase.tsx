@@ -11,6 +11,20 @@ import {
 import { asset } from "@/lib/asset";
 import { Tilt3D } from "@/components/motion/Tilt3D";
 
+/**
+ * The Live Demos catalog.
+ *
+ * Laid out as a film catalogue: the page runs vertically through one section
+ * per theme, and each section is a shelf of portrait posters. A poster is
+ * composed here rather than being an image file, because the only artwork the
+ * projects have is a landscape screenshot, and no crop of a 1600x1000 browser
+ * capture makes a poster. So the screenshot becomes a band inside a designed
+ * card, under the title and over the credits.
+ *
+ * Picking a poster opens the runner: an iframe for a project with a single
+ * live URL, or a chooser for a project that ships several.
+ */
+
 const LANG_COLOR: Record<string, string> = {
   TypeScript: "#3178c6",
   JavaScript: "#f0db4f",
@@ -22,199 +36,173 @@ function langColor(l: string) {
   return LANG_COLOR[l] ?? "var(--muted)";
 }
 
-/** A browser-chrome frame around a clickable poster; clicking opens the demo
- *  full size in a modal so it can actually be run. */
-function DemoFrame({
-  product,
-  onExpand,
-}: {
-  product: Product;
-  onExpand: () => void;
-}) {
-  const host = product.demo ? new URL(product.demo).host : "";
-  return (
-    <div className="overflow-hidden rounded-xl border border-border bg-surface/60">
-      {/* chrome bar */}
-      <div className="flex items-center gap-2 border-b border-border bg-background/60 px-3 py-2">
-        <span className="flex gap-1.5">
-          <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]/70" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]/70" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]/70" />
-        </span>
-        <span className="ml-1 flex-1 truncate rounded-md bg-surface px-2 py-0.5 font-mono text-[10px] text-muted">
-          {host}
-        </span>
-        <button
-          type="button"
-          onClick={onExpand}
-          aria-label={`Open ${product.name} demo full size`}
-          className="rounded-md px-2 py-0.5 font-mono text-[10px] text-muted transition-colors hover:text-accent"
-        >
-          ⤢ expand
-        </button>
-        <a
-          href={product.demo}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="rounded-md px-2 py-0.5 font-mono text-[10px] text-muted transition-colors hover:text-accent"
-        >
-          open ↗
-        </a>
-      </div>
-
-      {/* stage: clickable poster that opens the full-size demo */}
-      <button
-        type="button"
-        onClick={onExpand}
-        aria-label={`Open ${product.name} live demo full size`}
-        className="group/frame relative block aspect-[16/10] w-full"
-      >
-        <span
-          aria-hidden
-          className="absolute inset-0 bg-cover bg-center opacity-90 transition-opacity group-hover/frame:opacity-100"
-          style={{
-            backgroundImage: `url(${asset(`/repos/${product.repoName}.jpg`)})`,
-            backgroundColor: "var(--secondary)",
-          }}
-        />
-        <span
-          aria-hidden
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(180deg, transparent 40%, color-mix(in oklab, var(--background) 70%, transparent))",
-          }}
-        />
-        <span className="absolute inset-0 flex items-center justify-center">
-          <span className="btn-sweep inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-ink shadow-lg transition-transform group-hover/frame:scale-105">
-            ▶ Run live demo
-          </span>
-        </span>
-      </button>
-    </div>
-  );
+/** Initials for the fallback field, shown when a project has no screenshot.
+ *  Strips the leading acronym-and-dash some names carry. */
+function monogram(name: string) {
+  return name
+    .replace(/^[A-Z]+\s*[—–-]\s*/, "")
+    .split(/\s+/)
+    .filter((w) => /[a-z0-9]/i.test(w[0] ?? ""))
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase())
+    .join("");
 }
 
-function ProductCard({
+/** Is there anything to run, and where does it point? */
+function runTarget(p: Product) {
+  return p.demo ?? p.demos?.[0]?.href ?? null;
+}
+
+function demoCount(p: Product) {
+  return p.demos?.length ?? (p.demo ? 1 : 0);
+}
+
+/* ── Poster ──────────────────────────────────────────────────────────── */
+
+function Poster({
   product,
-  onExpand,
+  onOpen,
 }: {
   product: Product;
-  onExpand: () => void;
+  onOpen: () => void;
 }) {
+  const live = Boolean(runTarget(product));
+  const count = demoCount(product);
+
   return (
-    <Tilt3D max={6} className="h-full">
-    <div
-      className={`card-glow flex h-full flex-col rounded-2xl border border-border bg-card p-6 transition-colors hover:border-border-strong`}
-    >
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <h3 className="font-heading text-xl uppercase tracking-wide sm:text-2xl">
+    <Tilt3D max={5} className="h-full">
+      <button
+        type="button"
+        onClick={onOpen}
+        aria-label={
+          live
+            ? `Open the ${product.name} demo`
+            : `${product.name}, source only`
+        }
+        className="group/poster flex h-full w-full flex-col overflow-hidden rounded-xl border border-border bg-card text-left transition-colors hover:border-accent focus-visible:border-accent focus-visible:outline-none"
+      >
+        {/* Still: the screenshot, with a monogram field behind it so a project
+            without artwork still gets a composed poster rather than a hole.
+            Square, so the card as a whole lands near a poster's proportions.
+            The theme is not repeated here: the shelf heading already says it. */}
+        <div className="relative aspect-square w-full overflow-hidden border-b border-border bg-surface">
+          <span
+            aria-hidden
+            className="absolute inset-0 flex items-center justify-center font-heading text-5xl uppercase text-accent/25"
+            style={{ background: "var(--secondary)" }}
+          >
+            {monogram(product.name)}
+          </span>
+          <span
+            aria-hidden
+            className="absolute inset-0 bg-cover bg-top transition-transform duration-500 group-hover/poster:scale-[1.04]"
+            style={{
+              backgroundImage: `url(${asset(`/repos/${product.repoName}.jpg`)})`,
+            }}
+          />
+          {/* Fade into the title block below */}
+          <span
+            aria-hidden
+            className="absolute inset-x-0 bottom-0 h-1/3"
+            style={{
+              background:
+                "linear-gradient(180deg, transparent, color-mix(in oklab, var(--card) 92%, transparent))",
+            }}
+          />
+          {/* Status rides the still, the way a poster carries its rating */}
+          <span className="absolute right-2 top-2">
+            {live ? (
+              <span className="rounded-full bg-accent px-2 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-wider text-accent-ink">
+                Live
+              </span>
+            ) : (
+              <span className="rounded-full border border-border bg-background/80 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-muted">
+                Source
+              </span>
+            )}
+          </span>
+          {live && (
+            <span className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover/poster:opacity-100 group-focus-visible/poster:opacity-100">
+              <span className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-ink shadow-lg">
+                ▶ Run
+              </span>
+            </span>
+          )}
+        </div>
+
+        {/* Title */}
+        <div className="flex flex-1 flex-col px-4 pb-4 pt-3">
+          <h3 className="font-heading text-lg uppercase leading-[1.05] tracking-wide transition-colors group-hover/poster:text-accent sm:text-xl">
             {product.name}
           </h3>
-          {product.repo && (
-            <p className="mt-1 font-mono text-xs text-muted">
-              {product.repoName}
-            </p>
-          )}
-        </div>
-        <div className="flex shrink-0 items-center gap-2">
-          {product.demo && (
-            <button
-              type="button"
-              onClick={onExpand}
-              className="rounded-full border border-border px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted transition-colors hover:border-accent hover:text-accent"
-            >
-              ⤢ Expand
-            </button>
-          )}
-          {product.demo || product.demos?.length ? (
-            <span className="rounded-full bg-accent px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-accent-ink">
-              ● Live
-            </span>
-          ) : (
-            <span className="rounded-full border border-border px-2.5 py-0.5 text-[10px] uppercase tracking-wider text-muted">
-              Source
-            </span>
-          )}
-        </div>
-      </div>
 
-      <p className="mt-3 text-sm leading-relaxed text-muted">{product.blurb}</p>
-
-      {product.demo && (
-        <div className="mt-5">
-          <DemoFrame product={product} onExpand={onExpand} />
+          {/* Credits block */}
+          <div className="mt-auto pt-3 font-mono text-[10px] uppercase tracking-wider text-muted">
+            <div className="flex items-center gap-1.5">
+              <span
+                aria-hidden
+                className="h-1.5 w-1.5 shrink-0 rounded-full"
+                style={{ backgroundColor: langColor(product.language) }}
+              />
+              <span className="truncate">{product.language}</span>
+              <span aria-hidden className="text-border-strong">
+                ·
+              </span>
+              <span className="shrink-0">{product.term}</span>
+            </div>
+            {count > 1 && (
+              <div className="mt-1 text-accent">{count} demos</div>
+            )}
+          </div>
         </div>
-      )}
-
-      {product.demos && product.demos.length > 0 && (
-        <div className="mt-5 flex flex-wrap gap-2">
-          {product.demos.map((d) => (
-            <a
-              key={d.href}
-              href={d.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-sweep inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.03]"
-            >
-              ▶ {d.label}
-            </a>
-          ))}
-        </div>
-      )}
-
-      <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 pt-5 font-mono text-xs text-muted">
-        <span className="inline-flex items-center gap-1.5">
-          <span
-            className="h-2.5 w-2.5 rounded-full"
-            style={{ backgroundColor: langColor(product.language) }}
-          />
-          {product.language}
-        </span>
-        <span className="rounded-full border border-border px-2 py-0.5">
-          #{product.theme.replace(/\s+/g, "")}
-        </span>
-        <span className="rounded-full border border-border px-2 py-0.5">
-          {product.term}
-        </span>
-        {product.repo && (
-          <a
-            href={product.repo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ml-auto text-foreground/80 transition-colors hover:text-accent"
-          >
-            View source ↗
-          </a>
-        )}
-      </div>
-    </div>
+      </button>
     </Tilt3D>
   );
 }
 
+/* ── Catalog ─────────────────────────────────────────────────────────── */
+
 export function RepoShowcase() {
   const [term, setTerm] = useState<string | null>(null);
   const [theme, setTheme] = useState<string | null>(null);
-  const [enlarged, setEnlarged] = useState<Product | null>(null);
+  const [open, setOpen] = useState<Product | null>(null);
+  const [src, setSrc] = useState<string | null>(null);
   const reduce = useReducedMotion();
 
   const visible = products.filter(
     (p) => (!term || p.term === term) && (!theme || p.theme === theme),
   );
 
-  // Close the enlarged demo on Escape, and lock body scroll while it's open.
+  // Themes that still have something in them under the current filters, in
+  // the canonical order. An empty shelf is not drawn.
+  const shelves = productThemes
+    .map((t) => ({ theme: t, items: visible.filter((p) => p.theme === t) }))
+    .filter((s) => s.items.length > 0);
+
+  // Picking a poster opens the title page, not the demo. The poster face has
+  // room for a name and its credits and nothing else, so the blurb, the demo
+  // list, and the source link live one step in. Press play from there.
+  const openProduct = (p: Product) => {
+    setOpen(p);
+    setSrc(null);
+  };
+
+  const close = () => {
+    setOpen(null);
+    setSrc(null);
+  };
+
+  // Close on Escape, and lock body scroll while the runner is up.
   useEffect(() => {
-    if (!enlarged) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setEnlarged(null);
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && close();
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
-  }, [enlarged]);
+  }, [open]);
 
   const chip = (active: boolean) =>
     `rounded-full border px-3 py-1.5 text-sm transition-colors ${
@@ -249,7 +237,7 @@ export function RepoShowcase() {
             </button>
           ))}
           <span className="ml-auto font-mono text-xs text-muted">
-            {visible.filter((p) => p.demo || p.demos?.length).length} live ·{" "}
+            {visible.filter((p) => runTarget(p)).length} live ·{" "}
             {visible.length} shown
           </span>
         </div>
@@ -279,76 +267,189 @@ export function RepoShowcase() {
         </div>
       </div>
 
-      {/* bento grid — FLIP reflow on filter change */}
-      <motion.div layout className="mt-10 grid gap-6 lg:grid-cols-2">
-        <AnimatePresence mode="popLayout">
-          {visible.map((product) => (
-            <motion.div
-              key={product.repoName}
-              id={product.repoName}
-              layout={!reduce}
-              initial={{ opacity: 0, scale: reduce ? 1 : 0.97 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: reduce ? 1 : 0.97 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="h-full scroll-mt-24"
-            >
-              <ProductCard
-                product={product}
-                onExpand={() => setEnlarged(product)}
-              />
-            </motion.div>
+      {/* Shelves, one per theme, stacked down the page. The shelves themselves
+          are plain sections: only the posters inside them animate, because
+          nesting one AnimatePresence popLayout inside another leaves the
+          children stuck at their initial opacity. */}
+      <div className="mt-12 space-y-16">
+        {shelves.map((shelf) => (
+            <section key={shelf.theme}>
+              <div className="flex items-baseline justify-between gap-4 border-b border-border pb-3">
+                <h2 className="font-heading text-2xl uppercase tracking-wide sm:text-3xl">
+                  {shelf.theme}
+                </h2>
+                <span className="shrink-0 font-mono text-xs text-muted">
+                  {shelf.items.length}{" "}
+                  {shelf.items.length === 1 ? "title" : "titles"}
+                </span>
+              </div>
+
+              <motion.div
+                layout={!reduce}
+                className="mt-6 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4"
+              >
+                {/* initial={false} so the posters render visible on load. The
+                    catalog is the whole page, and it should not depend on an
+                    entrance animation completing to be seen. Filtering still
+                    animates: exit fades a poster out, layout reflows the rest. */}
+                <AnimatePresence mode="popLayout" initial={false}>
+                  {shelf.items.map((product) => (
+                    <motion.div
+                      key={product.repoName}
+                      id={product.repoName}
+                      layout={!reduce}
+                      exit={{ opacity: 0, scale: reduce ? 1 : 0.97 }}
+                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                      className="h-full scroll-mt-24"
+                    >
+                      <Poster
+                        product={product}
+                        onOpen={() => openProduct(product)}
+                      />
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </motion.div>
+            </section>
           ))}
-        </AnimatePresence>
-      </motion.div>
+      </div>
 
       {visible.length === 0 && (
         <p className="py-16 text-muted">No demos match those filters.</p>
       )}
 
-      {/* Enlarged demo — run the product full size */}
-      {enlarged?.demo && (
+      {/* Runner */}
+      {open && (
         <div
           className="fixed inset-0 z-[100] flex flex-col bg-background"
           role="dialog"
           aria-modal="true"
-          aria-label={`${enlarged.name} live demo`}
+          aria-label={src ? `${open.name} live demo` : open.name}
         >
-          {/* slim control bar */}
+          {/* control bar */}
           <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-2.5">
             <div className="min-w-0">
               <h3 className="truncate font-heading text-base uppercase tracking-wide">
-                {enlarged.name}
+                {open.name}
               </h3>
               <p className="truncate font-mono text-[10px] text-muted">
-                {new URL(enlarged.demo).host}
+                {src
+                  ? new URL(src).host
+                  : `${demoCount(open)} ${demoCount(open) === 1 ? "demo" : "demos"}`}
               </p>
             </div>
             <div className="flex shrink-0 items-center gap-2">
-              <a
-                href={enlarged.demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full border border-border px-4 py-1.5 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
-              >
-                Open in new tab ↗
-              </a>
+              {src && (
+                <button
+                  type="button"
+                  onClick={() => setSrc(null)}
+                  className="rounded-full border border-border px-4 py-1.5 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
+                >
+                  ← Details
+                </button>
+              )}
+              {src && (
+                <a
+                  href={src}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-border px-4 py-1.5 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
+                >
+                  Open in new tab ↗
+                </a>
+              )}
               <button
                 type="button"
-                onClick={() => setEnlarged(null)}
+                onClick={close}
                 className="rounded-full bg-accent px-4 py-1.5 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.03]"
               >
                 ✕ Close
               </button>
             </div>
           </div>
-          {/* full-bleed demo */}
-          <iframe
-            src={enlarged.demo}
-            title={`${enlarged.name} live demo`}
-            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-            className="w-full flex-1 border-0 bg-white"
-          />
+
+          {src ? (
+            <iframe
+              src={src}
+              title={`${open.name} live demo`}
+              sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+              className="w-full flex-1 border-0 bg-white"
+            />
+          ) : (
+            /* Title page: the blurb, then every way in. A project that names
+               no demos individually still gets one entry, so the sheet reads
+               the same whether it ships one demo or four. Projects whose only
+               links are third-party pages refuse to be framed, so those open
+               in a new tab instead of in the runner. */
+            <div className="flex-1 overflow-y-auto">
+              <div className="mx-auto max-w-2xl px-6 py-14">
+                <p className="text-lg leading-relaxed text-foreground/85">
+                  {open.blurb}
+                </p>
+                <div className="mt-10 space-y-3">
+                  {(open.demos?.length
+                    ? open.demos
+                    : open.demo
+                      ? [{ label: "Run the demo", href: open.demo }]
+                      : []
+                  ).map((d) => {
+                    const framed = Boolean(open.demo);
+                    return framed ? (
+                      <button
+                        key={d.href}
+                        type="button"
+                        onClick={() => setSrc(d.href)}
+                        className="flex w-full items-center justify-between gap-4 rounded-xl border border-border bg-card px-5 py-4 text-left transition-colors hover:border-accent"
+                      >
+                        <span className="font-semibold text-foreground">
+                          {d.label}
+                        </span>
+                        <span aria-hidden className="text-accent">
+                          ▶
+                        </span>
+                      </button>
+                    ) : (
+                      <a
+                        key={d.href}
+                        href={d.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex w-full items-center justify-between gap-4 rounded-xl border border-border bg-card px-5 py-4 transition-colors hover:border-accent"
+                      >
+                        <span className="font-semibold text-foreground">
+                          {d.label}
+                        </span>
+                        <span aria-hidden className="text-accent">
+                          ↗
+                        </span>
+                      </a>
+                    );
+                  })}
+                  {!open.demo && !open.demos?.length && (
+                    <p className="text-sm text-muted">
+                      This project ships as source only. There is no hosted
+                      demo to run.
+                    </p>
+                  )}
+                </div>
+                <div className="mt-10 flex flex-wrap gap-x-4 gap-y-2 border-t border-border pt-6 font-mono text-xs text-muted">
+                  <span>{open.theme}</span>
+                  <span>{open.term}</span>
+                  <span>{open.language}</span>
+                  {open.repo && (
+                    <a
+                      href={open.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ml-auto text-foreground/80 transition-colors hover:text-accent"
+                    >
+                      View source ↗
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

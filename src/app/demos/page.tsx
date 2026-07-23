@@ -28,8 +28,9 @@ export default function DemosPage() {
           <Reveal delay={0.1}>
             <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted">
               Every project ships as an open repository — and most run live in
-              your browser. Read the description, press play on any demo, or open
-              the source. This is applied research you can actually use.
+              your browser. Browse the catalog by theme, pick a title to read
+              what it does, then press play and run it here. This is applied
+              research you can actually use.
             </p>
           </Reveal>
         </div>
