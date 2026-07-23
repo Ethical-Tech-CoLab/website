@@ -811,7 +811,6 @@ export const productThemes = [
   "Early warning",
   "Diplomacy",
   "Research",
-  "Operations",
   "Storytelling",
 ];
 
@@ -1052,17 +1051,6 @@ export const products: Product[] = [
       "Gathers publicly reported conflict and human-rights incidents across Malawi, classifies each against a rights-based taxonomy, traces it to a likely root cause, and matches it to the Malawian organisation best placed to respond. 258 incidents across 26 of 28 districts, with 46 response actors. The working half of the Malawi Voice Data Commons, which aims to let someone report by voice, in Chichewa, from a basic phone.",
     language: "TypeScript",
     theme: "Early warning",
-  },
-  {
-    name: "ETC Grant Valuator",
-    repoName: "grant-valuation-tool",
-    term: "Summer 2026",
-    repo: "https://github.com/Ethical-Tech-CoLab/grant-valuation-tool",
-    demo: "https://ethical-tech-colab.github.io/grant-valuation-tool/",
-    blurb:
-      "AI-assisted grant valuation and pipeline tracking for the CoLab: open grants weighted by win probability into an expected value, ranked by what most needs working on next, with a discovery step for finding calls worth entering.",
-    language: "TypeScript",
-    theme: "Operations",
   },
   {
     name: "Generative AI for Good — Avatar Storytelling",
