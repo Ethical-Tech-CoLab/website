@@ -30,6 +30,14 @@
   /* Unfilled bar track and range washes: one step off the chart surface. */
   --chart-track: rgba(233, 228, 244, 0.1);
   --chart-wash: rgba(137, 160, 0, 0.22);
+
+  /* Demo posters. Deliberately NOT themed: a poster is artwork, and artwork
+     does not invert when the page around it does. Held dark in both modes so
+     the catalogue wall reads as one set and the titles keep their contrast.
+     Light mode without this washed the posters to near-white. */
+  --poster-ground: #241a35;
+  --poster-ink: #f3eefb;
+  --poster-ink-muted: rgba(233, 228, 244, 0.62);
 }
 
 /* Light palette: keeps the purple/lime identity, inverted for daylight. */
