@@ -2,76 +2,26 @@
 
 import { useState } from "react";
 import { Link } from "next-view-transitions";
-import { publications, publicationTopics } from "@/content/site";
+import {
+  publications,
+  publicationTopics,
+  type Publication,
+} from "@/content/site";
 import { Reveal } from "@/components/motion/Reveal";
 
 /**
- * The publications grid, filterable by topic.
+ * The publications catalogue: one section per topic, stacked down the page,
+ * with chips to narrow to a single topic.
  *
  * Topic is a separate axis from the research area a report came out of: the
  * AI-practice write-ups group under Guidelines because they are advice on
- * doing the work rather than findings about a domain. The chips mirror the
- * Live Demos filters so the two catalogues behave the same way.
+ * doing the work rather than findings about a domain. Sections and chips both
+ * mirror the Live Demos page so the two catalogues read the same way.
  */
-export function PublicationsGrid() {
-  const [topic, setTopic] = useState<string | null>(null);
-
-  const visible = publications.items.filter((p) => !topic || p.topic === topic);
-  // Internal guides carry a url but are not published work — counting them as
-  // published would overstate what a visitor can actually read.
-  const published = visible.filter(
-    (p) => p.url && p.access !== "internal",
-  ).length;
-  const internal = visible.filter((p) => p.access === "internal").length;
-
-  // Topics with nothing in them would be dead chips, so only offer the ones
-  // that actually match something.
-  const topics = publicationTopics.filter((t) =>
-    publications.items.some((p) => p.topic === t),
-  );
-
-  const chip = (active: boolean) =>
-    `rounded-full border px-3 py-1.5 text-sm transition-colors ${
-      active
-        ? "border-accent bg-accent font-semibold text-accent-ink"
-        : "border-border text-muted hover:border-accent hover:text-accent"
-    }`;
-
+/** One report. Split out so each topic section can render a grid of them
+ *  without repeating the card. */
+function PubCard({ pub }: { pub: Publication }) {
   return (
-    <div className="mx-auto max-w-6xl px-6 py-20">
-      <div className="border-b border-border pb-8">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="mr-2 w-20 shrink-0 text-xs uppercase tracking-wider text-muted">
-            Topic
-          </span>
-          <button
-            type="button"
-            onClick={() => setTopic(null)}
-            className={chip(topic === null)}
-          >
-            All
-          </button>
-          {topics.map((t) => (
-            <button
-              key={t}
-              type="button"
-              onClick={() => setTopic((v) => (v === t ? null : t))}
-              className={chip(topic === t)}
-            >
-              {t}
-            </button>
-          ))}
-          <span className="ml-auto font-mono text-xs text-muted">
-            {published} published
-            {internal > 0 && ` · ${internal} CoLab only`} · {visible.length}{" "}
-            shown
-          </span>
-        </div>
-      </div>
-
-      <div className="mt-10 grid gap-6 sm:grid-cols-2">
-        {visible.map((pub) => (
-          <Reveal key={pub.index}>
             <article className="card-glow flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-colors hover:border-border-strong">
               <div className="flex items-center justify-between gap-3">
                 <p className="font-mono text-sm text-accent">
@@ -92,9 +42,10 @@ export function PublicationsGrid() {
                 )}
               </div>
 
-              <h2 className="mt-4 font-heading text-xl uppercase leading-snug tracking-wide sm:text-2xl">
+              {/* h3: the topic heading this section carries is the h2 above. */}
+              <h3 className="mt-4 font-heading text-xl uppercase leading-snug tracking-wide sm:text-2xl">
                 {pub.title}
-              </h2>
+              </h3>
               {pub.date && (
                 <p className="mt-2 font-mono text-xs text-muted">{pub.date}</p>
               )}
@@ -144,7 +95,91 @@ export function PublicationsGrid() {
                 )}
               </div>
             </article>
-          </Reveal>
+  );
+}
+
+export function PublicationsGrid() {
+  const [topic, setTopic] = useState<string | null>(null);
+
+  const visible = publications.items.filter((p) => !topic || p.topic === topic);
+  // Internal guides carry a url but are not published work — counting them as
+  // published would overstate what a visitor can actually read.
+  const published = visible.filter(
+    (p) => p.url && p.access !== "internal",
+  ).length;
+  const internal = visible.filter((p) => p.access === "internal").length;
+
+  // Topics with nothing in them would be dead chips, so only offer the ones
+  // that actually match something.
+  const topics = publicationTopics.filter((t) =>
+    publications.items.some((p) => p.topic === t),
+  );
+
+  // One section per topic, in the order publicationTopics lists them. Filtering
+  // narrows to a single section rather than flattening the page, so a report
+  // sits under the same heading whether or not a chip is active.
+  const grouped = publicationTopics
+    .map((t) => ({ topic: t, items: visible.filter((p) => p.topic === t) }))
+    .filter((s) => s.items.length > 0);
+
+  const chip = (active: boolean) =>
+    `rounded-full border px-3 py-1.5 text-sm transition-colors ${
+      active
+        ? "border-accent bg-accent font-semibold text-accent-ink"
+        : "border-border text-muted hover:border-accent hover:text-accent"
+    }`;
+
+  return (
+    <div className="mx-auto max-w-6xl px-6 py-20">
+      <div className="border-b border-border pb-8">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="mr-2 w-20 shrink-0 text-xs uppercase tracking-wider text-muted">
+            Topic
+          </span>
+          <button
+            type="button"
+            onClick={() => setTopic(null)}
+            className={chip(topic === null)}
+          >
+            All
+          </button>
+          {topics.map((t) => (
+            <button
+              key={t}
+              type="button"
+              onClick={() => setTopic((v) => (v === t ? null : t))}
+              className={chip(topic === t)}
+            >
+              {t}
+            </button>
+          ))}
+          <span className="ml-auto font-mono text-xs text-muted">
+            {published} published
+            {internal > 0 && ` · ${internal} CoLab only`} · {visible.length}{" "}
+            shown
+          </span>
+        </div>
+      </div>
+
+      <div className="mt-12 space-y-16">
+        {grouped.map((s) => (
+          <section key={s.topic}>
+            <div className="flex items-baseline justify-between gap-4 border-b border-border pb-3">
+              <h2 className="font-heading text-2xl uppercase tracking-wide sm:text-3xl">
+                {s.topic}
+              </h2>
+              <span className="shrink-0 font-mono text-xs text-muted">
+                {s.items.length} {s.items.length === 1 ? "report" : "reports"}
+              </span>
+            </div>
+            <div className="mt-6 grid gap-6 sm:grid-cols-2">
+              {s.items.map((pub) => (
+                <Reveal key={pub.index}>
+                  <PubCard pub={pub} />
+                </Reveal>
+              ))}
+            </div>
+          </section>
         ))}
       </div>
 
