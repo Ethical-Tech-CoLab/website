@@ -412,6 +412,18 @@ export const provenancePassportReport = {
           lead: "Why failures fall back rather than stop.",
           text: "Every external connection in the system degrades to stored example data on error rather than halting. This was chosen so that a live demonstration cannot fail in front of an audience. It is a reasonable choice for its purpose and an unacceptable one for research use, because a tool that silently substitutes example data for real research will eventually be trusted when it should not be. The substitution is disclosed on screen, but disclosure is a weaker safeguard than refusal.",
         },
+        {
+          lead: "Why register access is tiered rather than flattened.",
+          text: "The register layer could have reported a single verdict per register and kept the retrieval method internal. That would have produced a cleaner interface and a dishonest one. The nine registers are reached by four quite different routes of very unequal strength, and a verdict is only interpretable alongside the route that produced it. Presenting a keyword search of an institution's public pages in the same shape as a genuine query of a structured database would invite exactly the inference the system exists to prevent, which is that a quiet result is a reassuring one. The interface is therefore more cluttered than it would otherwise be, and the clutter is carrying the argument.",
+        },
+        {
+          lead: "Why there is no verdict meaning clear.",
+          text: "This is the same commitment as the structural enforcement of sourcing, applied to conclusions rather than to citations, and it is enforced the same way, in the type system rather than in a guideline. A register result can say that a match surfaced, that nothing surfaced through the access available, or that the register could not be reached. There is no fourth value, so no later change can produce a clean bill of health by inadvertence. The design principle behind both is that a rule which matters should be made impossible to violate rather than merely documented, since documentation is not read at the moment the mistake is made.",
+        },
+        {
+          lead: "Why silence earns nothing.",
+          text: "The scoring treats a register that returned nothing as contributing no confidence, and reports separately how many registers could not be searched at all. This is the same reasoning that made the accumulation model canonical over the deduction model: absence of evidence is not evidence of clean provenance. A system that rewarded quiet registers would score an object highest precisely when it had learned least about it, and the objects it learns least about are disproportionately the ones taken from places that never had an inventory to be missing from.",
+        },
       ],
     },
     {
