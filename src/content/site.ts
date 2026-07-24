@@ -349,6 +349,27 @@ export const publications = {
     // `index` is a React key and cover-art seed only — never shown — so the
     // gap is invisible and renumbering would reshuffle every cover.
     {
+      // The CoLab's foundational framing paper. It is filed under Guidelines
+      // (the how-to / framing material) but placed first in `items` so it
+      // leads that shelf, and the catalogue, as the conceptual entry point to
+      // everything below: it defines what the lab means by ethical AI before
+      // any individual research report is read.
+      index: "28",
+      area: "Foundations",
+      topic: "Guidelines",
+      question:
+        "What is ethical AI, and what makes any technology, or any exercise of power, ethical at all?",
+      title:
+        "What Is Ethical AI? Ethics, Ethical Technology, and Ethical International Relations for the Age of Intelligent Machines",
+      summary:
+        "The Ethical Tech CoLab's foundational paper. It traces ethics from the earliest civilizations through international affairs and human rights law to the responsible AI movement, the humanitarian sector, and the United Nations system, and defends an institutional answer: ethical AI is not a product feature but artificial intelligence whose whole lifecycle stays accountable to ethical deliberation, a human rights floor, the do no harm obligation, and the participation of those it affects. Closes with the CoLab's motivation and research philosophy.",
+      status: "Published",
+      date: "July 2026",
+      // Internal route (starts with "/") — rendered on-site, see the card logic.
+      url: "/publications/what-is-ethical-ai",
+      repo: "https://github.com/Ethical-Tech-CoLab/what-is-ethical-ai",
+    },
+    {
       index: "05",
       area: "Sustainability",
       topic: "Sustainability",
