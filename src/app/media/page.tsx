@@ -46,37 +46,6 @@ export default function MediaPage() {
       <div className="mx-auto max-w-6xl px-6 py-20">
         <Reveal>
           <h2 className="font-heading text-2xl uppercase tracking-wide">
-            Past events
-          </h2>
-        </Reveal>
-        <div className="mt-8 grid gap-6 sm:grid-cols-2">
-          {media.pastEvents.map((s) => (
-            <Reveal key={s.title}>
-              <article className="card-glow flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-colors hover:border-border-strong">
-                <p className="font-mono text-xs text-accent">{s.term}</p>
-                <h3 className="mt-3 font-heading text-lg uppercase leading-snug tracking-wide">
-                  {s.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted">
-                  {s.blurb}
-                </p>
-                <div className="mt-auto flex flex-wrap gap-2 pt-4">
-                  {s.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="rounded-full border border-border px-2.5 py-0.5 text-[10px] uppercase tracking-wider text-muted"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal>
-          <h2 className="mt-20 font-heading text-2xl uppercase tracking-wide">
             Media &amp; moments
           </h2>
         </Reveal>
@@ -107,6 +76,37 @@ export default function MediaPage() {
                 {g.caption}
               </span>
             </a>
+          ))}
+        </div>
+
+        <Reveal>
+          <h2 className="mt-20 font-heading text-2xl uppercase tracking-wide">
+            Past events
+          </h2>
+        </Reveal>
+        <div className="mt-8 grid gap-6 sm:grid-cols-2">
+          {media.pastEvents.map((s) => (
+            <Reveal key={s.title}>
+              <article className="card-glow flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-colors hover:border-border-strong">
+                <p className="font-mono text-xs text-accent">{s.term}</p>
+                <h3 className="mt-3 font-heading text-lg uppercase leading-snug tracking-wide">
+                  {s.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted">
+                  {s.blurb}
+                </p>
+                <div className="mt-auto flex flex-wrap gap-2 pt-4">
+                  {s.tags.map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-full border border-border px-2.5 py-0.5 text-[10px] uppercase tracking-wider text-muted"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </article>
+            </Reveal>
           ))}
         </div>
 
