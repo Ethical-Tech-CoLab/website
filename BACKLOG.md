@@ -316,19 +316,18 @@ mismatches, misread law, and misattributions. Ranked most-severe first. These
 are the ones a hostile expert could use to discredit ETC; fix in the source
 repo *and* the `src/content/publications/` copy.
 
-- [~] **[PARTLY FIXED 2026-07-27] After the Corridor: §05 figures read as bare
-      assertions** (`after-the-corridor.ts`, §05 financial-model). Correction on
-      first read: the figures ARE sourced — the site `citations` array carries
-      the UNHCR self-reliance blog and the World Bank / WEF sources (lines
-      556/559/563), matching footnotes `[^30]`/`[^31]` in the source `REPORT.md`.
-      The credibility problem was that the prose asserted them flatly with no
-      inline attribution. Fixed 2026-07-27: the Uganda/Kakuma/Colombia bullets
-      now attribute to "World Bank analysis," and the Dzaleka hero stat now
-      reads "53k to 60k" to match the body. STILL OPEN: the UNHCR `[^30]` figure
-      ($3.2B→$900M and the $56–62B/$41B benchmark) is sourced only to a bare
-      UNHCR blog with no figure on the page — replace with the specific UNHCR
-      document and page, or downgrade to an explicitly attributed estimate. The
-      original four flagged numbers, for reference: (a) the "joint World
+- [x] **[FIXED 2026-07-27] After the Corridor: §05 figures verified and
+      re-sourced** (`after-the-corridor.ts` + source `REPORT.md`, §05
+      financial-model). Each figure was checked against its primary source: the
+      $3.2B→$900M and Uganda $150/$225M figures are confirmed verbatim and kept;
+      the "$56–62B/$41B" benchmark was mis-stated and is corrected to the actual
+      World Bank–UNHCR figure (almost $62B to reach the poverty line in a
+      no-income scenario, ~$40B already met by earnings, ~$22B remaining),
+      re-cited to *Making Refugee Self-Reliance Work*; Kakuma's 3.4% is
+      re-sourced to the *"Yes" in My Backyard?* Kakuma report; and Colombia's
+      unsupported "500,000 / minimal host impact" phrasing is replaced with the
+      verified ~30% income / ~10pp formal-employment effect. Dzaleka hero stat
+      set to "53k to 60k". Original flagged numbers, for reference: (a) the "joint World
       Bank and UNHCR benchmark" of "US$56 to 62 billion annually, of which
       about US$41 billion is already met by refugees' own earnings"; (b) "UNHCR
       estimates ... complementary assistance costs would fall from about US$3.2

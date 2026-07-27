@@ -240,10 +240,10 @@ export const afterTheCorridorReport = {
             "What the literature says the model will find. The engine formalizes an argument the development-economics evidence already supports.",
           list: [
             "UNHCR estimates that if freedom of movement and the right to work were relaxed so refugees could earn on par with hosts, complementary assistance costs would fall from about US$3.2 billion to roughly US$900 million a year.",
-            "The joint World Bank and UNHCR benchmark puts refugees' global subsistence needs at US$56 billion to US$62 billion annually, of which about US$41 billion is already met by refugees' own earnings where work is permitted.",
+            "A joint World Bank and UNHCR benchmark puts the annual cost of bringing every refugee in low and middle income host countries up to the global poverty line at almost US$62 billion in a scenario where refugees earn nothing; refugees' own earnings already cover roughly US$40 billion of that, leaving about US$22 billion.",
             "World Bank analysis estimates that in Uganda's inclusive regime, economic participation saves about US$150 per refugee per year, roughly US$225 million across 1.5 million refugees.",
-            "The same World Bank work finds that around Kakuma, refugee presence raised gross regional product by about 3.4 percent.",
-            "It also reports that Colombia's regularization of roughly half a million Venezuelans raised their incomes by about 31 percent with minimal impact on host formal employment.",
+            "The same World Bank work finds that around Kakuma, refugee presence raised the host county's gross regional product by about 3.4 percent.",
+            "It also reports that Colombia's regularization of Venezuelan migrants raised beneficiaries' incomes by about 30 percent and their formal employment by around 10 percentage points, with little displacement of host workers.",
           ],
         },
       ],
@@ -560,7 +560,7 @@ export const afterTheCorridorReport = {
       url: "https://www.unhcr.org/blogs/investing-in-refugees-self-reliance/",
     },
     {
-      ref: "World Bank, “The Costs Come Before the Benefits” (World Bank Group, 2024); “Refugees Mean Business: This Is Why Investing in Them Pays,” World Economic Forum, 20 Jan. 2025.",
+      ref: "World Bank, “The Costs Come Before the Benefits” (World Bank Group, 2024); UNHCR and World Bank, “Yes” in My Backyard? The Economics of Refugees and Their Social Dynamics in Kakuma, Kenya (World Bank, 2016), for the 3.4 per cent Kakuma figure; on Colombia's PEP regularization, Ana María Ibáñez et al., as summarized in “Refugees Mean Business: This Is Why Investing in Them Pays,” World Economic Forum, 20 Jan. 2025.",
     },
     {
       ref: "Digital Public Goods Alliance, DPG Standard (nine indicators, including SDG relevance, open licensing, non-collection of personally identifiable information, and privacy and applicable laws); Principles for Digital Development.",
