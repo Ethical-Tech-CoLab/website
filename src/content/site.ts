@@ -60,6 +60,7 @@ export const nav: NavItem[] = [
       { label: "Live Demos", href: "/demos" },
       { label: "Publications", href: "/publications" },
       { label: "Media", href: "/media" },
+      { label: "Newsletter", href: "/newsletter" },
     ],
   },
   // Cohorts tab removed — its content now lives on the Home page.

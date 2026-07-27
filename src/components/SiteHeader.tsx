@@ -41,7 +41,9 @@ export function SiteHeader() {
         // Portfolio stays active on its sub-tabs (Live Demos, Publications).
         (href === "/portfolio" &&
           (pathname.startsWith("/demos") ||
-            pathname.startsWith("/publications")));
+            pathname.startsWith("/publications") ||
+            pathname.startsWith("/media") ||
+            pathname.startsWith("/newsletter")));
 
   return (
     <header className="glass sticky top-0 z-50 border-b border-border">
