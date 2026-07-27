@@ -39,24 +39,24 @@ export const whatIsEthicalAiReport = {
   // Figures pulled from the body for the hero stat band.
   stats: [
     {
-      value: "4,000",
-      label:
-        "years of ethics: the paper reads AI not as a rupture but as the latest chapter in humanity's effort to govern power",
-    },
-    {
       value: "84",
       label:
         "AI ethics guidelines mapped by Jobin, Ienca, and Vayena, converging on five principles but diverging on how to apply them",
     },
     {
-      value: "34.7%",
-      label:
-        "Gender Shades error rate misclassifying darker-skinned women, against 0.8% for lighter-skinned men",
-    },
-    {
       value: "118",
       label:
         "countries, overwhelmingly in the Global South, party to none of the major AI governance initiatives the UN surveyed",
+    },
+    {
+      value: "15%",
+      label:
+        "of responses in the IRC's Signpost AI pilot could not be rated safe, the evaluators' basis for concluding the tool is not safe without a human in the loop",
+    },
+    {
+      value: "$236B",
+      label:
+        "in annual illegal profits from forced labour, the ILO estimate that frames the CoLab's Forced Labor Structural Risk Index",
     },
   ],
 
