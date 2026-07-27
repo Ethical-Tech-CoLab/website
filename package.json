@@ -8,12 +8,14 @@
     "start": "next start",
     "lint": "eslint",
     "sync:static": "bash scripts/sync-static-site.sh",
-    "sync:newsletter": "node scripts/sync-newsletter.mjs"
+    "sync:newsletter": "node scripts/sync-newsletter.mjs",
+    "render:book": "node scripts/render-report-pages.mjs"
   },
   "dependencies": {
     "motion": "^12.42.2",
     "next": "16.2.9",
     "next-view-transitions": "^0.3.5",
+    "page-flip": "^2.0.7",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
@@ -25,6 +27,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "pdfjs-dist": "^6.1.200"
   }
 }

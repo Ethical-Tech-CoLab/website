@@ -709,3 +709,35 @@ Ranked by visitor impact against effort, not by section number:
 4. Intro curtain: first-visit-only, real button, skip control (§10.1).
 5. Suppress dead "View details →" on the four empty org cards (§10.5).
 6. Move Guidelines off the front of the publications catalogue (§10.3).
+
+---
+
+## 11. Publications "book" view — shipped 2026-07-27 (After the Corridor only)
+
+An old-school flipbook of the original designed PDF, launched by a "Read as
+book" button next to Download PDF on `/publications/after-the-corridor`. Real
+page-curl via `page-flip` (StPageFlip), a client component
+(`src/components/ReportBook.tsx`) that lazy-loads the library only when opened;
+no pdf.js ships to the browser. Two-page spread on desktop, single page on
+mobile; arrows / ← → keys / Esc.
+
+**How it's built.** The 22 pages are pre-rendered to WebP at build time by
+`scripts/render-report-pages.mjs` (pdfjs-dist + @napi-rs/canvas + sharp) into
+`public/publications/after-the-corridor/pages/`, alongside a generated
+`src/content/publications/after-the-corridor-book.ts` manifest the page imports.
+The source PDF is vendored at `public/publications/after-the-corridor/report.pdf`.
+
+**When the PDF changes:** drop the new PDF at that path and run
+`npm run render:book`, then `npm run sync:static`, commit the regenerated images
+and manifest.
+
+**To extend to other reports:** the component is already generic (takes
+`pages`, `aspect`, `title`, `pdfUrl`). It is wired only on After the Corridor
+because it is the only report with a designed PDF today (see §10.7). Generalize
+the render script to take a slug when a second report gets a PDF.
+
+Open polish:
+- [ ] No headless browser was available in the build session, so the live flip
+      interaction was not automated-tested — verify visually once in `npm run
+      dev` (build, types, and static export are all clean).
+- [ ] Consider a first-open hint/affordance that the corners are draggable.

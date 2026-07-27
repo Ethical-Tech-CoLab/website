@@ -4,6 +4,8 @@ import { afterTheCorridorReport } from "@/content/publications/after-the-corrido
 import { SectionTabs } from "@/components/SectionTabs";
 import { Reveal } from "@/components/motion/Reveal";
 import { ReportBody } from "@/components/ReportBody";
+import { ReportBook } from "@/components/ReportBook";
+import { afterTheCorridorBook } from "@/content/publications/after-the-corridor-book";
 
 export const metadata: Metadata = {
   title: "After the Corridor",
@@ -66,6 +68,12 @@ export default function AfterTheCorridorPage() {
               >
                 Download the PDF <span aria-hidden>↗</span>
               </a>
+              <ReportBook
+                title="After the Corridor"
+                pages={[...afterTheCorridorBook.pages]}
+                aspect={afterTheCorridorBook.aspect}
+                pdfUrl={afterTheCorridorReport.pdfUrl}
+              />
               <a
                 href={afterTheCorridorReport.repoUrl}
                 target="_blank"
