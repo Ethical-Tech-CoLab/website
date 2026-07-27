@@ -1,22 +1,14 @@
 import type { Metadata } from "next";
+import { Link } from "next-view-transitions";
 import { SectionTabs } from "@/components/SectionTabs";
 import { Reveal } from "@/components/motion/Reveal";
-import { asset } from "@/lib/asset";
+import { newsletterIssues } from "@/content/newsletter";
 
 export const metadata: Metadata = {
   title: "Newsletter",
   description:
     "The Monthly Intelligence Brief — one email a month on technology creating measurable impact for people, communities, and the planet. AI for good, humanitarian innovation, startups, opportunities, and tools.",
 };
-
-const issues = [
-  {
-    edition: "July 2026 · Edition 01",
-    href: "/newsletter/2026-07.html",
-    blurb:
-      "HASTE open-sourced for disaster response, the EU AI Act transparency deadline, the Opportunity Board, Tool of the Month, and more.",
-  },
-];
 
 // TODO: replace ACCOUNT with the Ethical Tech CoLab Buttondown username
 // (or swap this action for a Mailchimp / other provider embed).
@@ -94,12 +86,10 @@ export default function NewsletterPage() {
           </h2>
         </Reveal>
         <div className="mt-8 grid gap-6 sm:grid-cols-2">
-          {issues.map((issue) => (
-            <Reveal key={issue.href}>
-              <a
-                href={asset(issue.href)}
-                target="_blank"
-                rel="noopener noreferrer"
+          {newsletterIssues.map((issue) => (
+            <Reveal key={issue.slug}>
+              <Link
+                href={`/newsletter/${issue.slug}`}
                 className="card-glow flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-colors hover:border-border-strong"
               >
                 <p className="font-mono text-xs text-accent">
@@ -114,7 +104,7 @@ export default function NewsletterPage() {
                 <span className="mt-auto pt-4 text-sm font-medium text-accent">
                   Read the issue →
                 </span>
-              </a>
+              </Link>
             </Reveal>
           ))}
         </div>
