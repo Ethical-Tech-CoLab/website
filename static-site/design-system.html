@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ETC Design System</title>
+<style>
+  /* ============================================================= *
+   *  ETC Design System — a living style guide, styled in the
+   *  identity it documents. Tokens mirror src/app/globals.css.
+   *  Production display face is Bebas Neue, body is Space Mono;
+   *  the CSP blocks font CDNs, so this page uses a condensed
+   *  system stack for display and the platform monospace for body,
+   *  and labels the real faces wherever they matter.
+   * ============================================================= */
+
+  :root, :root[data-theme="dark"] {
+    color-scheme: dark;
+    --background:#120c1a; --surface:#1b1226; --card:#201630;
+    --secondary:#3b1878; --foreground:#f3eefb; --muted:rgba(233,228,244,0.52);
+    --border:rgba(139,92,246,0.26); --border-strong:rgba(200,240,75,0.4);
+    --accent:#c8f04b; --accent-ink:#141414; --glow:#7b5cff; --glow-2:#b8d400;
+    --chart-1:#89a000; --chart-2:#7b5cff;
+    --chart-track:rgba(233,228,244,0.1); --chart-wash:rgba(137,160,0,0.22);
+    --grain-opacity:0.04;
+  }
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --background:#f5f2f9; --surface:#ffffff; --card:#ffffff;
+    --secondary:#e4dcf3; --foreground:#1a1020; --muted:rgba(26,16,32,0.6);
+    --border:rgba(59,24,120,0.18); --border-strong:rgba(95,107,0,0.5);
+    --accent:#5f6b00; --accent-ink:#ffffff; --glow:#6d28d9; --glow-2:#7c9a00;
+    --chart-1:#5f6b00; --chart-2:#6d28d9;
+    --chart-track:rgba(26,16,32,0.1); --chart-wash:rgba(95,107,0,0.18);
+    --grain-opacity:0.03;
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme]) {
+      color-scheme: light;
+      --background:#f5f2f9; --surface:#ffffff; --card:#ffffff;
+      --secondary:#e4dcf3; --foreground:#1a1020; --muted:rgba(26,16,32,0.6);
+      --border:rgba(59,24,120,0.18); --border-strong:rgba(95,107,0,0.5);
+      --accent:#5f6b00; --accent-ink:#ffffff; --glow:#6d28d9; --glow-2:#7c9a00;
+      --chart-1:#5f6b00; --chart-2:#6d28d9;
+      --chart-track:rgba(26,16,32,0.1); --chart-wash:rgba(95,107,0,0.18);
+      --grain-opacity:0.03;
+    }
+  }
+
+  --font-display: "Bebas Neue","Oswald","Arial Narrow",system-ui,sans-serif;
+  --font-body: ui-monospace,"Space Mono","SF Mono",Menlo,Consolas,monospace;
+
+  * { box-sizing: border-box; }
+  body {
+    margin:0; background:var(--background); color:var(--foreground);
+    font-family: ui-monospace,"Space Mono","SF Mono",Menlo,Consolas,monospace;
+    line-height:1.6; -webkit-font-smoothing:antialiased;
+    transition: background-color .2s ease, color .2s ease;
+  }
+  /* Film grain — the signature "not-templated" layer. */
+  body::after {
+    content:""; position:fixed; inset:0; z-index:60; pointer-events:none;
+    opacity:var(--grain-opacity); mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:160px 160px;
+  }
+  ::selection { background:var(--accent); color:var(--background); }
+
+  h1,h2,h3 {
+    font-family:"Bebas Neue","Oswald","Arial Narrow",system-ui,sans-serif;
+    letter-spacing:.03em; font-weight:400; margin:0; line-height:.95;
+    text-wrap:balance; text-transform:uppercase;
+  }
+  .em { color:var(--accent); }
+
+  .wrap { max-width:min(1100px,92vw); margin:0 auto; padding:0 clamp(1rem,4vw,2rem); }
+
+  /* Sticky glass header */
+  header.site {
+    position:sticky; top:0; z-index:50;
+    background:color-mix(in oklab, var(--background) 62%, transparent);
+    backdrop-filter:blur(14px) saturate(1.3); -webkit-backdrop-filter:blur(14px) saturate(1.3);
+    border-bottom:1px solid var(--border);
+  }
+  header.site .bar { display:flex; align-items:center; justify-content:space-between; padding:.9rem 0; }
+  .brand { display:flex; align-items:center; gap:.6rem; font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; }
+  .brand .dot { width:26px; height:26px; border-radius:6px; background:linear-gradient(135deg,var(--glow),var(--accent)); }
+  .toggle {
+    font:inherit; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; cursor:pointer;
+    background:transparent; color:var(--foreground); border:1px solid var(--border);
+    border-radius:999px; padding:.45rem .9rem;
+  }
+  .toggle:hover { border-color:var(--accent); }
+  .toggle:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+
+  /* Hero */
+  .hero { position:relative; overflow:hidden; padding:clamp(3rem,9vw,6rem) 0 clamp(2rem,5vw,3.5rem); }
+  .hero .aura {
+    position:absolute; inset:-30%; z-index:0; pointer-events:none; border-radius:9999px;
+    filter:blur(110px); opacity:.55;
+    background:
+      radial-gradient(38% 38% at 32% 34%, color-mix(in oklab,var(--glow) 60%,transparent), transparent 70%),
+      radial-gradient(36% 36% at 70% 62%, color-mix(in oklab,var(--glow-2) 42%,transparent), transparent 72%);
+    animation: drift 48s linear infinite;
+  }
+  @keyframes drift { to { transform:rotate(360deg); } }
+  .hero .inner { position:relative; z-index:1; }
+  .eyebrow { font-size:.72rem; letter-spacing:.28em; text-transform:uppercase; color:var(--muted); }
+  .hero h1 { font-size:clamp(3rem,10vw,7rem); margin:.4rem 0 .6rem; }
+  .hero p { max-width:60ch; color:var(--muted); margin:0; }
+  .meta { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.4rem; }
+  .chip {
+    font-size:.68rem; letter-spacing:.08em; text-transform:uppercase;
+    border:1px solid var(--border); border-radius:999px; padding:.35rem .8rem; color:var(--muted);
+  }
+
+  section.block { padding:clamp(2.5rem,6vw,4rem) 0; border-top:1px solid var(--border); }
+  .kicker { display:flex; align-items:baseline; gap:.8rem; margin-bottom:1.6rem; }
+  .kicker .num { font-family:var(--font-body); font-size:.72rem; letter-spacing:.15em; color:var(--accent); }
+  .kicker h2 { font-size:clamp(1.7rem,4vw,2.7rem); }
+  .lead { color:var(--muted); max-width:64ch; margin:-.6rem 0 1.8rem; }
+
+  /* Swatches */
+  .swatches { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:.9rem; }
+  .sw {
+    border:1px solid var(--border); border-radius:14px; overflow:hidden; background:var(--card);
+  }
+  .sw .chipfill { height:76px; border-bottom:1px solid var(--border); }
+  .sw .body { padding:.7rem .8rem .8rem; }
+  .sw .name { font-size:.82rem; }
+  .sw .hex { font-size:.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; }
+  .sw .use { font-size:.72rem; color:var(--muted); margin-top:.35rem; line-height:1.45; }
+
+  /* Type scale */
+  .typerow { border-top:1px solid var(--border); padding:1.1rem 0; display:grid; grid-template-columns:120px 1fr; gap:1rem; align-items:baseline; }
+  .typerow:first-child { border-top:0; }
+  .typerow .label { font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; }
+  .typerow .label small { display:block; text-transform:none; letter-spacing:0; margin-top:.2rem; }
+  .t-hero { font-family:var(--font-display,inherit); font-size:clamp(2.5rem,7vw,4.5rem); line-height:.9; text-transform:uppercase; letter-spacing:.02em; }
+  .t-h2 { font-family:var(--font-display,inherit); font-size:clamp(1.6rem,4vw,2.4rem); text-transform:uppercase; letter-spacing:.03em; }
+  .t-body { font-size:1rem; color:var(--foreground); max-width:60ch; }
+  .t-muted { font-size:.85rem; color:var(--muted); }
+
+  .facegrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1rem; margin-bottom:2rem; }
+  .face { border:1px solid var(--border); border-radius:14px; padding:1.1rem 1.2rem; background:var(--card); }
+  .face .big { font-family:var(--font-display,inherit); font-size:2.6rem; line-height:1; text-transform:uppercase; letter-spacing:.02em; }
+  .face .big.mono { font-family:var(--font-body); text-transform:none; font-size:2rem; letter-spacing:-.02em; }
+  .face .role { font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:.6rem; }
+  .face .desc { font-size:.8rem; color:var(--muted); margin-top:.6rem; }
+
+  /* Effects demo */
+  .fx { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; }
+  .fxcard { position:relative; border:1px solid var(--border); border-radius:16px; padding:1.2rem; background:var(--card); min-height:140px; overflow:hidden; }
+  .fxcard h3 { font-size:1.1rem; margin-bottom:.3rem; }
+  .fxcard p { font-size:.74rem; color:var(--muted); margin:0; }
+  .fxcard.glass-demo { background:color-mix(in oklab,var(--background) 62%,transparent); backdrop-filter:blur(14px) saturate(1.3); -webkit-backdrop-filter:blur(14px) saturate(1.3); }
+  .fxcard.glass-demo::before { content:""; position:absolute; inset:-40% -10% auto -10%; height:120%; z-index:-1; background:radial-gradient(circle at 30% 20%,var(--glow),transparent 60%); opacity:.5; }
+  .btn-sweep { position:relative; overflow:hidden; display:inline-block; margin-top:.8rem; background:var(--accent); color:var(--accent-ink); font-weight:700; font-size:.78rem; letter-spacing:.05em; border-radius:999px; padding:.5rem 1.1rem; }
+  .btn-sweep::after { content:""; position:absolute; inset:0; background:linear-gradient(120deg,transparent,color-mix(in oklab,#fff 55%,transparent),transparent); transform:translateX(-120%); transition:transform .55s cubic-bezier(.16,1,.3,1); }
+  .btn-sweep:hover::after { transform:translateX(120%); }
+  .glowcard::before { content:""; position:absolute; inset:0; z-index:0; border-radius:inherit; opacity:0; transition:opacity .35s ease; background:radial-gradient(200px circle at var(--mx,50%) var(--my,0%),color-mix(in oklab,var(--accent) 16%,transparent),transparent 60%); }
+  .glowcard:hover::before { opacity:1; }
+  .glowcard > * { position:relative; z-index:1; }
+
+  /* Sitemap */
+  .map { border:1px solid var(--border); border-radius:16px; background:var(--card); padding:clamp(1rem,3vw,1.8rem); overflow-x:auto; }
+  .node { display:inline-flex; align-items:center; gap:.5rem; border:1px solid var(--border); border-radius:999px; padding:.4rem .9rem; font-size:.82rem; }
+  .node.root { background:var(--accent); color:var(--accent-ink); border-color:transparent; font-weight:700; }
+  .node.parent { border-color:var(--border-strong); }
+  .node .badge { font-size:.6rem; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); }
+  .tree { list-style:none; margin:0; padding:0; }
+  .tree ul { list-style:none; margin:.5rem 0 .5rem 1.4rem; padding-left:1.1rem; border-left:1px dashed var(--border); }
+  .tree li { margin:.45rem 0; position:relative; }
+  .tree li::before { content:""; position:absolute; left:-1.1rem; top:1.1rem; width:.9rem; height:1px; background:var(--border); }
+  .tree > li::before { display:none; }
+  .hint { font-size:.72rem; color:var(--muted); margin-left:.6rem; }
+  .leafgrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:.4rem; margin:.6rem 0 0 0; }
+  .leaf { font-size:.76rem; color:var(--muted); padding:.35rem .6rem; border:1px solid var(--border); border-radius:8px; background:var(--surface); }
+  .leaf b { color:var(--foreground); font-weight:400; }
+
+  /* Layout token bars */
+  .bars { display:grid; gap:.55rem; }
+  .barrow { display:grid; grid-template-columns:130px 1fr; gap:1rem; align-items:center; }
+  .barrow .k { font-size:.74rem; color:var(--muted); }
+  .barrow .track { height:14px; background:var(--chart-track); border-radius:7px; position:relative; }
+  .barrow .fill { position:absolute; inset:0 auto 0 0; background:var(--chart-wash); border:1px solid var(--border-strong); border-radius:7px; }
+  .barrow .v { font-size:.72rem; color:var(--accent); }
+
+  footer.site { border-top:1px solid var(--border); padding:2rem 0 3rem; color:var(--muted); font-size:.76rem; }
+  a { color:inherit; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero .aura { animation:none; }
+    .btn-sweep::after { transition:none; }
+  }
+</style>
+
+<header class="site">
+  <div class="wrap bar">
+    <span class="brand"><span class="dot"></span>Ethical Tech CoLab — Design System</span>
+    <button class="toggle" id="themeBtn" type="button" aria-label="Toggle light and dark theme">Theme</button>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="aura" aria-hidden="true"></span>
+  <div class="wrap inner">
+    <span class="eyebrow">Living style guide · replicable spec</span>
+    <h1>Emerging tech,<br><span class="em">human</span> condition.</h1>
+    <p>Every color, typeface, effect, and route on the ETC website — recorded with its rationale so the identity can be rebuilt in any codebase. The palette mirrors the Summer&nbsp;’26 Tech Rehearsal deck: a near-black purple ground, a signature lime accent, an electric-violet glow. Dark is the flagship; light is a daylight inversion that keeps the same identity.</p>
+    <div class="meta">
+      <span class="chip">Next.js · Tailwind v4</span>
+      <span class="chip">Bebas Neue + Space Mono</span>
+      <span class="chip">Dark-first · themed</span>
+      <span class="chip">25 routes</span>
+    </div>
+  </div>
+</section>
+
+<section class="block"><div class="wrap">
+  <div class="kicker"><span class="num">01</span><h2>Color</h2></div>
+  <p class="lead">Defined as CSS custom properties, read through the <code>@theme</code> mapping — never as raw hex. Toggle the theme above to see every token re-resolve. The accent is the one loud element; everything else stays quiet.</p>
+
+  <h3 style="font-size:1rem;color:var(--muted);margin-bottom:.9rem;">Core tokens <span style="color:var(--accent);">(current theme)</span></h3>
+  <div class="swatches" id="coreSwatches"></div>
+
+  <h3 style="font-size:1rem;color:var(--muted);margin:2rem 0 .9rem;">Chart series <span class="hint">validated per-theme against <code>--card</code></span></h3>
+  <div class="swatches" id="chartSwatches"></div>
+
+  <h3 style="font-size:1rem;color:var(--muted);margin:2rem 0 .9rem;">Demo posters <span class="hint">intentionally NOT themed — artwork doesn’t invert</span></h3>
+  <div class="swatches" id="posterSwatches"></div>
+</div></section>
+
+<section class="block"><div class="wrap">
+  <div class="kicker"><span class="num">02</span><h2>Typography</h2></div>
+  <p class="lead">Two faces. A condensed display face for every heading, and — unusually — a <em>monospace</em> as the body and UI font. That mono body is a deliberate editorial signature, not a fallback.</p>
+  <div class="facegrid">
+    <div class="face">
+      <div class="role">Display · headings</div>
+      <div class="big">Bebas Neue</div>
+      <div class="desc">Weight 400, <code>letter-spacing .02em</code>, uppercase. Used on h1–h3 and the fluid display classes. <em>(This page renders a condensed system stack; production loads the real Bebas Neue.)</em></div>
+    </div>
+    <div class="face">
+      <div class="role">Body · UI · data</div>
+      <div class="big mono">Space Mono</div>
+      <div class="desc">400 / 700, normal + italic. It <b>is</b> <code>--font-sans</code> — there’s no separate sans face. Everything you’re reading is set in it.</div>
+    </div>
+  </div>
+  <div class="typerow"><div class="label">.fluid-hero<small>clamp(3.25rem,11vw,9rem) · lh .9</small></div><div class="t-hero">Human condition</div></div>
+  <div class="typerow"><div class="label">.fluid-h2<small>clamp(2rem,4.6vw,3.5rem) · lh .98</small></div><div class="t-h2">The research, written up</div></div>
+  <div class="typerow"><div class="label">Body<small>1rem · Space Mono</small></div><div class="t-body">Turning fragmented crisis signals into decisions, so responders and residents can act before information gaps cost lives.</div></div>
+  <div class="typerow"><div class="label">Muted<small>.85rem · --muted</small></div><div class="t-muted">NYU SPS · CGA · Microsoft · New York — four cohorts, est. 2024–2026.</div></div>
+</div></section>
+
+<section class="block"><div class="wrap">
+  <div class="kicker"><span class="num">03</span><h2>Atmosphere</h2></div>
+  <p class="lead">The layer that kills the flat, templated look. Film grain over everything, one drifting aura per hero, frosted glass on the nav, a lime cursor-glow on cards. Easing signature: <code>cubic-bezier(.16,1,.3,1)</code>. Hover the cards.</p>
+  <div class="fx">
+    <div class="fxcard glowcard" id="glowDemo"><h3>Card glow</h3><p>Lime radial follows the cursor via <code>--mx/--my</code>, no re-render. Move your pointer across this card.</p></div>
+    <div class="fxcard glass-demo"><h3>Frosted glass</h3><p><code>backdrop-filter: blur(14px) saturate(1.3)</code> — the sticky nav and floating cards. Solid fallback where unsupported.</p></div>
+    <div class="fxcard"><h3>Film grain</h3><p>A tiled SVG turbulence texture at opacity <code>0.04</code>, <code>mix-blend: overlay</code> — it’s on this whole page.</p></div>
+    <div class="fxcard"><h3>CTA sweep</h3><p>A light layer wipes across on hover.<br><span class="btn-sweep">Contact →</span></p></div>
+  </div>
+</div></section>
+
+<section class="block"><div class="wrap">
+  <div class="kicker"><span class="num">04</span><h2>Layout</h2></div>
+  <p class="lead">A tight container ladder. Reading copy sits at <code>max-w-2xl</code> to hold ~65 characters; chrome and galleries widen to <code>max-w-6xl</code>. Padding is a steady <code>px-6</code>.</p>
+  <div class="bars">
+    <div class="barrow"><span class="k">max-w-2xl</span><div class="track"><div class="fill" style="width:42%"></div></div></div>
+    <div class="barrow"><span class="k">max-w-4xl</span><div class="track"><div class="fill" style="width:64%"></div></div></div>
+    <div class="barrow"><span class="k">max-w-6xl</span><div class="track"><div class="fill" style="width:100%"></div></div></div>
+  </div>
+  <p class="lead" style="margin-top:1.4rem;">Radii: pills (<code>rounded-full</code>) for nav items &amp; CTAs, <code>rounded-xl</code> for menus and cards. Z-index ladder: site-bg <code>-1</code> · content/aura <code>0</code> · nav <code>50</code> · grain <code>60</code>.</p>
+</div></section>
+
+<section class="block"><div class="wrap">
+  <div class="kicker"><span class="num">05</span><h2>Site map</h2></div>
+  <p class="lead">Content-driven from <code>src/content/site.ts</code>. Top nav is Home · Portfolio · Team plus a Contact pill; Portfolio is the parent for Live Demos, Publications, and Media — shown both as a header dropdown and a section-tabs bar on the pages.</p>
+  <div class="map">
+    <ul class="tree">
+      <li>
+        <span class="node root">/ &nbsp;Home</span>
+        <span class="hint">hero · mission/vision · research questions · cohorts · newsletter</span>
+        <ul>
+          <li>
+            <span class="node parent">/portfolio</span><span class="hint">research questions → projects explorer</span>
+            <ul>
+              <li><span class="node">/demos</span><span class="hint">Live Demos catalogue · poster rail · theme + semester filters</span></li>
+              <li>
+                <span class="node">/publications</span><span class="hint">catalogue, filtered by topic — 17 report pages</span>
+                <div class="leafgrid">
+                  <span class="leaf"><b>/after-the-corridor</b></span>
+                  <span class="leaf"><b>/what-is-ethical-ai</b></span>
+                  <span class="leaf"><b>/ai-carbon-footprint</b></span>
+                  <span class="leaf"><b>/ai-models-research</b></span>
+                  <span class="leaf"><b>/ai-research-assistant</b></span>
+                  <span class="leaf"><b>/cerai</b></span>
+                  <span class="leaf"><b>/digital-provenance-passport</b></span>
+                  <span class="leaf"><b>/diplomatic-simulator</b></span>
+                  <span class="leaf"><b>/ercf</b></span>
+                  <span class="leaf"><b>/erus</b></span>
+                  <span class="leaf"><b>/evacuation-inform-index</b></span>
+                  <span class="leaf"><b>/evacuation-simulation</b></span>
+                  <span class="leaf"><b>/forced-labor-structural-risk-index</b></span>
+                  <span class="leaf"><b>/haste</b></span>
+                  <span class="leaf"><b>/mariupol-severity-model</b></span>
+                  <span class="leaf"><b>/provenance-search</b></span>
+                  <span class="leaf"><b>/vango</b></span>
+                </div>
+              </li>
+              <li><span class="node">/media</span><span class="hint">media &amp; moments · past events</span></li>
+            </ul>
+          </li>
+          <li>
+            <span class="node parent">/team</span><span class="hint">team grid + alumni</span>
+            <ul><li><span class="node">/team/[slug]</span><span class="hint">individual member · dynamic route</span></li></ul>
+          </li>
+          <li><span class="node">/contact</span><span class="hint">header CTA button</span></li>
+          <li><span class="node">/about</span><span class="hint">preserved but hidden from nav</span></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div></section>
+
+<footer class="site"><div class="wrap">
+  Generated from <code>src/app/globals.css</code>, <code>layout.tsx</code>, and <code>content/site.ts</code>. Full written spec: <code>docs/DESIGN-SYSTEM.md</code>. · Ethical Tech CoLab — NYU SPS · CGA × Microsoft.
+</div></footer>
+
+<script>
+  // Theme toggle — mirrors the site: dark is the flagship default, choice persists.
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById("themeBtn");
+    try {
+      var saved = localStorage.getItem("etc-ds-theme");
+      if (saved === "light" || saved === "dark") root.setAttribute("data-theme", saved);
+    } catch (e) {}
+    btn.addEventListener("click", function () {
+      var cur = root.getAttribute("data-theme");
+      if (!cur) cur = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      var next = cur === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("etc-ds-theme", next); } catch (e) {}
+    });
+
+    // Cursor glow demo
+    var g = document.getElementById("glowDemo");
+    g.addEventListener("pointermove", function (e) {
+      var r = g.getBoundingClientRect();
+      g.style.setProperty("--mx", ((e.clientX - r.left) / r.width * 100) + "%");
+      g.style.setProperty("--my", ((e.clientY - r.top) / r.height * 100) + "%");
+    });
+
+    // Swatch data — read the live computed token so it always matches the theme.
+    var core = [
+      ["--background","Page ground — near-black purple"],
+      ["--surface","Raised surfaces, nav on scroll"],
+      ["--card","Card fills"],
+      ["--secondary","Deep purple / secondary emphasis"],
+      ["--foreground","Primary text"],
+      ["--muted","Secondary text"],
+      ["--accent","Signature lime — buttons, links, emphasis"],
+      ["--accent-ink","Ink that sits ON the accent"],
+      ["--glow","Electric-violet radial glow"],
+      ["--glow-2","Olive secondary glow"],
+      ["--border","Purple-tinted hairline"],
+      ["--border-strong","Lime-tinted emphasis border"]
+    ];
+    var charts = [
+      ["--chart-1","Series 1 — darker lime step"],
+      ["--chart-2","Series 2 — violet"],
+      ["--chart-track","Unfilled bar track"],
+      ["--chart-wash","Range wash"]
+    ];
+    // Posters are hard-coded (never themed), so show literal values.
+    var posters = [
+      ["#241a35","--poster-ground","Poster background · both themes"],
+      ["#f3eefb","--poster-ink","Poster text"],
+      ["#c8f04b","--poster-accent","Poster keeps the lime in both themes"],
+      ["#141414","--poster-accent-ink","Ink on poster accent"]
+    ];
+
+    function render(id, rows, literal) {
+      var host = document.getElementById(id);
+      function build() {
+        var cs = getComputedStyle(root);
+        host.innerHTML = rows.map(function (r) {
+          var name, val, use;
+          if (literal) { val = r[0]; name = r[1]; use = r[2]; }
+          else { name = r[0]; use = r[1]; val = cs.getPropertyValue(r[0]).trim(); }
+          return '<div class="sw"><div class="chipfill" style="background:' + val + '"></div>'
+            + '<div class="body"><div class="name">' + name + '</div>'
+            + '<div class="hex">' + val + '</div>'
+            + '<div class="use">' + use + '</div></div></div>';
+        }).join("");
+      }
+      build();
+      // Re-read on theme change.
+      new MutationObserver(build).observe(root, { attributes:true, attributeFilter:["data-theme"] });
+    }
+    render("coreSwatches", core, false);
+    render("chartSwatches", charts, false);
+    render("posterSwatches", posters, true);
+  })();
+</script>
+
+</head>
+<body>
+</body>
+</html>

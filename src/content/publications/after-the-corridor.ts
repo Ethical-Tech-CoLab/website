@@ -38,7 +38,7 @@ export const afterTheCorridorReport = {
         "built instruments: five fielded evacuation prototypes and a completed forced-labour risk index, all open source",
     },
     {
-      value: "53k",
+      value: "53k to 60k",
       label:
         "people now at Dzaleka, a camp built in 1994 for 10,000 to 12,000",
     },
@@ -241,9 +241,9 @@ export const afterTheCorridorReport = {
           list: [
             "UNHCR estimates that if freedom of movement and the right to work were relaxed so refugees could earn on par with hosts, complementary assistance costs would fall from about US$3.2 billion to roughly US$900 million a year.",
             "The joint World Bank and UNHCR benchmark puts refugees' global subsistence needs at US$56 billion to US$62 billion annually, of which about US$41 billion is already met by refugees' own earnings where work is permitted.",
-            "In Uganda's inclusive regime, economic participation saves an estimated US$150 per refugee per year, about US$225 million across 1.5 million refugees.",
-            "Around Kakuma, refugee presence raised gross regional product by about 3.4 percent.",
-            "Colombia's regularization of about 500,000 Venezuelans raised their incomes by about 31 percent with minimal impact on host formal employment.",
+            "World Bank analysis estimates that in Uganda's inclusive regime, economic participation saves about US$150 per refugee per year, roughly US$225 million across 1.5 million refugees.",
+            "The same World Bank work finds that around Kakuma, refugee presence raised gross regional product by about 3.4 percent.",
+            "It also reports that Colombia's regularization of roughly half a million Venezuelans raised their incomes by about 31 percent with minimal impact on host formal employment.",
           ],
         },
       ],

@@ -4,7 +4,7 @@ Living checklist of open items. Everything not listed here is done and live at
 <https://ethical-tech-colab.github.io/website/>. After adding any asset below,
 run `npm run sync:static`, then commit + push (or ask me to).
 
-Last updated: 2026-07-23.
+Last updated: 2026-07-27.
 
 ---
 
@@ -306,6 +306,127 @@ genuinely open, i.e. not yet fixed anywhere.
       would turn documented instances into rates. Backlogged in that repo. The
       site's copy already states what the comparison does and does not license,
       so this only comes back here if the numbers change.
+
+### 9a. Critical-review pass — 2026-07-27
+
+Added 2026-07-27 from a hostile-but-fair peer-review sweep of every report,
+looking only for high-risk credibility gaps: uncited quantitative claims,
+figures that look fabricated or internally inconsistent, claim–citation
+mismatches, misread law, and misattributions. Ranked most-severe first. These
+are the ones a hostile expert could use to discredit ETC; fix in the source
+repo *and* the `src/content/publications/` copy.
+
+- [~] **[PARTLY FIXED 2026-07-27] After the Corridor: §05 figures read as bare
+      assertions** (`after-the-corridor.ts`, §05 financial-model). Correction on
+      first read: the figures ARE sourced — the site `citations` array carries
+      the UNHCR self-reliance blog and the World Bank / WEF sources (lines
+      556/559/563), matching footnotes `[^30]`/`[^31]` in the source `REPORT.md`.
+      The credibility problem was that the prose asserted them flatly with no
+      inline attribution. Fixed 2026-07-27: the Uganda/Kakuma/Colombia bullets
+      now attribute to "World Bank analysis," and the Dzaleka hero stat now
+      reads "53k to 60k" to match the body. STILL OPEN: the UNHCR `[^30]` figure
+      ($3.2B→$900M and the $56–62B/$41B benchmark) is sourced only to a bare
+      UNHCR blog with no figure on the page — replace with the specific UNHCR
+      document and page, or downgrade to an explicitly attributed estimate. The
+      original four flagged numbers, for reference: (a) the "joint World
+      Bank and UNHCR benchmark" of "US$56 to 62 billion annually, of which
+      about US$41 billion is already met by refugees' own earnings"; (b) "UNHCR
+      estimates ... complementary assistance costs would fall from about US$3.2
+      billion to roughly US$900 million a year" (a 72% collapse sourced only to
+      a bare UNHCR self-reliance blog URL); (c) "Colombia's regularization of
+      about 500,000 Venezuelans raised their incomes by about 31 percent" (the
+      headcount mis-scales the underlying PEP study population; income effect
+      uncited); (d) "Kakuma ... raised gross regional product by about 3.4
+      percent" and the Uganda "US$150 per refugee ... US$225 million"
+      pair. Fix: pin each figure to a specific source (title, year, page) or
+      downgrade to an attributed estimate; remove any that cannot be located.
+      Presenting these as facts the model merely "formalizes" is the single
+      biggest exposure across the reports.
+- [ ] **CERAI misreads the law its threshold depends on** (`cerai.ts`, §05 /
+      §08 / thesis / stat band). Three checkable IHL errors an international-law
+      reader would catch: (1) the 75% "Article 49 obligation" threshold is
+      built from a prohibition — GC IV Art 49 *prohibits* forcible transfer and
+      only *permits* evacuation as a narrow exception in *occupied territory*,
+      it does not mandate it; (2) §08 labels GC IV "Articles 16 and 24" as
+      protecting "children and the elderly," but Art 16 covers the wounded,
+      sick, infirm, and expectant mothers, and no GC IV article specifically
+      protects "the elderly" — the exact confusion the EvacSim report corrects
+      for its sister project; (3) it cites AP I Art 78 for internal child
+      evacuation, but Art 78 governs only evacuation of children to a *foreign
+      country*. Fix: reword the Art 49 basis to "permits as an exception," stop
+      calling 75% an "obligation," correct the Art 16/24 descriptors, and rely
+      on AP I Art 77 + GC IV Arts 24/50 for internal child protection.
+- [ ] **AI's Carbon Footprint: misattributed and outdated magnitudes**
+      (`ai-carbon-footprint.ts`, §04 / §02 / §03). (a) "Training LLaMA 3-70B
+      generated an estimated 2,290 metric tons of CO₂" — the cited model card
+      reports 2,290 t as the *combined* 8B + 70B total; the 70B alone is ~1,900
+      t. (b) "Wyoming, where 95 percent of electricity comes from coal" is
+      overstated/outdated (EIA ~71–79% and falling), and it underpins the "10×"
+      hero stat. (c) "an estimated 11,000 data centers globally (Minnix, 2025)"
+      cites a source absent from `citations` (which lists Brightlio). Fix:
+      correct the Meta figure to 1,900 t (or relabel 2,290 as the combined
+      total), update the Wyoming share to the current EIA figure and recheck
+      the 10× ratio, and reconcile the 11,000 citation. Note this file had a
+      ~1000× arithmetic error once before — verify every magnitude.
+- [x] **[FIXED 2026-07-27] What Is Ethical AI: internal contradiction + a
+      misattribution** (`what-is-ethical-ai.ts`, §09 / §12). Both fixed in the
+      site copy and the source `REPORT.md`: §12 now reads "twenty six other
+      states" (28 total, matching §09), and §09 now says Bietti "analyzed" (not
+      "named") ethics washing. Original detail below.
+      (1) The Bletchley Declaration count
+      disagrees with itself: §09 says "twenty eight countries and the EU" while
+      §12 says "the United States, China, the EU, and twenty five other states"
+      (27 + EU). The correct figure is 28 states + EU, so §12 is wrong — change
+      "twenty five other states" to "twenty six." (2) §09 says "Elettra Bietti
+      named ethics washing," but her cited FAccT 2020 paper coined *ethics
+      bashing*; "ethics washing" is credited elsewhere. Reword to "analyzed
+      ethics washing" or credit her with the term she actually coined.
+- [ ] **HASTE stat band contradicts its own body** (`haste.ts`, stat band vs
+      §08). The 0.84 stat label says "Parity arrives at ten per cent, where it
+      reaches 0.91," but 0.91 exceeds the fully-supervised 0.88 — that is
+      overtaking, not parity, and §08 correctly says "overtakes the baseline."
+      Fix: change the stat label to "the fast route overtakes the
+      fully-supervised baseline (0.91 vs 0.88)."
+- [ ] **Provenance Search: hand-recomputable score doesn't add up**
+      (`provenance-search.ts`, §05 variables). In the section whose selling
+      point is "the score can be recomputed by hand," with a 100 base and 30
+      points per custody gap, "Three take the score to zero on their own" is
+      false (3 × 30 = 90, leaving 10; four gaps reach zero). Fix: change to
+      "Three leave the score at 10" or "Four take the score to zero."
+- [ ] **Digital Provenance Passport: the case count contradicts itself**
+      (`digital-provenance-passport.ts`, §06 / §07 / §08 / §13). §07 and §13
+      say "five real and well-documented cases," §08 says "not limited to the
+      fifteen objects researched by hand," and §06 cites a sixth object (the
+      Getty Bronze, score 26) not in the five-case list. Fix: reconcile to a
+      single number and make sure every object referenced is covered by it.
+      (Related to the existing source-list item above.)
+- [ ] **EII: verify the INFORM weights stated as fact** (`evacuation-inform-index.ts`,
+      §03). The report asserts flatly that INFORM Severity combines "31 core
+      indicators into three weighted dimensions: impact at 20%, conditions of
+      affected people at 50%, complexity at 30%." Wrong weights would undermine
+      the tool's whole proxy-substitution argument. Fix: confirm the indicator
+      count and dimension weights against the current ACAPS/JRC methodology and
+      correct if they differ.
+- [ ] **Diplomatic Simulator: stale round-count phrasing**
+      (`diplomatic-simulator.ts`, §04). Now that the simulator covers six
+      scenarios, "The other three scenarios run three rounds" (written for four)
+      contradicts the six-scenario framing even though the aggregate
+      133-statement figure still closes. Fix: change "other three" to "other
+      five." Lower confidence: §05 attributes a "paid to be accurate" detail to
+      Tversky & Kahneman 1974 that is not clearly in that paper — drop it or
+      resource it.
+- [ ] **What Is Ethical AI hero stats (done 2026-07-27, confirm keep).** The
+      "4,000 years of ethics" and Gender Shades "34.7% / 0.8%" stats were
+      removed as not insight-bearing and replaced with the Signpost "15% not
+      safe" and ILO "$236B" figures, both drawn from the paper's own body.
+      Revert if the editor prefers the original four.
+
+*Clean on high-risk quantitative claims (no action):* `ercf.ts`,
+`mariupol-severity-model.ts`, `evacuation-simulation.ts`, `erus.ts`,
+`forced-labor-structural-risk-index.ts`, `ai-models-research.ts`,
+`ai-research-assistant.ts`, `vango.ts` — each is heavily self-caveated and its
+internal arithmetic reconciles. (ERUS's separate "answers no research question
+with a number" gap is already tracked in §9 above.)
 
 ---
 
