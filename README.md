@@ -5,6 +5,20 @@ Public website for the **NYU Center for Global Affairs × Microsoft Research Eth
 > *Exploring intervention opportunities at the intersection of emerging technologies and the human condition.*
 
 🔗 **Live site:** <https://ethical-tech-colab.github.io/website/>
+🎨 **Design system:** <https://ethical-tech-colab.github.io/website/design-system.html>
+
+## Design system
+
+The full visual identity — color tokens (dark + light), typography, atmosphere
+effects, layout tokens, and the site map — is documented so it can be replicated
+in other codebases:
+
+- **Visual style guide** (theme-aware, live swatches, site-map diagram):
+  <https://ethical-tech-colab.github.io/website/design-system.html>
+- **Written spec:** [docs/DESIGN-SYSTEM.md](docs/DESIGN-SYSTEM.md)
+
+The guide is a standalone static page (`public/design-system.html`); it is
+published alongside the site but is not part of the site's navigation.
 
 ## About the CoLab
 
