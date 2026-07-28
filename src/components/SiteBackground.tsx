@@ -18,13 +18,14 @@ import { asset } from "@/lib/asset";
  * lives in public/backgrounds/.
  */
 const BY_SECTION: Record<string, string> = {
-  "": "washington-square-arch", // home
-  about: "washington-square-arch-tall",
-  team: "nyu-subway", // people in motion under the NYU sign
+  "": "washington-square-arch-isabella", // home
+  about: "washington-square-park",
+  team: "nyu-subway-people", // people in motion under the NYU sign
   publications: "washington-square-aerial", // the park from above
-  portfolio: "washington-square-arch-tall",
+  portfolio: "washington-square-classic",
   demos: "washington-square-arch-tall",
   media: "nyu-subway",
+  newsletter: "washington-square-park",
   contact: "washington-square-arch",
 };
 
