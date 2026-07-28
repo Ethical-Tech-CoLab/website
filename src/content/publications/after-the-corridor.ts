@@ -31,26 +31,31 @@ export const afterTheCorridorReport = {
     "How can AI inform evacuation decisions, and what happens after? This report examines the CoLab's five fielded evacuation prototypes, their limitations and research frontiers, and extends the arc to the camp: the measurement, financial-modeling, and rights infrastructure that can shorten protracted displacement and improve lives. Dzaleka Refugee Camp in Malawi is the case study ground.",
 
   // Figures pulled from the body for the hero stat band.
+  // `href` jumps to the section where each figure is stated and sourced.
   stats: [
     {
       value: "6",
       label:
         "built instruments: five fielded evacuation prototypes and a completed forced-labour risk index, all open source",
+      href: "#built-portfolio",
     },
     {
       value: "53k to 60k",
       label:
         "people now at Dzaleka, a camp built in 1994 for 10,000 to 12,000",
+      href: "#dzaleka",
     },
     {
       value: "90%",
       label:
         "cut to UNHCR's Malawi budget, from about US$8 million to about US$1 million",
+      href: "#dzaleka",
     },
     {
       value: "0",
       label:
         "biometric identity systems: the category the CoLab refuses to build, recorded as a versioned decision pattern",
+      href: "#digital-identity-risk",
     },
   ],
 
