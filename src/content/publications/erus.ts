@@ -96,7 +96,7 @@ export const erusReport = {
         "Destinations are scored across seven factors. Three of them are treated as gatekeepers: Security, Authority consent, and Willingness. Any one of these being confirmed as blocked caps the destination's overall readiness at twenty per cent, regardless of how good everything else is. The remaining four factors, being Capacity, Shelter, Food and water, and Medical capacity, reduce a score proportionally rather than capping it.",
         "Because each factor is uncertain, the tool does not produce a single answer. It re-runs each pairing of a group and a destination five hundred times, each time randomly nudging factor assessments in proportion to how unreliable they are, and reports the proportion of runs in which the move would have succeeded. This is a standard technique known as Monte Carlo simulation.",
         "The model draws a distinction that most scoring systems collapse. A destination whose willingness to receive people has simply never been assessed is recorded as Unknown. A host community that has explicitly refused is recorded as Unwilling. The first is a gap that better field work could close. The second is a settled answer that no amount of further enquiry will change. Treating them identically would make a refusal look like a solvable research problem.",
-        "The software itself works and is publicly demonstrated. The project's own backlog is candid that its supporting documentation has fallen behind the code, that no parameter has been calibrated against real field data, and that the document it names as its authoritative methodology is not actually present in the repository.",
+        "The software itself works and is publicly demonstrated. The project's own backlog is candid that no parameter has been calibrated against real field data. An earlier version of this report noted that the document the project named as its authoritative methodology was not actually present in the repository. That has since been fixed by replacing it with a version-controlled methodology document, checked directly against the code.",
       ],
     },
     {
@@ -256,7 +256,7 @@ export const erusReport = {
         "Separately, the Field Uncertainty slider produces a single confidence multiplier applied to every factor at once. If the slider reads thirty per cent uncertainty, the multiplier is 0.70, and every factor's confidence is reduced to seventy per cent of what it was. This is the whole-environment term: how degraded is the information picture right now, across the board. The two multiply together to give an effective confidence for each factor. This is the pairing the concept note calls uncertainty twice over.",
         {
           lead: "How a factor score is actually computed.",
-          text: "A factor's contribution is its status value scaled by a confidence adjustment. The adjustment is not the raw confidence but 0.5 plus half of the effective confidence. In plain terms, a factor never loses more than half its value to uncertainty. A destination reported as Operational with perfect confidence contributes its full 1.0. The same destination reported as Operational with no confidence at all contributes 0.5, the same as a confidently-reported Partial. Blocked is the exception. It scores zero regardless of confidence, on the reasoning that a reported blockage should not be discounted merely because the report is shaky.",
+          text: "A factor's contribution is its status value scaled by a confidence adjustment. The adjustment is not the raw confidence but 0.5 plus half of the effective confidence. In plain terms, a factor never loses more than half its value to uncertainty. A destination reported as Operational with perfect confidence contributes its full 1.0. The same destination reported as Operational with no confidence at all contributes 0.5, the same as a confidently-reported Partial. Blocked is the exception. It scores zero regardless of confidence, on the reasoning that a reported blockage should not be discounted merely because the report is shaky. That does not make a Blocked factor's confidence value dead weight: it still feeds the perturbation probability described further down, where a lower confidence makes a trial more likely to flip that factor to a different status.",
         },
         {
           lead: "The weights and the gatekeeper cap.",
@@ -322,12 +322,34 @@ export const erusReport = {
           },
         },
         "The in-app methodology states the ordering these weights encode: protection quality first, physical fit second, operational burden third, population needs fourth.",
-        "One observation worth recording. Because vulnerability match is checked only against medical capacity, a group whose stated need is mobility rather than medical is rewarded by the presence of a clinic. The mobility need has no separate representation anywhere in the scoring. This is a simplification the documentation does not flag.",
+        "One observation worth recording. Because vulnerability match is checked only against medical capacity, a group whose stated need is mobility rather than medical is rewarded by the presence of a clinic. The mobility need has no separate representation anywhere in the scoring. The obvious remedy is a second, independent accessibility factor, generated and scored the same way as the existing seven and checked against a mobility need the way medical capacity is checked against a medical one. That has not been built yet, since it would change the balance between gatekeeper and standard factors and the shape of every generated destination, which is a modelling decision rather than a small fix.",
+        {
+          table: {
+            caption:
+              "Three terms this report uses that are easy to conflate, since all three describe how good something is at a different point in the pipeline.",
+            headers: ["Term", "What it measures"],
+            rows: [
+              [
+                "Readiness",
+                "A single destination's own quality, independent of any particular group",
+              ],
+              [
+                "Composite score",
+                "How well a destination fits one specific group, blending readiness with capacity fit, proximity, and vulnerability match",
+              ],
+              [
+                "Success rate",
+                "The predicted outcome of assigning one group to one destination, the share of five hundred trials that clear the readiness, capacity, and gatekeeper conditions at once",
+              ],
+            ],
+          },
+        },
+        "A destination can rank first by composite score for a group and still have a low success rate, because composite score blends readiness with logistics terms that a hard gatekeeper cap does not touch. The worked example below shows this happening.",
         {
           intro:
             "Three numbers govern the simulation of uncertainty itself:",
           list: [
-            "Runs, set to 500 per group and destination pair. This is how many times each pairing is tested. More runs give a tighter estimate at the cost of speed, and the information-value panel uses a cheaper 100 runs whose output the documentation says should be read as directional only.",
+            "Runs, set to 500 per group and destination pair. This is how many times each pairing is tested. More runs give a tighter estimate at the cost of speed. The information-value panel originally used a cheaper 100 runs, but that count produced estimates too noisy to trust, so it now uses the same 500 runs as everywhere else in the tool.",
             "Maximum perturbation probability, set to 0.85. This is the ceiling on how likely a factor's assessment is to be wrong in a given trial, so that at an effective confidence of zero a factor still has a fifteen per cent chance of being reported correctly. The tool never assumes information is entirely worthless.",
             "The perturbation step, fixed at one level. When a factor is judged to be misreported it moves exactly one place better or worse along the sequence, with an even chance of each direction. The documentation acknowledges this as a simplification, noting that a real mis-assessment could jump multiple levels, such as an Operational site being reported as Blocked.",
           ],
@@ -335,7 +357,7 @@ export const erusReport = {
         "Factors already recorded as Unknown are never perturbed. Uncertainty about an unknown is already expressed in its low score and low confidence.",
         {
           lead: "The success threshold.",
-          text: "A single trial counts as a success only if three conditions hold together: readiness reaches at least forty per cent, the destination's capacity is at least the group's size, and no gatekeeper is blocked in that trial. The tool's own source table attributes the forty per cent floor to the UNHCR Handbook for Emergencies, and that attribution does not hold. Readiness is a construct internal to this tool, a weighted average of seven invented factor scores, so no external handbook can define a minimum readiness threshold for it. The floor is an unsourced modelling assumption, and the documentation elsewhere says as much: an operational approximation which should be calibrated against field data before any applied use. It is recorded here as an assumption rather than a standard. By contrast the two Sphere figures cited later, fifteen litres of water per person per day and 3.5 square metres of covered space, are accurate and are correctly described as informing which factors exist rather than validating any weight.",
+          text: "A single trial counts as a success only if three conditions hold together: readiness reaches at least forty per cent, the destination's capacity is at least the group's size, and no gatekeeper is blocked in that trial. An earlier version of the tool's own source table attributed the forty per cent floor to the UNHCR Handbook for Emergencies. That attribution has since been withdrawn as incorrect: readiness is a construct internal to this tool, a weighted average of seven invented factor scores, so no external handbook can define a minimum readiness threshold for it. The floor is now labelled what it actually is, an unsourced modelling assumption, uncalibrated and chosen by the authors. By contrast the two Sphere figures cited later, fifteen litres of water per person per day and 3.5 square metres of covered space, are accurate and are correctly described as informing which factors exist rather than validating any weight.",
         },
         "Note that a destination whose gatekeeper is blocked is capped at twenty per cent readiness, which is below the forty per cent floor. The cap and the threshold are therefore consistent by construction: a blocked gatekeeper cannot produce a successful trial.",
       ],
@@ -373,6 +395,104 @@ export const erusReport = {
           lead: "Alerts.",
           text: "Warnings surface unassigned groups and destinations excluded by a named gatekeeper.",
         },
+        {
+          lead: "A worked example.",
+          text: "Everything above describes what the tool computes. This report also ran it, at the exact citation the reproducibility section recommends: seed 42, eight destinations, three groups, thirty per cent uncertainty. Anyone can regenerate the same scenario at that address on the live site. Of the eight generated destinations, five carry a blocked gatekeeper and are capped at twenty per cent readiness, matching what the project's backlog reports for this seed. The three evacuee groups drawn are Unaccompanied minors, 632 people, immediate; Elderly and mobility-impaired, 378 people, immediate; and Mixed general population, 483 people, can wait.",
+        },
+        {
+          table: {
+            caption: "The assignment this scenario actually produces.",
+            headers: [
+              "Group",
+              "Assigned destination",
+              "Composite score",
+              "Readiness",
+              "Predicted success",
+              "Riskiest factor",
+            ],
+            rows: [
+              [
+                "Unaccompanied minors",
+                "Zone Golf",
+                "66.7%",
+                "20.0%, gatekeeper capped",
+                "20.2%",
+                "Willingness, Unwilling",
+              ],
+              [
+                "Elderly and mobility-impaired",
+                "Station Hotel",
+                "72.4%",
+                "47.1%",
+                "48.0%",
+                "Capacity, Unknown",
+              ],
+              [
+                "Mixed general population",
+                "Zone Golf",
+                "61.7%",
+                "20.0%, gatekeeper capped",
+                "17.8%",
+                "Willingness, Unwilling",
+              ],
+            ],
+          },
+        },
+        "Two of the three groups were sent to Zone Golf, the one destination in the pool whose Willingness gatekeeper is blocked. This is what the weighting in the composite score does when a capped but close and roomy site outranks a viable but farther one. Zone Golf sits 26 kilometres away with ample spare capacity, so its capacity fit and proximity terms offset its capped readiness in the blended score. The alternative available to the minors group scored lower on the composite, 63.3% against Zone Golf's 66.7%, but carried a predicted success rate of 49%, more than double. The alternative available to the mixed population group scored 57.4% but carried a success rate of 73.2%, roughly four times higher.",
+        "This is the answer this report can now give to the first of the project's three research questions. Multi-factor readiness does not translate into a probable outcome by simple ranking. The composite score the tool actually assigns on blends readiness with logistics terms that can outweigh a hard readiness cap, so the top ranked destination and the destination most likely to succeed are not always the same place, and in this scenario were not the same place for two of the three groups.",
+        {
+          lead: "The same scenario at higher uncertainty.",
+          text: "Re-running the identical destinations and groups, nothing regenerated, at eighty per cent uncertainty instead of thirty gives a clean test of the second research question.",
+        },
+        {
+          table: {
+            caption:
+              "Predicted success for the same three groups at two uncertainty levels.",
+            headers: [
+              "Group",
+              "Assigned destination",
+              "Success at 30% uncertainty",
+              "Success at 80% uncertainty",
+              "Fall",
+            ],
+            rows: [
+              [
+                "Unaccompanied minors",
+                "Zone Golf, unchanged",
+                "20.2%",
+                "12.6%",
+                "38% relative",
+              ],
+              [
+                "Elderly and mobility-impaired",
+                "Station Hotel, unchanged",
+                "48.0%",
+                "14.8%",
+                "69% relative",
+              ],
+              [
+                "Mixed general population",
+                "Zone Golf, unchanged",
+                "17.8%",
+                "13.8%",
+                "22% relative",
+              ],
+            ],
+          },
+        },
+        "The assigned destination for every group is identical at both uncertainty levels. Nothing about the scenario moved. Yet predicted success fell for all three, by very different amounts. Elderly and mobility-impaired lost more than two thirds of its predicted success, Mixed general population lost about a fifth. The unevenness, not just the direction, is the finding the project's earlier peer review said the report was missing.",
+        {
+          lead: "The sensitivity chart, corrected.",
+          text: "The chart plots predicted success against uncertainty from zero to one hundred per cent by re-selecting whichever destination currently scores highest at each of eleven levels, rather than holding one destination fixed. An earlier pass through this exact scenario found that this re-selection step could pick a destination whose capacity was too small for the group, which forced a flat, misleading zero per cent success rate at low uncertainty for one group before the chart jumped once a viable destination became the top scorer. That has since been fixed: the chart now applies the same capacity check the actual assignment step already used. The corrected curve for that group is noisier than a clean decline, wobbling within the range ordinary Monte Carlo variance produces at 500 runs, but the systematic jump is gone.",
+        },
+        {
+          lead: "The Factor Information Value ranking, corrected.",
+          text: "For each factor, the panel asks what would happen to mean predicted success if every Unknown instance of that factor were resolved to Operational. Run at its original 100 trial count against this exact scenario, three of the seven factors showed a negative estimated gain, as large as almost seven percentage points, which is not possible in the underlying model, since resolving a factor toward Operational can only raise or hold its score, never lower it. The panel's trial count has since been raised to match the tool's main 500 run engine, and every delta in this scenario is now within about a percentage point of zero. The corrected finding is smaller but more honest: in this particular scenario, none of the seven factors' unresolved instances would move predicted success by more than about a point, and the panel can now say so with reasonable confidence instead of implying an effect that was sampling noise.",
+        },
+        {
+          lead: "Answering the three research questions.",
+          text: "Read together, the worked example above does what the project's earlier peer review said the report needed to do. It answers, rather than restates, all three questions the project sets itself. How does multi-factor readiness translate into a probable outcome. Not by simple ranking, since the composite score can send a group to a hard-capped destination over a viable alternative with several times its predicted success. How does degraded field intelligence propagate through an evacuation decision. Unevenly, with the same fixed scenario losing between a fifth and two thirds of its predicted success across three different groups, depending on which factor was driving that group's score. Where would real-time assessment help most. At this scenario's default run count, the honest answer is that the difference is not resolvable from noise, which is itself a finding about how much assessment volume the tool's own panel needs before its ranking should be acted on.",
+        },
       ],
     },
     {
@@ -388,7 +508,7 @@ export const erusReport = {
           lead: "Unknown against Unwilling.",
           text: "When the Willingness factor is Blocked, the tool displays the word Unwilling rather than the generic Blocked, throughout the interface and in generated text. The point is not cosmetic. Unknown is an intelligence gap that better assessment can close. Unwilling is a confirmed exclusion that no further enquiry will change. A tool whose purpose is to identify where more information would help must not present a settled refusal as an open question, or it commits the very error it exists to expose.",
         },
-        "The project's backlog is honest that this change had consequences. Because gatekeeper factors are generated with a higher probability of being blocked than standard factors, promoting Willingness to gatekeeper status raised the number of excluded destinations in the default scenario from roughly two in eight to roughly five in eight. The backlog records this as the intended fix but also flags that the exclusion rate should be re-tested before results from this version are cited, in case it is an artefact of reusing a status distribution designed for a different kind of factor.",
+        "The project's backlog is honest that this change had consequences. Because gatekeeper factors are generated with a higher probability of being blocked than standard factors, promoting Willingness to gatekeeper status raised the number of excluded destinations in the default scenario from roughly two in eight to roughly five in eight. That rate has since been checked across 500 different seeds rather than just the one the project cites: the mean exclusion count is 4.48 of 8, with 5 in 8 sitting inside the two most common outcomes rather than at an extreme, confirming the rate is the model's typical behaviour rather than an artefact of that particular seed.",
       ],
     },
     {
@@ -401,7 +521,7 @@ export const erusReport = {
           intro: "The sources the tool names are as follows.",
           list: [
             "The Sphere Handbook, fourth edition, 2018, behind the Shelter and Food and water factors. Sphere is a voluntary set of minimum standards for humanitarian response, developed by a coalition of humanitarian organisations. The two figures the tool cites from it are accurate: a minimum of 15 litres of water per person per day, and 3.5 square metres of covered living space per person.",
-            "The UNHCR Handbook for Emergencies, third edition, 2007. The tool cites this as the origin of the forty per cent minimum readiness threshold. That attribution does not survive examination, since readiness is a construct internal to the tool, and the threshold is treated in this report as an unsourced modelling assumption.",
+            "The UNHCR Handbook for Emergencies, third edition, 2007. An earlier version of the tool cited this as the origin of the forty per cent minimum readiness threshold. That attribution has since been withdrawn as incorrect, since readiness is a construct internal to the tool. The handbook is retained for what it does support, informing which readiness factors are worth modelling, and the threshold itself is treated in this report as an unsourced modelling assumption.",
             "Inter-Agency Standing Committee guidance from 2007, cited behind the Authority consent gatekeeper. The Inter-Agency Standing Committee is the main coordination forum of the United Nations and non-governmental humanitarian system. Its guidance in this area establishes that humanitarian operations require the consent of the host government, which is the principle the gatekeeper encodes.",
             "Additional Protocol I to the Geneva Conventions, 1977, Articles 12 and 58, behind the Medical capacity and Security factors. Article 12 protects medical units from attack. Article 58 requires parties to a conflict to take precautions to protect civilians under their own control from the effects of attacks.",
             "An ICRC publication from 2013 on violence and the use of force, cited as grounding the Security gatekeeper. The ICRC is the International Committee of the Red Cross, the body with a specific mandate under the Geneva Conventions.",
@@ -442,16 +562,16 @@ export const erusReport = {
           text: "The simulator is complete and functional. It is one self-contained web page with no installation, no build step, and no external dependencies, which is a deliberate choice so that it will still run years from now without a toolchain to maintain. It is published as a live public demonstration through GitHub Pages. All of the mechanics described above are implemented in the code and were verified against it for this report.",
         },
         {
-          lead: "What is not built.",
-          text: "There are no automated tests of any kind. The project's own backlog identifies the scoring, perturbation, simulation, and assignment functions as good candidates for tests that would catch accidental changes to the formulas, and notes that none exist. There is no licence file, which means the terms on which anyone else may use the work are undefined.",
+          lead: "What was not built, and has since been added.",
+          text: "Earlier versions of this report and of the project's own backlog stated there were no automated tests and no licence file. Both gaps have since been closed. The scoring, perturbation, simulation, and assignment functions now live in a standalone engine file, with a regression suite that pins known seed to known output results, including the exact figures in the worked example above. The repository carries an MIT licence. What remains genuinely absent is calibration against real data.",
         },
         {
-          lead: "A documentation problem worth stating plainly.",
-          text: "Both the README and the tool's own methodology section name a Word document, Evacuation_Simulator_Methodology.docx, as the authoritative source for formula derivations and citations, to be preferred over the in-app text if the two ever disagree. That document is not in the repository. It is excluded from version control by the repository's own ignore rules, along with all spreadsheet and comma-separated data files. A reader who obtains a copy of this repository therefore cannot consult the document the repository tells them is authoritative. The backlog separately notes that this document is behind the code in at least four respects, including the number of simulation runs and the promotion of Willingness to gatekeeper status, and that its closing claim to have been automatically generated from the source code is not accurate.",
+          lead: "A documentation problem, now resolved.",
+          text: "Earlier versions of this report and of the README named a Word document as the authoritative source for formula derivations and citations, to be preferred over the in-app text if the two ever disagreed. That document was excluded from version control, so a reader who obtained a copy of the repository could not consult the document the repository told them was authoritative, and it was separately behind the code in several respects, including the number of simulation runs and the promotion of Willingness to gatekeeper status. This has been fixed by retiring that document and replacing it with a version-controlled methodology file that makes no claim to being auto-generated, is checked directly against the code, and carries its own changelog recording exactly what it corrects relative to the old one.",
         },
         {
           lead: "Which claims in this report can be checked, and which cannot.",
-          text: "The distinction matters more than it might appear, because it is not uniform across the report. Everything describing what the tool computes was read off the source: the scoring rule, the confidence adjustment, the gatekeeper cap, the perturbation probability, the composite weights, the success conditions, and the seeded generator. A reader with the repository open can verify all of it. Everything explaining why a parameter takes the value it does rests on the project documents, and the authoritative one among them is the document just described as absent. That includes the reasoning for promoting Willingness to gatekeeper status, the field taxonomy said to ground the eight population types, and the derivation of the 0.30 score for Unknown. Those are reported here as the project's stated rationale, not as claims this report can stand behind.",
+          text: "The distinction matters more than it might appear, because it is not uniform across the report. Everything describing what the tool computes was read off the source: the scoring rule, the confidence adjustment, the gatekeeper cap, the perturbation probability, the composite weights, the success conditions, and the seeded generator. A reader with the repository open can verify all of it. Everything explaining why a parameter takes the value it does rests on the project documents, and the authoritative one among them, the project's methodology document, is now version-controlled and can be consulted directly rather than taken on trust. That includes the reasoning for promoting Willingness to gatekeeper status, the field taxonomy said to ground the eight population types, and the derivation of the 0.30 score for Unknown.",
         },
         {
           lead: "History of drift.",
@@ -490,7 +610,7 @@ export const erusReport = {
         },
         {
           lead: "The population model is coarse.",
-          text: "Eight archetypes with fixed vulnerability values, of which only three distinct values are used, and a single binary check against medical capacity. Group composition, disability other than mobility, language, and legal status are not represented.",
+          text: "Eight archetypes with fixed vulnerability values, of which only three distinct values are used, and a single binary check against medical capacity. Group composition, disability other than mobility, language, and legal status are not represented. The specific fix for the mobility case, a dedicated accessibility factor scored the way medical capacity is scored today, is a proposed but not yet made change, since it would shift the balance between gatekeeper and standard factors.",
         },
         {
           lead: "The outputs mean nothing about the real world.",
@@ -517,9 +637,9 @@ export const erusReport = {
       number: "14",
       title: "Conclusion",
       paragraphs: [
-        "The most useful thing about this simulator is a relationship it makes easy to inspect. Move the uncertainty slider and predicted outcomes deteriorate while the scenario behind them is provably unchanged, because the scenario is regenerated only on demand and not when the slider moves. The degradation is entirely an artefact of what is knowable. That the direction of the effect is built into the scoring rule rather than discovered by it is stated above and should not be forgotten; what the tool contributes is the magnitude, the differing slopes across population types, and the ranking of which unknowns are worth resolving first. Making those visible, and reproducible from a seed, is a more honest contribution than a tool that produced confident numbers would be.",
+        "The most useful thing about this simulator is a relationship it makes easy to inspect. Move the uncertainty slider and predicted outcomes deteriorate while the scenario behind them is provably unchanged, because the scenario is regenerated only on demand and not when the slider moves. The degradation is entirely an artefact of what is knowable. That the direction of the effect is built into the scoring rule rather than discovered by it is stated above and should not be forgotten; what the tool contributes is the magnitude, the differing slopes across population types, and the ranking of which unknowns are worth resolving first, shown with real numbers in the worked example above. Making those visible, and reproducible from a seed, is a more honest contribution than a tool that produced confident numbers would be.",
         "The two epistemic distinctions are the other substantive contribution. Separating a confident admission of ignorance from an unreliable one, and separating an open question from a settled refusal, are both choices that a simpler scoring system would have flattened. The decision to promote Willingness to a gatekeeper, and to name it Unwilling rather than Blocked, came from noticing that the arithmetic was allowing a good food supply to outvote a community's refusal. That is the kind of error that is easy to make and hard to see once made.",
-        "The candour of the project's own backlog is worth noting as a practice in itself. It records the absent methodology document, the stale published build, the uncalibrated thresholds, the missing tests, and the possibility that its own most recent modelling change produced an exclusion rate that is an artefact rather than an intention. A research instrument that catalogues its own weaknesses this specifically is easier to trust about what it does claim.",
+        "The candour of the project's own backlog is worth noting as a practice in itself. Across this project's history it has recorded an absent methodology document, since replaced with a version-controlled one; a stale published build, since fixed; previously missing tests, since added; and the possibility that its own most recent modelling change produced an exclusion rate that is an artefact rather than an intention, since checked across 500 seeds and confirmed as typical rather than artefactual. What remains open is calibration against real data, which the backlog names honestly as the one gap tests and documentation cannot close. A research instrument that catalogues its own weaknesses this specifically, and then closes them out in the same place it recorded them, is easier to trust about what it still claims.",
         "What remains, before any of this could be more than a demonstration, is calibration. Every threshold in the tool is a considered guess. The tool is transparent about which guesses they are and where each one lives in the code, which is the necessary precondition for someone eventually replacing them with measurements.",
       ],
     },
@@ -531,7 +651,7 @@ export const erusReport = {
       url: "https://spherestandards.org/handbook/",
     },
     {
-      ref: "United Nations High Commissioner for Refugees. Handbook for Emergencies, third edition, 2007. Cited as the origin of the forty per cent minimum readiness threshold.",
+      ref: "United Nations High Commissioner for Refugees. Handbook for Emergencies, third edition, 2007. An earlier version of the tool's documentation cited this as the origin of the forty per cent minimum readiness threshold. That attribution has been withdrawn. The handbook is retained here for informing which readiness factors are worth modelling.",
     },
     {
       ref: "Inter-Agency Standing Committee. Guidance on humanitarian operations requiring the consent of the host government, 2007. Behind the Authority consent gatekeeper.",
