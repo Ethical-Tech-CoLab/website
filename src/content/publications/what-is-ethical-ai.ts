@@ -36,27 +36,33 @@ export const whatIsEthicalAiReport = {
   thesis:
     "What is ethics, and why did humanity invent it? What makes technology ethical, international relations ethical, and artificial intelligence ethical? This paper answers those questions in that order, on the conviction that the issue at the heart of artificial intelligence is power and that ethics is humanity's oldest and most tested answer to the problem of governing power. It traces ethics from its origins in the earliest civilizations through international affairs and human rights law to the responsible AI movement, the humanitarian sector, and the United Nations system, and closes with the motivation and research philosophy of the Ethical Tech CoLab.",
 
-  // Figures pulled from the body for the hero stat band.
+  // Figures pulled from the body for the hero stat band. `href` jumps to the
+  // section where each figure is stated and sourced, so a reader can click the
+  // number and land on the passage it comes from.
   stats: [
     {
       value: "84",
       label:
         "AI ethics guidelines mapped by Jobin, Ienca, and Vayena, converging on five principles but diverging on how to apply them",
+      href: "#what-is-ethical-ai",
     },
     {
       value: "118",
       label:
         "countries, overwhelmingly in the Global South, party to none of the major AI governance initiatives the UN surveyed",
+      href: "#international-affairs",
     },
     {
       value: "15%",
       label:
         "of responses in the IRC's Signpost AI pilot could not be rated safe, the evaluators' basis for concluding the tool is not safe without a human in the loop",
+      href: "#humanitarian-history",
     },
     {
       value: "$236B",
       label:
         "in annual illegal profits from forced labour, the ILO estimate that frames the CoLab's Forced Labor Structural Risk Index",
+      href: "#colab",
     },
   ],
 

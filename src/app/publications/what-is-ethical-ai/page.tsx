@@ -100,16 +100,41 @@ export default function WhatIsEthicalAiPage() {
       {/* Key figures */}
       <section className="border-b border-border bg-surface/40">
         <div className="mx-auto grid max-w-6xl gap-px overflow-hidden border-x border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
-          {whatIsEthicalAiReport.stats.map((stat) => (
-            <div key={stat.value} className="bg-background p-7">
-              <p className="font-heading text-4xl uppercase leading-none text-accent sm:text-5xl">
-                {stat.value}
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
-                {stat.label}
-              </p>
-            </div>
-          ))}
+          {whatIsEthicalAiReport.stats.map((stat) => {
+            const href = "href" in stat ? stat.href : undefined;
+            const body = (
+              <>
+                <p className="font-heading text-4xl uppercase leading-none text-accent sm:text-5xl">
+                  {stat.value}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-muted">
+                  {stat.label}
+                </p>
+                {href && (
+                  <p className="mt-3 inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider text-muted transition-colors group-hover/stat:text-accent">
+                    Jump to source{" "}
+                    <span aria-hidden className="transition-transform group-hover/stat:translate-y-0.5">
+                      ↓
+                    </span>
+                  </p>
+                )}
+              </>
+            );
+            return href ? (
+              <a
+                key={stat.value}
+                href={href}
+                aria-label={`${stat.value}: jump to where this figure is discussed`}
+                className="group/stat block bg-background p-7 transition-colors hover:bg-card focus-visible:bg-card focus-visible:outline-none"
+              >
+                {body}
+              </a>
+            ) : (
+              <div key={stat.value} className="bg-background p-7">
+                {body}
+              </div>
+            );
+          })}
         </div>
       </section>
 
