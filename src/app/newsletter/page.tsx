@@ -47,8 +47,32 @@ export default function NewsletterPage() {
       <SectionTabs />
 
       <div className="mx-auto max-w-6xl px-6 py-20">
+        <div className="grid gap-6 sm:grid-cols-2">
+          {newsletterIssues.map((issue) => (
+            <Reveal key={issue.slug}>
+              <Link
+                href={`/newsletter/${issue.slug}`}
+                className="card-glow flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-colors hover:border-border-strong"
+              >
+                <p className="font-mono text-xs text-accent">
+                  {issue.edition}
+                </p>
+                <h3 className="mt-3 font-heading text-lg uppercase leading-snug tracking-wide">
+                  Monthly Intelligence Brief
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted">
+                  {issue.blurb}
+                </p>
+                <span className="mt-auto pt-4 text-sm font-medium text-accent">
+                  Read the issue →
+                </span>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+
         <Reveal>
-          <div className="card-glow rounded-2xl border border-border-strong bg-card p-8 sm:p-10">
+          <div className="card-glow mt-20 rounded-2xl border border-border-strong bg-card p-8 sm:p-10">
             <h2 className="font-heading text-2xl uppercase tracking-wide">
               Subscribe
             </h2>
@@ -79,35 +103,6 @@ export default function NewsletterPage() {
             </form>
           </div>
         </Reveal>
-
-        <Reveal>
-          <h2 className="mt-20 font-heading text-2xl uppercase tracking-wide">
-            Issues
-          </h2>
-        </Reveal>
-        <div className="mt-8 grid gap-6 sm:grid-cols-2">
-          {newsletterIssues.map((issue) => (
-            <Reveal key={issue.slug}>
-              <Link
-                href={`/newsletter/${issue.slug}`}
-                className="card-glow flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-colors hover:border-border-strong"
-              >
-                <p className="font-mono text-xs text-accent">
-                  {issue.edition}
-                </p>
-                <h3 className="mt-3 font-heading text-lg uppercase leading-snug tracking-wide">
-                  Monthly Intelligence Brief
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted">
-                  {issue.blurb}
-                </p>
-                <span className="mt-auto pt-4 text-sm font-medium text-accent">
-                  Read the issue →
-                </span>
-              </Link>
-            </Reveal>
-          ))}
-        </div>
       </div>
     </>
   );

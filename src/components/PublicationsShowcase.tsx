@@ -9,6 +9,8 @@ import {
 } from "@/content/site";
 import { PosterRail } from "@/components/PosterRail";
 import { Tilt3D } from "@/components/motion/Tilt3D";
+import { ReportBook } from "@/components/ReportBook";
+import { bookForUrl } from "@/content/publications/books";
 
 /**
  * The Publications catalogue.
@@ -373,6 +375,7 @@ function readable(pub: Publication) {
 function Cover({ pub, onOpen }: { pub: Publication; onOpen: () => void }) {
   const [main, sub] = splitTitle(pub.title);
   const seed = Number(pub.index);
+  const hasBook = Boolean(bookForUrl(pub.url));
 
   return (
     <Tilt3D max={5} className="h-full">
@@ -399,6 +402,20 @@ function Cover({ pub, onOpen }: { pub: Publication; onOpen: () => void }) {
               "linear-gradient(180deg, transparent 34%, color-mix(in oklab, #0c0812 68%, transparent) 58%, #0c0812 92%)",
           }}
         />
+
+        {/* A book view is worth advertising on the shelf: it is the only way to
+            see the report as it was designed. Sits opposite the status pill. */}
+        {hasBook && (
+          <span
+            className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-wider shadow-sm"
+            style={{
+              background: "var(--poster-accent)",
+              color: "var(--poster-accent-ink)",
+            }}
+          >
+            <span aria-hidden>📖</span> Book
+          </span>
+        )}
 
         {/* Status rides the cover the way a poster carries its rating */}
         <span className="absolute right-3 top-3">
@@ -498,6 +515,7 @@ function PublicationSheet({
 
   const [main, sub] = splitTitle(pub.title);
   const onSite = pub.url.startsWith("/");
+  const book = bookForUrl(pub.url);
 
   const action =
     "flex w-full items-center justify-between gap-4 rounded-xl border border-border bg-card px-5 py-4 text-left transition-colors hover:border-accent";
@@ -591,6 +609,25 @@ function PublicationSheet({
                         ↗
                       </span>
                     </a>
+                  )}
+                  {book && (
+                    <ReportBook
+                      title={main}
+                      pages={book.pages}
+                      aspect={book.aspect}
+                      pdfUrl={pub.pdf}
+                      className={action}
+                    >
+                      <span className="font-semibold text-foreground">
+                        Read as book{" "}
+                        <span className="font-normal text-muted">
+                          (flip the original pages)
+                        </span>
+                      </span>
+                      <span aria-hidden className="text-accent">
+                        📖
+                      </span>
+                    </ReportBook>
                   )}
                   {pub.pdf && (
                     <a

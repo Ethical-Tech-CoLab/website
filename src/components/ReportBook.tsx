@@ -11,7 +11,7 @@
 // It is deliberately self-contained: give it the manifest values and the base
 // image path and it renders. Only wired on After the Corridor for now.
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { asset } from "@/lib/asset";
 
 type Props = {
@@ -25,9 +25,18 @@ type Props = {
   pdfUrl?: string;
   /** Optional class overrides for the trigger button. */
   className?: string;
+  /** Optional custom trigger content; defaults to "Read as book 📖". */
+  children?: ReactNode;
 };
 
-export function ReportBook({ pages, aspect, title, pdfUrl, className }: Props) {
+export function ReportBook({
+  pages,
+  aspect,
+  title,
+  pdfUrl,
+  className,
+  children,
+}: Props) {
   const [open, setOpen] = useState(false);
   const [ready, setReady] = useState(false);
   const [page, setPage] = useState(0);
@@ -132,7 +141,11 @@ export function ReportBook({ pages, aspect, title, pdfUrl, className }: Props) {
           "btn-sweep inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-border-strong"
         }
       >
-        Read as book <span aria-hidden>📖</span>
+        {children ?? (
+          <>
+            Read as book <span aria-hidden>📖</span>
+          </>
+        )}
       </button>
 
       {open && (
@@ -140,7 +153,7 @@ export function ReportBook({ pages, aspect, title, pdfUrl, className }: Props) {
           role="dialog"
           aria-modal="true"
           aria-label={`${title} — page view`}
-          className="fixed inset-0 z-[100] flex flex-col bg-black/92 backdrop-blur-sm"
+          className="fixed inset-0 z-[110] flex flex-col bg-black/92 backdrop-blur-sm"
         >
           {/* Chrome */}
           <div className="flex items-center justify-between gap-3 px-4 py-3 text-sm text-white/85 sm:px-6">
