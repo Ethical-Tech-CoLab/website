@@ -24,12 +24,12 @@ export const whatIsEthicalAiReport = {
   authors:
     "Ethical Tech CoLab · NYU School of Professional Studies Center for Global Affairs, in collaboration with Microsoft. Master's Research · M.S. in Global Affairs.",
   repoUrl: "https://github.com/Ethical-Tech-CoLab/what-is-ethical-ai",
-  // PDF slot is wired but not yet filled. Drop the designed PDF into the
-  // repo at docs/pdf/What-Is-Ethical-AI-ETC-Report.pdf, then set this to
-  // "https://ethical-tech-colab.github.io/what-is-ethical-ai/pdf/What-Is-Ethical-AI-ETC-Report.pdf"
-  // and add the same string as `pdf` on this entry in src/content/site.ts.
-  // Until then the download button is hidden rather than left to 404.
-  pdfUrl: "",
+  // Designed PDF now lives in the report repo at
+  // docs/pdf/What-Is-Ethical-AI-ETC-Report.pdf (served by Pages) and is also
+  // the source for the "Read as book" page-flip view. Keep `pdf` on this
+  // entry in src/content/site.ts pointing at the same URL.
+  pdfUrl:
+    "https://ethical-tech-colab.github.io/what-is-ethical-ai/pdf/What-Is-Ethical-AI-ETC-Report.pdf",
   disclaimer:
     "The Ethical Tech CoLab is a research initiative of the NYU School of Professional Studies Center for Global Affairs, conducted in collaboration with Microsoft. Views and findings are those of the researchers and do not represent the official positions of New York University, Microsoft, or any partner institution. External programs cited are referenced as evidence, not as CoLab partnerships.",
 

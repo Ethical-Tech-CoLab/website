@@ -4,6 +4,8 @@ import { whatIsEthicalAiReport } from "@/content/publications/what-is-ethical-ai
 import { SectionTabs } from "@/components/SectionTabs";
 import { Reveal } from "@/components/motion/Reveal";
 import { ReportBody } from "@/components/ReportBody";
+import { ReportBook } from "@/components/ReportBook";
+import { whatIsEthicalAiBook } from "@/content/publications/what-is-ethical-ai-book";
 
 export const metadata: Metadata = {
   title: "What Is Ethical AI?",
@@ -68,6 +70,12 @@ export default function WhatIsEthicalAiPage() {
                   Download the PDF <span aria-hidden>↗</span>
                 </a>
               )}
+              <ReportBook
+                title="What Is Ethical AI?"
+                pages={[...whatIsEthicalAiBook.pages]}
+                aspect={whatIsEthicalAiBook.aspect}
+                pdfUrl={whatIsEthicalAiReport.pdfUrl}
+              />
               <a
                 href={whatIsEthicalAiReport.repoUrl}
                 target="_blank"

@@ -7,6 +7,7 @@
 // report with a designed PDF.
 
 import { afterTheCorridorBook } from "./after-the-corridor-book";
+import { whatIsEthicalAiBook } from "./what-is-ethical-ai-book";
 
 export type BookView = {
   pages: string[];
@@ -17,6 +18,10 @@ export const bookViews: Record<string, BookView> = {
   "after-the-corridor": {
     pages: [...afterTheCorridorBook.pages],
     aspect: afterTheCorridorBook.aspect,
+  },
+  "what-is-ethical-ai": {
+    pages: [...whatIsEthicalAiBook.pages],
+    aspect: whatIsEthicalAiBook.aspect,
   },
 };
 

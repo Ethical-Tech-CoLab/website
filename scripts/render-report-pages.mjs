@@ -1,15 +1,17 @@
-// Rasterize a report PDF into per-page WebP images for the "book" viewer.
+// Rasterize report PDFs into per-page WebP images for the "book" viewer.
 //
-// The book view on /publications/after-the-corridor flips through these images
-// with a real page-curl (page-flip / StPageFlip). We pre-render at build time
-// rather than shipping pdf.js to the browser, keeping the site lean and
-// self-contained. Run this whenever the source PDF changes:
+// The book view (ReportBook.tsx) flips through these images with a real
+// page-curl (page-flip / StPageFlip). We pre-render at build time rather than
+// shipping pdf.js to the browser, keeping the site lean and self-contained.
 //
-//   node scripts/render-report-pages.mjs
+// Usage:
+//   node scripts/render-report-pages.mjs            # render every report
+//   node scripts/render-report-pages.mjs <slug>     # render just one
 //
-// Input:  public/publications/after-the-corridor/report.pdf
-// Output: public/publications/after-the-corridor/pages/p01.webp ... pNN.webp
-//         public/publications/after-the-corridor/pages/manifest.json
+// Per report <slug>:
+//   Input:  public/publications/<slug>/report.pdf
+//   Output: public/publications/<slug>/pages/pNN.webp + manifest.json
+//           src/content/publications/<slug>-book.ts  (typed manifest module)
 //
 // Deps (already in the repo): pdfjs-dist (parse/raster), @napi-rs/canvas
 // (canvas backend), sharp (PNG -> WebP).
@@ -17,15 +19,15 @@
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { mkdir, writeFile, readFile, readdir, unlink } from "node:fs/promises";
+import { mkdir, writeFile, readFile, readdir, unlink, access } from "node:fs/promises";
 
 const require = createRequire(import.meta.url);
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
 
-const BASE = join(root, "public/publications/after-the-corridor");
-const PDF_PATH = join(BASE, "report.pdf");
-const OUT_DIR = join(BASE, "pages");
+// Reports with a vendored report.pdf under public/publications/<slug>/.
+const REPORTS = ["after-the-corridor", "what-is-ethical-ai"];
+
 const SCALE = 2.0; // ~150 dpi at Letter/A4 — crisp on retina, still small as WebP
 const WEBP_QUALITY = 82;
 
@@ -33,25 +35,45 @@ const { getDocument } = await import("pdfjs-dist/legacy/build/pdf.mjs");
 const { createCanvas } = require("@napi-rs/canvas");
 const sharp = require("sharp");
 
-async function main() {
-  await mkdir(OUT_DIR, { recursive: true });
+/** after-the-corridor -> afterTheCorridorBook */
+function exportName(slug) {
+  const camel = slug.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+  return `${camel}Book`;
+}
 
-  // Clear any stale page images so a shorter re-render can't leave orphans.
-  for (const f of await readdir(OUT_DIR)) {
+async function exists(p) {
+  try {
+    await access(p);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function renderReport(slug) {
+  const base = join(root, "public/publications", slug);
+  const pdfPath = join(base, "report.pdf");
+  const outDir = join(base, "pages");
+
+  if (!(await exists(pdfPath))) {
+    console.warn(`! skipping ${slug}: no report.pdf at ${pdfPath}`);
+    return;
+  }
+
+  console.log(`\n▸ ${slug}`);
+  await mkdir(outDir, { recursive: true });
+
+  // Clear stale page images so a shorter re-render leaves no orphans.
+  for (const f of await readdir(outDir)) {
     if (/^p\d+\.webp$/.test(f) || f === "manifest.json") {
-      await unlink(join(OUT_DIR, f));
+      await unlink(join(outDir, f));
     }
   }
 
-  const data = new Uint8Array(await readFile(PDF_PATH));
+  const data = new Uint8Array(await readFile(pdfPath));
   const doc = await getDocument({
     data,
-    // Designed report ships embedded fonts; give pdf.js the standard-font
-    // fallbacks too so nothing renders blank.
-    standardFontDataUrl: join(
-      root,
-      "node_modules/pdfjs-dist/standard_fonts/",
-    ),
+    standardFontDataUrl: join(root, "node_modules/pdfjs-dist/standard_fonts/"),
     useSystemFonts: true,
   }).promise;
 
@@ -73,10 +95,10 @@ async function main() {
 
     const png = canvas.toBuffer("image/png");
     const name = `p${String(n).padStart(2, "0")}.webp`;
-    await sharp(png).webp({ quality: WEBP_QUALITY }).toFile(join(OUT_DIR, name));
+    await sharp(png).webp({ quality: WEBP_QUALITY }).toFile(join(outDir, name));
 
     pages.push({
-      src: `publications/after-the-corridor/pages/${name}`,
+      src: `publications/${slug}/pages/${name}`,
       width,
       height,
     });
@@ -87,33 +109,35 @@ async function main() {
   const manifest = {
     generatedFrom: "report.pdf",
     pageCount: pages.length,
-    // Book viewer sizes its spread from this aspect ratio.
     aspect: first ? +(first.width / first.height).toFixed(4) : 0.7727,
     pages: pages.map((p) => p.src),
   };
   await writeFile(
-    join(OUT_DIR, "manifest.json"),
+    join(outDir, "manifest.json"),
     JSON.stringify(manifest, null, 2) + "\n",
   );
 
-  // Also emit a typed module the server page can import directly, so the page
-  // list and aspect stay generated rather than hand-maintained.
-  const tsPath = join(
-    root,
-    "src/content/publications/after-the-corridor-book.ts",
-  );
+  const tsPath = join(root, "src/content/publications", `${slug}-book.ts`);
   const ts =
     `// GENERATED by scripts/render-report-pages.mjs — do not edit by hand.\n` +
-    `// Re-run \`node scripts/render-report-pages.mjs\` after changing report.pdf.\n\n` +
-    `export const afterTheCorridorBook = ${JSON.stringify(
+    `// Re-run \`npm run render:book\` after changing report.pdf.\n\n` +
+    `export const ${exportName(slug)} = ${JSON.stringify(
       { pageCount: manifest.pageCount, aspect: manifest.aspect, pages: manifest.pages },
       null,
       2,
     )} as const;\n`;
   await writeFile(tsPath, ts);
 
-  console.log(`\n✓ ${pages.length} pages -> ${OUT_DIR}`);
-  console.log(`✓ manifest -> ${tsPath}`);
+  console.log(`  ✓ ${pages.length} pages, manifest -> ${tsPath}`);
+}
+
+async function main() {
+  const only = process.argv[2];
+  const slugs = only ? [only] : REPORTS;
+  for (const slug of slugs) {
+    await renderReport(slug);
+  }
+  console.log("\n✓ done");
 }
 
 main().catch((err) => {

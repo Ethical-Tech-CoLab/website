@@ -712,29 +712,32 @@ Ranked by visitor impact against effort, not by section number:
 
 ---
 
-## 11. Publications "book" view — shipped 2026-07-27 (After the Corridor only)
+## 11. Publications "book" view — shipped 2026-07-27
 
-An old-school flipbook of the original designed PDF, launched by a "Read as
-book" button next to Download PDF on `/publications/after-the-corridor`. Real
-page-curl via `page-flip` (StPageFlip), a client component
-(`src/components/ReportBook.tsx`) that lazy-loads the library only when opened;
-no pdf.js ships to the browser. Two-page spread on desktop, single page on
-mobile; arrows / ← → keys / Esc.
+An old-school flipbook of a report's original designed PDF, launched by a "Read
+as book" button next to Download PDF on the report page, and surfaced on the
+`/publications` catalogue by a "📖 Book" pill on the cover plus a "Read as book"
+action in the sheet. Real page-curl via `page-flip` (StPageFlip), a client
+component (`src/components/ReportBook.tsx`) that lazy-loads the library only when
+opened; no pdf.js ships to the browser. Two-page spread on desktop, single page
+on mobile; arrows / ← → keys / Esc.
 
-**How it's built.** The 22 pages are pre-rendered to WebP at build time by
+**Live for:** After the Corridor (22pp) and What Is Ethical AI (46pp) — the two
+reports with a designed PDF. Registry: `src/content/publications/books.ts`
+(keyed by slug; `bookForUrl()` drives the catalogue).
+
+**How it's built.** Pages are pre-rendered to WebP at build time by
 `scripts/render-report-pages.mjs` (pdfjs-dist + @napi-rs/canvas + sharp) into
-`public/publications/after-the-corridor/pages/`, alongside a generated
-`src/content/publications/after-the-corridor-book.ts` manifest the page imports.
-The source PDF is vendored at `public/publications/after-the-corridor/report.pdf`.
+`public/publications/<slug>/pages/`, alongside a generated
+`src/content/publications/<slug>-book.ts` manifest. The source PDF is vendored at
+`public/publications/<slug>/report.pdf`. The script's `REPORTS` array lists the
+slugs; run `npm run render:book` for all or `node scripts/render-report-pages.mjs <slug>`
+for one.
 
-**When the PDF changes:** drop the new PDF at that path and run
-`npm run render:book`, then `npm run sync:static`, commit the regenerated images
-and manifest.
-
-**To extend to other reports:** the component is already generic (takes
-`pages`, `aspect`, `title`, `pdfUrl`). It is wired only on After the Corridor
-because it is the only report with a designed PDF today (see §10.7). Generalize
-the render script to take a slug when a second report gets a PDF.
+**To add a report:** vendor its `report.pdf` under `public/publications/<slug>/`,
+add the slug to `REPORTS`, run `npm run render:book <slug>`, add it to
+`books.ts`, add a `<ReportBook>` to its report page, then `npm run sync:static`
+and commit the images + manifest.
 
 Open polish:
 - [ ] No headless browser was available in the build session, so the live flip

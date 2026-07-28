@@ -368,6 +368,7 @@ export const publications = {
       date: "July 2026",
       // Internal route (starts with "/") — rendered on-site, see the card logic.
       url: "/publications/what-is-ethical-ai",
+      pdf: "https://ethical-tech-colab.github.io/what-is-ethical-ai/pdf/What-Is-Ethical-AI-ETC-Report.pdf",
       repo: "https://github.com/Ethical-Tech-CoLab/what-is-ethical-ai",
     },
     {
