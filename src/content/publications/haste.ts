@@ -46,14 +46,14 @@ export const hasteReport = {
   authors:
     "HASTE was developed by the Microsoft AI for Good Lab and released as open-source software under the MIT Licence. The contributors recorded in the repository's commit history are Meygha Machado, Caleb Robinson, Joaquín Rivero, Cameron Birge, Marcelo Duarte, and Anthony Cintron Roman. The accompanying research paper additionally credits Anthony Ortiz, Simone Fobi Nsutezo, Kevin White, Inbal Becker-Reshef, and Juan M. Lavista Ferres. This plain-language report was prepared under the Ethical Tech CoLab at the NYU Center for Global Affairs as part of masters research (2026), on the fork of the project held at Ethical-Tech-CoLab/haste.",
   thesis:
-    "In the hours after an earthquake, a hurricane, or a wildfire, the single most useful thing a relief coordinator can hold is a map of which buildings are still standing. The traditional answers are slow, and neither reliably delivers inside the first days, which is the window in which decisions about people, supplies, and attention are actually being made. HASTE lets a trained analyst who is not a machine-learning engineer take fresh imagery of a disaster zone, mark a small number of examples by hand, and have a computer extend those examples across the whole affected area. This report explains what it does, what each of its settings means, and what it cannot be trusted to do.",
+    "HASTE is an open-source platform that lets a trained analyst, working without code, fit a disposable machine-learning model to a single disaster and produce a building-by-building damage estimate within hours. This report reads the platform's own source code alongside its documentation to set out what every adjustable and hardcoded setting means, what the published performance figures do and do not establish, and where the answer it produces is constrained by things the software does not control.",
 
   // Figures pulled from the body for the hero stat band.
   stats: [
     {
       value: "31",
       label:
-        "field deployments since early 2023, a record of adoption rather than of accuracy, and reported by the platform's own developers",
+        "field deployments since early 2023, developer-reported (§08)",
     },
     {
       value: "3",
@@ -63,12 +63,12 @@ export const hasteReport = {
     {
       value: "0.1",
       label:
-        "damage threshold, one tenth of a building's visible area, the most consequential single number in the platform and set low on purpose",
+        "damage threshold, one tenth of a building's visible area, the most consequential single number in the platform (§05)",
     },
     {
       value: "0.84",
       label:
-        "area under the ROC curve from one per cent of labels, against 0.88 fully supervised. Parity arrives at ten per cent, where it reaches 0.91",
+        "area under the ROC curve at one per cent of labels, against 0.88 fully supervised (§08)",
     },
   ],
 
@@ -90,10 +90,10 @@ export const hasteReport = {
       paragraphs: [
         "HASTE is a web-based platform that turns post-disaster satellite imagery into an estimate of which individual buildings have been damaged. It was developed by the Microsoft AI for Good Lab and released as open-source software under the MIT licence. The version reviewed here is the copy held in the Ethical Tech CoLab repository, which is a fork of the original project at microsoft/haste.",
         "The platform's central design choice is to train a fresh model for each disaster rather than maintain one global model that tries to recognise damage everywhere. A hurricane in Jamaica and an earthquake in Türkiye leave visually different traces on visually different building stock, and a model tuned to one is not expected to work on the other. HASTE accepts that limitation deliberately in exchange for speed: a model fitted to one event, from one analyst's labels, can be ready in minutes.",
-        "A human being is required at every stage. A person chooses the imagery, marks the training examples, inspects the predictions, checks a random sample of them against their own eyes, and decides whether the result is fit to be shared. There is no automatic mode, and the project documentation states repeatedly that outputs are preliminary signals requiring expert validation rather than authoritative damage assessments.",
-        "HASTE offers two routes from imagery to an answer. The faster route, Rapid Building Assessment, computes a numerical fingerprint for every building in the area, asks the analyst to label a handful of them, and trains a very small classifier inside the web browser that scores all the rest in seconds. The slower route, Damage Mapping, asks the analyst to draw damaged and undamaged areas by hand and trains a full image-segmentation model on a graphics processor, producing a continuous, pixel-level damage map.",
+        "A human being is required at every stage, and there is no automatic mode. The project documentation states repeatedly that outputs are preliminary signals requiring expert validation rather than authoritative damage assessments. Section 09 sets out where the human sits in the workflow.",
+        "HASTE offers two routes from imagery to an answer. The faster route, Rapid Building Assessment, computes a numerical fingerprint for every building in the area, asks the analyst to label a handful of them, and trains a very small classifier inside the web browser, which scores all the rest in seconds. The slower route, Damage Mapping, asks the analyst to draw damaged and undamaged areas by hand and trains a full image-segmentation model on a graphics processor, producing a continuous, pixel-level damage map.",
         "Both routes end at the same place: a per-building damage figure, a set of accuracy measures computed against a human-labelled validation sample, and an estimate of the total number of damaged buildings with a stated margin of error.",
-        "The platform depends on outside data it does not produce. Imagery comes from commercial and public providers such as Planet, Maxar, Airbus, the European Union's Copernicus programme, and the United States National Oceanic and Atmospheric Administration. Building outlines come from the Overture Maps Foundation, which itself draws heavily on OpenStreetMap and on machine-derived building datasets. Where those outlines are missing or wrong, HASTE has nothing to attach its predictions to.",
+        "The platform depends on outside data it does not produce. Imagery comes from commercial and public providers such as Planet, Maxar, Airbus, the European Union's Copernicus programme, and the United States National Oceanic and Atmospheric Administration. Building outlines come from the Overture Maps Foundation. Where those outlines are missing or wrong, HASTE has nothing to attach its predictions to.",
         "According to the research paper published alongside the platform, HASTE has been used in thirty-one field deployments since early 2023, and its outputs have been released openly through the Humanitarian Data Exchange.",
       ],
     },
@@ -108,11 +108,12 @@ export const hasteReport = {
         },
         {
           lead: "The gap.",
-          text: "Established products have real strengths and known constraints. Copernicus Emergency Management Service Rapid Mapping, the European Union's free on-demand crisis mapping service, delivers standardised map products within hours to days of an activation, but must be formally activated by an authorised user and covers only large-scale emergencies. Manual aerial surveys are accurate but limited in geographic reach and slow to process. Neither easily absorbs the specific situational context that a particular responding organisation cares about, such as one parish, one road corridor, or one category of structure. Those two are not the nearest neighbours, though, and describing the field by them alone would make the platform look more novel than it is. HASTE is benchmarked on xBD, the dataset built for the xView2 building damage challenge, and that challenge produced a substantial body of automated damage classification work which is the real comparator. The honest claim is not that nothing existed. It is that the existing machine learning approaches assume a globally pretrained model applied to a new disaster, and HASTE trades that for a disposable per event model that an analyst fits by hand, in a browser, without writing code.",
+          text: "Established products have real strengths and known constraints. Copernicus Emergency Management Service Rapid Mapping, the European Union's free on-demand crisis mapping service, delivers standardised map products within hours to days of an activation, but must be formally activated by an authorised user and covers only large-scale emergencies. Manual aerial surveys are accurate but limited in geographic reach and slow to process. Neither easily absorbs the specific situational context that a particular responding organisation cares about, such as one parish, one road corridor, or one category of structure.",
         },
+        "The nearer comparator is the automated damage classification literature that grew out of the xView2 challenge, on whose xBD dataset HASTE is itself benchmarked. Against that work the claim is not that nothing existed. It is that existing machine learning approaches assume a globally pretrained model applied to a new disaster, and HASTE trades that for a disposable per event model an analyst fits by hand, in a browser, without writing code.",
         {
           lead: "The response.",
-          text: "HASTE was built around two propositions that emerged from earlier in-browser damage-assessment research at the same laboratory. The first is to train per event rather than for the world, accepting narrow, disposable models in exchange for speed and local fit. The second is that human oversight should be structural rather than advisory: the operator is not reviewing a machine's conclusion after the fact, the operator is the source of everything the machine knows about this event.",
+          text: "The proposition HASTE was built around, carried over from earlier in-browser damage-assessment research at the same laboratory, is that human oversight should be structural rather than advisory: the operator is not reviewing a machine's conclusion after the fact, the operator is the source of everything the machine knows about this event.",
         },
         "The design also reflects a practical constraint on who does this work. The people who understand what damage looks like in a given country are rarely the people who can write machine-learning code. HASTE is presented as a no-code platform so that the person supplying the expert judgment and the person operating the model can be the same person.",
       ],
@@ -145,7 +146,7 @@ export const hasteReport = {
           lead: "The shared beginning.",
           text: "An analyst first creates a project, which is simply a container for one disaster event. It records a name, a description, the date of the event, and the affected countries. The date and the countries are stored for reference and do not affect any calculation.",
         },
-        "Into that project the analyst adds an image layer, which is the imagery being assessed. HASTE accepts GeoTIFF files, a standard image format that carries the geographic coordinates of every pixel alongside the picture itself. Several files covering the same area can be uploaded together and are merged into a single mosaic. Imagery from before the event is optional and is used for visual comparison, not for the calculation.",
+        "Into that project the analyst adds an image layer, which is the imagery being assessed. It arrives as GeoTIFF, a standard image format that carries the geographic coordinates of every pixel alongside the picture itself. The analyst can upload several files covering the same area, and HASTE merges them into a single mosaic. Imagery from before the event is optional and is used for visual comparison, not for any calculation.",
         "HASTE then obtains the outlines of every building in the area covered by the imagery. By default it downloads them automatically from Overture Maps, an open dataset maintained by the Overture Maps Foundation under the Linux Foundation, which combines OpenStreetMap with machine-derived building datasets from Microsoft and Google and, on the foundation's own account, covers roughly 2.3 billion buildings worldwide. An analyst who has better local data can upload their own outlines instead, as a GeoPackage file of up to 500 megabytes; HASTE converts it to the standard global coordinate system and trims it to the imagery area. When the layer is created the analyst chooses a workflow, Building or Standard, which determines which of the two routes is available.",
         {
           lead: "Route A, Rapid Building Assessment.",
@@ -160,7 +161,7 @@ export const hasteReport = {
         "Those shapes train an image-segmentation model, which is a model that assigns a class to every individual pixel rather than to a whole picture. The architecture used is a U-Net with a ResNeXt-50 encoder, a standard and well-understood design in satellite image analysis, started from weights pre-trained on ordinary photographs and then fitted to the analyst's labels. Training runs on a graphics processor, either locally in a container or on cloud computing capacity. The trained model is then run across the entire image layer, producing a per-pixel damage prediction that can be viewed alongside the imagery and downloaded.",
         {
           lead: "Turning pixels into buildings.",
-          text: "A per-pixel damage map is not directly useful to a responder, who needs to know about buildings. HASTE therefore overlays the building outlines onto the pixel predictions and, for each building, counts what proportion of the classified pixels inside that outline were called damaged. That proportion, between zero and one, is the building's damage fraction. It is the number that drives everything downstream. The same step also records what proportion of each building was obscured by cloud, so that unreadable buildings can be set aside rather than silently counted as undamaged.",
+          text: "A per-pixel damage map is not directly useful to a responder, who needs to know about buildings. HASTE therefore overlays the building outlines onto the pixel predictions and, for each building, counts what proportion of the classified pixels inside that outline were called damaged. That proportion, between zero and one, is the building's damage fraction. It is the number that drives everything downstream. The same step also records what proportion of each building was obscured by cloud.",
         },
         {
           lead: "Validation.",
@@ -173,7 +174,7 @@ export const hasteReport = {
       number: "05",
       title: "The Variables, Explained Simply",
       paragraphs: [
-        "This section is the heart of the report. Every number an analyst can adjust, and every number fixed inside the code, is described below in ordinary terms: what it represents, why it is set where it is, and what it changes about the answer.",
+        "Every number an analyst can adjust, and every number fixed inside the code, is described below in ordinary terms: what it represents, why it is set where it is, and what it changes about the answer.",
         {
           lead: "The label classes.",
           text: "These are the categories an analyst draws with. Each is stored internally as a class value, and later steps identify a class by that position rather than by its name.",
@@ -202,7 +203,7 @@ export const hasteReport = {
         "Two of these choices carry more weight than they appear to. The reason Background exists as a class in its own right is that the model is only taught by the pixels the analyst actually marked, so if a damaged roof is labelled without the ground around it, the model is never told what the ground is, and can produce a blurry, spreading prediction without ever being penalised for it. Labelling a building together with its surroundings is what forces the model to learn a boundary. And cloudy buildings are excluded from the damage statistics rather than counted as intact, which would otherwise bias the result downward in exactly the wet, storm-affected conditions where damage assessment matters most.",
         {
           lead: "No Damage and Flood Extent.",
-          text: "Two additional classes offered for earthquake, fire, and flood event types respectively. Flood Extent lets the analyst mark standing water, which HASTE can intersect with building outlines to say which buildings are in water. It does not estimate how deep that water is.",
+          text: "Two additional classes offered for earthquake, fire, and flood event types respectively. Flood Extent lets the analyst mark standing water, which HASTE can intersect with building outlines to say which buildings are in water.",
         },
         {
           lead: "Normalisation means and standard deviations.",
@@ -210,22 +211,26 @@ export const hasteReport = {
         },
         {
           lead: "Ground resolution.",
-          text: "It is worth stating plainly that HASTE never checks, records, or standardises how many metres of ground each pixel covers. It works on whatever grid the supplied imagery has. Several settings are expressed in pixels rather than metres as a result, and the physical area covered by a training tile therefore varies with the imagery source.",
+          text: "HASTE never checks, records, or standardises how many metres of ground each pixel covers. It works on whatever grid the supplied imagery has. Several settings are expressed in pixels rather than metres as a result, and the physical area covered by a training tile therefore varies with the imagery source.",
         },
         {
           lead: "Learning rate, default 0.0001.",
-          text: "How large a correction the model makes each time it discovers it was wrong. Too large and it lurches past the right answer; too small and it never gets there within the time available. The default is a conservative value appropriate to fine-tuning a model that already carries useful pre-trained weights. Batch size, default 32 for training, sets how many image tiles the model examines before making one correction. Larger batches give a steadier, less noisy signal about which direction to move in, but require proportionally more memory on the graphics processor.",
+          text: "How large a correction the model makes each time it discovers it was wrong. Too large and it lurches past the right answer; too small and it never gets there within the time available. The default is a conservative value appropriate to fine-tuning a model that already carries useful pre-trained weights.",
+        },
+        {
+          lead: "Batch size, default 32 for training.",
+          text: "How many image tiles the model examines before making one correction. Larger batches give a steadier, less noisy signal about which direction to move in, but require proportionally more memory on the graphics processor.",
         },
         {
           lead: "Maximum epochs.",
-          text: "One epoch is one complete pass through the training data. A small number is intended here, for a clear reason: the model is being fitted to a few dozen hand-drawn shapes from a single event, and training it longer would mainly teach it to memorise those particular shapes rather than the general appearance of damage. The repository is inconsistent about the actual figure. The worked example specifies 10, the form in the web interface offers 3, and the server falls back to 1 when nothing is supplied, while the training script separately imposes a hardcoded minimum of 10. An analyst who selects 3 in the interface is therefore asking for a maximum below the enforced minimum. This is worth flagging to anyone reproducing a result.",
+          text: "One epoch is one complete pass through the training data. A small number is intended here, for a clear reason: the model is being fitted to a few dozen hand-drawn shapes from a single event, and training it longer would mainly teach it to memorise those particular shapes rather than the general appearance of damage. The repository is inconsistent about the actual figure. The worked example specifies 10, the form in the web interface offers 3, and the server falls back to 1 when nothing is supplied, while the training script separately imposes a hardcoded minimum of 10. An analyst who selects 3 in the interface is therefore asking for a maximum below the enforced minimum, which anyone reproducing a result should know.",
         },
         {
           lead: "Training chip size, 256 pixels.",
-          text: "The model does not see the whole scene at once. It is shown small square cut-outs 256 pixels on a side, drawn at random from the labelled area, and it is shown 1,024 batches of them per epoch. The model's whole view of the disaster is assembled from these fragments.",
+          text: "The model does not see the whole scene at once. It is shown small square cut-outs 256 pixels on a side, drawn at random from the labelled area, and the training run feeds it 1,024 batches of them per epoch. The model's whole view of the disaster is assembled from these fragments.",
         },
         {
-          lead: "Buffer, nominally 3 metres.",
+          lead: "Label buffer, nominally 3 metres.",
           text: "Applied to the Building class using the Background class. When a person traces a building, the traced line is never exactly on the wall. This setting draws a narrow band around each building polygon and treats it as Background, which stops the imprecision of human tracing from teaching the model that the pavement is part of the structure. The setting is written in metres but is applied by counting pixels, so it means three metres only when a pixel happens to represent one metre of ground. The script's own documentation notes this.",
         },
         {
@@ -262,7 +267,11 @@ export const hasteReport = {
         },
         {
           lead: "What is actually described.",
-          text: "The crop is divided into a grid of small tiles, each tile is described separately, and only those tiles falling inside the building's outline are averaged together to produce the building's final list of numbers. Buildings that fall outside the imagery keep their place in the file with an empty entry rather than being dropped, because everything downstream matches buildings to predictions by position in the file rather than by name. That design decision is efficient and fragile in equal measure. A crop cap fixed at 192 source pixels stops a single very large building, such as a warehouse or a stadium, from generating an enormous crop and exhausting the available memory; oversized footprints are cropped from the centre instead.",
+          text: "The crop is divided into a grid of small tiles, each tile is described separately, and only those tiles falling inside the building's outline are averaged together to produce the building's final list of numbers. Buildings that fall outside the imagery keep their place in the file with an empty entry rather than being dropped, because everything downstream matches buildings to predictions by position in the file rather than by name. That design decision is efficient and fragile in equal measure.",
+        },
+        {
+          lead: "The crop cap, 192 source pixels.",
+          text: "A limit that stops a single very large building, such as a warehouse or a stadium, from generating an enormous crop and exhausting the available memory. Oversized footprints are cropped from the centre instead.",
         },
         {
           lead: "The in-browser classifier.",
@@ -274,11 +283,11 @@ export const hasteReport = {
         },
         {
           lead: "Holdout fraction, 0.2 in practice.",
-          text: "One fifth of the analyst's labels are held back from training and used only to score the model, which is what produces the live precision, recall, and F1 figures shown for the Damaged class in the side panel. Because those numbers come from labels the model was never shown, they are an honest indication of quality rather than a report of how well the model memorised its own training data. Two weaknesses are worth naming. The sample is tiny: with twenty labels the holdout is four buildings, and four buildings cannot tell you much. And the split is drawn afresh every time a label is added, so the displayed figures jump around from click to click. The code comments say so explicitly.",
+          text: "One fifth of the analyst's labels are held back from training and used only to score the model, which is what produces the live precision, recall, and F1 figures shown for the Damaged class in the side panel. Because those numbers come from labels the model was never shown, they are an honest indication of quality rather than a report of how well the model memorised its own training data. Two weaknesses are worth naming. The sample is tiny: with twenty labels the holdout is four buildings, and four buildings cannot tell you much. And the split is drawn afresh every time a label is added, so the displayed figures jump around from click to click, as the code comments acknowledge.",
         },
         {
-          lead: "Buffer distances, 0, 10, and 20 metres.",
-          text: "HASTE calculates each building's damage fraction three times: once inside the traced outline, once inside a ring extending ten metres beyond it, and once at twenty metres. There are two reasons. Building outlines and satellite imagery are frequently misaligned by several metres, particularly in dense cities and where the ground itself has moved, so the strict outline may sit over the neighbouring plot. And some kinds of damage, notably debris fields and burn scars, appear around a structure rather than on it. The wider measurements are recorded so that this can be examined rather than assumed.",
+          lead: "Measurement rings, 0, 10, and 20 metres.",
+          text: "Not to be confused with the label buffer above. HASTE calculates each building's damage fraction three times: once inside the traced outline, once inside a ring extending ten metres beyond it, and once at twenty metres. There are two reasons. Building outlines and satellite imagery are frequently misaligned by several metres, particularly in dense cities and where the ground itself has moved, so the strict outline may sit over the neighbouring plot. And some kinds of damage, notably debris fields and burn scars, appear around a structure rather than on it. The wider measurements are recorded so that this can be examined rather than assumed.",
         },
         {
           lead: "Damage fraction.",
@@ -294,7 +303,7 @@ export const hasteReport = {
         },
         {
           lead: "Minimum footprint area, default 50 square metres.",
-          text: "Buildings smaller than this are excluded from the population used for the final headline estimate. The stated reasoning is that these are structures a human reviewer could not realistically have judged in the validation step, so including them in an extrapolation built from human judgments would be unsound. Note the consequence, which the platform does not hide: small informal structures are absent from the headline count, and those structures are common in precisely the settlements most exposed to disaster.",
+          text: "Buildings smaller than this are excluded from the population used for the final headline estimate. The stated reasoning is that these are structures a human reviewer could not realistically have judged in the validation step, so including them in an extrapolation built from human judgments would be unsound. The consequence, which the platform does not hide, is that small informal structures are absent from the headline count, and those structures are common in precisely the settlements most exposed to disaster.",
         },
         {
           lead: "Cloud exclusion.",
@@ -302,7 +311,7 @@ export const hasteReport = {
         },
         {
           lead: "The final estimate.",
-          text: "HASTE does not simply count the buildings its model called damaged and publish that number. It uses the human-validated sample to estimate the true damage rate and scales that rate up to the full population of buildings. The arithmetic is a standard finite-population survey estimate. The sample proportion, written as p-hat, is the number of buildings a human confirmed as damaged divided by the number of buildings the human judged either way, with Unknown buildings excluded from both figures. The population, written as N, is the count of building outlines larger than the minimum area, and the estimated number of damaged buildings is simply N multiplied by p-hat.",
+          text: "HASTE does not publish a raw count of the buildings its model called damaged. It uses the human-validated sample to estimate the true damage rate and scales that rate up to the full population of buildings. The arithmetic is a standard finite-population survey estimate. The sample proportion, written as p-hat, is the number of buildings a human confirmed as damaged divided by the number of buildings the human judged either way, with Unknown buildings excluded from both figures. The population, written as N, is the count of building outlines larger than the minimum area, and the estimated number of damaged buildings is simply N multiplied by p-hat.",
         },
         {
           lead: "The sampling fraction, written as f.",
@@ -362,10 +371,10 @@ export const hasteReport = {
           ],
         },
         "The software itself has no live connection to any of these providers. Placeholder functions for fetching imagery directly from Maxar and Planet exist in the code but are empty. In practice the analyst supplies a link to a file, and for security reasons those links may point only at Azure Blob Storage or Amazon S3, the two hosting services on the platform's permitted list. Public disaster imagery from the major providers is generally published on one of those, which is why the restriction is workable.",
-        "HASTE does adjust for the provider in one respect. Different satellites record their colour bands in different orders, and some record bands the human eye cannot see, so the platform holds a lookup table of band orders for Planet Scope, Planet Skysat, Maxar, Sentinel-2, and one partner-specific format, and uses it to assemble a correct colour picture. Where the source is unknown it falls back to reading the labels embedded in the file, and failing that assumes the first three bands are red, green, and blue.",
+        "HASTE does adjust for the provider in one respect. Different satellites record their colour bands in different orders, and some record bands the human eye cannot see, so the platform holds a lookup table of band orders for Planet Scope, Planet Skysat, Maxar, Sentinel-2, and one partner-specific format, and uses it to assemble a correct colour picture. Where the source is unknown, HASTE falls back to the labels embedded in the file, and failing that assumes the first three bands are red, green, and blue.",
         {
           lead: "Building outlines.",
-          text: "Overture Maps by default, with OpenStreetMap and Microsoft Building Footprints as the underlying open datasets, and analyst-supplied outlines where better local data exists. HASTE reads the Overture data anonymously from a public store, taking the most recent release available and falling back to a fixed February 2026 release if it cannot determine one. Only polygons are kept, and everything is converted to the standard global coordinate system.",
+          text: "Overture Maps by default, described in section 04, and analyst-supplied outlines where better local data exists. HASTE reads the Overture data anonymously from a public store, taking the most recent release available and falling back to a fixed February 2026 release if it cannot determine one. Only polygons are kept.",
         },
         {
           lead: "What HASTE does not use.",
@@ -390,7 +399,7 @@ export const hasteReport = {
           lead: "Validated accuracy.",
           text: "The research paper published alongside the platform, HASTE: A Platform for Rapid Post-Disaster Building Damage Assessment (arXiv:2607.11838), reports experiments on xBD, a public benchmark dataset of paired pre-event and post-event satellite imagery with expert damage annotations. The team collapsed the benchmark's minor, major, and destroyed categories into a single damaged category and measured how well each embedding method performed as the number of labels was varied.",
         },
-        "The discrimination score in the table below is the area under the receiver operating characteristic curve, usually shortened to AUROC. In plain terms it is the probability that the model ranks a randomly chosen damaged building above a randomly chosen intact one. It runs from 0 to 1, a coin flip scores 0.5, and 1.0 would mean the model never gets a pair the wrong way round. It is worth knowing that this measure says nothing about where the threshold should sit: a model can rank buildings well and still mislabel a great many of them once a cutoff is applied.",
+        "The discrimination score in Table 1 is the area under the receiver operating characteristic curve, usually shortened to AUROC. In plain terms it is the probability that the model ranks a randomly chosen damaged building above a randomly chosen intact one. It runs from 0 to 1, a coin flip scores 0.5, and 1.0 would mean the model never gets a pair the wrong way round. The measure says nothing about where the threshold should sit: a model can rank buildings well and still mislabel a great many of them once a cutoff is applied.",
         {
           table: {
             headers: ["Approach", "Labels used", "Discrimination score"],
@@ -400,10 +409,10 @@ export const hasteReport = {
               ["Fully supervised ResNet-50", "All labels", "0.88"],
             ],
             caption:
-              "Reported performance on the xBD benchmark as the number of labels was varied.",
+              "Table 1. Reported performance on the xBD benchmark as the number of labels was varied.",
           },
         },
-        "The practical claim is that a handful of labels plus a good general-purpose image description gets close to a conventionally trained model. It should be read precisely, because the headline figure is a modest deficit rather than a match: at one per cent of labels the score is 0.84 against the fully supervised 0.88, and it is at ten per cent, where it reaches 0.91, that the fast route actually overtakes the baseline. What one per cent buys is not equal accuracy but most of the accuracy, hours sooner and without a machine-learning engineer, which is a real trade and a different claim.",
+        "The practical claim is that a handful of labels plus a good general-purpose image description gets close to a conventionally trained model. The headline figure is a modest deficit rather than a match: at one per cent of labels the score is 0.84 against the fully supervised 0.88, and it is at ten per cent, where it reaches 0.91, that the fast route actually overtakes the baseline. What one per cent buys is not equal accuracy but most of the accuracy, hours sooner and without a machine-learning engineer, which is a real trade and a different claim.",
         "The table does not say which of the two embedding methods produced these scores, and this report cannot resolve it from the published material. Since the lightweight option is the default an analyst would run, and the heavier one is the more capable, that gap matters to anyone reading the figures as a prediction of what they will get.",
         {
           lead: "Deployment record.",
@@ -419,10 +428,10 @@ export const hasteReport = {
               ["Montego Bay", "86 per cent", "71 per cent", "Not reported"],
             ],
             caption:
-              "Validated results for two of the areas assessed during the Hurricane Melissa response.",
+              "Table 2. Two of the areas assessed during the Hurricane Melissa response.",
           },
         },
-        "These numbers deserve to be read carefully. The variation between Black River and Montego Bay, on the same event with the same team days apart, is substantial, and the very large share of cloud-obscured buildings in Black River is a reminder that a headline damage estimate can rest on a minority of the buildings actually present.",
+        "The variation between Black River and Montego Bay, on the same event with the same team days apart, is substantial, and the very large share of cloud-obscured buildings in Black River is a reminder that a headline damage estimate can rest on a minority of the buildings actually present.",
       ],
     },
     {
@@ -430,8 +439,8 @@ export const hasteReport = {
       number: "09",
       title: "Human Oversight and Governance",
       paragraphs: [
-        "The project documentation is unusually direct that human oversight is structural rather than procedural. There is no autonomous mode. A person selects the imagery, provides every label the model learns from, reviews the predictions, validates a sample, and decides whether to distribute the result.",
-        "Outputs distributed publicly, including through the Humanitarian Data Exchange and partner mapping systems, carry notices warning against over-reliance, encouraging cross-validation against ground reports and other imagery, framing the output as exploratory rather than definitive, and naming HASTE, the imagery provider, and the building-outline dataset so that a downstream user can assess provenance for themselves.",
+        "There is no autonomous mode. A person selects the imagery, provides every label the model learns from, reviews the predictions, validates a sample, and decides whether to distribute the result.",
+        "Outputs distributed publicly, including through the Humanitarian Data Exchange and partner mapping systems, carry notices warning against over-reliance and encouraging cross-validation against ground reports and other imagery. The notices frame the output as exploratory rather than definitive, and name HASTE, the imagery provider, and the building-outline dataset so that a downstream user can assess provenance for themselves.",
         "The documentation states that where a widespread inaccuracy or pattern of misuse is identified, the laboratory may publish guidance recommending temporary suspension or restricted use of the workflow.",
         "Labels are not reused. Each event's labels belong to that event and are not accumulated into a global training set, which follows directly from the train-per-event design and also limits the accumulation of one analyst's interpretive habits across many responses.",
       ],
@@ -444,7 +453,7 @@ export const hasteReport = {
         "The repository documents its own weaknesses at length. The most consequential are these.",
         {
           lead: "Every performance figure in this report is developer-supplied.",
-          text: "This one is not in the repository's own list, and it is the limitation a sceptical reader should weigh first. The xBD benchmark results, the deployment record, and the field precision and recall figures all come from the Microsoft paper and repository. Nothing has been independently reproduced, here or elsewhere. The rest of this report reads the source code and reports what it finds, which is first-hand; the evidence of how well the platform performs is not, and the two should not be given the same weight.",
+          text: "This one is not in the repository's own list, and it is the limitation a sceptical reader should weigh first. As section 08 sets out, none of the reported results has been independently reproduced. The rest of this report reads the source code and reports what it finds, which is first-hand; the performance evidence does not have that standing, and the two should not be given the same weight.",
         },
         {
           lead: "The output depends heavily on who did the labelling.",
@@ -459,12 +468,8 @@ export const hasteReport = {
           text: "OpenStreetMap and Microsoft Building Footprints are weakest in the Global South, in informal settlements, in conflict-affected areas, and where construction has been rapid and recent. These are precisely the populations most exposed to disaster. A building with no outline is invisible to HASTE regardless of how badly it was damaged, and the 50 square metre minimum area removes further small structures from the headline figure.",
         },
         {
-          lead: "Spatial misalignment is routine.",
-          text: "Imagery and outlines disagree most in dense urban areas and where the ground has deformed, which is to say after earthquakes.",
-        },
-        {
           lead: "The model does not generalise, by design.",
-          text: "A model fitted to a Caribbean hurricane is not expected to work on an earthquake in Türkiye. This also means HASTE cannot be operated as a standing monitoring system.",
+          text: "A model fitted to one event is not expected to transfer to another, which also means HASTE cannot be operated as a standing monitoring system.",
         },
         {
           lead: "False positives and false negatives have distinct causes.",
@@ -476,7 +481,7 @@ export const hasteReport = {
         },
         {
           lead: "The confidence interval understates real uncertainty.",
-          text: "It quantifies the error introduced by sampling and nothing else.",
+          text: "It quantifies the error introduced by sampling and nothing else, as section 05 explains.",
         },
         "Some findings from reading the source code should be added to the project's own list, since they bear on how much weight an output can carry.",
         {
@@ -506,7 +511,7 @@ export const hasteReport = {
       number: "11",
       title: "Practical Nature of the Platform",
       paragraphs: [
-        "HASTE is a full web application rather than a single page or a script. It consists of a browser interface, a set of programming interfaces that the interface calls, background workers that handle long jobs such as preparing imagery and training models, a tile server that streams large satellite images into the map view, and a shared Python library holding the analysis logic.",
+        "HASTE is a full web application rather than a single page or a script. It consists of a browser interface, a set of programming interfaces that the browser front end calls, background workers that handle long jobs such as preparing imagery and training models, a tile server that streams large satellite images into the map view, and a shared Python library holding the analysis logic.",
         "It can be run in two ways. A complete local instance can be started on one machine using Docker, a tool that packages software with everything it needs to run, which requires no cloud account and is intended for evaluation. A production instance is deployed to Microsoft Azure with a single command, and the deploying organisation controls it entirely.",
         "The local configuration is explicitly flagged as unsuitable for production, since it disables authentication and uses an in-memory storage emulator. A separate hardening checklist is provided for real deployments.",
         "The repository shows active and careful security practice, including automated code scanning and secret scanning, and documented handling of known vulnerabilities in the underlying geospatial libraries where a patched version was not available. Sample data from Hurricane Melissa and the Lahaina wildfire is published so that the platform can be tried without sourcing imagery first.",
@@ -519,7 +524,15 @@ export const hasteReport = {
       paragraphs: [
         "HASTE is aimed at trained humanitarian and disaster-response practitioners working with post-event imagery, and at researchers studying rapid damage-assessment methods. The documentation names non-governmental organisations, United Nations agencies, and government users as the intended downstream consumers of its outputs.",
         "Its stated purpose is to contribute information to preliminary damage assessment in the first hours and days, supplementing rather than replacing expert assessment, and to indicate where damage may be concentrated so that attention can be directed.",
-        "It is explicitly not intended as an authoritative damage register, as ground truth for insurance, governmental, or public-reporting purposes, as the sole basis for search-and-rescue tasking or resource allocation, or as any kind of automated alerting system.",
+        {
+          intro: "It is explicitly not intended for use as any of the following.",
+          list: [
+            "An authoritative damage register.",
+            "Ground truth for insurance, governmental, or public-reporting purposes.",
+            "The sole basis for search-and-rescue tasking or resource allocation.",
+            "An automated alerting system of any kind.",
+          ],
+        },
       ],
     },
     {
@@ -528,7 +541,7 @@ export const hasteReport = {
       title: "Conclusion",
       paragraphs: [
         "HASTE's most useful contribution is not a modelling advance but a reallocation of labour. It moves the machine-learning work out of the way so that the scarce resource, the judgment of someone who can look at an image and know what damage looks like in that country, is applied where it counts: to choosing the imagery, marking the examples, and checking the answer. The model is small, disposable, and fitted to one event, and the platform treats it as such.",
-        "The reporting design is equally deliberate. By requiring an independent human validation sample before it will publish an accuracy figure, by separating precision from recall rather than averaging them away, by setting cloud-obscured buildings aside instead of counting them as intact, and by attaching a confidence interval to its headline number, the platform makes it harder to mistake a fast estimate for a survey.",
+        "The reporting design is equally deliberate. By requiring an independent human validation sample before it will publish an accuracy figure, by separating precision from recall rather than averaging them away, and by attaching a confidence interval to its headline number, the platform makes it harder to mistake a fast estimate for a survey.",
         "The honest reading is that HASTE is fast, transparent about its assumptions, and constrained by things it does not control. Its ceiling is set by the resolution of the imagery available and the completeness of the building outlines beneath it, and both of those are weakest in the places where humanitarian need is greatest. That is not a flaw in the software so much as a statement about the wider data landscape, but it means the platform's value in any given response depends on conditions decided long before the disaster occurred. Read alongside its own documented limitations, it is a credible example of a machine-learning tool built to assist expert judgment rather than to displace it.",
       ],
     },
