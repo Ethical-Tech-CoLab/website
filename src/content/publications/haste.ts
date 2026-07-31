@@ -7,7 +7,10 @@
 //
 // Attribution note: the software is Microsoft's, not the CoLab's. Only this
 // plain-language report was prepared under the CoLab. Keep that distinction
-// intact if you edit this file.
+// intact if you edit this file. Section 13, on the Mariupol Corridor Severity
+// Model, describes CoLab work rather than the platform, and describes work in
+// progress: no HASTE-derived figure currently enters that model. Do not
+// upgrade its tense without a result to point at.
 //
 // House style for this report: no em dashes, no dash ranges, no inline bold.
 // The source paper follows those rules; keep them if you edit this file.
@@ -536,8 +539,46 @@ export const hasteReport = {
       ],
     },
     {
-      id: "conclusion",
+      id: "mariupol",
       number: "13",
+      title: "Application: the Mariupol Corridor Severity Model",
+      paragraphs: [
+        "This section describes work by the Ethical Tech CoLab rather than by the platform's developers, and it describes work in progress. Nothing below has been published as a result, and no HASTE-derived figure currently enters the model it discusses. It is included because the reasoning about when this platform is and is not the right instrument is more useful stated against a real case than in the abstract.",
+        {
+          lead: "The gap in our own model.",
+          text: "The CoLab's Mariupol Corridor Severity Model is a daily civilian-danger index for the 2022 siege, built from six components. The sixth is infrastructure damage, the cumulative share of the city's structures visibly damaged or destroyed, and it is drawn from satellite damage assessments published by UNOSAT, the United Nations Satellite Centre. UNOSAT publishes on particular dates rather than continuously. Across a siege of seventy-seven days the model has five anchor points: 0.02 on 5 March, 0.04 on 14 March, 0.14 on 26 March, 0.32 on 7 May, and 0.33 on 20 May. Every day in between is read off a straight line drawn between them.",
+        },
+        "The model is candid about what this costs it. In its own words, the word daily describes the resolution of the output and not the resolution of the evidence, and it cannot distinguish 18 March from 19 March on any evidence about what happened on those two days. The practical danger is specific: a stretch of the siege that UNOSAT did not image is rendered as a gently rising line, so an absence of published assessment can be mistaken for an absence of destruction.",
+        {
+          lead: "Why HASTE is the plausible instrument.",
+          text: "The constraint that limits UNOSAT is not imagery, it is the analytic labour of a formal before-and-after building-by-building assessment. HASTE is built for exactly that constraint. It needs only post-event imagery, it fits a disposable model to one event from a small number of hand-marked examples, and it returns a per-building damage fraction with a stated margin of error. In principle it could produce assessments for dates that lie between the UNOSAT anchors, replacing an interpolated line with measured points and letting the damage component move on the evidence rather than on the arithmetic.",
+        },
+        {
+          lead: "What has actually been done.",
+          text: "So far, scoping. The model still runs on the five UNOSAT anchors and the straight lines between them, and the per-building display in the tool remains illustrative until real geodata is supplied. We are working through whether HASTE-style assessment of additional 2022 imagery dates is feasible and, more importantly, whether the result would be honest enough to publish.",
+        },
+        {
+          lead: "What would have to be true first.",
+          text: "The obstacles are the ones this report has already described, met in a hard case. They are set out here rather than discovered later.",
+        },
+        {
+          list: [
+            "Archival imagery. HASTE assesses whatever imagery it is given, and it holds none. A retrospective study needs cloud-free 2022 coverage of Mariupol on the specific dates that would fill the gaps, which is a sourcing problem before it is a modelling one.",
+            "Building outlines. The platform can only attach a prediction to a building it has an outline for, and section 10 records that outline coverage is weakest in exactly the places under greatest pressure. Outlines derived before the siege will also disagree with imagery of a city whose ground and structures have moved.",
+            "The event type. HASTE is benchmarked on xBD, a dataset of disaster damage. Shelling and airstrike damage is not what the reported figures were measured on, and the platform's own design assumption is that a model fitted to one kind of event is not expected to transfer to another.",
+            "Human validation. Every HASTE result depends on an analyst marking training examples and judging an independent validation sample. For a retrospective conflict case that means someone competent to read 2022 imagery of this city, and their judgment, not the model's, sets the ceiling on what the number is worth.",
+            "Status of the output. HASTE describes its outputs as preliminary signals requiring expert validation rather than authoritative damage assessments. The Mariupol model already declares its damage component a lower bound. A HASTE-derived series would have to carry both caveats, not shed them by being newer.",
+          ],
+        },
+        {
+          lead: "The risk the pairing creates.",
+          text: "A denser series looks better evidenced whether or not it is. Replacing five anchors with, say, twenty assessed dates would produce a damage curve that appears to respond to events day by day, and a reader would reasonably infer that the model now knows more about 18 March than it did. It would know more only if each new point were validated to the standard the five UNOSAT anchors carry. Both projects state their uncertainty explicitly and neither should be allowed to launder the other's: HASTE's confidence interval accounts for sampling error and nothing else, and the severity model's daily resolution is a property of its output rather than of its evidence. If HASTE assessments do enter the model, they will be labelled as such, dated, and reported alongside the UNOSAT figures rather than blended into them.",
+        },
+      ],
+    },
+    {
+      id: "conclusion",
+      number: "14",
       title: "Conclusion",
       paragraphs: [
         "HASTE's most useful contribution is not a modelling advance but a reallocation of labour. It moves the machine-learning work out of the way so that the scarce resource, the judgment of someone who can look at an image and know what damage looks like in that country, is applied where it counts: to choosing the imagery, marking the examples, and checking the answer. The model is small, disposable, and fitted to one event, and the platform treats it as such.",
@@ -600,6 +641,14 @@ export const hasteReport = {
     {
       ref: "OCHA. Humanitarian Data Exchange, the channel through which HASTE outputs have been released openly.",
       url: "https://data.humdata.org",
+    },
+    {
+      ref: "Ethical Tech CoLab. Mariupol Corridor Severity Model, a daily civilian-danger index for the 2022 siege, discussed in section 13.",
+      url: "https://github.com/Ethical-Tech-CoLab/mariupol-evacuation-model",
+    },
+    {
+      ref: "UNOSAT, United Nations Satellite Centre. Ukraine damage assessments, activation CE20220223UKR, the source of the five anchor points in section 13.",
+      url: "https://unosat.org",
     },
   ] as Citation[],
 
