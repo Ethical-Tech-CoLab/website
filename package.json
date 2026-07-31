@@ -9,6 +9,7 @@
     "lint": "eslint",
     "sync:static": "bash scripts/sync-static-site.sh",
     "sync:newsletter": "node scripts/sync-newsletter.mjs",
+    "export:haste-paper": "node scripts/export-haste-paper.mjs",
     "render:book": "node scripts/render-report-pages.mjs"
   },
   "dependencies": {

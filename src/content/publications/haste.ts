@@ -1,7 +1,10 @@
 // ─────────────────────────────────────────────────────────────────────────
 // "HASTE": plain-language research report on the HASTE rapid damage
-// assessment platform, transcribed from HASTE-Paper.md in the
-// Ethical-Tech-CoLab/haste repository, which is a fork of microsoft/haste.
+// assessment platform. This file is the source of truth for the report.
+// HASTE-Paper.md in the Ethical-Tech-CoLab/haste repository (a fork of
+// microsoft/haste) is generated FROM it: after editing here, run
+// `npm run export:haste-paper -- <path-to-fork>/HASTE-Paper.md` and commit
+// the result in that repo, so the two do not drift apart.
 // Rendered by src/app/publications/haste/page.tsx. Kept here so the page
 // stays presentational, matching the site's content/ convention.
 //
