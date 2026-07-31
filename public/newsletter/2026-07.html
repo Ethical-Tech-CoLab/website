@@ -89,7 +89,7 @@
       <h3>🛰 We put this month's featured tool to work</h3>
       <div class="dek">HASTE and our Mariupol Corridor Severity Model</div>
       <p>HASTE (see AI for Good, below) speaks directly to a gap in our <strong>Mariupol Corridor Severity Model</strong>, the daily civilian-danger index we built for the 2022 siege. That model's infrastructure-damage component leans on UNOSAT satellite assessments, which were published on only five dates across the 77-day siege and then joined by straight lines in between, meaning a stretch with no new imagery could look calmer than the city actually was.</p>
-      <p>HASTE's approach, generating damage estimates from post-disaster imagery with only a handful of hand-labeled buildings and no matched "before" image, is exactly what a denser, more honest damage curve needs. We are prototyping HASTE-style assessments to fill the days UNOSAT never imaged, so that a gap in published reports can no longer be mistaken for a gap in destruction.</p>
+      <p>HASTE's approach, described under AI for Good below, is exactly what a denser, more honest damage curve needs. We are prototyping HASTE-style assessments to fill the days UNOSAT never imaged, so that a gap in published reports can no longer be mistaken for a gap in destruction.</p>
     </div>
     <ul>
       <li><strong>See what the Summer 2026 cohort shipped.</strong> Four portfolio products — the Evacuation Information Index, the Digital Art Passport, Ethical Supply Chain and Traceability, and the Diplomatic Simulator — are live and interactive. <a href="https://ethical-tech-colab.github.io/website/demos">Explore the live demos →</a></li>
@@ -107,7 +107,7 @@
       <h3>🌎 Microsoft's AI for Good Lab open-sources HASTE</h3>
       <div class="dek">AI helping disaster responders save critical hours</div>
       <p>One of our favorite releases this month is HASTE (High-speed Assessment and Satellite Tracking for Emergencies), an open-source platform from Microsoft's AI for Good Lab that helps emergency responders map building damage after disasters using satellite imagery. Instead of requiring perfectly matched "before" and "after" images or large training datasets, HASTE lets analysts label a small number of damaged buildings and rapidly generate damage assessments across entire affected areas. The paper landed on arXiv on July 13 and the code is public.</p>
-      <div class="why"><strong>Why it matters:</strong> after earthquakes, hurricanes, floods, or wildfires, responders often spend days understanding where help is needed. HASTE reduces that timeline to hours, so governments and humanitarian organizations can prioritize search and rescue, shelter, and recovery. The team reports more than 30 real-world disaster responses supported since 2023.</div>
+      <div class="why"><strong>Why it matters:</strong> after earthquakes, hurricanes, floods, or wildfires, responders often spend days understanding where help is needed. HASTE is built to compress that timeline to hours, so governments and humanitarian organizations can prioritize search and rescue, shelter, and recovery. The team reports more than 30 real-world disaster responses supported since 2023, which is a record of adoption rather than of measured accuracy.</div>
       <p><strong>Why Ethical Tech CoLab loves it</strong></p>
       <ul class="checks">
         <li>Open source: <a href="https://github.com/microsoft/haste">github.com/microsoft/haste</a></li>
@@ -229,7 +229,8 @@
     <div class="section-label"><span class="bar"></span><h2>📖 Paper Worth Reading</h2></div>
     <div class="story">
       <h3>HASTE: A Platform for Rapid Post-Disaster Building Damage Assessment</h3>
-      <p>Instead of focusing solely on improving benchmark scores, this paper tackles a real humanitarian challenge: helping responders understand damage after disasters using only post-disaster satellite imagery and minimal manual labeling. The platform is open source and designed so that users without machine learning expertise can create actionable damage maps.</p>
+      <p>The platform is covered above; what the paper adds is the measurement behind it. On the xBD benchmark, one per cent of the labels scores 0.84 on area under the ROC curve against 0.88 for a fully supervised model, and the fast route passes that baseline at ten per cent, reaching 0.91. Read precisely, one per cent buys most of the accuracy rather than equal accuracy, hours sooner and without an ML engineer. Every figure is the developers' own and none has been independently reproduced.</p>
+      <p>We read the source code alongside the paper and wrote a plain-language report on what each setting does, what the numbers establish, and where the answer is constrained by things the software does not control. <a href="https://ethical-tech-colab.github.io/website/publications/haste">Read our report &rarr;</a></p>
       <p class="src">📄 <a href="https://arxiv.org/abs/2607.11838">Read on arXiv</a></p>
     </div>
   </section>
