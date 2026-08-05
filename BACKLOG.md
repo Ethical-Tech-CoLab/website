@@ -4,7 +4,7 @@ Living checklist of open items. Everything not listed here is done and live at
 <https://ethical-tech-colab.github.io/website/>. After adding any asset below,
 run `npm run sync:static`, then commit + push (or ask me to).
 
-Last updated: 2026-07-27.
+Last updated: 2026-08-05.
 
 ---
 
@@ -128,11 +128,21 @@ them.
     - [ ] ESG Labels & Certificates Transparency (Spring 2025)
     - [ ] AI's Carbon Footprint (Spring 2025)
     - [ ] Academic Research Tool (Fall 2025)
-- [ ] **Avatar Storytelling — deploy the code.** The Generative AI for Good /
-      Avatar Storytelling project currently only has D-ID share links (four
-      videos). Get the project code hosted so it has a real live demo + repo,
-      then point `avatarStorytellingDemos` / the `avatar-storytelling` product
-      at the deployed app instead of (or in addition to) the D-ID links.
+- [ ] **Avatar Impact Stories — fold Live demos 1, 2 and 3 into the kiosk.**
+      The code is deployed (2026-08-05): `Avatar-Impact-Stories` is public and
+      the *Many Voices* kiosk runs at
+      <https://ethical-tech-colab.github.io/Avatar-Impact-Stories/>, wired to
+      the `avatar-storytelling` product and the `archivedProjects` entry in
+      `src/content/site.ts`.
+
+      What is left is that the kiosk plays only the stories in the repo's
+      `stories.json`; Live demo 1, 2 and 3 are still hosted as separate D-ID
+      share links in `avatarStorytellingDemos`. Add those three pieces as
+      entries in `stories.json` (each needs a `poster`/`posterWebp` GIF and an
+      `mp4` in `final_gifs/`, exported from D-ID), so all the testimonies play
+      in one place. Then drop the three now-redundant `avatarStorytellingDemos`
+      links, leaving demo 4 and the impact-dashboard walkthrough until they are
+      folded in too.
 - [ ] **Previous-cohort projects — gather missing links & content.** Track down
       the remaining repos, live demos, write-ups, and descriptions for earlier
       cohorts' projects (Spring 2025 and Fall 2025) so the archive cards and
