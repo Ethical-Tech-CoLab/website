@@ -723,12 +723,21 @@ export interface DemoLink {
 /** The Avatar Storytelling demos, shared by the Spring 2025 cohort card, the
  * portfolio archive, and the Live Demos page so they never drift.
  *
- * Demos 1-4 are the D-ID avatar pieces themselves. The impact dashboard is a
- * recorded walkthrough rather than an interactive avatar, so it is labelled for
- * what it is instead of continuing the "Live demo N" numbering — and it is kept
- * last so the first entry, which the poster card uses as the project's primary
- * link, remains an actual avatar piece. */
+ * Many Voices — the deployed kiosk — leads, because the poster card uses the
+ * first entry as the project's primary link and the kiosk is the project
+ * rather than one piece of it. Demos 1-4 are the D-ID avatar pieces that are
+ * not in the kiosk yet (see BACKLOG). The impact dashboard is a recorded
+ * walkthrough rather than an interactive avatar, so it is labelled for what it
+ * is instead of continuing the "Live demo N" numbering, and is kept last. */
 export const avatarStorytellingDemos: DemoLink[] = [
+  {
+    // The kiosk itself, first: it is the project rather than one piece of it.
+    // Listed here rather than as a `demo` field because DemoRunner treats
+    // `demo` as "everything in this card can be iframed", and the D-ID share
+    // pages refuse framing — so a single `demo` would break the four below.
+    label: "Many Voices — the full story wall",
+    href: "https://ethical-tech-colab.github.io/Avatar-Impact-Stories/",
+  },
   {
     label: "Live demo 1",
     href: "https://studio.d-id.com/share?id=f816a9fc31454c3b843cf577e9affc78&utm_source=copy",
@@ -803,7 +812,6 @@ export const archivedProjects: ArchivedProject[] = [
       "Human-condition storytelling with culturally grounded digital-human avatars — short pieces produced with generative media.",
     tags: ["Generative AI", "Storytelling", "Media"],
     repo: "https://github.com/Ethical-Tech-CoLab/Avatar-Impact-Stories",
-    demo: "https://ethical-tech-colab.github.io/Avatar-Impact-Stories/",
     demos: avatarStorytellingDemos,
   },
   {
@@ -1217,7 +1225,6 @@ export const products: Product[] = [
     repoName: "avatar-storytelling",
     term: "Spring 2025",
     repo: "https://github.com/Ethical-Tech-CoLab/Avatar-Impact-Stories",
-    demo: "https://ethical-tech-colab.github.io/Avatar-Impact-Stories/",
     demos: avatarStorytellingDemos,
     blurb:
       "Human-condition storytelling with culturally grounded digital-human avatars — short pieces produced with generative media, now gathered into Many Voices, a browser kiosk where a scattered grid of faces plays each survivor testimony in place. The stories are written from real-world human-trafficking and child-labour cases; the avatars are built with D-ID.",
