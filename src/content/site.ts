@@ -802,6 +802,8 @@ export const archivedProjects: ArchivedProject[] = [
     summary:
       "Human-condition storytelling with culturally grounded digital-human avatars — short pieces produced with generative media.",
     tags: ["Generative AI", "Storytelling", "Media"],
+    repo: "https://github.com/Ethical-Tech-CoLab/Avatar-Impact-Stories",
+    demo: "https://ethical-tech-colab.github.io/Avatar-Impact-Stories/",
     demos: avatarStorytellingDemos,
   },
   {
@@ -1214,9 +1216,11 @@ export const products: Product[] = [
     name: "Generative AI for Good — Avatar Storytelling",
     repoName: "avatar-storytelling",
     term: "Spring 2025",
+    repo: "https://github.com/Ethical-Tech-CoLab/Avatar-Impact-Stories",
+    demo: "https://ethical-tech-colab.github.io/Avatar-Impact-Stories/",
     demos: avatarStorytellingDemos,
     blurb:
-      "Human-condition storytelling with culturally grounded digital-human avatars — a set of short pieces produced with generative media in the Spring 2025 cohort.",
+      "Human-condition storytelling with culturally grounded digital-human avatars — short pieces produced with generative media, now gathered into Many Voices, a browser kiosk where a scattered grid of faces plays each survivor testimony in place. The stories are written from real-world human-trafficking and child-labour cases; the avatars are built with D-ID.",
     language: "D-ID",
     theme: "Storytelling",
   },
