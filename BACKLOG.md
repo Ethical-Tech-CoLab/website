@@ -143,6 +143,27 @@ them.
       in one place. Then drop the three now-redundant `avatarStorytellingDemos`
       links, leaving demo 4 and the impact-dashboard walkthrough until they are
       folded in too.
+- [ ] **Avatar Impact Stories — clean up the story titles; take the student
+      names out.** Every title in the repo's `stories.json` is shown as the
+      caption under the playing avatar, and several still carry the name of the
+      researcher who produced the piece rather than the story: *Adam (Child
+      Labour) - Alexa*, *Amala (Child Labour) - Alexa*, *Unethical Labour -
+      Josh (Alexa)*, *Domestic Violence 1/2/3 - Smita Samanta*, *Human
+      Trafficking - Smita Samanta*, *Dorothy's Story - Nate*, *Forced Labor -
+      Celine R.* Strip the credit from each caption — credit belongs on
+      `about.html`, not on a survivor's testimony.
+
+      While in there, the same list has titles that are working filenames
+      rather than captions and need real ones: *arabic*, *vid*, *zoti*, *zoti
+      (1)*, *zoti (2)*, *Survivor - Forced Labor #4*. And *The True Cost of
+      Your Chocolate ΓÇô A Cocoa Farmer Speaks* has a mojibake en-dash — the
+      file was written as cp1252 and read as UTF-8, so fix the encoding rather
+      than just the one character.
+
+      Note that `title` is derived from the media filename by the manifest
+      generator (`tools/`), so either rename the files in `final_gifs/` or give
+      each story an explicit `title` that the generator preserves — otherwise
+      the next regeneration undoes the edit.
 - [ ] **Previous-cohort projects — gather missing links & content.** Track down
       the remaining repos, live demos, write-ups, and descriptions for earlier
       cohorts' projects (Spring 2025 and Fall 2025) so the archive cards and
