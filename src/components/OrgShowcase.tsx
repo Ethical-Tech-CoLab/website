@@ -11,7 +11,7 @@ function monogram(name: string) {
   return (letters || name.slice(0, 2)).toUpperCase();
 }
 
-/** Org name -> file slug, e.g. "Mesur.io" -> "mesur-io". Matches public/logos/README. */
+/** Org name -> file slug, e.g. "Tradeverifyd" -> "tradeverifyd". Matches public/logos/README. */
 function slug(name: string) {
   return name
     .toLowerCase()

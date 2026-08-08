@@ -1426,11 +1426,11 @@ export const about = {
         logo: "/logos/d-id.jpg",
       },
       {
-        name: "Mesur.io",
+        name: "Tradeverifyd",
         about:
-          "Risk inference in emerging markets, applied to signals of forced labor across supply chains and geographies.",
-        url: "https://mesur.io",
-        logo: "",
+          "Ask your supply chain anything — agentic AI that resolves suppliers across 200+ global data sources, maps ownership through tier three, and monitors exposure to forced labor and sanctions regimes. Founded as Mesur.io in 2016; rebranded in 2025.",
+        url: "https://tradeverifyd.com",
+        logo: "/logos/tradeverifyd.svg",
       },
       {
         name: "SupplyTrace",
@@ -1916,6 +1916,7 @@ export const team = {
       linkedin: "https://www.linkedin.com/in/alexandra-x-du/",
       photo: "/team/alex.jpg",
       slug: "alex-du",
+      bio: "Alex Du is the Ethical Tech CoLab's Marketing & Community Lead, and joined the lab with the Spring 2025 cohort. She co-authored AI's Carbon Footprint, the cohort's report on the environmental cost of building and running large AI models, which weighs data-center energy use, cooling, and hardware against the efficiency practices and policy interventions that could reduce AI's ecological footprint.",
     },
   ] as TeamMember[],
   collaboratorsLabel: "Other Members",
