@@ -1687,6 +1687,7 @@ export const team = {
       name: "Sylvia G. Maier",
       role: "Advisor · Principal Investigator, Refugee Project",
       org: "Clinical Professor, NYU SPS Center for Global Affairs",
+      linkedin: "https://www.linkedin.com/in/sylvia-maier-9b395a8/",
       website:
         "https://www.sps.nyu.edu/faculty-directory/12308-sylvia-g-maier.html",
       photo: "/team/sylvia.jpg",
@@ -1851,6 +1852,7 @@ export const team = {
       name: "Smita Samanta",
       role: "Applied AI Graduate Researcher",
       term: "Spring 2025",
+      linkedin: "https://www.linkedin.com/in/smitasamanta/",
       photo: "/team/smita.jpg",
       slug: "smita-samanta",
       bio: "Smita Samanta is an MS in Global Affairs '25 (Global Economy) from New Delhi, India. In the Spring 2025 cohort she worked on Online Grooming Prevention, and her interests span venture capital, climate tech, AI, and emerging markets.",
@@ -1860,6 +1862,7 @@ export const team = {
       name: "Elizabeth Matthews",
       role: "Applied AI Graduate Researcher",
       term: "Spring 2025",
+      linkedin: "https://www.linkedin.com/in/elizabethrmatthews/",
       photo: "/team/elizabeth.jpg",
       slug: "elizabeth-matthews",
       bio: "Elizabeth Matthews is an MS in Global Affairs '25 (International Relations) from Omaha, Nebraska. In the Spring 2025 cohort she led the AI's Carbon Footprint research paper and contributed to Online Grooming Prevention, focused on ethical technology policy and digital development.",
@@ -1869,6 +1872,7 @@ export const team = {
       name: "Renata Gladkikh",
       role: "Applied AI Graduate Researcher",
       term: "Spring 2025",
+      linkedin: "https://www.linkedin.com/in/renatagladkikh/",
       photo: "/team/renata.jpg",
       slug: "renata-gladkikh",
       bio: "Renata Gladkikh is an MS in Global Affairs '25 (Global Economy) from Dubai, UAE. In the Spring 2025 cohort she led the AI's Carbon Footprint paper and contributed to ESG Labels & Certificates Transparency, focusing on ESG, sustainability, and the energy transition.",
@@ -1878,6 +1882,7 @@ export const team = {
       name: "Jennifer Hofmann",
       role: "Applied AI Graduate Researcher",
       term: "Spring 2025",
+      linkedin: "https://www.linkedin.com/in/jennifer-hofmann-17233416b/",
       photo: "/team/jennifer.jpg",
       slug: "jennifer-hofmann",
       bio: "Jennifer Hofmann is an MS in Global Affairs '26 (Global Economy) from Marburg, Germany. In the Spring 2025 cohort she led the Online Grooming Prevention project, with interests in policy, public relations, and the global economy.",
@@ -1887,6 +1892,9 @@ export const team = {
       name: "Emily Harrington",
       role: "Applied AI Graduate Researcher",
       term: "Spring 2025",
+      // No LinkedIn profile found (searched 2026-08-08). The CoLab's own
+      // Spring 2025 cohort post tags every other researcher but names her in
+      // plain text, so there is likely no profile to link. Ask her directly.
       photo: "/team/emily.jpg",
       slug: "emily-harrington",
       bio: "Emily Harrington is an MS in Global Security, Conflict, and Cybercrime '25 from Rockville, MD. In the Spring 2025 cohort she contributed to Online Grooming Prevention and ESG Labels & Certificates Transparency, focused on national security, cyber threat intelligence, and OSINT.",
@@ -1896,6 +1904,9 @@ export const team = {
       name: "Natasha Nagarajan",
       role: "Applied AI Graduate Researcher",
       term: "Spring 2025",
+      // No LinkedIn profile found (searched 2026-08-08). As with Emily
+      // Harrington, the CoLab's own Spring 2025 cohort post names her in plain
+      // text while tagging the others. Ask her directly.
       photo: "/team/natasha.jpg",
       slug: "natasha-nagarajan",
       bio: "Natasha Nagarajan is an MS in Global Security, Conflict, and Cybercrime '25 from Atlanta, Georgia. In the Spring 2025 cohort she contributed to Online Grooming Prevention, with interests in intelligence, space policy, and responsible innovation.",
@@ -1906,6 +1917,7 @@ export const team = {
       role: "3D Creative Designer",
       term: "Spring 2025",
       org: "Ethical Tech CoLab",
+      linkedin: "https://www.linkedin.com/in/hannah-zhao-314901339/",
       photo: "/team/hannah.jpg",
       slug: "hannah-zhao",
       bio: "Artist and engineer. She uses multi-media installations and infrastructures to highlight and explore human conditions and interaction immersion.",
