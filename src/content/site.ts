@@ -1248,7 +1248,7 @@ export const cohorts: Cohort[] = [
     title: "Prototyping and partner pilots.",
     body: "Technical spikes (multi-agent harnesses, verifiable credentials, geospatial pipelines) tested against real partner needs.",
     items: [
-      "7 researchers",
+      "8 researchers",
       "Forced Labor Structural Risk Index",
       "AI Research Question Assistant",
     ],
@@ -1848,6 +1848,16 @@ export const team = {
       bio: "Grace Driscoll graduated from the College of the Holy Cross before joining New York University for the MS in Global Security, Conflict, and Cybercrime. In the Fall 2025 cohort she worked as an Ethical Tech Lab consultant and co-authored AI-Powered Research Questions, the cohort's study of AI assistance across the researcher's workflow.",
     },
     {
+      initials: "PB",
+      name: "Pegi Bracaj",
+      role: "Applied AI Graduate Researcher",
+      term: "Fall 2025",
+      linkedin: "https://www.linkedin.com/in/pegi-bracaj/",
+      // photo: "/team/pegi.jpg", // TODO: headshot not yet supplied
+      slug: "pegi-bracaj",
+      bio: "Pegi Bracaj joined the Ethical Tech CoLab with the Fall 2025 cohort, and is a co-author of AI-Powered Research Questions, the cohort's study of AI assistance across the researcher's workflow.",
+    },
+    {
       initials: "SS",
       name: "Smita Samanta",
       role: "Applied AI Graduate Researcher",
@@ -1960,7 +1970,7 @@ export const team = {
       name: "Susan deMenil",
       role: "Collaborator",
       org: "AABC Co-Founder · Cultural Heritage Thought Leader",
-      // linkedin: "", // TODO: Susan deMenil LinkedIn URL
+      linkedin: "https://www.linkedin.com/in/susan-de-menil-8b083498/",
       photo: "/team/susan.jpg",
       slug: "susan-deminil",
       bio: "Susan de Menil is currently the founding co-president of the Art, Antiquities, and Blockchain Consortium (AABC), a nonprofit 501(c)3 that uses blockchain-based infrastructure to guide the future of cultural heritage repatriation. Since 1991, Susan has worked as the director of marketing, administration, and interior design for Francois de Menil, Architect, P.C. From 1999-2012, she served as the president and executive director of the Byzantine Fresco Foundation, the nonprofit organization that oversaw the acquisition, conservation, exhibition, stewardship, and return of frescoes that had been taken from the Church at Lysi in Cyprus. During that time, de Menil conducted in-depth ethnographic interviews with the many stakeholders in a complex international negotiation over the frescoes. Susan is the director of the forthcoming documentary on this project, 38 Pieces.\n\nIn her research and curatorial work, de Menil co-curated Angels & Franciscans: Innovative Architecture from Los Angeles and San Francisco, an exhibition which was awarded Best Architecture show by the International Association of Art Critics. The catalogue (with Bill Lacey) was published by Rizzoli. She is also co-editor of the book Sanctuary: The Spirit In/Of Architecture based on a symposium at the Menil Collection organized in conjunction with the exhibition Sanctuaries: The Last Works of John Hejduk.",
