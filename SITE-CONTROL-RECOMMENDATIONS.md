@@ -91,7 +91,9 @@ Further recommendations:
 - pin a local Node version to match the workflow's Node 20;
 - cache npm downloads, not generated output;
 - exclude `static-site/` from lint because it is generated;
-- add a drift check if retaining the tracked static snapshot;
+- add a drift check if retaining the tracked static snapshot — now practical,
+  since the snapshot's build ID is pinned and regeneration is byte-stable, but
+  pin its line endings first (see the note on `UPD-005`);
 - add dependency update automation with small, reviewable pull requests;
 - never auto-merge framework or security updates without a successful build
   and route review.

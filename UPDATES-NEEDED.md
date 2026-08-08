@@ -106,9 +106,18 @@ and Linux from a clean checkout.
 
 **Priority:** Medium
 
-The tracked snapshot is not deployed, touches hundreds of files during normal
-regeneration, contributes lint noise, and can obscure source review. It remains
-useful as a no-server convenience copy.
+The tracked snapshot is not deployed, contributes lint noise, and can obscure
+source review. It remains useful as a no-server convenience copy.
+
+**Resolved since this item was written:** the snapshot used to rewrite ~490
+files on every regeneration. That was not staleness or drift. `next build`
+mints a random build ID per run and embeds it in every prerendered document, so
+486 of 489 files in one snapshot commit differed only by that ID. The build ID
+is now pinned to a placeholder in the snapshot copy only
+(`scripts/normalize-static-build-id.mjs`), which leaves the deployed `out/`
+untouched. A content change now touches only the pages it affects — a one-line
+edit went from ~490 files to 9 — so the snapshot is byte-stable and a drift
+check is finally implementable.
 
 **Proposed decision:** Choose and document one of:
 
@@ -118,6 +127,13 @@ useful as a no-server convenience copy.
 
 Until that decision is approved, preserve the current policy and keep generated
 changes in a separate commit.
+
+**Note for option 1:** a drift check is now possible — run `npm run sync:static`
+in CI and fail if `git status` is dirty — but the repository has no
+`.gitattributes` while Git for Windows defaults to `core.autocrlf=true`. A
+Windows checkout therefore reports hundreds of modified snapshot files that have
+no content change at all. Pin the snapshot's line endings before relying on such
+a check.
 
 **Acceptance:** One documented policy, one generation path, and an automated
 way to detect accidental drift where applicable.
