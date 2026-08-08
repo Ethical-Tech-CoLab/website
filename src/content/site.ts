@@ -720,45 +720,21 @@ export interface DemoLink {
   href: string;
 }
 
-/** The Avatar Storytelling demos, shared by the Spring 2025 cohort card, the
- * portfolio archive, and the Live Demos page so they never drift.
+/** The deployed Avatar Storytelling kiosk, shared by the Spring 2025 cohort
+ * card, the portfolio archive, and the Live Demos page so they never drift.
  *
- * Many Voices — the deployed kiosk — leads, because the poster card uses the
- * first entry as the project's primary link and the kiosk is the project
- * rather than one piece of it. Demos 1-4 are the D-ID avatar pieces that are
- * not in the kiosk yet (see BACKLOG). The impact dashboard is a recorded
- * walkthrough rather than an interactive avatar, so it is labelled for what it
- * is instead of continuing the "Live demo N" numbering, and is kept last. */
-export const avatarStorytellingDemos: DemoLink[] = [
-  {
-    // The kiosk itself, first: it is the project rather than one piece of it.
-    // Listed here rather than as a `demo` field because DemoRunner treats
-    // `demo` as "everything in this card can be iframed", and the D-ID share
-    // pages refuse framing — so a single `demo` would break the four below.
-    label: "Many Voices — the full story wall",
-    href: "https://ethical-tech-colab.github.io/Avatar-Impact-Stories/",
-  },
-  {
-    label: "Live demo 1",
-    href: "https://studio.d-id.com/share?id=f816a9fc31454c3b843cf577e9affc78&utm_source=copy",
-  },
-  {
-    label: "Live demo 2",
-    href: "https://studio.d-id.com/share?id=0e35cf3e8380a8436ddadf29838acf2e&utm_source=copy",
-  },
-  {
-    label: "Live demo 3",
-    href: "https://studio.d-id.com/share?id=6e23d48f51c352d58425aa6faf299ec8&utm_source=copy",
-  },
-  {
-    label: "Live demo 4",
-    href: "https://studio.d-id.com/share?id=6c979fe11446cabaa5988f0922f0bd33&utm_source=copy",
-  },
-  {
-    label: "Impact dashboard walkthrough",
-    href: "https://drive.google.com/file/d/1DlPUT1UUuEdgB40p2cHeOjpULopAPIEC/view",
-  },
-];
+ * This used to be a list: the kiosk plus four D-ID share links and a recorded
+ * dashboard walkthrough. The share links were dropped on 2026-08-08 now that
+ * the code is deployed — Many Voices is the project, and the individual D-ID
+ * pieces were the way to show it before there was anything to run. Three of
+ * the four are still to be folded into the kiosk's own `stories.json`; that is
+ * tracked in BACKLOG §4, not by keeping the raw links on the site.
+ *
+ * Kept as a plain URL rather than a `demos` list so the runner frames it: it
+ * is a browser kiosk, and GitHub Pages sets no X-Frame-Options, so it plays
+ * in place like every other hosted demo. */
+export const avatarStorytellingDemo =
+  "https://ethical-tech-colab.github.io/Avatar-Impact-Stories/";
 
 /** Past projects from earlier cohorts — the portfolio archive. */
 export interface ArchivedProject {
@@ -812,7 +788,7 @@ export const archivedProjects: ArchivedProject[] = [
       "Human-condition storytelling with culturally grounded digital-human avatars — short pieces produced with generative media.",
     tags: ["Generative AI", "Storytelling", "Media"],
     repo: "https://github.com/Ethical-Tech-CoLab/Avatar-Impact-Stories",
-    demos: avatarStorytellingDemos,
+    demo: avatarStorytellingDemo,
   },
   {
     name: "Forced Labor Structural Risk Index",
@@ -1225,7 +1201,7 @@ export const products: Product[] = [
     repoName: "avatar-storytelling",
     term: "Spring 2025",
     repo: "https://github.com/Ethical-Tech-CoLab/Avatar-Impact-Stories",
-    demos: avatarStorytellingDemos,
+    demo: avatarStorytellingDemo,
     blurb:
       "Human-condition storytelling with culturally grounded digital-human avatars — short pieces produced with generative media, now gathered into Many Voices, a browser kiosk where a scattered grid of faces plays each survivor testimony in place. The stories are written from real-world human-trafficking and child-labour cases; the avatars are built with D-ID.",
     language: "D-ID",
