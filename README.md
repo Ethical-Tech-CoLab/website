@@ -46,23 +46,40 @@ src/
   app/             # Next.js App Router pages
     /              # Home / hero
     /about         # Mission, vision, director, collaborators
-    /cohorts       # Cohort history (Spring 2025 → Summer 2026)
+                   # (currently preserved but intentionally returns 404)
     /portfolio     # Research project cards
+    /demos         # Live demo catalogue
+    /publications  # Publication catalogue and report routes
+    /media         # Media and event archive
+    /newsletter    # Newsletter archive and embedded issues
     /team          # Founder + current cohort bios
     /contact       # Contact form
-  components/      # SiteHeader, SiteFooter, HeroVisual, ContactForm
+  components/      # Shared presentation and interaction
   content/
-    site.ts        # All copy — edit here, pages stay presentational
+    site.ts        # General site data and copy
+    newsletter.ts  # Newsletter listing metadata
+    publications/  # Publication report content
 public/
   team/            # Headshot images (see public/team/README.md)
 ```
 
-All site copy lives in [src/content/site.ts](src/content/site.ts). Pages are purely presentational — update content there first.
+Most general site data lives in [src/content/site.ts](src/content/site.ts).
+Publication reports and newsletter metadata have their own content modules as
+shown above. Edit the relevant content source before changing presentation
+components.
+
+## Contributing and site operations
+
+- **Safe contribution workflow:** [HOW-TO-CONTRIBUTE.md](HOW-TO-CONTRIBUTE.md)
+- **Recommended repository controls:** [SITE-CONTROL-RECOMMENDATIONS.md](SITE-CONTROL-RECOMMENDATIONS.md)
+- **Legacy updates and review-only discovery requests:** [UPDATES-NEEDED.md](UPDATES-NEEDED.md)
+- **Open public-site content work:** [BACKLOG.md](BACKLOG.md)
+- **Security reports:** [SECURITY.md](SECURITY.md)
 
 ## Dev
 
 ```bash
-npm install
+npm ci
 npm run dev      # http://localhost:3000
 ```
 
