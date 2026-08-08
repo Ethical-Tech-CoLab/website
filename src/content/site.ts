@@ -1791,6 +1791,7 @@ export const team = {
       name: "Alexa Shamie",
       role: "Applied AI Graduate Researcher",
       term: "Fall 2025",
+      linkedin: "https://www.linkedin.com/in/alexa-shamie-9576591b7/",
       photo: "/team/alexa.jpeg",
       slug: "alexa-shamie",
     },
@@ -1799,6 +1800,7 @@ export const team = {
       name: "Mohagani Townsend",
       role: "Applied AI Graduate Researcher",
       term: "Fall 2025",
+      linkedin: "https://www.linkedin.com/in/mohagani-townsend-526764202/",
       photo: "/team/mohagani.jpg",
       slug: "mohagani-townsend",
     },
@@ -1807,6 +1809,7 @@ export const team = {
       name: "Amanda Lindsey",
       role: "Applied AI Graduate Researcher",
       term: "Fall 2025",
+      linkedin: "https://www.linkedin.com/in/amanda-m-lindsey/",
       photo: "/team/amanda.jpg",
       slug: "amanda-lindsey",
     },
@@ -1815,6 +1818,7 @@ export const team = {
       name: "Taylor Badt",
       role: "Applied AI Graduate Researcher",
       term: "Fall 2025",
+      linkedin: "https://www.linkedin.com/in/taylor-badt-57251a1b6/",
       photo: "/team/taylor.jpg",
       slug: "taylor-badt",
     },
@@ -1823,6 +1827,7 @@ export const team = {
       name: "Vedant Jain",
       role: "Applied AI Graduate Researcher",
       term: "Fall 2025",
+      linkedin: "https://www.linkedin.com/in/vedantjain-vj/",
       photo: "/team/vedant.png",
       slug: "vedant-jain",
     },
@@ -1831,6 +1836,7 @@ export const team = {
       name: "Grace Driscoll",
       role: "Applied AI Graduate Researcher",
       term: "Fall 2025",
+      linkedin: "https://www.linkedin.com/in/grace-driscoll-5620481a8/",
       photo: "/team/grace.jpg",
       slug: "grace-driscoll",
     },
@@ -1926,8 +1932,13 @@ export const team = {
       name: "Adeline Daab",
       role: "Collaborator",
       org: "NYU Gallatin",
-      // linkedin: "", // TODO: Adeline Daab LinkedIn URL
+      // No public LinkedIn profile found (searched 2026-08-08); the NYU Gallatin
+      // "My Gallatin Story" feature below is the authoritative public profile.
+      website:
+        "https://www.facebook.com/nyugallatin/posts/my-gallatin-story-adeline-daab-ba-28-what-is-your-concentrationmy-concentration-/1436765148221804/",
+      photo: "/team/adeline.jpg",
       slug: "adeline-daab",
+      bio: "Adeline Daab is an undergraduate at NYU's Gallatin School of Individualized Study (BA '28). Her concentration explores the intersection of human and labor exploitation with environmental resource exploitation, and how both interact with and emerge from broader social and economic systems.\n\nShe works with Empowerment Collective, a survivor-led organization focused on ending modern slavery. She first encountered it on a gap year after high school, living and working in its fair-trade clothing shop in Kathmandu, Nepal, and joined the team after being drawn to its circular survivor-leadership framework and person-to-person, community-based model of aid. Gallatin's emphasis on collaborative learning has since moved her research and writing toward a more community-based practice, and her work has helped convene survivor leaders, business leaders, academics, and activists around modern slavery and its ties to the climate crisis, gender hierarchies, economic systems, and consumption culture.",
     },
     {
       initials: "SD",

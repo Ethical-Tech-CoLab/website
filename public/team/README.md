@@ -22,5 +22,6 @@ Status (founder + Summer 2026 researchers):
 - `taylor.jpg` — Taylor Badt (Fall 2025) ✅
 - `vedant.png` — Vedant Jain (Fall 2025) ✅
 - `grace.jpg` — Grace Driscoll (Fall 2025) ✅
+- `adeline.jpg` — Adeline Daab (collaborator) ✅
 
 `.png` works too — just match the extension in the `photo:` path.
