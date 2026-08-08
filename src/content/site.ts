@@ -1794,6 +1794,7 @@ export const team = {
       linkedin: "https://www.linkedin.com/in/alexa-shamie-9576591b7/",
       photo: "/team/alexa.jpeg",
       slug: "alexa-shamie",
+      bio: "Alexa Shamie completed the MS in Global Security, Conflict, and Cybercrime at NYU's School of Professional Studies in December 2025, and is now a cybersecurity production analyst at Drawbridge in New York. In the Fall 2025 cohort she worked as an Ethical Tech Lab consultant and co-authored AI-Powered Research Questions, the cohort's study of AI assistance across the researcher's workflow.",
     },
     {
       initials: "MT",
@@ -1803,6 +1804,7 @@ export const team = {
       linkedin: "https://www.linkedin.com/in/mohagani-townsend-526764202/",
       photo: "/team/mohagani.jpg",
       slug: "mohagani-townsend",
+      bio: "Mohagani Townsend earned a master's degree in cybercrime from New York University, having moved to New York to study, and is an emerging technology analyst at Triantha. Her research spans cyber-enabled threats, emerging technologies, and the intersection of cybersecurity, policy, and national security, with a focus on turning complex technical, legal, and operational questions into clear analysis. In the Fall 2025 cohort she co-authored AI-Powered Research Questions.",
     },
     {
       initials: "AL",
@@ -1812,6 +1814,7 @@ export const team = {
       linkedin: "https://www.linkedin.com/in/amanda-m-lindsey/",
       photo: "/team/amanda.jpg",
       slug: "amanda-lindsey",
+      bio: "Amanda Lindsey works at the intersection of AI, ethical technology, and cybersecurity. In the Fall 2025 cohort she built the Forced Labor Structural Risk Index, an interactive index that scores the structural conditions enabling forced labor across 184 countries on a 0–1 scale, with national and sub-national layers, rankings, and sources. She presented the model — quantitative and geospatial methods for measuring country-level risk — at the Ethical Tech Summit, and co-authored AI-Powered Research Questions.",
     },
     {
       initials: "TB",
@@ -1821,6 +1824,7 @@ export const team = {
       linkedin: "https://www.linkedin.com/in/taylor-badt-57251a1b6/",
       photo: "/team/taylor.jpg",
       slug: "taylor-badt",
+      bio: "Taylor Badt studied international affairs at the University of Colorado Boulder, with minors in Spanish, sociology, and political science, before graduate study at New York University. She is an analyst at JPMorganChase in New York. In the Fall 2025 cohort she worked as an Ethical Tech Lab consultant and co-authored AI-Powered Research Questions.",
     },
     {
       initials: "VJ",
@@ -1830,6 +1834,7 @@ export const team = {
       linkedin: "https://www.linkedin.com/in/vedantjain-vj/",
       photo: "/team/vedant.png",
       slug: "vedant-jain",
+      bio: "Vedant Jain is the founding president of the NYU SPS Consulting and Business Strategy Society, which he helped build from the ground up in 2025. Through it he brought Apexon's AI Industry Day to NYU in partnership with the Wasserman Center for Career Development. In the Fall 2025 cohort he worked as an Ethical Tech consultant and co-authored AI-Powered Research Questions.",
     },
     {
       initials: "GD",
@@ -1839,6 +1844,7 @@ export const team = {
       linkedin: "https://www.linkedin.com/in/grace-driscoll-5620481a8/",
       photo: "/team/grace.jpg",
       slug: "grace-driscoll",
+      bio: "Grace Driscoll graduated from the College of the Holy Cross before joining New York University for the MS in Global Security, Conflict, and Cybercrime. In the Fall 2025 cohort she worked as an Ethical Tech Lab consultant and co-authored AI-Powered Research Questions, the cohort's study of AI assistance across the researcher's workflow.",
     },
     {
       initials: "SS",
