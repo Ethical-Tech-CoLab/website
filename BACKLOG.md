@@ -136,13 +136,16 @@ them.
       `src/content/site.ts`.
 
       What is left is that the kiosk plays only the stories in the repo's
-      `stories.json`; Live demo 1, 2 and 3 are still hosted as separate D-ID
-      share links in `avatarStorytellingDemos`. Add those three pieces as
-      entries in `stories.json` (each needs a `poster`/`posterWebp` GIF and an
-      `mp4` in `final_gifs/`, exported from D-ID), so all the testimonies play
-      in one place. Then drop the three now-redundant `avatarStorytellingDemos`
-      links, leaving demo 4 and the impact-dashboard walkthrough until they are
-      folded in too.
+      `stories.json`. Live demo 1, 2 and 3 are separate D-ID pieces that are
+      not in it. Add them as `stories.json` entries (each needs a
+      `poster`/`posterWebp` GIF and an `mp4` in `final_gifs/`, exported from
+      D-ID) so all the testimonies play in one place. Same for demo 4.
+
+      The site no longer links the D-ID shares — as of 2026-08-08
+      `avatarStorytellingDemo` is a single URL pointing at the kiosk, so the
+      only way these three reach an audience is inside it. The share URLs, and
+      the impact-dashboard walkthrough that was dropped with them, are in git
+      history at commit `160dc254` if they are needed again.
 - [ ] **Avatar Impact Stories — clean up the story titles; take the student
       names out.** Every title in the repo's `stories.json` is shown as the
       caption under the playing avatar, and several still carry the name of the
