@@ -21,7 +21,13 @@ npm ci
 Use one branch and one pull request per focused change. Before editing:
 
 1. Check [BACKLOG.md](BACKLOG.md) and the open GitHub issues.
-2. Tell the relevant maintainer, particularly Carolina, what you plan to change.
+2. Tell the relevant maintainer what you plan to change. Until `CODEOWNERS`
+   exists (see `UPD-003` in [UPDATES-NEEDED.md](UPDATES-NEEDED.md)), most
+   website commits come from
+   [@carolina-moron](https://github.com/carolina-moron), with
+   [@alx-du](https://github.com/alx-du) also contributing. Request review by
+   role — see the reviewer roles in section 5 — rather than routing every
+   change through one person.
 3. Identify the authoritative source for every name, link, image, claim, and
    research figure.
 4. Avoid overlapping work in `src/content/site.ts`; it is the most frequently

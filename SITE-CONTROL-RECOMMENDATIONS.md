@@ -63,11 +63,17 @@ risk domain, not merely by file count:
 | Logos, photos, and third-party media | Designated brand or rights owner |
 | Security-sensitive changes | Security contact under `SECURITY.md` |
 
-Name at least one backup for each critical role. Carolina's workflow should be
-captured, but no deployment or maintenance path should depend on one person's
-device, account, chat history, or AI subscription.
+Name at least one backup for each critical role. The current maintenance
+workflow — most of it [@carolina-moron](https://github.com/carolina-moron)'s —
+should be captured, but no deployment or maintenance path should depend on one
+person's device, account, chat history, or AI subscription.
 
 ## 3. Run checks before merge
+
+**Prerequisite:** the `gh` token currently in use has no `workflow` scope, so
+any push that adds or edits a file under `.github/workflows/` is rejected
+outright (`BACKLOG.md` section 8). Re-authorise with `workflow` scope before
+attempting this section.
 
 Add a pull-request CI workflow that uses the same Node version and install
 method as deployment:
@@ -197,15 +203,19 @@ operations.
 
 ## Recommended implementation order
 
-1. Review the questions for Carolina in [UPDATES-NEEDED.md](UPDATES-NEEDED.md)
-   and capture the existing workflow without secrets.
-2. Repair the lint baseline and add a pull-request build workflow.
-3. Protect `main` and require the passing build.
-4. Agree on ownership and add `CODEOWNERS` plus a pull-request template.
-5. Pin the local Node version and assess dependency advisories.
-6. Add focused smoke checks.
-7. Decide the long-term policy for `static-site/`.
-8. Review issue taxonomy, domain ownership, licensing, and continuity every
+1. Re-authorise the `gh` token with `workflow` scope. Without it, any push
+   touching `.github/workflows/*` is rejected, which blocks steps 2 and 3
+   below (see `UPD-002` and `BACKLOG.md` section 8).
+2. Review the maintainer-workflow questions in
+   [UPDATES-NEEDED.md](UPDATES-NEEDED.md) and capture the existing workflow
+   without secrets.
+3. Repair the lint baseline and add a pull-request build workflow.
+4. Protect `main` and require the passing build.
+5. Agree on ownership and add `CODEOWNERS` plus a pull-request template.
+6. Pin the local Node version and assess dependency advisories.
+7. Add focused smoke checks.
+8. Decide the long-term policy for `static-site/`.
+9. Review issue taxonomy, domain ownership, licensing, and continuity every
    six months.
 
 Each control should have a named owner, a backup, an acceptance test, and a

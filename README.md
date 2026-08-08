@@ -44,9 +44,9 @@ Four active projects, eight applied researchers:
 ```
 src/
   app/             # Next.js App Router pages
-    /              # Home / hero
+    /              # Home / hero + cohort history (CohortsShowcase)
     /about         # Mission, vision, director, collaborators
-                   # (currently preserved but intentionally returns 404)
+                   #   (hidden — the route is preserved but returns 404)
     /portfolio     # Research project cards
     /demos         # Live demo catalogue
     /publications  # Publication catalogue and report routes
@@ -56,9 +56,11 @@ src/
     /contact       # Contact form
   components/      # Shared presentation and interaction
   content/
-    site.ts        # General site data and copy
+    site.ts        # General site data and copy (nav, cohorts, projects, team)
     newsletter.ts  # Newsletter listing metadata
     publications/  # Publication report content
+  lib/
+    asset.ts       # asset() — prefixes public/ paths with the base path
 public/
   team/            # Headshot images (see public/team/README.md)
 ```
@@ -70,7 +72,7 @@ components.
 
 ## Contributing and site operations
 
-- **Safe contribution workflow:** [HOW-TO-CONTRIBUTE.md](HOW-TO-CONTRIBUTE.md)
+- **Safe contribution workflow:** [CONTRIBUTING.md](CONTRIBUTING.md)
 - **Recommended repository controls:** [SITE-CONTROL-RECOMMENDATIONS.md](SITE-CONTROL-RECOMMENDATIONS.md)
 - **Legacy updates and review-only discovery requests:** [UPDATES-NEEDED.md](UPDATES-NEEDED.md)
 - **Open public-site content work:** [BACKLOG.md](BACKLOG.md)

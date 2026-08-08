@@ -59,8 +59,15 @@ The repository has no branch protection or rulesets. The Pages workflow runs
 only on pushes to `main`, so an invalid pull request receives no automated
 build before merge.
 
-**Proposed update:** Add non-deploying pull-request CI, then require its build
-status and pull-request approval through a GitHub ruleset. Follow
+**Blocked by:** the `gh` token in use has no `workflow` scope, so any push
+touching `.github/workflows/*` is rejected outright (recorded in `BACKLOG.md`
+section 8). Adding pull-request CI means adding a file under
+`.github/workflows/`, so re-authorising that token is a prerequisite of this
+item — and therefore of every control that depends on a required build check.
+
+**Proposed update:** Re-authorise the `gh` token with `workflow` scope, add
+non-deploying pull-request CI, then require its build status and pull-request
+approval through a GitHub ruleset. Follow
 [SITE-CONTROL-RECOMMENDATIONS.md](SITE-CONTROL-RECOMMENDATIONS.md).
 
 **Acceptance:** A test pull request cannot merge until its required build
@@ -217,7 +224,10 @@ CoLab does not hold.
 **Acceptance:** A clear, approved statement distinguishes code, original
 content, research publications, and third-party assets.
 
-## B. Draft requests for Carolina - review before sending
+## B. Draft requests to document the maintenance workflow - review before sending
+
+Addressed to [@carolina-moron](https://github.com/carolina-moron), who authors
+most commits on `main`.
 
 ### Purpose
 
@@ -227,8 +237,9 @@ maintenance model, but it creates continuity risk if the effective instructions,
 skills, and validation steps exist only on one device or in private chat
 history.
 
-The requests below are deliberately neutral: they seek to reproduce what works,
-not to audit Carolina's technical ability. They are drafts only.
+The requests below are about the workflow, not the person: they seek to
+reproduce and back up what already works so a second maintainer can run it.
+They are drafts only.
 
 ### Safety note to include with every request
 
@@ -238,7 +249,7 @@ private repository content. Names of environment variables and redacted
 examples are sufficient. If an instruction contains sensitive information,
 describe its purpose and storage location rather than copying its value.
 
-### CAR-01 - AI client and tool inventory
+### WF-01 - AI client and tool inventory
 
 **Draft request:**
 
@@ -253,7 +264,7 @@ that repository files describe the whole system.
 
 **Review decision:** [ ] Send as written  [ ] Revise  [ ] Do not send
 
-### CAR-02 - Client-side skills, agents, and custom instructions
+### WF-02 - Client-side skills, agents, and custom instructions
 
 **Draft request:**
 
@@ -268,7 +279,7 @@ the repository alone would suggest.
 
 **Review decision:** [ ] Send as written  [ ] Revise  [ ] Do not send
 
-### CAR-03 - End-to-end "golden path"
+### WF-03 - End-to-end "golden path"
 
 **Draft request:**
 
@@ -282,7 +293,7 @@ the repository alone would suggest.
 
 **Review decision:** [ ] Send as written  [ ] Revise  [ ] Do not send
 
-### CAR-04 - Local setup and repository layout
+### WF-04 - Local setup and repository layout
 
 **Draft request:**
 
@@ -296,7 +307,7 @@ the repository alone would suggest.
 
 **Review decision:** [ ] Send as written  [ ] Revise  [ ] Do not send
 
-### CAR-05 - Validation and visual review
+### WF-05 - Validation and visual review
 
 **Draft request:**
 
@@ -309,7 +320,7 @@ the repository alone would suggest.
 
 **Review decision:** [ ] Send as written  [ ] Revise  [ ] Do not send
 
-### CAR-06 - Content provenance and cross-repository synchronization
+### WF-06 - Content provenance and cross-repository synchronization
 
 **Draft request:**
 
@@ -323,7 +334,7 @@ the repository alone would suggest.
 
 **Review decision:** [ ] Send as written  [ ] Revise  [ ] Do not send
 
-### CAR-07 - Deployment, permissions, and rollback
+### WF-07 - Deployment, permissions, and rollback
 
 **Draft request:**
 
@@ -337,7 +348,7 @@ single-account dependency.
 
 **Review decision:** [ ] Send as written  [ ] Revise  [ ] Do not send
 
-### CAR-08 - Guardrails and known failure modes
+### WF-08 - Guardrails and known failure modes
 
 **Draft request:**
 
@@ -350,7 +361,7 @@ process.
 
 **Review decision:** [ ] Send as written  [ ] Revise  [ ] Do not send
 
-### CAR-09 - Safe transfer and backup
+### WF-09 - Safe transfer and backup
 
 **Draft request:**
 
@@ -364,13 +375,13 @@ vendor and privacy boundaries.
 
 **Review decision:** [ ] Send as written  [ ] Revise  [ ] Do not send
 
-## C. Review and disposition of Carolina's responses
+## C. Review and disposition of the responses
 
 Do not paste raw responses into a public issue. Review them first:
 
 | Response type | Proposed destination after approval |
 |---|---|
-| Durable, non-sensitive repository rule | `HOW-TO-CONTRIBUTE.md`, `AGENTS.md`, or a reviewed repository skill |
+| Durable, non-sensitive repository rule | `CONTRIBUTING.md`, `AGENTS.md`, or a reviewed repository skill |
 | Bounded technical implementation | GitHub issue |
 | Public-site content follow-up | `BACKLOG.md` |
 | Credential, account, or private deployment detail | Approved private runbook or secret manager |
@@ -380,7 +391,8 @@ Do not paste raw responses into a public issue. Review them first:
 Before promoting any response:
 
 1. Verify it on a clean branch or clean checkout.
-2. Confirm it does not depend on Carolina's personal identity or private data.
+2. Confirm it does not depend on one maintainer's personal identity, device, or
+   private data.
 3. Replace machine-specific paths with documented placeholders where possible.
 4. Name an owner and backup.
 5. Add an acceptance check.
