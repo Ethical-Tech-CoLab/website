@@ -1,0 +1,41 @@
+# Line-ending policy.
+#
+# Git for Windows ships with core.autocrlf=true, and this repository had no
+# .gitattributes, so line endings were decided by each contributor's local Git
+# config rather than by the project.
+#
+# The visible symptom was in the generated snapshot: Git checked static-site/
+# out with CRLF, `next build` rewrote it with LF, and `git status` then reported
+# hundreds of modified files that contained no actual change — 452 of them in
+# one measured case, with `git diff` showing nothing for any of them. That noise
+# hides real edits and would make the drift check proposed in UPD-005 fail on
+# any Windows checkout.
+#
+# Normalize text to LF in the repository, and check it out as LF everywhere.
+
+* text=auto eol=lf
+
+# The generated snapshot must round-trip byte-for-byte against a fresh build,
+# which always writes LF.
+static-site/** text eol=lf
+
+# Shell scripts must keep LF; bash rejects CRLF line endings, which would break
+# `npm run sync:static` on a Windows checkout.
+*.sh text eol=lf
+
+# Binary assets Git should never touch.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.avif binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.eot binary
+*.mp4 binary
+*.webm binary
