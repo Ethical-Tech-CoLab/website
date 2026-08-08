@@ -1913,6 +1913,7 @@ export const team = {
       linkedin: "https://www.linkedin.com/in/kirsten-co/",
       photo: "/team/kirsten.jpeg",
       slug: "kirsten-co",
+      bio: "Kirsten Co (MS, MBA) is a Strategic Advisor to the Ethical Tech CoLab and an alumna of the NYU SPS Center for Global Affairs, where she completed the MS in Global Security, Conflict, and Cybercrime. She also holds an MBA, awarded with distinction by Sydney Business School, and works at Microsoft in New York.\n\nShe joined the lab with the Fall 2025 cohort and is a co-author of AI-Powered Research Questions, its study of AI assistance across the researcher's workflow. She co-hosted the Ethical Tech Summit at the Microsoft Garage with Yorke Rhodes III, convening practitioners from the Enterprise Ethereum Alliance, the NYU SPS Center for Global Affairs, and the CoLab around ethical AI, cybersecurity, and responsible enterprise technology.",
     },
     {
       initials: "AD",
