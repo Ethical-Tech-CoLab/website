@@ -1791,6 +1791,7 @@ export const team = {
       name: "Alexa Shamie",
       role: "Applied AI Graduate Researcher",
       term: "Fall 2025",
+      linkedin: "https://www.linkedin.com/in/alexa-shamie-9576591b7/",
       photo: "/team/alexa.jpeg",
       slug: "alexa-shamie",
     },
@@ -1799,6 +1800,7 @@ export const team = {
       name: "Mohagani Townsend",
       role: "Applied AI Graduate Researcher",
       term: "Fall 2025",
+      linkedin: "https://www.linkedin.com/in/mohagani-townsend-526764202/",
       photo: "/team/mohagani.jpg",
       slug: "mohagani-townsend",
     },
@@ -1807,6 +1809,7 @@ export const team = {
       name: "Amanda Lindsey",
       role: "Applied AI Graduate Researcher",
       term: "Fall 2025",
+      linkedin: "https://www.linkedin.com/in/amanda-m-lindsey/",
       photo: "/team/amanda.jpg",
       slug: "amanda-lindsey",
     },
@@ -1815,6 +1818,10 @@ export const team = {
       name: "Taylor Badt",
       role: "Applied AI Graduate Researcher",
       term: "Fall 2025",
+      // Profile lists New York University and a New York location, and the
+      // surname is rare; unlike the others in this cohort it carries no direct
+      // CGA/CoLab mention, so confirm with Taylor before relying on it.
+      linkedin: "https://www.linkedin.com/in/taylor-badt-57251a1b6/",
       photo: "/team/taylor.jpg",
       slug: "taylor-badt",
     },
@@ -1823,6 +1830,7 @@ export const team = {
       name: "Vedant Jain",
       role: "Applied AI Graduate Researcher",
       term: "Fall 2025",
+      linkedin: "https://www.linkedin.com/in/vedantjain-vj/",
       photo: "/team/vedant.png",
       slug: "vedant-jain",
     },
@@ -1831,6 +1839,7 @@ export const team = {
       name: "Grace Driscoll",
       role: "Applied AI Graduate Researcher",
       term: "Fall 2025",
+      linkedin: "https://www.linkedin.com/in/grace-driscoll-5620481a8/",
       photo: "/team/grace.jpg",
       slug: "grace-driscoll",
     },
@@ -1926,7 +1935,10 @@ export const team = {
       name: "Adeline Daab",
       role: "Collaborator",
       org: "NYU Gallatin",
-      // linkedin: "", // TODO: Adeline Daab LinkedIn URL
+      // No public LinkedIn profile found (searched 2026-08-08). Identity is
+      // confirmed — NYU Gallatin BA '28, concentrating on the intersection of
+      // human/labor and environmental exploitation — but she appears not to be
+      // on LinkedIn. Ask her directly rather than re-running the search.
       slug: "adeline-daab",
     },
     {
