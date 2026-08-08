@@ -1732,7 +1732,7 @@ export const team = {
       name: "Christine Lumen",
       role: "Applied AI Graduate Researcher",
       term: "Summer 2026",
-      // linkedin: "",
+      linkedin: "https://www.linkedin.com/in/christinelumen/",
       photo: "/team/christine.jpg",
       slug: "christine-lumen",
       bio: "Christine Lumen studies the gap between how AI systems are governed on paper and how accountability actually functions in practice. Her work combines NLP, sentiment analysis, and spatial methods to measure where governance frameworks succeed or fail in real-world, often high-stakes settings: humanitarian crises, multilingual populations, and public perception of AI.\n\nHer research includes ForesightHub, a deployed early-warning pipeline for conflict and displacement signals, which she has presented at United Nations headquarters on two occasions. Other work includes a study of AI regulatory frameworks across the US, EU, and China, and research on consumer trust in autonomous vehicles. She has published in International Journal of Organizational Analysis (Emerald) and Journal of Advanced Artificial Intelligence, and will present her NLP and LLM research at an AI conference in Paris. She has also collaborated with Yale University on agricultural policy research.\n\nShe is currently pursuing an MS in Management of Technology at NYU Tandon School of Engineering, following degrees in data analytics (NYU), computer science (Miami Dade College), and international law and relations (Tallinn University of Technology).\n\nOriginally from Estonia, Christine has since lived in 12 countries, including Singapore, Australia, and Canada, and founded the nonprofit EducationX MTÜ, which raised over €100,000 to fund educational access and content in Ukraine.",
@@ -1892,9 +1892,7 @@ export const team = {
       name: "Emily Harrington",
       role: "Applied AI Graduate Researcher",
       term: "Spring 2025",
-      // No LinkedIn profile found (searched 2026-08-08). The CoLab's own
-      // Spring 2025 cohort post tags every other researcher but names her in
-      // plain text, so there is likely no profile to link. Ask her directly.
+      linkedin: "https://www.linkedin.com/in/emilyharrington22/",
       photo: "/team/emily.jpg",
       slug: "emily-harrington",
       bio: "Emily Harrington is an MS in Global Security, Conflict, and Cybercrime '25 from Rockville, MD. In the Spring 2025 cohort she contributed to Online Grooming Prevention and ESG Labels & Certificates Transparency, focused on national security, cyber threat intelligence, and OSINT.",
@@ -1904,9 +1902,7 @@ export const team = {
       name: "Natasha Nagarajan",
       role: "Applied AI Graduate Researcher",
       term: "Spring 2025",
-      // No LinkedIn profile found (searched 2026-08-08). As with Emily
-      // Harrington, the CoLab's own Spring 2025 cohort post names her in plain
-      // text while tagging the others. Ask her directly.
+      linkedin: "https://www.linkedin.com/in/natashanagarajan/",
       photo: "/team/natasha.jpg",
       slug: "natasha-nagarajan",
       bio: "Natasha Nagarajan is an MS in Global Security, Conflict, and Cybercrime '25 from Atlanta, Georgia. In the Spring 2025 cohort she contributed to Online Grooming Prevention, with interests in intelligence, space policy, and responsible innovation.",
