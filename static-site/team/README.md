@@ -22,6 +22,8 @@ Status (founder + Summer 2026 researchers):
 - `taylor.jpg` — Taylor Badt (Fall 2025) ✅
 - `vedant.png` — Vedant Jain (Fall 2025) ✅
 - `grace.jpg` — Grace Driscoll (Fall 2025) ✅
+- `pegi.jpg` — Pegi Bracaj (Fall 2025) — still needed; her card falls back to
+  initials until a headshot is added, then uncomment `photo:` in site.ts
 - `adeline.jpg` — Adeline Daab (collaborator) ✅
 
 `.png` works too — just match the extension in the `photo:` path.
