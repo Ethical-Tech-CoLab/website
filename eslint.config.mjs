@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Generated snapshot of the Next.js export. It is a build artifact, not
+    // source, so linting it only reports problems in bundled dependencies that
+    // cannot be fixed here.
+    "static-site/**",
   ]),
 ]);
 

@@ -11,10 +11,10 @@ export const metadata: Metadata = {
 };
 
 // TODO: replace ACCOUNT with the Ethical Tech CoLab Buttondown username
-// (or swap this action for a Mailchimp / other provider embed).
+// (or swap this action for a Mailchimp / other provider embed). The hosted
+// signup page, if one is ever linked, is https://buttondown.com/ACCOUNT.
 const SUBSCRIBE_ACTION =
   "https://buttondown.com/api/emails/embed-subscribe/ACCOUNT";
-const SUBSCRIBE_POPUP = "https://buttondown.com/ACCOUNT";
 
 export default function NewsletterPage() {
   return (

@@ -1,30 +1,43 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { asset } from "@/lib/asset";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
+/** Never resubscribes; the curtain only needs to know server from client. */
+const subscribe = () => () => {};
+
 /**
  * Intro "curtain": the ETC logo covers the site as its entrance. It appears on
- * every fresh load of the home page (not on client-side navigation, since this
- * component mounts once per full load). Click (or keyboard) lifts it away to
+ * every fresh load of the home page (not on client-side navigation, since the
+ * entry path is captured on first render). Click (or keyboard) lifts it away to
  * reveal the page behind. Instant + non-animated under reduced motion.
  */
 export function IntroCurtain() {
-  const [show, setShow] = useState(false);
-  const dismissed = useRef(false);
+  const [dismissed, setDismissed] = useState(false);
   const reduce = useReducedMotion();
   const pathname = usePathname();
 
-  useEffect(() => {
-    // Only greet on the home page, once per full page load.
-    if (pathname === "/") setShow(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // The path this page load started on. Held in state so it is captured once
+  // on first render and client-side navigation later cannot bring the curtain
+  // back. (A ref would be wrong: refs must not be read during render.)
+  const [entryPathname] = useState(pathname);
+
+  // Deliberately client-only: rendering the curtain into the static HTML would
+  // trap anyone without JavaScript behind a panel they cannot dismiss.
+  // useSyncExternalStore reports false on the server and true on the client
+  // without setting state from an effect.
+  const isClient = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false,
+  );
+
+  const show = isClient && !dismissed && entryPathname === "/";
 
   useEffect(() => {
     if (!show) return;
@@ -36,11 +49,7 @@ export function IntroCurtain() {
 
   // Idempotent — a tap can fire both pointerup and click, and this must never
   // run twice.
-  const dismiss = useCallback(() => {
-    if (dismissed.current) return;
-    dismissed.current = true;
-    setShow(false);
-  }, []);
+  const dismiss = useCallback(() => setDismissed(true), []);
 
   // Failsafe: never trap a visitor. If a tap somehow fails to register (some
   // mobile browsers swallow synthetic clicks on non-native elements), the

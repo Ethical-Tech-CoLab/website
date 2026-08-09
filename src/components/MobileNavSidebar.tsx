@@ -2,22 +2,33 @@
 
 import { Link } from "next-view-transitions";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { nav, site } from "@/content/site";
 
+/** Never resubscribes; the drawer only needs to know server from client. */
+const subscribe = () => () => {};
+
 export function MobileNavSidebar() {
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  // The drawer portals into document.body, which does not exist while
+  // rendering on the server. useSyncExternalStore reports false during the
+  // server render and true on the client without an extra render pass.
+  const mounted = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false,
+  );
 
-  useEffect(() => {
+  // Close the drawer on navigation. Adjusting state during render is React's
+  // documented way to reset on a changed value.
+  const [lastPathname, setLastPathname] = useState(pathname);
+  if (lastPathname !== pathname) {
+    setLastPathname(pathname);
     setOpen(false);
-  }, [pathname]);
+  }
 
   useEffect(() => {
     if (!open) return;
