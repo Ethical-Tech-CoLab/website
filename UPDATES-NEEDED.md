@@ -28,28 +28,19 @@ private location.
 
 ### UPD-001 - Repair the lint baseline
 
-**Priority:** High
+**Priority:** High — **done.**
 
-`npm run lint -- --quiet` currently reports 15 errors:
+`npm run lint` reported 15 errors: 10 in generated JavaScript under
+`static-site/`, one unescaped-entity error in
+`src/app/publications/ai-carbon-footprint/page.tsx`, and effect/state errors in
+`IntroCurtain.tsx`, `MobileNavSidebar.tsx`, and `SiteHeader.tsx`.
 
-- 10 errors in generated JavaScript under `static-site/`;
-- one unescaped-entity error in
-  `src/app/publications/ai-carbon-footprint/page.tsx`;
-- effect/state errors in `IntroCurtain.tsx`, `MobileNavSidebar.tsx`, and
-  `SiteHeader.tsx`.
+`static-site/**` is now in ESLint's global ignores, and all five source errors
+are fixed, along with the three warnings that exposed. `npm run lint` prints
+nothing and exits 0, so it is ready to be required once pull-request CI exists.
 
-The unfiltered command also reports a large warning volume, much of it from
-generated output.
-
-**Proposed update:**
-
-1. Add `static-site/**` to ESLint's global ignores.
-2. Fix the source errors without changing intended behavior.
-3. Review remaining source warnings and explicitly resolve or justify them.
-4. Make `npm run lint` pass before making it a required check.
-
-**Acceptance:** Clean `npm run lint`, successful `npm run build`, and no linting
-of generated output.
+**Acceptance:** met — clean `npm run lint`, successful `npm run build`, and no
+linting of generated output.
 
 ### UPD-002 - Add pull-request CI and protect `main`
 
