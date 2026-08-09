@@ -11,7 +11,7 @@
 // paper follows those rules; keep them if you edit this file.
 // ─────────────────────────────────────────────────────────────────────────
 
-import type { Citation, Paragraph, ReportSection } from "./types";
+import type { Citation, ReportSection } from "./types";
 
 export const whatIsEthicalAiReport = {
   eyebrow: "Publications · Academic paper",

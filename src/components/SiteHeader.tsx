@@ -14,8 +14,14 @@ export function SiteHeader() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const navRef = useRef<HTMLElement>(null);
 
-  // Close any open dropdown on navigation.
-  useEffect(() => setOpenMenu(null), [pathname]);
+  // Close any open dropdown on navigation. Adjusting state during render is
+  // React's documented way to reset on a changed value; doing it in an effect
+  // would leave the stale menu on screen for a frame after the route changes.
+  const [lastPathname, setLastPathname] = useState(pathname);
+  if (lastPathname !== pathname) {
+    setLastPathname(pathname);
+    setOpenMenu(null);
+  }
 
   // Close on outside click / Escape.
   useEffect(() => {

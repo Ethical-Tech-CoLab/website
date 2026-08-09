@@ -27,7 +27,7 @@ export default function CarbonFootprintPage() {
           </Reveal>
           <Reveal delay={0.05}>
             <h1 className="mt-6 fluid-hero font-heading uppercase leading-[0.9]">
-              AI's <span className="display-em">Carbon</span> Footprint
+              AI&apos;s <span className="display-em">Carbon</span> Footprint
             </h1>
           </Reveal>
           <Reveal delay={0.1}>
