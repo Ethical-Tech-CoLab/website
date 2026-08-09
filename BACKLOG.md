@@ -37,7 +37,9 @@ making to a visitor. If `/about` is ever restored, decide whether it should
 match `/team` or keep the three-way split.
 
 Still showing a monogram (no file yet):
-- [ ] `mesur-io.*`
+- [x] `mesur-io.*` — **no longer needed.** The org rebranded to Tradeverifyd in
+      2025; `tradeverifyd.svg` (the dark wordmark, which reads on the white
+      logo tile) is in place and the partner entry is updated.
 - [ ] `supplytrace.*`
 - [ ] `human-generated-by-blockapps.*`
 - [ ] `osce-odihr-anti-trafficking.*`
@@ -200,17 +202,20 @@ gap is invisible — do not renumber, it would reshuffle every cover.
 - [ ] **Instagram** — handle appears to be `@NYUSPS_ETHICALTECH_LAB` (from the
       summit deck); confirm and wire into `site.social`.
 - [ ] **X / Twitter** — handle to confirm + wire (currently placeholder).
-- [ ] **LinkedIn URLs** for collaborators **Adeline Daab** and **Susan DeMinil**.
+- [x] **LinkedIn URLs** for collaborators **Adeline Daab** and **Susan DeMinil**
+      — **done.** Susan de Menil's profile is linked. Adeline Daab has no public
+      LinkedIn; her `website` field points at NYU Gallatin's "My Gallatin Story"
+      feature instead.
 
 ## 7. Content polish / open decisions
 
-- [ ] **Fall 2025 alumni bios** are short placeholders ("NYU student and Applied
-      AI Researcher…") — swap in real bios when available.
-- [ ] **Missing bios / resume blurbs** — team cards now show a short bio excerpt
-      for everyone who has a `bio` in `src/content/site.ts`. These participants
-      have none yet, so their cards (and profile pages) show no blurb: **Hannah
-      Zhao, Kirsten Co, Alex Du, Adeline Daab, Susan deMenil**. Add a `bio` for
-      each and it appears automatically.
+- [x] **Fall 2025 alumni bios** — **done.** All six (Alexa Shamie, Mohagani
+      Townsend, Amanda Lindsey, Taylor Badt, Vedant Jain, Grace Driscoll) now
+      have real sourced bios, plus LinkedIn links and photos.
+- [x] **Missing bios / resume blurbs** — **done.** All five named here (Hannah
+      Zhao, Kirsten Co, Alex Du, Adeline Daab, Susan deMenil) now have a `bio`.
+      No page on the site shows "Bio coming soon" any more, and every
+      researcher, advisor and collaborator has both a bio and a contact link.
 - [ ] **Cohort project placeholders** (Spring 2025: AI's Carbon Footprint,
       Generative AI for Good; Fall 2025: Academic Research Tool — LLM prompting;
       Summer 2026: Synthetic Data Guidelines for Beginners) — add descriptions
@@ -224,6 +229,11 @@ gap is invisible — do not renumber, it would reshuffle every cover.
       all five bullets was a deliberate call — AI Models Research is cohort work
       but not one of the four portfolio questions. Either drop that bullet, or
       reword the heading so the count is not read as a count of the list.
+      Still true on 2026-08-08.
+- [ ] **README overstates the Summer 2026 cohort.** `README.md` says "Four
+      active projects, eight applied researchers"; the roster holds seven, and
+      the site's own cohort card correctly says "7 researchers". Unlike the
+      item above, this one is simply wrong rather than a deliberate call.
 - [ ] **Notify past cohorts / alumni** — message old cohort members (Spring 2025,
       Fall 2025, and any earlier) to let them know their profile is now live on
       the website, so they can review it and flag any corrections.
