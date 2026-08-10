@@ -295,9 +295,13 @@ export const researchAreas: ResearchArea[] = [
  *  Guidelines because they are advice on doing the work, not findings about a
  *  domain. Every publication must carry one of these. */
 export const publicationTopics = [
-  // Guidelines lead: they are the how-to material, written for someone
-  // arriving without the background, so they are the right first thing for a
-  // reader who does not yet know which of the research below they want.
+  // AI itself leads: the foundational framing paper, what AI costs the
+  // planet, and what it does to research practice. These are about the
+  // technology rather than about a field it is applied to, so they are the
+  // right first shelf for a reader who has not picked a domain yet.
+  "Artificial Intelligence",
+  // Then the how-to material, written for someone arriving without the
+  // background, before the domain research below.
   "Guidelines",
   "Evacuation",
   "Cultural heritage",
@@ -350,14 +354,14 @@ export const publications = {
     // `index` is a React key and cover-art seed only — never shown — so the
     // gap is invisible and renumbering would reshuffle every cover.
     {
-      // The CoLab's foundational framing paper. It is filed under Guidelines
-      // (the how-to / framing material) but placed first in `items` so it
-      // leads that shelf, and the catalogue, as the conceptual entry point to
-      // everything below: it defines what the lab means by ethical AI before
-      // any individual research report is read.
+      // The CoLab's foundational framing paper. Filed under Artificial
+      // Intelligence and placed first in `items` so it leads that shelf, and
+      // the catalogue, as the conceptual entry point to everything below: it
+      // defines what the lab means by ethical AI before any individual
+      // research report is read.
       index: "28",
       area: "Foundations",
-      topic: "Guidelines",
+      topic: "Artificial Intelligence",
       question:
         "What is ethical AI, and what makes any technology, or any exercise of power, ethical at all?",
       title:
@@ -371,16 +375,10 @@ export const publications = {
       pdf: "https://ethical-tech-colab.github.io/what-is-ethical-ai/pdf/What-Is-Ethical-AI-ETC-Report.pdf",
       repo: "https://github.com/Ethical-Tech-CoLab/what-is-ethical-ai",
     },
-    // The two published research-practice papers follow the foundational one,
-    // ahead of the CoLab-only practice guides further down. Within-shelf order
-    // is the order entries appear here, and a visitor who cannot open the
-    // internal guides should not have to scroll past seven of them to reach
-    // the papers they can actually read. Ordered as the work runs: framing the
-    // question first, then choosing the model to answer it with.
     {
       index: "06",
       area: "Research",
-      topic: "Guidelines",
+      topic: "Artificial Intelligence",
       question:
         "How can AI help researchers formulate rigorous research questions?",
       title: "AI-Powered Assistance in Formulating Research Questions",
@@ -393,6 +391,9 @@ export const publications = {
       url: "/publications/ai-research-assistant",
     },
     {
+      // Stays on the Guidelines shelf: it is advice on choosing a model for a
+      // task, not a finding about AI itself. It leads that shelf ahead of the
+      // CoLab-only practice guides, which a visitor cannot open.
       index: "19",
       area: "AI systems",
       topic: "Guidelines",
@@ -408,9 +409,12 @@ export const publications = {
       url: "/publications/ai-models-research",
     },
     {
+      // Filed under Artificial Intelligence — it is a finding about what the
+      // technology costs, not about a domain it is applied to. `area` stays
+      // Sustainability: that is the research area it came out of.
       index: "05",
       area: "Sustainability",
-      topic: "Sustainability",
+      topic: "Artificial Intelligence",
       question:
         "How large is AI's environmental footprint — and how can it be reduced?",
       title: "AI's Carbon Footprint: The Environmental Impact of AI",

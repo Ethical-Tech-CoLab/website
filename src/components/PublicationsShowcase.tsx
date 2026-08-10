@@ -32,6 +32,7 @@ import { bookForUrl } from "@/content/publications/books";
 /** Ground gradient per topic. The lime accent is constant across the site, so
  *  the ground is what distinguishes one topic's shelf from another's. */
 const TOPIC_GROUND: Record<string, [string, string]> = {
+  "Artificial Intelligence": ["#0f3b57", "#08131f"],
   Guidelines: ["#1d2440", "#0d1020"],
   Evacuation: ["#3b1878", "#160d1c"],
   "Cultural heritage": ["#4a1d3d", "#1a0d18"],
@@ -107,6 +108,55 @@ function CoverMotif({ topic, seed }: { topic: string; seed: number }) {
             ))}
           </>
         );
+
+      // A layered network: input nodes fanning through a hidden layer to a
+      // single output. One edge is drawn faint and dashed — these reports are
+      // about what the machine costs and what it cannot be trusted with, not
+      // about it working.
+      case "Artificial Intelligence": {
+        const layers = [
+          [126, 178, 230],
+          [110, 158, 206, 254],
+          [166, 212],
+        ].map((ys, col) => ys.map((y) => [58 + col * 42, y + j(col, 10)] as const));
+        return (
+          <>
+            {layers.slice(0, -1).map((col, ci) =>
+              col.flatMap((from, fi) =>
+                layers[ci + 1].map((to, ti) => {
+                  const weak = (seed + ci * 3 + fi * 2 + ti) % 5 === 0;
+                  return (
+                    <line
+                      key={`${ci}-${fi}-${ti}`}
+                      x1={from[0]}
+                      y1={from[1]}
+                      x2={to[0]}
+                      y2={to[1]}
+                      stroke={weak ? ghost : faint}
+                      strokeWidth={weak ? 1.4 : 1}
+                      strokeDasharray={weak ? "4 4" : undefined}
+                    />
+                  );
+                }),
+              ),
+            )}
+            {layers.flatMap((col, ci) =>
+              col.map(([x, y], ni) => (
+                <circle
+                  key={`n-${ci}-${ni}`}
+                  cx={x}
+                  cy={y}
+                  r={ci === layers.length - 1 ? 5.5 : 4.5}
+                  fill={ci === layers.length - 1 ? line : "none"}
+                  stroke={line}
+                  strokeWidth={1.4}
+                  opacity={ci === 1 ? 0.6 : 1}
+                />
+              )),
+            )}
+          </>
+        );
+      }
 
       // A checklist: the practice guides are procedure, so the motif is one.
       case "Guidelines":
