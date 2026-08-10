@@ -371,6 +371,42 @@ export const publications = {
       pdf: "https://ethical-tech-colab.github.io/what-is-ethical-ai/pdf/What-Is-Ethical-AI-ETC-Report.pdf",
       repo: "https://github.com/Ethical-Tech-CoLab/what-is-ethical-ai",
     },
+    // The two published research-practice papers follow the foundational one,
+    // ahead of the CoLab-only practice guides further down. Within-shelf order
+    // is the order entries appear here, and a visitor who cannot open the
+    // internal guides should not have to scroll past seven of them to reach
+    // the papers they can actually read. Ordered as the work runs: framing the
+    // question first, then choosing the model to answer it with.
+    {
+      index: "06",
+      area: "Research",
+      topic: "Guidelines",
+      question:
+        "How can AI help researchers formulate rigorous research questions?",
+      title: "AI-Powered Assistance in Formulating Research Questions",
+      summary:
+        "A survey of how AI supports researchers across the question-formulation workflow — finding gaps, generating candidate questions, summarizing the state of the art, and flagging contradictions — with guardrails against hallucinated citations and a red-team verification model. Ships with a reusable Copilot 'Researcher' prompt and a journal-credibility rubric.",
+      status: "Published",
+      date: "October 2025",
+      // Internal route (starts with "/") — rendered on-site, see the card logic.
+      // The published Google Doc is linked from the report page itself.
+      url: "/publications/ai-research-assistant",
+    },
+    {
+      index: "19",
+      area: "AI systems",
+      topic: "Guidelines",
+      question:
+        "Which AI model should be selected for a task, and on what evidence?",
+      title:
+        "AI Model Performance: Capabilities, Accuracy, Speed, Energy Use, and Token Economics",
+      summary:
+        "A comparative review of frontier, open-weight, and efficient model families, separating independently verified measurement from provider marketing. Every figure carries its source, its date, and its evidence grade. Ships with a live cost-per-accepted-task calculator and a validated data layer.",
+      status: "Published",
+      date: "July 2026",
+      // Internal route (starts with "/") — rendered on-site, see the card logic.
+      url: "/publications/ai-models-research",
+    },
     {
       index: "05",
       area: "Sustainability",
@@ -680,36 +716,6 @@ export const publications = {
       date: "July 2026",
       access: "internal",
       url: "https://github.com/Ethical-Tech-CoLab/Getting-started-on-CloudGPU-/blob/main/remote-gpu-how-to-guide.md",
-    },
-{
-      index: "06",
-      area: "Research",
-      topic: "Guidelines",
-      question:
-        "How can AI help researchers formulate rigorous research questions?",
-      title: "AI-Powered Assistance in Formulating Research Questions",
-      summary:
-        "A survey of how AI supports researchers across the question-formulation workflow — finding gaps, generating candidate questions, summarizing the state of the art, and flagging contradictions — with guardrails against hallucinated citations and a red-team verification model. Ships with a reusable Copilot 'Researcher' prompt and a journal-credibility rubric.",
-      status: "Published",
-      date: "October 2025",
-      // Internal route (starts with "/") — rendered on-site, see the card logic.
-      // The published Google Doc is linked from the report page itself.
-      url: "/publications/ai-research-assistant",
-    },
-{
-      index: "19",
-      area: "AI systems",
-      topic: "Guidelines",
-      question:
-        "Which AI model should be selected for a task, and on what evidence?",
-      title:
-        "AI Model Performance: Capabilities, Accuracy, Speed, Energy Use, and Token Economics",
-      summary:
-        "A comparative review of frontier, open-weight, and efficient model families, separating independently verified measurement from provider marketing. Every figure carries its source, its date, and its evidence grade. Ships with a live cost-per-accepted-task calculator and a validated data layer.",
-      status: "Published",
-      date: "July 2026",
-      // Internal route (starts with "/") — rendered on-site, see the card logic.
-      url: "/publications/ai-models-research",
     },
   ] as Publication[],
 };
