@@ -11,6 +11,13 @@ clear review history.
 
 Do not make routine changes directly on `main`.
 
+**Fetch first, every time.** More than one person maintains this site, and work
+often lands between sessions. Branching from a stale `origin/main` is the most
+common way to create avoidable conflicts here, because a stale branch that
+regenerates `static-site/` will overwrite the generated output of changes it
+never saw. If a branch has been open for more than a day, fetch and rebase again
+before regenerating the snapshot or opening a pull request.
+
 ```powershell
 git fetch origin
 git switch -c <your-name>/<short-topic> origin/main
@@ -165,6 +172,11 @@ git status --short
 `src/` is the source of truth. `static-site/` is a generated convenience
 snapshot and is not the GitHub Pages deployment source.
 
+**Any change under `src/` needs this step.** The deployed site is built from
+source by CI, so skipping it does not break the live site — but it leaves the
+tracked snapshot describing a version of the site that no longer exists, which
+is exactly the drift the snapshot is supposed to prevent.
+
 After the source change and build are correct:
 
 ```powershell
@@ -186,6 +198,24 @@ after the human-readable source commit. This keeps review practical:
 2. Run `npm run sync:static`.
 3. Commit only the generated snapshot with a clear message such as
    `Re-sync static-site after <change>`.
+
+### Checking for drift
+
+The snapshot is byte-stable: the Next.js build ID is pinned to a placeholder in
+the snapshot copy, and line endings are fixed by `.gitattributes`. So
+regenerating it on an unchanged checkout should produce no diff at all, on any
+platform.
+
+That makes drift easy to check. From a clean tree:
+
+```powershell
+npm run sync:static
+git status --short
+```
+
+Anything reported means the snapshot did not match the current source. A large
+diff is normal after editing a component that every page renders, such as
+`SiteHeader`, because the shared chunk's content hash changes.
 
 ## 5. Open a reviewable pull request
 
