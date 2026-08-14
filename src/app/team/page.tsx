@@ -54,50 +54,6 @@ export default function TeamPage() {
         </div>
       </section>
 
-      {/* Founder */}
-      <section className="border-b border-border bg-surface/40">
-        <div className="mx-auto max-w-6xl px-6 py-20">
-          <p className="text-xs uppercase tracking-wider text-muted">
-            Team · Leadership
-          </p>
-          <h2 className="mt-3 fluid-h2 font-heading uppercase">Founder</h2>
-
-          {/* A wrapper, not one big Link, so the LinkedIn anchor can live
-              inside it. The bio link still covers the card via the overlay. */}
-          <div className="group card-glow relative mt-10 flex flex-col gap-6 rounded-2xl border border-border bg-card p-7 transition-colors hover:border-border-strong sm:flex-row sm:items-center">
-            <Avatar
-              initials={team.founder.initials}
-              photo={team.founder.photo}
-              name={team.founder.name}
-              size={128}
-            />
-            <div className="max-w-3xl">
-              <h3 className="font-sans text-2xl font-semibold tracking-tight">
-                {team.founder.name}
-              </h3>
-              {team.founder.org && (
-                <p className="mt-1 text-sm text-foreground/70">
-                  {team.founder.org}
-                </p>
-              )}
-              <div className="mt-3 flex items-center gap-3">
-                <Link
-                  href={`/team/${team.founder.slug}`}
-                  className="text-sm text-muted transition-colors after:absolute after:inset-0 after:content-[''] group-hover:text-accent"
-                >
-                  Read full bio →
-                </Link>
-                <LinkedInLink
-                  href={team.founder.linkedin}
-                  name={team.founder.name}
-                  className="relative z-10"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Researchers — current cohort */}
       <ResearchersExplorer />
 
@@ -218,11 +174,11 @@ export default function TeamPage() {
         </div>
       </section>
 
-      {/* Partners & collaborators — closes the page on the organisations behind
-          the work. One list, deliberately: `about` still holds founding
-          partners, clients, and partners separately for the hidden /about page,
-          but the client/partner split is not a distinction worth making to a
-          visitor. Founding partners lead, since they house and fund the lab. */}
+      {/* Partners & collaborators — the organisations behind the work. One
+          list, deliberately: `about` still holds founding partners, clients,
+          and partners separately for the hidden /about page, but the
+          client/partner split is not a distinction worth making to a visitor.
+          Founding partners lead, since they house and fund the lab. */}
       <section className="border-t border-border bg-surface/40">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <Reveal>
@@ -243,6 +199,52 @@ export default function TeamPage() {
                 ...about.partners.items,
               ]}
             />
+          </div>
+        </div>
+      </section>
+
+      {/* Founder — closes the page, so the cohort and the collaborators lead
+          and the lab's founder signs off at the end. Plain background, since
+          the partners section above it uses the surface tint. */}
+      <section className="border-t border-border">
+        <div className="mx-auto max-w-6xl px-6 py-20">
+          <p className="text-xs uppercase tracking-wider text-muted">
+            Team · Leadership
+          </p>
+          <h2 className="mt-3 fluid-h2 font-heading uppercase">Founder</h2>
+
+          {/* A wrapper, not one big Link, so the LinkedIn anchor can live
+              inside it. The bio link still covers the card via the overlay. */}
+          <div className="group card-glow relative mt-10 flex flex-col gap-6 rounded-2xl border border-border bg-card p-7 transition-colors hover:border-border-strong sm:flex-row sm:items-center">
+            <Avatar
+              initials={team.founder.initials}
+              photo={team.founder.photo}
+              name={team.founder.name}
+              size={128}
+            />
+            <div className="max-w-3xl">
+              <h3 className="font-sans text-2xl font-semibold tracking-tight">
+                {team.founder.name}
+              </h3>
+              {team.founder.org && (
+                <p className="mt-1 text-sm text-foreground/70">
+                  {team.founder.org}
+                </p>
+              )}
+              <div className="mt-3 flex items-center gap-3">
+                <Link
+                  href={`/team/${team.founder.slug}`}
+                  className="text-sm text-muted transition-colors after:absolute after:inset-0 after:content-[''] group-hover:text-accent"
+                >
+                  Read full bio →
+                </Link>
+                <LinkedInLink
+                  href={team.founder.linkedin}
+                  name={team.founder.name}
+                  className="relative z-10"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
