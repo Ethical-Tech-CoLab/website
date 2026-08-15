@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Link } from "next-view-transitions";
-import { about, team } from "@/content/site";
+import { team, teamOrgs } from "@/content/site";
 import { asset } from "@/lib/asset";
 import { excerpt } from "@/lib/team";
 import { Avatar, LinkedInLink } from "@/components/TeamAvatar";
@@ -174,39 +174,9 @@ export default function TeamPage() {
         </div>
       </section>
 
-      {/* Partners & collaborators — the organisations behind the work. One
-          list, deliberately: `about` still holds founding partners, clients,
-          and partners separately for the hidden /about page, but the
-          client/partner split is not a distinction worth making to a visitor.
-          Founding partners lead, since they house and fund the lab. */}
+      {/* Founder — the lab's founder, after the cohort and the wider team and
+          before the organisations that close the page. */}
       <section className="border-t border-border bg-surface/40">
-        <div className="mx-auto max-w-6xl px-6 py-20">
-          <Reveal>
-            <p className="text-xs uppercase tracking-wider text-muted">
-              {team.orgs.eyebrow}
-            </p>
-            <h2 className="mt-3 fluid-h2 font-heading uppercase">
-              {team.orgs.heading}
-            </h2>
-            <p className="mt-4 text-sm text-muted">{team.orgs.note}</p>
-          </Reveal>
-
-          <div className="mt-10">
-            <OrgShowcase
-              items={[
-                ...about.foundingPartners,
-                ...about.clients.items,
-                ...about.partners.items,
-              ]}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Founder — closes the page, so the cohort and the collaborators lead
-          and the lab's founder signs off at the end. Plain background, since
-          the partners section above it uses the surface tint. */}
-      <section className="border-t border-border">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <p className="text-xs uppercase tracking-wider text-muted">
             Team · Leadership
@@ -245,6 +215,29 @@ export default function TeamPage() {
                 />
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Partners & collaborators — the organisations behind the work, closing
+          the page. One list, deliberately: `about` still holds founding
+          partners, clients, and partners separately for /contact and the
+          hidden /about page, but the client/partner split is not a distinction
+          worth making to a visitor. The order is declared by `teamOrgs`. */}
+      <section className="border-t border-border">
+        <div className="mx-auto max-w-6xl px-6 py-20">
+          <Reveal>
+            <p className="text-xs uppercase tracking-wider text-muted">
+              {team.orgs.eyebrow}
+            </p>
+            <h2 className="mt-3 fluid-h2 font-heading uppercase">
+              {team.orgs.heading}
+            </h2>
+            <p className="mt-4 text-sm text-muted">{team.orgs.note}</p>
+          </Reveal>
+
+          <div className="mt-10">
+            <OrgShowcase items={teamOrgs} />
           </div>
         </div>
       </section>

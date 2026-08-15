@@ -40,7 +40,8 @@ Still showing a monogram (no file yet):
 - [x] `mesur-io.*` — **no longer needed.** The org rebranded to Tradeverifyd in
       2025; `tradeverifyd.svg` (the dark wordmark, which reads on the white
       logo tile) is in place and the partner entry is updated.
-- [ ] `supplytrace.*`
+- [x] `supplytrace.*` — **no longer needed.** SupplyTrace was removed from the
+      organisations grid on 2026-08.
 - [ ] `human-generated-by-blockapps.*`
 - [ ] `osce-odihr-anti-trafficking.*`
 - [ ] **Better source files for the two screenshot logos** — Art & Antiquities
