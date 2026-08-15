@@ -1,8 +1,8 @@
 1:"$Sreact.fragment"
-2:I[97367,["/website/_next/static/chunks/3ycgl1crz1j2y.js","/website/_next/static/chunks/03bgkprhvu4nb.js","/website/_next/static/chunks/14mrh2-p_w84d.js","/website/_next/static/chunks/42slhzgb7dvh7.js"],"ViewportBoundary"]
-3:I[97367,["/website/_next/static/chunks/3ycgl1crz1j2y.js","/website/_next/static/chunks/03bgkprhvu4nb.js","/website/_next/static/chunks/14mrh2-p_w84d.js","/website/_next/static/chunks/42slhzgb7dvh7.js"],"MetadataBoundary"]
+2:I[97367,["/website/_next/static/chunks/0fjsi229q1aal.js","/website/_next/static/chunks/03bgkprhvu4nb.js","/website/_next/static/chunks/14mrh2-p_w84d.js","/website/_next/static/chunks/42slhzgb7dvh7.js"],"ViewportBoundary"]
+3:I[97367,["/website/_next/static/chunks/0fjsi229q1aal.js","/website/_next/static/chunks/03bgkprhvu4nb.js","/website/_next/static/chunks/14mrh2-p_w84d.js","/website/_next/static/chunks/42slhzgb7dvh7.js"],"MetadataBoundary"]
 4:"$Sreact.suspense"
-6:I[27201,["/website/_next/static/chunks/3ycgl1crz1j2y.js","/website/_next/static/chunks/03bgkprhvu4nb.js","/website/_next/static/chunks/14mrh2-p_w84d.js","/website/_next/static/chunks/42slhzgb7dvh7.js"],"IconMark"]
+6:I[27201,["/website/_next/static/chunks/0fjsi229q1aal.js","/website/_next/static/chunks/03bgkprhvu4nb.js","/website/_next/static/chunks/14mrh2-p_w84d.js","/website/_next/static/chunks/42slhzgb7dvh7.js"],"IconMark"]
 5:T543,Yago is a graduate student at NYU's Center for Global Affairs, concentrating in International Development and Humanitarian Assistance. His professional background spans both the private and international development sectors, with experience in project management, stakeholder engagement, strategic planning, and data-driven decision-making.
 
 Before joining NYU, Yago held leadership positions in Brazil's financial sector, where he managed investment portfolios, led commercial teams, and developed strategic solutions for clients and organizations. His interest in global development led him to transition into the humanitarian field, gaining field experience in Dzaleka Refugee Camp, Malawi, where he supported initiatives focused on refugee livelihoods and financial inclusion.
