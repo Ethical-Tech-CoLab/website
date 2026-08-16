@@ -316,11 +316,12 @@ All twenty ETC Pages sites now serve the purple ETC mark as `etc-icon.svg` +
       carrying into the write-ups if they are not there yet: the web pipeline
       still runs the non-canonical deduction scorer, and the catalogue's
       confidence scores are researched by hand rather than computed.
-- [ ] **The `gh` token has no `workflow` scope.** Any push touching
-      `.github/workflows/*` in an ETC repo is rejected outright. It forced a
+- [x] **The `gh` token has no `workflow` scope.** Any push touching
+      `.github/workflows/*` in an ETC repo was rejected outright. It forced a
       redesign in `ercf` (the icon href is relative so no build-time rewrite is
-      needed, which is the better fix anyway) but it will block the next
-      workflow change. Re-authorise with `workflow` scope when convenient.
+      needed, which is the better fix anyway). Resolved: the active token now
+      carries `workflow`, which unblocked pull-request CI (`UPD-002`) and the
+      Node pin (`UPD-007`).
 - [ ] **ethicaltechlab.org did not resolve.** The live site answered on
       <https://ethical-tech-colab.github.io/website/>; the apex domain returned
       nothing when tested on 2026-07-23. Could be local network rather than DNS,

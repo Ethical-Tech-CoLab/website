@@ -25,6 +25,14 @@ git status --short
 npm ci
 ```
 
+The supported Node version is pinned in `.nvmrc` and declared in
+`package.json`. Select it before installing, so your build matches CI:
+
+```powershell
+nvm use
+node --version
+```
+
 Use one branch and one pull request per focused change. Before editing:
 
 1. Check [BACKLOG.md](BACKLOG.md) and the open GitHub issues.
@@ -147,9 +155,9 @@ Run the smallest targeted lint command that covers the files you changed:
 npx eslint src\path\to\changed-file.tsx
 ```
 
-The repository's full lint baseline currently has known legacy failures. Do not
-introduce a new warning or error, and do not hide a new failure behind the
-baseline. See [UPDATES-NEEDED.md](UPDATES-NEEDED.md).
+The repository's lint baseline is clean: `npm run lint` prints nothing and exits
+0. Pull-request CI runs it, so a new warning or error will fail the build. Fix
+the finding rather than suppressing it.
 
 Always run the production build:
 
@@ -238,6 +246,13 @@ Push the branch without force:
 ```powershell
 git push -u origin HEAD
 ```
+
+Opening the pull request starts `.github/workflows/ci.yml`, which lints,
+typechecks, builds the static export, and regenerates `static-site/` to confirm
+the committed snapshot still matches `src/`. That last check is the one most
+often tripped: if it fails, run `npm run sync:static` and commit the result as
+its own commit. CI is not a substitute for the local checks above — it runs on
+Linux and will not catch what you did not look at.
 
 The pull request should state:
 
