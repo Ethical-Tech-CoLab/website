@@ -57,6 +57,11 @@ and `package-lock.json`.
 | Public images, documents, and copied newsletter HTML | `public/` |
 | Generated static snapshot | `static-site/` - never hand-edit |
 
+This table covers *where* to edit. For *what the fields mean* — which export
+drives which page, the shape of a `TeamMember` or `PartnerOrg`, cohort terms,
+and the image conventions — see [docs/CONTENT-GUIDE.md](docs/CONTENT-GUIDE.md).
+That guide is the content reference; this one is the process.
+
 ### Projects and people can appear in several collections
 
 Search before editing. A project may appear in `researchAreas`, `products`,
@@ -108,6 +113,15 @@ Confirm that every contributed asset:
 - uses an appropriate format and file size;
 - has meaningful alternative text where it is rendered;
 - follows any crop, aspect-ratio, and naming rules documented in the backlog.
+
+Some assets are wired up by filename rather than by code. An organisation logo
+dropped into `public/logos/` as `<org-name-slugified>.<ext>` is discovered
+automatically and rendered without any change to `src/`. That convenience cuts
+both ways: a misnamed file fails silently to a monogram, and because the logo
+tile is white, a white or near-white mark renders as an apparently empty box
+rather than as an error. Open the page and look at the result before calling an
+asset change done. See [docs/CONTENT-GUIDE.md](docs/CONTENT-GUIDE.md) for the
+slug rule, the extension lookup order, and the `logoTile` escape hatch.
 
 ### Design changes must preserve the whole system
 
