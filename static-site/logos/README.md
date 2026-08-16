@@ -31,6 +31,8 @@ Partners:
 - `apne-aap-women-worldwide.png` — Apne Aap Women Worldwide
 - `gaia.png` — Gaia
 - `tavily.svg` — Tavily (already added; the square mark from tavily.com)
+- `b3iq.png` — B3IQ (already added; the horizontal wordmark from b3iq.org. It
+  is white-only, so its card sets `logoTile: "dark"` — see `PartnerOrg`.)
 - `microsoft-garage.png` — The Microsoft Garage (already added; the site logo
   from microsoft.com/en-us/garage)
 
