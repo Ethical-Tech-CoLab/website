@@ -159,6 +159,18 @@ The repository's lint baseline is clean: `npm run lint` prints nothing and exits
 0. Pull-request CI runs it, so a new warning or error will fail the build. Fix
 the finding rather than suppressing it.
 
+When you change people, cohorts, or counts, also run:
+
+```powershell
+npm run check:content
+```
+
+It asserts what a build cannot: that the cohort head-counts in
+`team.researchersCount`, the `cohorts` cards, and `README.md` all match the
+number of researchers actually on the roster, and that no two people share a
+`/team/[slug]`. Those numbers are maintained by hand in separate places, and
+have twice been published wrong.
+
 Always run the production build:
 
 ```powershell

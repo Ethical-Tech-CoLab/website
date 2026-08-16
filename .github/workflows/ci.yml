@@ -37,6 +37,9 @@ jobs:
       - name: Typecheck
         run: npx tsc --noEmit
 
+      - name: Check content invariants
+        run: npm run check:content
+
       - name: Build static export
         run: npm run build
 

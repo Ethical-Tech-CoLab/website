@@ -257,18 +257,32 @@ changed.
 
 ### UPD-008 - Add focused smoke checks
 
-**Priority:** Medium
+**Priority:** Medium — **started: content invariants added.**
 
 There is no automated test script. The production build succeeds, but a build
 alone does not prove that key routes, base-path assets, publication anchors, or
 generated slugs are correct.
 
-**Proposed update:** Start with a small check over critical exported files and
-known content invariants. Add browser automation only when it protects a
-specific high-value interaction and can remain reliable.
+`npm run check:content` now runs in CI and asserts the invariants a build
+cannot: every cohort card's head-count matches the number of researchers
+actually on the roster for that term, `team.researchersCount` and the README's
+prose count agree with the current cohort, and no two people share a
+`/team/[slug]`.
 
-**Acceptance:** CI detects at least a missing critical route, broken local
-asset reference, or invalid generated content mapping before merge.
+This targets a failure this repository has published twice. The Fall 2025 count
+read seven when the roster should have held eight, because Pegi Bracaj had
+never been added. The README read "eight applied researchers" against a Summer
+2026 roster of seven. Both are valid strings, so both survived every build and
+lint. The check reads the real `site.ts` exports rather than parsing text, and
+was verified against four seeded faults: a wrong README word, a stale cohort
+card, a researcher moved between terms, and two people sharing a slug.
+
+**Still open:** route reachability, base-path asset references, and publication
+anchors are not covered.
+
+**Acceptance:** partially met — invalid generated content mappings and cohort
+counts are caught before merge. Not met for routes and assets.
+
 
 ### UPD-009 - Separate website issues from wider CoLab operations
 
