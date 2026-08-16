@@ -44,7 +44,7 @@ linting of generated output.
 
 ### UPD-002 - Add pull-request CI and protect `main`
 
-**Priority:** High — **CI added; branch protection still open.**
+**Priority:** High — **done.**
 
 The Pages workflow runs only on pushes to `main`, so an invalid pull request
 received no automated build before merge.
@@ -58,14 +58,25 @@ before merge rather than after.
 The earlier blocker is resolved: the `gh` token in use now carries the
 `workflow` scope, so pushes touching `.github/workflows/*` succeed.
 
-**Still open:** the repository has no branch protection or rulesets, so the new
-check is advisory. Requiring the `Lint, typecheck, build, snapshot` status and
-a pull-request approval through a GitHub ruleset needs an admin action that
-cannot be made from a pull request. Follow
-[SITE-CONTROL-RECOMMENDATIONS.md](SITE-CONTROL-RECOMMENDATIONS.md).
+**Branch protection.** The ruleset *"main: require CI and protect history"* is
+active on the default branch with three rules:
 
-**Acceptance:** partially met — a pull request is now built automatically. Not
-met until a test pull request *cannot merge* while that build is failing.
+| Rule | Effect |
+|---|---|
+| `required_status_checks` | `Lint, typecheck, build, snapshot` must pass before merge |
+| `non_fast_forward` | `main` cannot be force-pushed |
+| `deletion` | `main` cannot be deleted |
+
+Repository admins are listed as bypass actors, deliberately. This repository is
+maintained by a very small group, and a required *approval* rule would leave a
+sole maintainer unable to merge their own work. The status check is the part
+that carries the value; the approval requirement is a governance decision that
+should be made when the reviewer roles in `CONTRIBUTING.md` section 5 are
+actually staffed.
+
+**Acceptance:** met — a pull request is built automatically, and it cannot be
+merged while that build is failing.
+
 
 
 ### UPD-003 - Add ownership and review templates
