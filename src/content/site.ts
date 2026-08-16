@@ -1612,16 +1612,13 @@ export const media = {
     { term: "June 2024 · NYC", title: "NY Tech Week Side Event", blurb: "Ethical Tech CoLab gathering during NY Tech Week, bringing students and partners together around the CoLab's emerging-technology and human-rights work.", tags: ["NY Tech Week", "Side Event"] },
     { term: "Spring 2024 · NYC", title: "Inaugural Summit, Emerging Tech & Ethical Sourcing", blurb: "First convening of the Ethical Tech CoLab; framing session on how engineering practice can inform sourcing policy, and how policy can inform engineering boundaries.", tags: ["Inaugural", "Curriculum"] },
   ],
-  decks: [
-    {
-      id: "1hLSiDnyG-YsO_kSDwBRtSpUGy-zTRYa3bBlreOcEcjA",
-      term: "Fall 2024 · NYC",
-      title: "Avatar Impact Storyboard",
-      blurb:
-        "Summit presentation on telling the stories of people who can't tell them themselves — human trafficking and child labor — and on whether generative AI can convey the magnitude of the problem. Built in the Ethical Tech CoLab by NYU SPS Center for Global Affairs students, who wrote the stories from real-world cases and produced the avatar videos, and NYU Stern students, who built the interactive storyboard.",
-    },
-  ] as SummitDeck[],
+  decks: [] as SummitDeck[],
   gallery: [
+    {
+      src: "/summit/avatar-storytelling-dashboard.jpg",
+      caption: "Avatar Storytelling demo dashboard",
+      href: avatarStorytellingDemo,
+    },
     { src: "/summit/speaker-amanda-lindsey.jpg", caption: "Speaker · Amanda Lindsey" },
     { src: "/summit/speaker-deborah-berebichez.jpg", caption: "Speaker · Deborah Berebichez" },
     { src: "/summit/speaker-ruchira-gupta.jpg", caption: "Speaker · Ruchira Gupta" },

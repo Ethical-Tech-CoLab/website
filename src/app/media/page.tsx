@@ -5,6 +5,10 @@ import { SlideDeck } from "@/components/SlideDeck";
 import { Reveal } from "@/components/motion/Reveal";
 import { asset } from "@/lib/asset";
 
+function resolveMediaHref(href: string) {
+  return href.startsWith("/") ? asset(href) : href;
+}
+
 export const metadata: Metadata = {
   title: "Media",
   description:
@@ -53,30 +57,34 @@ export default function MediaPage() {
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
             A visual sampler from past Summits and Hackathons — panels, student
             demos, partner roundtables, and the convening floor. Click any image
-            for the full-size version.
+            to open the full-size version or linked demo.
           </p>
         </Reveal>
         <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          {media.gallery.map((g) => (
-            <a
-              key={g.src}
-              href={asset(g.src)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative block aspect-[4/3] overflow-hidden rounded-xl border border-border bg-secondary"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={asset(g.src)}
-                alt={g.caption}
-                loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-              <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-2 text-[11px] text-white opacity-0 transition-opacity group-hover:opacity-100">
-                {g.caption}
-              </span>
-            </a>
-          ))}
+          {media.gallery.map((g) => {
+            const href = resolveMediaHref(g.href ?? g.src);
+
+            return (
+              <a
+                key={g.src}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative block aspect-[4/3] overflow-hidden rounded-xl border border-border bg-secondary"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={asset(g.src)}
+                  alt={g.caption}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-2 text-[11px] text-white opacity-0 transition-opacity group-hover:opacity-100">
+                  {g.caption}
+                </span>
+              </a>
+            );
+          })}
         </div>
 
         <Reveal>
@@ -110,25 +118,28 @@ export default function MediaPage() {
           ))}
         </div>
 
-        <Reveal>
-          <h2 className="mt-20 font-heading text-2xl uppercase tracking-wide">
-            From the stage
-          </h2>
-        </Reveal>
-        <Reveal delay={0.05}>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
-            Decks presented at the Summit, in full. Use the arrows to advance, or
-            open a deck in Slides for full screen.
-          </p>
-        </Reveal>
-        <div className="mt-8 space-y-10">
-          {media.decks.map((d) => (
-            <Reveal key={d.id}>
-              <SlideDeck deck={d} />
+        {media.decks.length > 0 ? (
+          <>
+            <Reveal>
+              <h2 className="mt-20 font-heading text-2xl uppercase tracking-wide">
+                From the stage
+              </h2>
             </Reveal>
-          ))}
-        </div>
-
+            <Reveal delay={0.05}>
+              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
+                Decks presented at the Summit, in full. Use the arrows to
+                advance, or open a deck in Slides for full screen.
+              </p>
+            </Reveal>
+            <div className="mt-8 space-y-10">
+              {media.decks.map((d) => (
+                <Reveal key={d.id}>
+                  <SlideDeck deck={d} />
+                </Reveal>
+              ))}
+            </div>
+          </>
+        ) : null}
       </div>
     </>
   );
