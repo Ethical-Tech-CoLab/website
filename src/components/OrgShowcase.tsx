@@ -48,7 +48,12 @@ function Logo({ org, size }: { org: PartnerOrg; size: number }) {
         loading="lazy"
         onError={() => setIdx((i) => i + 1)}
         style={{ width: size, height: size }}
-        className="shrink-0 rounded-xl border border-border bg-white object-contain p-2"
+        className={`shrink-0 rounded-xl border border-border object-contain p-2 ${
+          // Logos sit on a white tile so varied marks stay legible. A few
+          // brands only publish a white wordmark, which would disappear there,
+          // so those opt into the dark tile they were drawn for.
+          org.logoTile === "dark" ? "bg-[#11172f]" : "bg-white"
+        }`}
       />
     );
   }
