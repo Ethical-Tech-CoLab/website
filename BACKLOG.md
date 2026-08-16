@@ -198,6 +198,26 @@ gap is invisible — do not renumber, it would reshuffle every cover.
 
 ## 6. Social & newsletter
 
+- [ ] **B3IQ podcast — decide where talks and interviews live.** Add
+      ["Why AI Builders Need to Own Their Compute with B3"](https://www.youtube.com/watch?v=9cKS6FH99Xo)
+      to the site. There is nowhere obvious to put it today: `media` holds
+      `pastEvents`, `decks` and `gallery`, all framed around the Ethical Tech
+      Summit ("Media · Ethical Tech Summit" / "The Summit, in the room."), and
+      nothing on the site links out to a talk, podcast or interview. So this
+      needs a placement decision before it can be implemented, not just an
+      entry:
+      - a new `media` group (e.g. "Talks & appearances") with its own heading,
+        which widens the Media page beyond the Summit and would want the
+        eyebrow/heading reworded; or
+      - a dedicated section, if more of these are expected; or
+      - a link from the B3IQ organisation card on `/team`, if it is better read
+        as context on that partnership than as CoLab media.
+      Whichever is chosen: confirm who is speaking and in what capacity before
+      it is presented as CoLab media, capture the publication date, and prefer
+      linking the video over embedding it so no third-party player is loaded
+      for every visitor. YouTube thumbnails are hotlinked from Google's CDN, so
+      a local still is preferable if a thumbnail is wanted.
+
 - [ ] **Newsletter** — real Mailchimp (or other) embed/URL to replace the
       placeholder in `newsletter`.
 - [ ] **Instagram** — handle appears to be `@NYUSPS_ETHICALTECH_LAB` (from the
