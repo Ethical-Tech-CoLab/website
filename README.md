@@ -30,7 +30,7 @@ The NYU CGA Ethical Tech CoLab focuses on applied research at the frontier of AI
 
 ## Current cohort — Summer 2026
 
-Four active projects, eight applied researchers:
+Four active projects, seven applied researchers:
 
 | # | Project | Focus |
 |---|---------|-------|
@@ -73,6 +73,7 @@ components.
 ## Contributing and site operations
 
 - **Safe contribution workflow:** [CONTRIBUTING.md](CONTRIBUTING.md)
+- **Editing site content (people, projects, logos, links):** [docs/CONTENT-GUIDE.md](docs/CONTENT-GUIDE.md)
 - **Recommended repository controls:** [SITE-CONTROL-RECOMMENDATIONS.md](SITE-CONTROL-RECOMMENDATIONS.md)
 - **Legacy updates and review-only discovery requests:** [UPDATES-NEEDED.md](UPDATES-NEEDED.md)
 - **Open public-site content work:** [BACKLOG.md](BACKLOG.md)
