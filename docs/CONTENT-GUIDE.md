@@ -86,7 +86,9 @@ Each person is a `TeamMember` object. Fields:
   image.
 - Changing the cohort size means updating the count in **three** places:
   `team.researchersCount`, the matching `cohorts` entry's `items`, and
-  [`README.md`](../README.md).
+  [`README.md`](../README.md). Run `npm run check:content` to confirm all three
+  agree with the roster — CI runs it, and it will fail the pull request if they
+  do not.
 - Never publish a name, role, affiliation, or biography you have not verified
   against an authoritative source.
 
