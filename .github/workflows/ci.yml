@@ -1,0 +1,70 @@
+name: CI
+
+# Non-deploying checks for pull requests. The Pages workflow only runs on
+# pushes to main, so without this a pull request could be merged without ever
+# having been built.
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A new push to the same pull request supersedes the run in progress.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Lint, typecheck, build, snapshot
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npx eslint
+
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      - name: Build static export
+        run: npm run build
+
+      # static-site/ is a tracked snapshot of the export. Regenerating it on an
+      # unchanged checkout must produce no diff, so any diff here means the
+      # snapshot no longer describes src/.
+      - name: Regenerate the static snapshot
+        run: npm run sync:static
+
+      - name: Check the snapshot is in sync
+        run: |
+          # --porcelain rather than `git diff`, so a page added to src/ without
+          # regenerating the snapshot is caught too: its new file under
+          # static-site/ would be untracked, and untracked files are invisible
+          # to `git diff`.
+          #
+          # __next.* files are excluded. Next.js writes its RSC segment-cache
+          # prefetch payloads with a platform-dependent path shape — Linux emits
+          # a flat `about/__next.about.__PAGE__.txt`, Windows emits a nested
+          # `about/__next.about/__PAGE__.txt`. Same content, different layout, so
+          # a snapshot generated on one platform can never match a rebuild on the
+          # other. Everything else (HTML, JS, CSS, assets) is byte-identical
+          # across both. Tracked as UPD-004 in UPDATES-NEEDED.md.
+          drift="$(git status --porcelain -- static-site | grep -v '/__next\.' || true)"
+          if [ -z "$drift" ]; then
+            echo "static-site/ matches src/."
+            exit 0
+          fi
+          echo "::error::static-site/ is out of sync with src/. Run 'npm run sync:static' and commit the result as a separate commit (see CONTRIBUTING.md section 4)."
+          echo "$drift"
+          exit 1
