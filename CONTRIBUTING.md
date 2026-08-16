@@ -286,7 +286,9 @@ Wait for an appropriate reviewer before merging:
 4. Update the originating issue or backlog item only after the change is live.
 
 If a production change must be undone, use a normal revert pull request or
-revert commit. Do not rewrite shared history or force-push `main`.
+revert commit. Do not rewrite shared history or force-push `main`. A ruleset
+enforces this: `main` cannot be force-pushed or deleted, and a pull request
+cannot be merged while its CI build is failing.
 
 ## Never do these
 
