@@ -4,6 +4,7 @@ import { asset } from "@/lib/asset";
 import { HeroVisual } from "@/components/HeroVisual";
 import { HeroField } from "@/components/HeroField";
 import { HeroTitle } from "@/components/HeroTitle";
+import { HomeViewToggle } from "@/components/HomeViewToggle";
 import { HomeBody } from "@/components/HomeBody";
 import { Reveal } from "@/components/motion/Reveal";
 import { Magnetic } from "@/components/motion/Magnetic";
@@ -76,6 +77,7 @@ export default function Home() {
                 See live demos
               </Link>
             </div>
+            <HomeViewToggle href="/home-carousel" />
           </Reveal>
 
           {current && (

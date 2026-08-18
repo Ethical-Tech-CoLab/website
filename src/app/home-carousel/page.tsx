@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Link } from "next-view-transitions";
 import type { Metadata } from "next";
 import {
   cohorts,
@@ -11,9 +10,9 @@ import {
 import { asset } from "@/lib/asset";
 import { HeroField } from "@/components/HeroField";
 import { HomeBody } from "@/components/HomeBody";
+import { HomeViewToggle } from "@/components/HomeViewToggle";
 import { StatementCarousel, type Statement } from "@/components/StatementCarousel";
 import { Reveal } from "@/components/motion/Reveal";
-import { Magnetic } from "@/components/motion/Magnetic";
 
 export const metadata: Metadata = {
   title: "Home (carousel layout) · Ethical Tech CoLab",
@@ -34,49 +33,99 @@ const fieldedProjects = researchAreas.reduce(
   (total, area) => total + area.projects.length,
   0,
 );
-const currentCohort = cohorts.find((c) => c.current);
 
+/**
+ * /portfolio spells its count out in its own heading ("Four questions."), so
+ * the slide that links there has to spell it the same way — a slide that says
+ * "4 questions" while the page it opens says "Four" reads as a different page.
+ */
+const WORDS = ["Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine"];
+const questionCount = WORDS[researchAreas.length] ?? researchAreas.length;
+
+/**
+ * One card per destination, each led by that destination's own `<h1>` — same
+ * words, same accent half — so the carousel reads as doors into the site
+ * rather than as statistics. The figure a card carries is the one its heading
+ * does NOT already state, which is why the portfolio card counts projects (its
+ * heading counts the questions) and the publications card says "in the
+ * catalogue" rather than repeating "written up".
+ *
+ * The first card stands for the home page itself — the standard layout's own
+ * wordmark and mission line. It carries no button: this IS the home page, so
+ * there is nowhere to send a reader who is already here.
+ */
 const statements: Statement[] = [
   {
-    value: String(researchAreas.length),
-    unit: "research questions",
-    line: "Each one taken from a question the record skipped through to a fielded prototype, in the open.",
+    lead: "Ethical Tech CoLab",
+    // The wordmark carries this card the way it carries `/`, so it runs a step
+    // larger than the sentence-shaped headings on the other cards.
+    headingClass: "text-[clamp(4.25rem,13vw,11rem)] leading-[0.88]",
+    // Both lines are the home page's own markup, not a paraphrase of it: the
+    // serif mission line with "human condition" in the accent, and the intro
+    // with its live link out to the Center for Global Affairs. Passed as nodes
+    // so the card renders them exactly as `/` does rather than flattening them
+    // to the caps-and-muted styling the counting cards use.
+    figure: (
+      <p
+        className="font-serif uppercase leading-[0.95] tracking-tight text-foreground"
+        style={{ fontSize: "clamp(1.9rem, 4vw, 3rem)" }}
+      >
+        Exploring technology to improve
+        <br className="hidden sm:block" /> the{" "}
+        <span className="display-em">human condition</span>.
+      </p>
+    ),
+    line: (
+      <p className="mx-auto mt-7 max-w-2xl leading-relaxed text-foreground/85">
+        A research collaboration between NYU&apos;s{" "}
+        <a
+          href="https://www.sps.nyu.edu/about/academic-divisions-and-departments/center-for-global-affairs.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="link-underline text-accent hover:opacity-80"
+        >
+          Center for Global Affairs
+        </a>{" "}
+        and Microsoft — changing the conversation on how people are informed,
+        and how emerging technology can be used for good.
+      </p>
+    ),
+  },
+  {
+    lead: `${questionCount} questions. `,
+    em: "One frontier.",
+    figure: `${fieldedProjects} projects in the portfolio`,
+    line: "Evacuation, cultural heritage, traceability, diplomacy — each question carried through to a fielded prototype, in the open.",
+    cta: "Explore the portfolio",
     href: "/portfolio",
   },
   {
-    value: String(fieldedProjects),
-    unit: "projects in the portfolio",
-    line: "Sitting under those questions — evacuation, cultural heritage, traceability, diplomacy.",
-    href: "/portfolio",
-  },
-  {
-    value: String(products.length),
-    unit: "demos you can open",
+    lead: "Run the ",
+    em: "research",
+    tail: ".",
+    figure: `${products.length} demos you can open`,
     line: "Not screenshots: the prototypes themselves, running in the browser with their source alongside.",
+    cta: "Open the live demos",
     href: "/demos",
   },
   {
-    value: String(publications.items.length),
-    unit: "reports written up",
+    lead: "The research, ",
+    em: "written up",
+    tail: ".",
+    figure: `${publications.items.length} in the catalogue`,
     line: "Every research question the CoLab takes on is written up academically, including what did not hold.",
+    cta: "Read the publications",
     href: "/publications",
   },
   {
-    value: String(team.researchers.length),
-    unit: `researchers across ${cohorts.length} cohorts`,
+    lead: "The people ",
+    em: "building",
+    tail: " this.",
+    figure: `${team.researchers.length} researchers across ${cohorts.length} cohorts`,
     line: "Graduate researchers at NYU's Center for Global Affairs, with advisors and resident fellows alongside.",
+    cta: "Meet the team",
     href: "/team",
   },
-  ...(currentCohort
-    ? [
-        {
-          value: currentCohort.term,
-          unit: "the current cohort",
-          line: currentCohort.body,
-          href: "/publications/after-the-corridor",
-        },
-      ]
-    : []),
 ];
 
 export default function HomeCarousel() {
@@ -109,56 +158,32 @@ export default function HomeCarousel() {
         />
         <HeroField />
 
-        <div className="relative mx-auto max-w-6xl px-6 py-24 sm:py-28">
+        <div className="relative mx-auto max-w-6xl px-6 py-24 text-center sm:py-28">
           <Reveal>
             <p className="text-xs uppercase tracking-[0.25em] text-accent">
               NYU CGA × Microsoft
             </p>
-            <h1 className="mt-5 max-w-4xl fluid-hero font-heading uppercase leading-[0.95]">
-              Emerging tech, <span className="display-em">human condition</span>.
-            </h1>
           </Reveal>
 
+          {/* The carousel supplies the page's `<h1>`: the hero heading IS the
+              rotating statement, rather than a slogan with the statements
+              parked underneath it. */}
           <Reveal delay={0.15}>
             <StatementCarousel
               statements={statements}
               label="Statement"
-              className="mt-12"
+              className="mt-5"
             />
           </Reveal>
 
+          {/* Sits under the carousel's own button, which is the last thing in
+              the band — the same position the toggle takes on `/`, under that
+              hero's pair of buttons. */}
           <Reveal delay={0.3}>
-            <div className="mt-12 flex flex-wrap items-center gap-4">
-              <Magnetic>
-                <Link
-                  href="/portfolio"
-                  className="btn-sweep inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.02]"
-                >
-                  Explore the portfolio <span aria-hidden>→</span>
-                </Link>
-              </Magnetic>
-              <Link
-                href="/demos"
-                className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
-              >
-                See live demos
-              </Link>
-            </div>
+            <HomeViewToggle href="/" />
           </Reveal>
         </div>
       </section>
-
-      {/* This route exists to be compared against `/`, so it says so and
-          offers the way back rather than leaving a visitor stranded on a
-          layout that is not in the navigation. */}
-      <div className="border-b border-border bg-surface/60">
-        <p className="mx-auto max-w-6xl px-6 py-3 text-xs text-muted">
-          Alternative home page layout under review.{" "}
-          <Link href="/" className="link-underline text-accent">
-            See the current home page →
-          </Link>
-        </p>
-      </div>
 
       <HomeBody />
     </>

@@ -1,17 +1,56 @@
 "use client";
 
-import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
+import {
+  useCallback,
+  useEffect,
+  useState,
+  useSyncExternalStore,
+  type ReactNode,
+} from "react";
 import { Link } from "next-view-transitions";
+import { Magnetic } from "@/components/motion/Magnetic";
 
 export interface Statement {
-  /** The headline figure, e.g. "26". Rendered at display size. */
-  value: string;
-  /** What the figure counts, e.g. "live demos you can open". */
-  unit: string;
-  /** One line of context under the figure. */
-  line: string;
-  /** Where the slide sends the reader. Internal route or absolute URL. */
-  href: string;
+  /**
+   * The headline of the page this slide links to, split the way that page
+   * splits its own `<h1>`: plain text, then the part it sets in the accent
+   * colour, then whatever trails it. Kept in three parts rather than as one
+   * string so the slide can reproduce the destination's heading exactly —
+   * "Run the " + "research" + "." — instead of approximating it.
+   */
+  lead: string;
+  /** Omitted on a heading its page sets in one colour throughout. */
+  em?: string;
+  tail?: string;
+  /**
+   * Extra classes for this card's heading — a size override, typically. The
+   * stack is only as tall as its tallest heading and every heading is centred
+   * within it, so one card can be set larger without the others drifting.
+   */
+  headingClass?: string;
+  /**
+   * The caps line under the heading, e.g. "26 demos you can open". Optional:
+   * the card standing for the home page has no figure to report.
+   *
+   * A string gets the card's own caps styling. Pass a node instead and it is
+   * rendered untouched — that is how the home card reproduces the home page's
+   * serif mission line, accent and all, rather than approximating it here.
+   */
+  figure?: ReactNode;
+  /** One line of context under the figure. Same string-or-node rule. */
+  line: ReactNode;
+  /**
+   * The single call to action, given as both together or neither: a card that
+   * stands for the page a reader is already on has nowhere to send them, and
+   * shows no button.
+   */
+  cta?: string;
+  href?: string;
+}
+
+/** The heading as plain text, for labels and React keys. */
+function headingOf(statement: Statement): string {
+  return `${statement.lead}${statement.em ?? ""}${statement.tail ?? ""}`;
 }
 
 const INTERVAL_MS = 5200;
@@ -37,6 +76,13 @@ function usePrefersReducedMotion(): boolean {
 
 /**
  * A rotating band of single-statement slides, each one a link into the site.
+ *
+ * The rotating heading IS the page title: it is rendered as the `<h1>` and
+ * sized like every other page's hero heading, so the hero says where a reader
+ * can go rather than repeating a slogan above it. One `<h1>` wraps the whole
+ * stack — not one per slide, which would leave the page with several — and the
+ * inactive slides inside it are `aria-hidden`, so the heading's accessible
+ * name is whichever statement is showing.
  *
  * Every slide sits in the SAME grid cell rather than being absolutely
  * positioned inside a guessed min-height, so the band is exactly as tall as
@@ -86,6 +132,8 @@ export function StatementCarousel({
 
   const stop = useCallback(() => setPlaying(false), []);
 
+  const current = statements[index];
+
   // Left/right arrows move between slides while the band holds focus, which is
   // what a keyboard user expects from a group of related controls.
   const onKeyDown = (event: React.KeyboardEvent) => {
@@ -105,44 +153,80 @@ export function StatementCarousel({
       onFocus={stop}
       onKeyDown={onKeyDown}
     >
-      <div className="grid items-start text-left" aria-live="polite">
-        {statements.map((statement, i) => {
-          const active = i === index;
-          return (
-            <Link
-              key={statement.href + statement.value}
-              href={statement.href}
-              // Inactive slides are still painted (they hold the band open),
-              // so they have to be taken out of the tab order and the
-              // accessibility tree explicitly.
-              inert={!active}
-              aria-hidden={!active}
-              style={{ gridArea: "1 / 1" }}
-              className={`group block no-underline transition-opacity duration-500 motion-reduce:transition-none ${
-                active ? "opacity-100" : "pointer-events-none opacity-0"
-              }`}
-            >
-              <span className="block font-heading text-[clamp(3rem,7.6vw,7.5rem)] font-bold leading-[0.94] tracking-tight text-foreground transition-colors group-hover:text-accent">
-                {statement.value}
+      {/* Heading and body are one live region, not two: they change together,
+          and a region each would announce every rotation twice. */}
+      <div aria-live="polite">
+        {/* The destination's own heading, in the destination's own colours —
+            the accent half is the same `display-em` that page sets on its
+            `<h1>` — so the hero reads as a door into that page rather than as
+            a slogan with a statistic under it. */}
+        <h1 className="mx-auto grid max-w-4xl items-center fluid-hero font-heading uppercase leading-[0.95]">
+          {statements.map((statement, i) => {
+            const active = i === index;
+            return (
+              <span
+                key={headingOf(statement)}
+                aria-hidden={!active}
+                style={{ gridArea: "1 / 1" }}
+                className={`block transition-opacity duration-500 motion-reduce:transition-none ${
+                  statement.headingClass ?? ""
+                } ${active ? "opacity-100" : "opacity-0"}`}
+              >
+                {statement.lead}
+                {statement.em && (
+                  <span className="display-em">{statement.em}</span>
+                )}
+                {statement.tail}
               </span>
-              <span className="mt-2 block text-sm font-semibold uppercase tracking-[0.12em] text-accent sm:text-base">
-                {statement.unit}
-              </span>
-              <span className="mt-2 block max-w-[40em] leading-relaxed text-muted">
-                {statement.line}
-              </span>
-            </Link>
-          );
-        })}
+            );
+          })}
+        </h1>
+
+        {/* Copy only: the way into the destination is the single button under
+            the dots, so the text itself is not a link. */}
+        <div className="mt-8 grid items-start text-center">
+          {statements.map((statement, i) => {
+            const active = i === index;
+            return (
+              <div
+                key={headingOf(statement)}
+                // Inactive slides are still painted (they hold the band open),
+                // so they have to be taken out of the accessibility tree
+                // explicitly.
+                inert={!active}
+                aria-hidden={!active}
+                style={{ gridArea: "1 / 1" }}
+                className={`block transition-opacity duration-500 motion-reduce:transition-none ${
+                  active ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                {typeof statement.figure === "string" ? (
+                  <span className="mb-2 block text-sm font-semibold uppercase tracking-[0.12em] text-foreground sm:text-base">
+                    {statement.figure}
+                  </span>
+                ) : (
+                  statement.figure
+                )}
+                {typeof statement.line === "string" ? (
+                  <span className="mx-auto block max-w-[40em] leading-relaxed text-muted">
+                    {statement.line}
+                  </span>
+                ) : (
+                  statement.line
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
 
-      <div className="mt-7 flex items-center gap-2">
+      <div className="mt-7 flex items-center justify-center gap-2">
         {statements.map((statement, i) => (
           <button
-            key={statement.href + statement.value}
+            key={headingOf(statement)}
             type="button"
             aria-current={i === index}
-            aria-label={`${label} ${i + 1} of ${count}: ${statement.value} — ${statement.unit}`}
+            aria-label={`${label} ${i + 1} of ${count}: ${headingOf(statement)}${typeof statement.figure === "string" ? ` — ${statement.figure}` : ""}`}
             onClick={() => {
               stop();
               show(i);
@@ -169,6 +253,24 @@ export function StatementCarousel({
         >
           {reduce ? "Next" : playing ? "Pause" : "Play"}
         </button>
+      </div>
+
+      {/* A single call to action rather than a fixed pair, because the hero no
+          longer says one thing: it points wherever the card showing points,
+          and its label changes with it. The row keeps its height on the card
+          that has no button, so the hero does not resize under the reader
+          every time that card comes round. */}
+      <div className="mt-10 min-h-[2.75rem] text-center">
+        {current.cta && current.href && (
+          <Magnetic className="inline-block">
+            <Link
+              href={current.href}
+              className="btn-sweep inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.02]"
+            >
+              {current.cta} <span aria-hidden>→</span>
+            </Link>
+          </Magnetic>
+        )}
       </div>
     </div>
   );
