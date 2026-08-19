@@ -1,8 +1,13 @@
 # Website backlog — what's still missing
 
 Living checklist of open items. Everything not listed here is done and live at
-<https://ethical-tech-colab.github.io/website/>. After adding any asset below,
-run `npm run sync:static`, then commit + push (or ask me to).
+<https://ethical-tech-colab.github.io/website/>.
+
+Working an item means regenerating the tracked snapshot, not only editing
+`src/` — see [CONTRIBUTING §4](CONTRIBUTING.md#4-regenerate-the-tracked-static-snapshot).
+This applies to *any* change to the site, not just adding an asset: a content
+edit that skips `npm run sync:static` leaves `static-site/` describing a
+version of the site that no longer exists.
 
 Last updated: 2026-08-05.
 
