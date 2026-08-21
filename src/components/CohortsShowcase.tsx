@@ -64,10 +64,10 @@ export function CohortsShowcase() {
                     : "border-border hover:border-foreground/25"
                 }`}
               >
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-sm text-muted">
-                    {cohort.index}
-                  </span>
+                {/* Badge only. The cards used to carry a monospace 01/02/03
+                    as well, which numbered the cohorts in an order the terms
+                    already state. */}
+                <div className="flex items-center justify-end">
                   {cohort.current ? (
                     <span className="rounded-full bg-accent px-2.5 py-0.5 text-xs font-semibold text-background">
                       Current
