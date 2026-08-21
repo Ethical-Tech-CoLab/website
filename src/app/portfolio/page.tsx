@@ -78,8 +78,7 @@ export default function PortfolioPage() {
               </h2>
               <p className="mt-4 max-w-2xl leading-relaxed text-muted">
                 Projects from earlier cohorts, grouped by the year they were
-                worked on. Open a project with a{" "}
-                <span className="text-accent">+</span> to launch its live demo.
+                worked on, with their live demos, code, and reports alongside.
               </p>
             </Reveal>
 

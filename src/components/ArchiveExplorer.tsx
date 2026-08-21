@@ -1,19 +1,15 @@
-"use client";
-
-import { useState } from "react";
 import { Link } from "next-view-transitions";
 import { archivedProjects, cohortTerms } from "@/content/site";
 
 /**
- * Previous-cohort portfolio, grouped by year. Each project with a live demo (or
- * repo) gets a "+" that expands to reveal its links — the same expand-to-open
- * pattern the current cohort's research questions use.
+ * Previous-cohort portfolio, grouped by year.
+ *
+ * Every project shows its links outright. These cards were behind a "+" that
+ * expanded them one at a time, which hid the demos this section exists to
+ * surface; the archive is short enough that there is nothing to save by
+ * collapsing it. No state, so this stays a server component.
  */
 export function ArchiveExplorer() {
-  const [open, setOpen] = useState<Record<string, boolean>>({});
-  const toggle = (name: string) =>
-    setOpen((o) => ({ ...o, [name]: !o[name] }));
-
   // Group by term, newest year first.
   const byTerm = archivedProjects.reduce<Record<string, typeof archivedProjects>>(
     (acc, project) => {
@@ -48,42 +44,22 @@ export function ArchiveExplorer() {
                 Boolean(project.demos?.length) ||
                 Boolean(project.repo) ||
                 Boolean(project.publication);
-              const isOpen = Boolean(open[project.name]);
               return (
                 <article
                   key={project.name}
                   className="flex flex-col rounded-2xl border border-border bg-background p-7"
                 >
-                  {hasLinks ? (
-                    <button
-                      type="button"
-                      onClick={() => toggle(project.name)}
-                      aria-expanded={isOpen}
-                      className="group flex w-full items-start justify-between gap-3 text-left"
-                    >
-                      <h4 className="font-heading text-2xl uppercase leading-[1.12] tracking-[0.02em] sm:text-3xl group-hover:text-accent">
-                        {project.name}
-                      </h4>
-                      <span
-                        aria-hidden
-                        className={`mt-1 shrink-0 text-2xl leading-none text-accent transition-transform ${
-                          isOpen ? "rotate-45" : ""
-                        }`}
-                      >
-                        +
-                      </span>
-                    </button>
-                  ) : (
-                    <h4 className="font-heading text-2xl uppercase leading-[1.12] tracking-[0.02em] sm:text-3xl">
-                      {project.name}
-                    </h4>
-                  )}
+                  <h4 className="font-heading text-2xl uppercase leading-[1.12] tracking-[0.02em] sm:text-3xl">
+                    {project.name}
+                  </h4>
 
                   <p className="mt-3 text-sm leading-relaxed text-muted">
                     {project.summary}
                   </p>
 
-                  <div className="mt-5 flex flex-wrap gap-2">
+                  {/* mb keeps a gap above the rule below even when mt-auto
+                      collapses to nothing on a full-height card. */}
+                  <div className="mb-6 mt-5 flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
@@ -94,8 +70,11 @@ export function ArchiveExplorer() {
                     ))}
                   </div>
 
-                  {hasLinks && isOpen && (
-                    <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-border pt-5">
+                  {hasLinks && (
+                    /* mt-auto so the link rows sit on the card's bottom edge:
+                       the grid stretches cards to a shared height, and summaries
+                       differ enough that unpinned rows would not line up. */
+                    <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-border pt-5">
                       {project.demo && (
                         <a
                           href={project.demo}
