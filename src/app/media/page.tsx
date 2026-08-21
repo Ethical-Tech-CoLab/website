@@ -97,7 +97,7 @@ export default function MediaPage() {
             <Reveal key={s.title}>
               <article className="card-glow flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-colors hover:border-border-strong">
                 <p className="font-mono text-xs text-accent">{s.term}</p>
-                <h3 className="mt-3 font-heading text-lg uppercase leading-snug tracking-wide">
+                <h3 className="mt-3 font-heading text-xl uppercase leading-snug tracking-wide sm:text-2xl">
                   {s.title}
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted">
