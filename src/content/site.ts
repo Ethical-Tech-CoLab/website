@@ -622,7 +622,7 @@ export const publications = {
       summary:
         "A report on rebuilding the 1983 film as a browser game whose antagonist is a real language model held to a strict output contract, and on what four tracks of Monte Carlo evaluation found. Structured output turned out to be solved; the real problem was that models will not escalate, stalling a quarter of games. On owned hardware the smallest model beat every cloud model on speed and the largest returned no valid output at all.",
       status: "Published",
-      date: "August 2026",
+      date: "July 2026",
       url: "/publications/war-games",
       repo: "https://github.com/Ethical-Tech-CoLab/War-Games",
     },

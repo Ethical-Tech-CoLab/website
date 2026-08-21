@@ -23,7 +23,7 @@ export const warGamesReport = {
     "Rebuilding WarGames (1983) as a Playable Study of Autonomous AI Agents",
   org: "Ethical Tech CoLab",
   advisor: "NYU Center for Global Affairs",
-  date: "August 2026",
+  date: "July 2026",
   authors:
     "Carolina Morón. Prepared as masters research at the NYU Center for Global Affairs. The playable artefact, the simulation harness, and the raw run records are in the War-Games repository.",
   liveUrl: "https://ethical-tech-colab.github.io/War-Games/",
