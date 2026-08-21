@@ -284,6 +284,14 @@ export const researchAreas: ResearchArea[] = [
         demo: "https://ethical-tech-colab.github.io/diplomatic-simulator/",
         publication: "/publications/diplomatic-simulator",
       },
+      {
+        name: "War Games",
+        summary:
+          "A terminal thriller in the shape of WarGames (1983), reframed around a modern AI agent: the only winning move is to understand the machine. Ships with a Monte Carlo simulation harness and a written case study behind the fiction.",
+        status: "Active",
+        repo: "https://github.com/Ethical-Tech-CoLab/War-Games",
+        demo: "https://ethical-tech-colab.github.io/War-Games/",
+      },
     ],
   },
 ];
