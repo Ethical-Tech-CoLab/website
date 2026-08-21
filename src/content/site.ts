@@ -291,6 +291,7 @@ export const researchAreas: ResearchArea[] = [
         status: "Active",
         repo: "https://github.com/Ethical-Tech-CoLab/War-Games",
         demo: "https://ethical-tech-colab.github.io/War-Games/",
+        publication: "/publications/war-games",
       },
     ],
   },
@@ -609,6 +610,21 @@ export const publications = {
       status: "Published",
       date: "July 2026",
       url: "/publications/diplomatic-simulator",
+    },
+    {
+      index: "29",
+      area: "Diplomacy",
+      topic: "Diplomacy",
+      question:
+        "What happens when the machine in a nuclear thriller is a real language model?",
+      title:
+        "The Only Winning Move: Rebuilding WarGames (1983) as a Playable Study of Autonomous AI Agents",
+      summary:
+        "A report on rebuilding the 1983 film as a browser game whose antagonist is a real language model held to a strict output contract, and on what four tracks of Monte Carlo evaluation found. Structured output turned out to be solved; the real problem was that models will not escalate, stalling a quarter of games. On owned hardware the smallest model beat every cloud model on speed and the largest returned no valid output at all.",
+      status: "Published",
+      date: "August 2026",
+      url: "/publications/war-games",
+      repo: "https://github.com/Ethical-Tech-CoLab/War-Games",
     },
     {
       index: "18",
