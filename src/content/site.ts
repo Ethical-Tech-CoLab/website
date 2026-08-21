@@ -1598,7 +1598,7 @@ export const media = {
   eyebrow: "Media · Ethical Tech Summit",
   heading: "The Summit, in the room.",
   intro:
-    "The Ethical Tech Summit is the public-facing capstone of the graduate course Harnessing Emerging Technology in Ethical Sourcing at the NYU SPS Center for Global Affairs. Each semester the Ethical Tech CoLab convenes students, technologists, and policy practitioners for a Summit and Hackathon on the live boundary between emerging technology and global affairs.",
+    "Each semester the Ethical Tech CoLab convenes students, technologists, and policy practitioners for a Summit and Hackathon on the live boundary between emerging technology and global affairs.",
   threads:
     "Recurring threads: agentic systems and the future of work; verifiable supply chains under UFLPA / NDAA; online grooming and platform safety; forced labor and human trafficking; and micropayment rails for vulnerable populations and creator economies.",
   pastEvents: [
