@@ -16,8 +16,8 @@ const areaCount = WORDS[researchAreas.length] ?? researchAreas.length;
  * Everything on the home page below the hero: mission, portfolio preview,
  * cohorts, the collaborate CTA and the newsletter.
  *
- * Shared so that an alternative hero can be tried without forking the rest of
- * the page — `/` and `/home-carousel` differ only in what sits above this.
+ * Kept separate from the hero so an alternative hero can be tried without
+ * forking the rest of the page.
  */
 export function HomeBody() {
   return (
