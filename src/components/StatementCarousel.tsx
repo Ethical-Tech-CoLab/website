@@ -84,6 +84,12 @@ function usePrefersReducedMotion(): boolean {
  * inactive slides inside it are `aria-hidden`, so the heading's accessible
  * name is whichever statement is showing.
  *
+ * The slides do not cross-fade. Every slide occupies the same grid cell, so
+ * fading two at once paints one statement through the other, which reads as a
+ * rendering bug rather than as a transition. The outgoing slide fades out
+ * first and the incoming one waits the same 300ms before it starts, so only
+ * one statement is ever visible.
+ *
  * Every slide sits in the SAME grid cell rather than being absolutely
  * positioned inside a guessed min-height, so the band is exactly as tall as
  * its tallest slide at every viewport width. A guessed height has to be right
@@ -190,9 +196,9 @@ export function StatementCarousel({
                 key={headingOf(statement)}
                 aria-hidden={!active}
                 style={{ gridArea: "1 / 1" }}
-                className={`block transition-opacity duration-500 motion-reduce:transition-none ${
+                className={`block transition-opacity duration-300 motion-reduce:transition-none ${
                   statement.headingClass ?? ""
-                } ${active ? "opacity-100" : "opacity-0"}`}
+                } ${active ? "opacity-100 delay-300" : "opacity-0"}`}
               >
                 {statement.lead}
                 {statement.em && (
@@ -218,8 +224,8 @@ export function StatementCarousel({
                 inert={!active}
                 aria-hidden={!active}
                 style={{ gridArea: "1 / 1" }}
-                className={`block transition-opacity duration-500 motion-reduce:transition-none ${
-                  active ? "opacity-100" : "opacity-0"
+                className={`block transition-opacity duration-300 motion-reduce:transition-none ${
+                  active ? "opacity-100 delay-300" : "opacity-0"
                 }`}
               >
                 {typeof statement.figure === "string" ? (

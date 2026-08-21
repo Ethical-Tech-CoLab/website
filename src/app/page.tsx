@@ -1,12 +1,6 @@
 import Image from "next/image";
-import {
-  cohorts,
-  products,
-  publications,
-  researchAreas,
-  team,
-} from "@/content/site";
 import { asset } from "@/lib/asset";
+import { siteCounts } from "@/lib/counts";
 import { HeroField } from "@/components/HeroField";
 import { HomeBody } from "@/components/HomeBody";
 import { StatementCarousel, type Statement } from "@/components/StatementCarousel";
@@ -16,23 +10,13 @@ import { Reveal } from "@/components/motion/Reveal";
    page they were written for. */
 
 /**
- * Every figure here is counted from `src/content/site.ts` at build time rather
- * than typed in. The home page has already shipped a wrong number once — the
- * portfolio link read "all five" while there were four research areas — and a
- * hero that leads with figures is the worst place for that to happen again.
- */
-const fieldedProjects = researchAreas.reduce(
-  (total, area) => total + area.projects.length,
-  0,
-);
-
-/**
  * /portfolio spells its count out in its own heading ("Four questions."), so
  * the slide that links there has to spell it the same way — a slide that says
  * "4 questions" while the page it opens says "Four" reads as a different page.
  */
 const WORDS = ["Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine"];
-const questionCount = WORDS[researchAreas.length] ?? researchAreas.length;
+const questionCount =
+  WORDS[siteCounts.researchQuestions] ?? siteCounts.researchQuestions;
 
 /**
  * One card per destination, each led by that destination's own `<h1>` — same
@@ -88,7 +72,7 @@ const statements: Statement[] = [
   {
     lead: `${questionCount} questions. `,
     em: "One frontier.",
-    figure: `${fieldedProjects} projects in the portfolio`,
+    figure: `${siteCounts.projects} projects in the portfolio`,
     line: "Evacuation, cultural heritage, traceability, diplomacy — each question carried through to a fielded prototype, in the open.",
     cta: "Explore the portfolio",
     href: "/portfolio",
@@ -97,7 +81,7 @@ const statements: Statement[] = [
     lead: "Run the ",
     em: "research",
     tail: ".",
-    figure: `${products.length} demos you can open`,
+    figure: `${siteCounts.openableDemos} demos you can open`,
     line: "Not screenshots: the prototypes themselves, running in the browser with their source alongside.",
     cta: "Open the live demos",
     href: "/demos",
@@ -106,7 +90,7 @@ const statements: Statement[] = [
     lead: "The research, ",
     em: "written up",
     tail: ".",
-    figure: `${publications.items.length} in the catalogue`,
+    figure: `${siteCounts.catalogue} in the catalogue`,
     line: "Every research question the CoLab takes on is written up academically, including what did not hold.",
     cta: "Read the publications",
     href: "/publications",
@@ -115,7 +99,7 @@ const statements: Statement[] = [
     lead: "The people ",
     em: "building",
     tail: " this.",
-    figure: `${team.researchers.length} researchers across ${cohorts.length} cohorts`,
+    figure: `${siteCounts.researchers} researchers across ${siteCounts.cohorts} cohorts`,
     line: "Graduate researchers at NYU's Center for Global Affairs, with advisors and resident fellows alongside.",
     cta: "Meet the team",
     href: "/team",
