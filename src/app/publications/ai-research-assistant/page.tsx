@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Link } from "next-view-transitions";
 import { researchReport } from "@/content/publications/ai-research-assistant";
+import { ReportBookLink } from "@/components/ReportBookLink";
 import { SectionTabs } from "@/components/SectionTabs";
 import { Reveal } from "@/components/motion/Reveal";
 
@@ -55,6 +56,11 @@ export default function ResearchAssistantPage() {
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
               {researchReport.authors}
             </p>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <ReportBookLink slug="ai-research-assistant" title={researchReport.title} />
+            </div>
           </Reveal>
         </div>
       </section>

@@ -14,7 +14,8 @@
     "sync:static": "bash scripts/sync-static-site.sh",
     "sync:newsletter": "node scripts/sync-newsletter.mjs",
     "export:haste-paper": "node scripts/export-haste-paper.mjs",
-    "render:book": "node scripts/render-report-pages.mjs"
+    "render:book": "node scripts/render-report-pages.mjs",
+    "render:books": "node scripts/render-report-books.mjs"
   },
   "dependencies": {
     "motion": "^12.42.2",

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Link } from "next-view-transitions";
 import { ceraiReport } from "@/content/publications/cerai";
+import { ReportBookLink } from "@/components/ReportBookLink";
 import { SectionTabs } from "@/components/SectionTabs";
 import { Reveal } from "@/components/motion/Reveal";
 import { ReportBody } from "@/components/ReportBody";
@@ -75,6 +76,7 @@ export default function CeraiPage() {
               >
                 Source and paper <span aria-hidden>↗</span>
               </a>
+              <ReportBookLink slug="cerai" title={ceraiReport.title} />
             </div>
           </Reveal>
         </div>

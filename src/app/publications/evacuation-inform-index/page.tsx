@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Link } from "next-view-transitions";
 import { evacuationIndexReport } from "@/content/publications/evacuation-inform-index";
+import { ReportBookLink } from "@/components/ReportBookLink";
 import { SectionTabs } from "@/components/SectionTabs";
 import { Reveal } from "@/components/motion/Reveal";
 
@@ -74,6 +75,7 @@ export default function EvacuationInformIndexPage() {
               >
                 Source and paper <span aria-hidden>↗</span>
               </a>
+              <ReportBookLink slug="evacuation-inform-index" title={evacuationIndexReport.title} />
             </div>
           </Reveal>
         </div>

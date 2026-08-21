@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Link } from "next-view-transitions";
 import { vangoReport } from "@/content/publications/vango";
+import { ReportBookLink } from "@/components/ReportBookLink";
 import { SectionTabs } from "@/components/SectionTabs";
 import { Reveal } from "@/components/motion/Reveal";
 import { ReportBody } from "@/components/ReportBody";
@@ -74,6 +75,7 @@ export default function VangoPage() {
               >
                 Source and paper <span aria-hidden>↗</span>
               </a>
+              <ReportBookLink slug="vango" title={vangoReport.title} />
             </div>
           </Reveal>
         </div>

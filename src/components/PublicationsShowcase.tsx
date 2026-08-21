@@ -11,6 +11,7 @@ import { PosterRail } from "@/components/PosterRail";
 import { Tilt3D } from "@/components/motion/Tilt3D";
 import { ReportBook } from "@/components/ReportBook";
 import { bookForUrl } from "@/content/publications/books";
+import { asset } from "@/lib/asset";
 
 /**
  * The Publications catalogue.
@@ -665,7 +666,7 @@ function PublicationSheet({
                       title={main}
                       pages={book.pages}
                       aspect={book.aspect}
-                      pdfUrl={pub.pdf}
+                      pdfUrl={pub.pdf ?? asset(book.pdf)}
                       className={action}
                     >
                       <span className="font-semibold text-foreground">

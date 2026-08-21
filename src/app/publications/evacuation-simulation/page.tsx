@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Link } from "next-view-transitions";
 import { evacuationSimulationReport } from "@/content/publications/evacuation-simulation";
+import { ReportBookLink } from "@/components/ReportBookLink";
 import { SectionTabs } from "@/components/SectionTabs";
 import { Reveal } from "@/components/motion/Reveal";
 import { ReportBody } from "@/components/ReportBody";
@@ -77,6 +78,7 @@ export default function EvacuationSimulationPage() {
               >
                 Source and paper <span aria-hidden>↗</span>
               </a>
+              <ReportBookLink slug="evacuation-simulation" title={evacuationSimulationReport.title} />
             </div>
           </Reveal>
         </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Link } from "next-view-transitions";
 import { forcedLaborRiskReport } from "@/content/publications/forced-labor-structural-risk-index";
+import { ReportBookLink } from "@/components/ReportBookLink";
 import { SectionTabs } from "@/components/SectionTabs";
 import { Reveal } from "@/components/motion/Reveal";
 import { ReportBody } from "@/components/ReportBody";
@@ -75,6 +76,7 @@ export default function ForcedLaborStructuralRiskIndexPage() {
               >
                 Source and pipeline <span aria-hidden>↗</span>
               </a>
+              <ReportBookLink slug="forced-labor-structural-risk-index" title={forcedLaborRiskReport.title} />
             </div>
           </Reveal>
         </div>
