@@ -223,9 +223,12 @@ export function PortfolioExplorer() {
                                   type="button"
                                   onClick={() => setOpenDemo(runnable)}
                                   aria-label={`Open ${project.name}`}
-                                  className="hidden w-[92px] shrink-0 overflow-hidden rounded-lg border border-border bg-cover bg-top transition-transform hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:block"
+                                  /* Square, centred: the posters are 16:10
+                                     screenshots, so the old narrow 2:3 box
+                                     cropped away most of each one. */
+                                  className="hidden w-[124px] shrink-0 overflow-hidden rounded-lg border border-border bg-cover bg-center transition-transform hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:block"
                                   style={{
-                                    aspectRatio: "2 / 3",
+                                    aspectRatio: "1 / 1",
                                     backgroundImage: `url(${asset(
                                       `/repos/${runnable.posterKey}.jpg`,
                                     )})`,
