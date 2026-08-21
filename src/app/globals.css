@@ -113,6 +113,30 @@ body {
   font-style: normal;
 }
 
+/* Extruded wordmark: a foreground-coloured face sitting on a solid slab of
+   accent that recedes down and to the right.
+
+   The offsets are in `em`, not `px`, because the only place this is used is
+   the hero, whose type is fluid — a depth tuned at the desktop size would be
+   a smear on a phone. The ramp is stepped rather than blurred so the slab
+   reads as a face and a side, which is what makes it look extruded instead
+   of merely shadowed, and it darkens along its length so the far edge falls
+   away from the light. Both colours are theme tokens, so the light theme
+   gets a dark face on olive without a second rule. */
+.display-3d {
+  color: var(--foreground);
+  text-shadow:
+    0.008em 0.008em 0 var(--accent),
+    0.016em 0.016em 0 var(--accent),
+    0.024em 0.024em 0 var(--accent),
+    0.032em 0.032em 0 color-mix(in oklab, var(--accent) 88%, black),
+    0.04em 0.04em 0 color-mix(in oklab, var(--accent) 80%, black),
+    0.048em 0.048em 0 color-mix(in oklab, var(--accent) 72%, black),
+    0.056em 0.056em 0 color-mix(in oklab, var(--accent) 64%, black),
+    0.064em 0.064em 0 color-mix(in oklab, var(--accent) 56%, black),
+    0.09em 0.09em 0.05em color-mix(in oklab, var(--background) 55%, black);
+}
+
 ::selection {
   background: var(--accent);
   color: var(--background);
