@@ -91,9 +91,14 @@ function usePrefersReducedMotion(): boolean {
  * stay right for long.
  *
  * Text that keeps moving while somebody is reading it is hostile, so rotation
- * stops on hover, on focus, when the tab is hidden, and permanently once the
- * reader touches the dots. Under reduced motion it never autoplays at all and
- * the control becomes a manual "Next".
+ * pauses while the pointer is over the band, while it holds focus, and while
+ * the tab is hidden — and resumes when that ends. Only an explicit act stops
+ * it for good: the dots, the arrow keys, or the Pause button. Those two are
+ * separate on purpose. Making hover a permanent stop reads as "the carousel
+ * is broken", because the hero sits where the cursor already is.
+ *
+ * Under reduced motion it never autoplays at all and the control becomes a
+ * manual "Next".
  */
 export function StatementCarousel({
   statements,
@@ -107,7 +112,17 @@ export function StatementCarousel({
 }) {
   const reduce = usePrefersReducedMotion();
   const [index, setIndex] = useState(0);
+  /** The reader's own choice, changed only by the dots, arrows, and Pause. */
   const [playing, setPlaying] = useState(true);
+  /**
+   * Reading conditions, not a choice: hover, focus, and a hidden tab each
+   * hold rotation and release it again. Kept as three flags rather than one
+   * counter so that leaving with the pointer cannot cancel a hold the
+   * keyboard still has.
+   */
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const count = statements.length;
 
   const show = useCallback(
@@ -115,17 +130,16 @@ export function StatementCarousel({
     [count],
   );
 
+  const held = hovered || focused || hidden;
+
   useEffect(() => {
-    if (!playing || reduce || count < 2) return;
+    if (!playing || held || reduce || count < 2) return;
     const timer = setInterval(() => setIndex((i) => (i + 1) % count), INTERVAL_MS);
     return () => clearInterval(timer);
-  }, [playing, reduce, count]);
+  }, [playing, held, reduce, count]);
 
-  // A hidden tab is not being read; resume is the reader's call, not ours.
   useEffect(() => {
-    const onVisibility = () => {
-      if (document.hidden) setPlaying(false);
-    };
+    const onVisibility = () => setHidden(document.hidden);
     document.addEventListener("visibilitychange", onVisibility);
     return () => document.removeEventListener("visibilitychange", onVisibility);
   }, []);
@@ -149,8 +163,16 @@ export function StatementCarousel({
       role="group"
       aria-roledescription="carousel"
       aria-label={label}
-      onMouseEnter={stop}
-      onFocus={stop}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocus={() => setFocused(true)}
+      // onBlur bubbles from the dots and the button, so a move between two of
+      // them would otherwise read as focus leaving the band entirely.
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          setFocused(false);
+        }
+      }}
       onKeyDown={onKeyDown}
     >
       {/* Heading and body are one live region, not two: they change together,

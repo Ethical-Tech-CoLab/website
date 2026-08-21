@@ -151,7 +151,10 @@ export default function Home() {
 
         <div className="relative mx-auto max-w-6xl px-6 py-24 text-center sm:py-28">
           <Reveal>
-            <p className="text-xs uppercase tracking-[0.25em] text-accent">
+            {/* Runs larger than the site's other eyebrows: this one names the
+                collaboration the whole page rests on, and the carousel below
+                it does not otherwise say who is behind the work. */}
+            <p className="text-base uppercase tracking-[0.25em] text-accent sm:text-lg">
               NYU CGA × Microsoft
             </p>
           </Reveal>
