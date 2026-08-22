@@ -9,6 +9,22 @@
 // edition at /print/<slug>.
 
 import { afterTheCorridorBook } from "./after-the-corridor-book";
+import { aiCarbonFootprintBook } from "./ai-carbon-footprint-book";
+import { aiModelsResearchBook } from "./ai-models-research-book";
+import { aiResearchAssistantBook } from "./ai-research-assistant-book";
+import { ceraiBook } from "./cerai-book";
+import { digitalProvenancePassportBook } from "./digital-provenance-passport-book";
+import { diplomaticSimulatorBook } from "./diplomatic-simulator-book";
+import { ercfBook } from "./ercf-book";
+import { erusBook } from "./erus-book";
+import { evacuationInformIndexBook } from "./evacuation-inform-index-book";
+import { evacuationSimulationBook } from "./evacuation-simulation-book";
+import { forcedLaborStructuralRiskIndexBook } from "./forced-labor-structural-risk-index-book";
+import { hasteBook } from "./haste-book";
+import { mariupolSeverityModelBook } from "./mariupol-severity-model-book";
+import { provenanceSearchBook } from "./provenance-search-book";
+import { vangoBook } from "./vango-book";
+import { warGamesBook } from "./war-games-book";
 import { whatIsEthicalAiBook } from "./what-is-ethical-ai-book";
 
 export type BookView = {
@@ -23,6 +39,86 @@ export const bookViews: Record<string, BookView> = {
     pages: [...afterTheCorridorBook.pages],
     aspect: afterTheCorridorBook.aspect,
     pdf: "/publications/after-the-corridor/report.pdf",
+  },
+  "ai-carbon-footprint": {
+    pages: [...aiCarbonFootprintBook.pages],
+    aspect: aiCarbonFootprintBook.aspect,
+    pdf: "/publications/ai-carbon-footprint/report.pdf",
+  },
+  "ai-models-research": {
+    pages: [...aiModelsResearchBook.pages],
+    aspect: aiModelsResearchBook.aspect,
+    pdf: "/publications/ai-models-research/report.pdf",
+  },
+  "ai-research-assistant": {
+    pages: [...aiResearchAssistantBook.pages],
+    aspect: aiResearchAssistantBook.aspect,
+    pdf: "/publications/ai-research-assistant/report.pdf",
+  },
+  cerai: {
+    pages: [...ceraiBook.pages],
+    aspect: ceraiBook.aspect,
+    pdf: "/publications/cerai/report.pdf",
+  },
+  "digital-provenance-passport": {
+    pages: [...digitalProvenancePassportBook.pages],
+    aspect: digitalProvenancePassportBook.aspect,
+    pdf: "/publications/digital-provenance-passport/report.pdf",
+  },
+  "diplomatic-simulator": {
+    pages: [...diplomaticSimulatorBook.pages],
+    aspect: diplomaticSimulatorBook.aspect,
+    pdf: "/publications/diplomatic-simulator/report.pdf",
+  },
+  ercf: {
+    pages: [...ercfBook.pages],
+    aspect: ercfBook.aspect,
+    pdf: "/publications/ercf/report.pdf",
+  },
+  erus: {
+    pages: [...erusBook.pages],
+    aspect: erusBook.aspect,
+    pdf: "/publications/erus/report.pdf",
+  },
+  "evacuation-inform-index": {
+    pages: [...evacuationInformIndexBook.pages],
+    aspect: evacuationInformIndexBook.aspect,
+    pdf: "/publications/evacuation-inform-index/report.pdf",
+  },
+  "evacuation-simulation": {
+    pages: [...evacuationSimulationBook.pages],
+    aspect: evacuationSimulationBook.aspect,
+    pdf: "/publications/evacuation-simulation/report.pdf",
+  },
+  "forced-labor-structural-risk-index": {
+    pages: [...forcedLaborStructuralRiskIndexBook.pages],
+    aspect: forcedLaborStructuralRiskIndexBook.aspect,
+    pdf: "/publications/forced-labor-structural-risk-index/report.pdf",
+  },
+  haste: {
+    pages: [...hasteBook.pages],
+    aspect: hasteBook.aspect,
+    pdf: "/publications/haste/report.pdf",
+  },
+  "mariupol-severity-model": {
+    pages: [...mariupolSeverityModelBook.pages],
+    aspect: mariupolSeverityModelBook.aspect,
+    pdf: "/publications/mariupol-severity-model/report.pdf",
+  },
+  "provenance-search": {
+    pages: [...provenanceSearchBook.pages],
+    aspect: provenanceSearchBook.aspect,
+    pdf: "/publications/provenance-search/report.pdf",
+  },
+  vango: {
+    pages: [...vangoBook.pages],
+    aspect: vangoBook.aspect,
+    pdf: "/publications/vango/report.pdf",
+  },
+  "war-games": {
+    pages: [...warGamesBook.pages],
+    aspect: warGamesBook.aspect,
+    pdf: "/publications/war-games/report.pdf",
   },
   "what-is-ethical-ai": {
     pages: [...whatIsEthicalAiBook.pages],

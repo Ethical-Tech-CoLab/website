@@ -3,7 +3,7 @@
 
 export const evacuationSimulationBook = {
   "generatedFrom": "report.pdf",
-  "pageCount": 28,
+  "pageCount": 22,
   "aspect": 0.7067,
   "pages": [
     "publications/evacuation-simulation/pages/p01.webp",
@@ -27,12 +27,6 @@ export const evacuationSimulationBook = {
     "publications/evacuation-simulation/pages/p19.webp",
     "publications/evacuation-simulation/pages/p20.webp",
     "publications/evacuation-simulation/pages/p21.webp",
-    "publications/evacuation-simulation/pages/p22.webp",
-    "publications/evacuation-simulation/pages/p23.webp",
-    "publications/evacuation-simulation/pages/p24.webp",
-    "publications/evacuation-simulation/pages/p25.webp",
-    "publications/evacuation-simulation/pages/p26.webp",
-    "publications/evacuation-simulation/pages/p27.webp",
-    "publications/evacuation-simulation/pages/p28.webp"
+    "publications/evacuation-simulation/pages/p22.webp"
   ]
 } as const;

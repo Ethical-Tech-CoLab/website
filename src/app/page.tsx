@@ -34,11 +34,8 @@ const statements: Statement[] = [
   {
     lead: "Ethical Tech CoLab",
     // The wordmark carries this card the way it carries `/`, so it runs a step
-    // larger than the sentence-shaped headings on the other cards, and it is
-    // the one heading set as an extruded slab: it is the lab's name rather
-    // than a sentence about a destination.
-    headingClass:
-      "display-3d text-[clamp(4.25rem,13vw,11rem)] leading-[0.88]",
+    // larger than the sentence-shaped headings on the other cards.
+    headingClass: "text-[clamp(4.25rem,13vw,11rem)] leading-[0.88]",
     // The serif mission line with "human condition" in the accent, and the
     // intro with its live link out to the Center for Global Affairs. Passed as
     // nodes so the card keeps that markup rather than being flattened to the

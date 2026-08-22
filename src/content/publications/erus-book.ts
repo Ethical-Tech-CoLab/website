@@ -3,7 +3,7 @@
 
 export const erusBook = {
   "generatedFrom": "report.pdf",
-  "pageCount": 33,
+  "pageCount": 24,
   "aspect": 0.7067,
   "pages": [
     "publications/erus/pages/p01.webp",
@@ -29,15 +29,6 @@ export const erusBook = {
     "publications/erus/pages/p21.webp",
     "publications/erus/pages/p22.webp",
     "publications/erus/pages/p23.webp",
-    "publications/erus/pages/p24.webp",
-    "publications/erus/pages/p25.webp",
-    "publications/erus/pages/p26.webp",
-    "publications/erus/pages/p27.webp",
-    "publications/erus/pages/p28.webp",
-    "publications/erus/pages/p29.webp",
-    "publications/erus/pages/p30.webp",
-    "publications/erus/pages/p31.webp",
-    "publications/erus/pages/p32.webp",
-    "publications/erus/pages/p33.webp"
+    "publications/erus/pages/p24.webp"
   ]
 } as const;

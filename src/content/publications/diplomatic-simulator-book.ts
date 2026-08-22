@@ -3,7 +3,7 @@
 
 export const diplomaticSimulatorBook = {
   "generatedFrom": "report.pdf",
-  "pageCount": 29,
+  "pageCount": 23,
   "aspect": 0.7067,
   "pages": [
     "publications/diplomatic-simulator/pages/p01.webp",
@@ -28,12 +28,6 @@ export const diplomaticSimulatorBook = {
     "publications/diplomatic-simulator/pages/p20.webp",
     "publications/diplomatic-simulator/pages/p21.webp",
     "publications/diplomatic-simulator/pages/p22.webp",
-    "publications/diplomatic-simulator/pages/p23.webp",
-    "publications/diplomatic-simulator/pages/p24.webp",
-    "publications/diplomatic-simulator/pages/p25.webp",
-    "publications/diplomatic-simulator/pages/p26.webp",
-    "publications/diplomatic-simulator/pages/p27.webp",
-    "publications/diplomatic-simulator/pages/p28.webp",
-    "publications/diplomatic-simulator/pages/p29.webp"
+    "publications/diplomatic-simulator/pages/p23.webp"
   ]
 } as const;

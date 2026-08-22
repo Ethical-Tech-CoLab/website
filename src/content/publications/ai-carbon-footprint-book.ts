@@ -3,7 +3,7 @@
 
 export const aiCarbonFootprintBook = {
   "generatedFrom": "report.pdf",
-  "pageCount": 22,
+  "pageCount": 18,
   "aspect": 0.7067,
   "pages": [
     "publications/ai-carbon-footprint/pages/p01.webp",
@@ -23,10 +23,6 @@ export const aiCarbonFootprintBook = {
     "publications/ai-carbon-footprint/pages/p15.webp",
     "publications/ai-carbon-footprint/pages/p16.webp",
     "publications/ai-carbon-footprint/pages/p17.webp",
-    "publications/ai-carbon-footprint/pages/p18.webp",
-    "publications/ai-carbon-footprint/pages/p19.webp",
-    "publications/ai-carbon-footprint/pages/p20.webp",
-    "publications/ai-carbon-footprint/pages/p21.webp",
-    "publications/ai-carbon-footprint/pages/p22.webp"
+    "publications/ai-carbon-footprint/pages/p18.webp"
   ]
 } as const;

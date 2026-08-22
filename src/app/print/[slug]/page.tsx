@@ -113,8 +113,7 @@ export default async function PrintReportPage({
 }
 
 // Kept inline rather than in globals.css: these rules exist only for this
-// route, and several of them reach outside the page to hide the site chrome
-// that the root layout wraps every route in.
+// route. Switching off the site chrome is layout.tsx's job.
 const PRINT_CSS = `
 @page { size: 210mm 297mm; margin: 20mm 18mm; }
 
@@ -129,23 +128,11 @@ const PRINT_CSS = `
   line-height: 1.55;
 }
 
-/* The book edition is the page, so the site frame steps out of the way.
-   html carries the background into the @page margin area, so it has to go
-   white as well or every printed sheet gets a dark border. */
-html:has(.print-edition),
-body:has(.print-edition) { background: #ffffff; }
-body:has(.print-edition) header,
-body:has(.print-edition) footer,
-body:has(.print-edition) .site-bg,
-body:has(.print-edition) .aura,
-body:has(.print-edition) [data-scroll-progress] { display: none !important; }
-body:has(.print-edition)::after { content: none; }
-
-.print-page { break-before: page; break-inside: auto; }
-.print-page:first-of-type { break-before: auto; }
-.print-page + .print-page { margin-top: 18mm; }
-
-.print-cover { padding-top: 24mm; }
+/* Sections flow on from one another the way a book's do; only the cover is
+   given a sheet of its own. Forcing a break per section left half the pages
+   near-empty. */
+.print-cover { break-after: page; padding-top: 12mm; }
+.print-page + .print-page { margin-top: 12mm; }
 .print-eyebrow {
   font-family: var(--font-space-mono), monospace;
   font-size: 8pt; letter-spacing: 0.16em; text-transform: uppercase;

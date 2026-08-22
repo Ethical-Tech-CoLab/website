@@ -3,7 +3,7 @@
 
 export const aiModelsResearchBook = {
   "generatedFrom": "report.pdf",
-  "pageCount": 24,
+  "pageCount": 19,
   "aspect": 0.7067,
   "pages": [
     "publications/ai-models-research/pages/p01.webp",
@@ -24,11 +24,6 @@ export const aiModelsResearchBook = {
     "publications/ai-models-research/pages/p16.webp",
     "publications/ai-models-research/pages/p17.webp",
     "publications/ai-models-research/pages/p18.webp",
-    "publications/ai-models-research/pages/p19.webp",
-    "publications/ai-models-research/pages/p20.webp",
-    "publications/ai-models-research/pages/p21.webp",
-    "publications/ai-models-research/pages/p22.webp",
-    "publications/ai-models-research/pages/p23.webp",
-    "publications/ai-models-research/pages/p24.webp"
+    "publications/ai-models-research/pages/p19.webp"
   ]
 } as const;

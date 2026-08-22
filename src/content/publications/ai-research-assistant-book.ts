@@ -3,7 +3,7 @@
 
 export const aiResearchAssistantBook = {
   "generatedFrom": "report.pdf",
-  "pageCount": 14,
+  "pageCount": 10,
   "aspect": 0.7067,
   "pages": [
     "publications/ai-research-assistant/pages/p01.webp",
@@ -15,10 +15,6 @@ export const aiResearchAssistantBook = {
     "publications/ai-research-assistant/pages/p07.webp",
     "publications/ai-research-assistant/pages/p08.webp",
     "publications/ai-research-assistant/pages/p09.webp",
-    "publications/ai-research-assistant/pages/p10.webp",
-    "publications/ai-research-assistant/pages/p11.webp",
-    "publications/ai-research-assistant/pages/p12.webp",
-    "publications/ai-research-assistant/pages/p13.webp",
-    "publications/ai-research-assistant/pages/p14.webp"
+    "publications/ai-research-assistant/pages/p10.webp"
   ]
 } as const;

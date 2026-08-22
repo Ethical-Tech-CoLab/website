@@ -3,7 +3,7 @@
 
 export const forcedLaborStructuralRiskIndexBook = {
   "generatedFrom": "report.pdf",
-  "pageCount": 32,
+  "pageCount": 25,
   "aspect": 0.7067,
   "pages": [
     "publications/forced-labor-structural-risk-index/pages/p01.webp",
@@ -30,13 +30,6 @@ export const forcedLaborStructuralRiskIndexBook = {
     "publications/forced-labor-structural-risk-index/pages/p22.webp",
     "publications/forced-labor-structural-risk-index/pages/p23.webp",
     "publications/forced-labor-structural-risk-index/pages/p24.webp",
-    "publications/forced-labor-structural-risk-index/pages/p25.webp",
-    "publications/forced-labor-structural-risk-index/pages/p26.webp",
-    "publications/forced-labor-structural-risk-index/pages/p27.webp",
-    "publications/forced-labor-structural-risk-index/pages/p28.webp",
-    "publications/forced-labor-structural-risk-index/pages/p29.webp",
-    "publications/forced-labor-structural-risk-index/pages/p30.webp",
-    "publications/forced-labor-structural-risk-index/pages/p31.webp",
-    "publications/forced-labor-structural-risk-index/pages/p32.webp"
+    "publications/forced-labor-structural-risk-index/pages/p25.webp"
   ]
 } as const;

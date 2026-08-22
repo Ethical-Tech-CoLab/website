@@ -3,7 +3,7 @@
 
 export const digitalProvenancePassportBook = {
   "generatedFrom": "report.pdf",
-  "pageCount": 35,
+  "pageCount": 28,
   "aspect": 0.7067,
   "pages": [
     "publications/digital-provenance-passport/pages/p01.webp",
@@ -33,13 +33,6 @@ export const digitalProvenancePassportBook = {
     "publications/digital-provenance-passport/pages/p25.webp",
     "publications/digital-provenance-passport/pages/p26.webp",
     "publications/digital-provenance-passport/pages/p27.webp",
-    "publications/digital-provenance-passport/pages/p28.webp",
-    "publications/digital-provenance-passport/pages/p29.webp",
-    "publications/digital-provenance-passport/pages/p30.webp",
-    "publications/digital-provenance-passport/pages/p31.webp",
-    "publications/digital-provenance-passport/pages/p32.webp",
-    "publications/digital-provenance-passport/pages/p33.webp",
-    "publications/digital-provenance-passport/pages/p34.webp",
-    "publications/digital-provenance-passport/pages/p35.webp"
+    "publications/digital-provenance-passport/pages/p28.webp"
   ]
 } as const;

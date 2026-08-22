@@ -3,7 +3,7 @@
 
 export const ceraiBook = {
   "generatedFrom": "report.pdf",
-  "pageCount": 19,
+  "pageCount": 13,
   "aspect": 0.7067,
   "pages": [
     "publications/cerai/pages/p01.webp",
@@ -18,12 +18,6 @@ export const ceraiBook = {
     "publications/cerai/pages/p10.webp",
     "publications/cerai/pages/p11.webp",
     "publications/cerai/pages/p12.webp",
-    "publications/cerai/pages/p13.webp",
-    "publications/cerai/pages/p14.webp",
-    "publications/cerai/pages/p15.webp",
-    "publications/cerai/pages/p16.webp",
-    "publications/cerai/pages/p17.webp",
-    "publications/cerai/pages/p18.webp",
-    "publications/cerai/pages/p19.webp"
+    "publications/cerai/pages/p13.webp"
   ]
 } as const;

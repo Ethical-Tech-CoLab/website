@@ -3,7 +3,7 @@
 
 export const evacuationInformIndexBook = {
   "generatedFrom": "report.pdf",
-  "pageCount": 15,
+  "pageCount": 11,
   "aspect": 0.7067,
   "pages": [
     "publications/evacuation-inform-index/pages/p01.webp",
@@ -16,10 +16,6 @@ export const evacuationInformIndexBook = {
     "publications/evacuation-inform-index/pages/p08.webp",
     "publications/evacuation-inform-index/pages/p09.webp",
     "publications/evacuation-inform-index/pages/p10.webp",
-    "publications/evacuation-inform-index/pages/p11.webp",
-    "publications/evacuation-inform-index/pages/p12.webp",
-    "publications/evacuation-inform-index/pages/p13.webp",
-    "publications/evacuation-inform-index/pages/p14.webp",
-    "publications/evacuation-inform-index/pages/p15.webp"
+    "publications/evacuation-inform-index/pages/p11.webp"
   ]
 } as const;
