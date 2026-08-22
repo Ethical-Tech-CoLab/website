@@ -172,7 +172,9 @@ body::after {
   background-position: center;
   /* Strip most colour and lift contrast a touch so the shapes survive the
      wash; the purple scrim above supplies the hue. */
-  filter: grayscale(0.62) contrast(1.08) brightness(1);
+  /* No brightness() term: at 1 the minifier emits `brightness()`, which is
+     invalid and voids the whole filter list, colour included. */
+  filter: grayscale(0.62) contrast(1.08);
   opacity: 0.22;
   /* A slow fade-in on route change, so switching sections is not a hard cut. */
   animation: site-bg-in 0.9s ease both;
