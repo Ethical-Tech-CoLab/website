@@ -86,7 +86,7 @@
   --font-mono: var(--font-space-mono);
   --font-serif: var(--font-bebas);
   --font-heading: var(--font-bebas);
-  --font-pixel: var(--font-silkscreen);
+  --font-pixel: var(--font-pixelify);
 }
 
 body {
@@ -108,14 +108,16 @@ body {
   }
 }
 
-/* The wordmark lockup, set in Silkscreen's dot-matrix blocks. The glyphs are
-   far wider and shorter than Bebas, so it overrides the fluid-hero scale and
-   opens the leading back up rather than riding the 0.9 line-height. */
+/* The wordmark lockup, set in Pixelify Sans. Its stair-stepped strokes stay
+   solid rather than breaking into tiles, so it carries the retro look at
+   display size and still reads. Wider than Bebas but not dramatically, so it
+   runs close to the old clamp with a touch more leading. */
 .wordmark-pixel {
   font-family: var(--font-pixel), "Courier New", monospace;
-  font-size: clamp(1.6rem, 6.4vw, 5rem);
-  line-height: 1.25;
-  letter-spacing: 0.02em;
+  font-weight: 700;
+  font-size: clamp(2.4rem, 8.4vw, 7rem);
+  line-height: 1.04;
+  letter-spacing: 0.01em;
 }
 
 /* Emphasis word inside a heading — rendered in the green accent. */
