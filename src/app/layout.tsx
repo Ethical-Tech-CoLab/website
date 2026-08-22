@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Space_Mono } from "next/font/google";
+import { Bebas_Neue, Silkscreen, Space_Mono } from "next/font/google";
 import { ViewTransitions } from "next-view-transitions";
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -13,6 +13,13 @@ const bebasNeue = Bebas_Neue({
   variable: "--font-bebas",
   subsets: ["latin"],
   weight: "400",
+});
+
+// Dot-matrix display face, used only for the wordmark lockup.
+const silkscreen = Silkscreen({
+  variable: "--font-silkscreen",
+  subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 const spaceMono = Space_Mono({
@@ -43,7 +50,7 @@ export default function RootLayout({
         lang="en"
         data-theme="dark"
         suppressHydrationWarning
-        className={`${bebasNeue.variable} ${spaceMono.variable} h-full antialiased`}
+        className={`${bebasNeue.variable} ${silkscreen.variable} ${spaceMono.variable} h-full antialiased`}
       >
         <head>
           {/* Dark is the flagship theme: default to it unless the visitor has

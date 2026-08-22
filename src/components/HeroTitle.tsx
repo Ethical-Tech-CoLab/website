@@ -24,7 +24,7 @@ export function HeroTitle() {
         NYU CGA × Microsoft
       </p>
 
-      <h1 className="mt-6 fluid-hero font-heading uppercase">
+      <h1 className="mt-6 wordmark-pixel uppercase">
         <span className="block overflow-hidden">
           <motion.span className="block" {...line(0.05)}>
             Ethical Tech
