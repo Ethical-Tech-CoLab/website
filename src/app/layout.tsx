@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Pixelify_Sans, Space_Mono } from "next/font/google";
+import { Bebas_Neue, Sixtyfour, Space_Mono } from "next/font/google";
 import { ViewTransitions } from "next-view-transitions";
 import "./globals.css";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -15,13 +15,13 @@ const bebasNeue = Bebas_Neue({
   weight: "400",
 });
 
-// Pixel display face, used only for the wordmark lockup. Chosen over a true
-// dot-matrix face (Silkscreen, Sixtyfour) because its strokes stay solid
-// rather than breaking into tiles, which the wordmark needs to stay readable.
-const pixelifySans = Pixelify_Sans({
-  variable: "--font-pixelify",
+// Dot-matrix display face, used only for the wordmark lockup: each glyph is
+// built from separate square tiles, which is what the Tech Showcase banner
+// lettering does. Single weight — the face has no bold.
+const sixtyfour = Sixtyfour({
+  variable: "--font-sixtyfour",
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: "400",
 });
 
 const spaceMono = Space_Mono({
@@ -52,7 +52,7 @@ export default function RootLayout({
         lang="en"
         data-theme="dark"
         suppressHydrationWarning
-        className={`${bebasNeue.variable} ${pixelifySans.variable} ${spaceMono.variable} h-full antialiased`}
+        className={`${bebasNeue.variable} ${sixtyfour.variable} ${spaceMono.variable} h-full antialiased`}
       >
         <head>
           {/* Dark is the flagship theme: default to it unless the visitor has

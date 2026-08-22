@@ -86,7 +86,7 @@
   --font-mono: var(--font-space-mono);
   --font-serif: var(--font-bebas);
   --font-heading: var(--font-bebas);
-  --font-pixel: var(--font-pixelify);
+  --font-pixel: var(--font-sixtyfour);
 }
 
 body {
@@ -108,16 +108,14 @@ body {
   }
 }
 
-/* The wordmark lockup, set in Pixelify Sans. Its stair-stepped strokes stay
-   solid rather than breaking into tiles, so it carries the retro look at
-   display size and still reads. Wider than Bebas but not dramatically, so it
-   runs close to the old clamp with a touch more leading. */
+/* The wordmark lockup, set in Sixtyfour's dot-matrix tiles. The face is very
+   wide and carries its own internal spacing, so it needs a much smaller size
+   than Bebas and negative tracking to keep the two lines inside the card. */
 .wordmark-pixel {
   font-family: var(--font-pixel), "Courier New", monospace;
-  font-weight: 700;
-  font-size: clamp(2.4rem, 8.4vw, 7rem);
-  line-height: 1.04;
-  letter-spacing: 0.01em;
+  font-size: clamp(1.15rem, 4.6vw, 3.4rem);
+  line-height: 1.5;
+  letter-spacing: -0.04em;
 }
 
 /* Emphasis word inside a heading — rendered in the green accent. */
