@@ -35,10 +35,7 @@ const statements: Statement[] = [
     lead: "Ethical Tech CoLab",
     // The wordmark carries this card the way it carries `/`, so it runs a step
     // larger than the sentence-shaped headings on the other cards.
-    // `wordmark-pixel` swaps Bebas for the dot-matrix face and brings its own
-    // scale with it — Silkscreen's glyphs are far wider, so the Bebas clamp
-    // would overrun the card.
-    headingClass: "wordmark-pixel",
+    headingClass: "text-[clamp(4.25rem,13vw,11rem)] leading-[0.88]",
     // The serif mission line with "human condition" in the accent, and the
     // intro with its live link out to the Center for Global Affairs. Passed as
     // nodes so the card keeps that markup rather than being flattened to the
