@@ -100,14 +100,25 @@ export function SiteHeader() {
                       className={`inline-flex items-center gap-1 ${itemClass}`}
                     >
                       {item.label}
-                      <span
+                      {/* An inline SVG, not a "▾" character.
+                          next/font subsets Space Mono to latin, latin-ext and
+                          vietnamese, and the generated @font-face declares a
+                          matching unicode-range. U+25BE sits outside every one
+                          of those ranges, so the browser was never allowed to
+                          use Space Mono for it and silently substituted a
+                          system font — a different typeface at a different
+                          optical size, sitting on its own baseline, next to
+                          text that is Space Mono. Drawing the caret removes the
+                          dependency on what the visitor's OS happens to ship. */}
+                      <svg
                         aria-hidden
-                        className={`text-[0.65em] transition-transform ${
+                        viewBox="0 0 12 12"
+                        className={`h-3 w-3 shrink-0 transition-transform ${
                           open ? "rotate-180" : ""
                         }`}
                       >
-                        ▾
-                      </span>
+                        <path d="M2.5 4.75h7L6 9.25z" fill="currentColor" />
+                      </svg>
                     </Link>
                     {open && (
                       <div className="absolute left-0 top-full min-w-[180px] pt-2">

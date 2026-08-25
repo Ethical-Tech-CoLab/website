@@ -47,8 +47,20 @@ Still showing a monogram (no file yet):
       logo tile) is in place and the partner entry is updated.
 - [x] `supplytrace.*` — **no longer needed.** SupplyTrace was removed from the
       organisations grid on 2026-08.
-- [ ] `human-generated-by-blockapps.*`
-- [ ] `osce-odihr-anti-trafficking.*`
+- [x] `human-generated-by-blockapps.*` — **no longer needed.** Human Generated
+      by BlockApps was removed from the organisations grid on 2026-08-25.
+- [ ] `osce-odihr-anti-trafficking.*` — **checked 2026-08-25: there is nothing
+      to recover here.** No OSCE/ODIHR logo has ever been committed to this
+      repository, under that name or any other: `git log --diff-filter=D` over
+      `public/logos` returns zero deletions, so no logo file has ever been
+      removed. The entry has carried `logo: ""` since Carolina added it in
+      `a30def40` (2026-07-21), and its `about` text and `url` are byte-identical
+      to that commit — nothing was lost. A search of every repository in the
+      organisation finds only text references. So this needs a file **sourced
+      from OSCE/ODIHR**, not restored. Worth doing deliberately rather than by
+      grabbing the emblem off osce.org: it is a protected intergovernmental
+      emblem with its own usage rules, which is a different question from the
+      company wordmarks in this folder.
 - [ ] **Better source files for the two screenshot logos** — Art & Antiquities
       Blockchain Consortium and Blockchain for Social Impact were supplied as
       screen grabs, so they carry their page background (cream and white) rather
@@ -78,8 +90,9 @@ Commission on the Status of Women (CSW)** was removed from partners entirely.
 
 ## 3. Client / partner details (`src/content/site.ts`)
 
-- [ ] Website URLs for clients still blank: **Generative AI for Good**,
-      **SupplyTrace**, **Rivr**. (D_ID, Mesur.io, BlockApps already linked.)
+- [ ] Website URLs for clients still blank: **Generative AI for Good**, **Rivr**.
+      (D_ID and Tradeverifyd are already linked. SupplyTrace and Human Generated
+      by BlockApps were both removed from the grid, so neither needs one.)
 - [ ] Short "what we do together" blurbs + URLs for partners: **100x**,
       **Apne Aap Women Worldwide** (url set), **Gaia**, **Grid Bank**.
 - [ ] **Confirm the collaboration for the three partners added 2026-07-23** —
