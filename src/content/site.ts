@@ -418,6 +418,26 @@ export const publications = {
       url: "/publications/ai-models-research",
     },
     {
+      // A concept report rather than a finding: the programme it describes has
+      // not been run. Filed under Artificial Intelligence because the subject
+      // is what artificial agents do to one another, and the card's status
+      // says "Concept" so nobody reads it as a result.
+      index: "29",
+      area: "Research",
+      topic: "Artificial Intelligence",
+      question:
+        "Can two isolated agents invent a grounded, auditable language through shared experience alone?",
+      title:
+        "Agentic Language Development: Emergent Communication Between Isolated Agents, and the Evidence That Would Prove It",
+      summary:
+        "Two agents, one channel that carries no human language, and shared tasks neither can finish alone. The report sets out the nursery architecture, the independent chronological ledgers each agent keeps of what it thinks a symbol means, the hash-chained and publicly anchored evidence trail behind them, and the nineteen ordered experiments that would test the whole thing. It also draws the line the field's own literature insists on: solving the task is not evidence that the messages were read, and a fluent ledger may be a story told after the fact.",
+      status: "Concept",
+      date: "August 2026",
+      // Internal route (starts with "/") — rendered on-site, see the card logic.
+      url: "/publications/agentic-language-development",
+      repo: "https://github.com/Ethical-Tech-CoLab/agentic-language-development",
+    },
+    {
       // Filed under Artificial Intelligence — it is a finding about what the
       // technology costs, not about a domain it is applied to. `area` stays
       // Sustainability: that is the research area it came out of.
@@ -642,6 +662,39 @@ export const publications = {
     },
     
     // ── Practice guides ──────────────────────────────────────────────────
+    {
+      // Public tools rather than internal guides, so they carry no
+      // access: "internal" and their links open for anyone. They sit on the
+      // Guidelines shelf because both are reference material you consult
+      // while building, not research findings.
+      index: "30",
+      area: "Guidelines",
+      topic: "Guidelines",
+      question:
+        "When a repository claims to model human behaviour at scale, what is it actually modelling?",
+      title:
+        "The Agentic Behavior Observatory: Reading What a Repository Models, and What It Leaves Out",
+      summary:
+        "Paste a GitHub repository URL and get an evidence-linked read of how it models agentic behaviour, scored on five axes: agent-based simulation, synthetic data generation, language-model behavioural modelling, reinforcement learning, and evaluation. Every point is traceable to the file and line where its signal fired, and the population lab surfaces which demographic dimensions the analysed corpus models at all. A score is signal coverage, not a quality judgement.",
+      status: "Published",
+      date: "August 2026",
+      url: "https://ethical-tech-colab.github.io/agentic-behavior-observatory/",
+      repo: "https://github.com/Ethical-Tech-CoLab/agentic-behavior-observatory",
+    },
+    {
+      index: "31",
+      area: "Guidelines",
+      topic: "Guidelines",
+      question:
+        "What does that term mean, and where do you get open data for the thing you are building?",
+      title: "The Cyber Dictionary and Library",
+      summary:
+        "Two rooms in one site. The dictionary defines 423 technology and cybersecurity terms across 11 domains in a sentence or two of plain English, written for the moment you actually looked the term up. The library is 105 open data sources and open-source technologies across 11 shelves, from satellite imagery to conflict and rights data, each with what it gives you, how to reach its API, and what it costs.",
+      status: "Published",
+      date: "August 2026",
+      url: "https://ethical-tech-colab.github.io/cyber-dictionary/",
+      repo: "https://github.com/Ethical-Tech-CoLab/cyber-dictionary",
+    },
     // The CoLab's how-to material, written for people arriving without the
     // background rather than for readers of the research. These live in the
     // Getting-Going and CloudGPU repos, both of which are PRIVATE — hence
@@ -896,6 +949,58 @@ export const productThemes = [
 export const productTerms = ["Summer 2026", "Fall 2025", "Spring 2025"];
 
 export const products: Product[] = [
+  {
+    name: "Agentic Language Development",
+    repoName: "agentic-language-development",
+    term: "Summer 2026",
+    repo: "https://github.com/Ethical-Tech-CoLab/agentic-language-development",
+    demo: "https://ethical-tech-colab.github.io/agentic-language-development/",
+    demos: [
+      {
+        label: "Open the project site",
+        href: "https://ethical-tech-colab.github.io/agentic-language-development/",
+      },
+      {
+        label: "The concept in full",
+        href: "https://github.com/Ethical-Tech-CoLab/agentic-language-development/blob/main/CONCEPT-IDEA.md",
+      },
+      {
+        label: "Ledger integrity design",
+        href: "https://github.com/Ethical-Tech-CoLab/agentic-language-development/blob/main/LEDGER-INTEGRITY-DESIGN.md",
+      },
+      {
+        label: "Experiment notebook",
+        href: "https://github.com/Ethical-Tech-CoLab/agentic-language-development/blob/main/EXPERIMENT-NOTEBOOK.md",
+      },
+    ],
+    blurb:
+      "Two isolated agents, one channel that carries no human language, and shared tasks neither can finish alone. Each keeps its own chronological ledger of what it believes a symbol means, hash-chained and anchored so an outsider can prove nothing was edited afterwards. Concept phase: nineteen experiments are pre-registered and none has been run, which the site says on its own front page.",
+    language: "HTML",
+    theme: "Research",
+    publication: "/publications/agentic-language-development",
+  },
+  {
+    name: "Agentic Behavior Observatory",
+    repoName: "agentic-behavior-observatory",
+    term: "Summer 2026",
+    repo: "https://github.com/Ethical-Tech-CoLab/agentic-behavior-observatory",
+    demo: "https://ethical-tech-colab.github.io/agentic-behavior-observatory/",
+    blurb:
+      "Paste a GitHub repository URL and watch it get read: five axes of agentic behaviour scored from the code itself, every point linked to the file and line where its signal fired. The analysis runs in your browser against the public GitHub API, so nothing is uploaded and no token is needed. The population lab shows which demographic dimensions the analysed corpus models, and which nobody models at all.",
+    language: "Python",
+    theme: "Research",
+  },
+  {
+    name: "Cyber Dictionary and Library",
+    repoName: "cyber-dictionary",
+    term: "Summer 2026",
+    repo: "https://github.com/Ethical-Tech-CoLab/cyber-dictionary",
+    demo: "https://ethical-tech-colab.github.io/cyber-dictionary/",
+    blurb:
+      "Two rooms in one site. A dictionary of 423 technology and cybersecurity terms across 11 domains, each defined in a sentence or two of plain English, and a library of 105 open data sources and open-source technologies across 11 shelves, each with what it gives you, how to reach its API, and what it costs.",
+    language: "JavaScript",
+    theme: "Research",
+  },
   {
     name: "Diplomatic Simulator",
     repoName: "diplomatic-simulator",

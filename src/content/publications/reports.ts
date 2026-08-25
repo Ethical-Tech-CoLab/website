@@ -11,6 +11,7 @@
 import type { Citation, Paragraph } from "./types";
 
 import { afterTheCorridorReport } from "./after-the-corridor";
+import { agenticLanguageReport } from "./agentic-language-development";
 import { carbonReport } from "./ai-carbon-footprint";
 import { aiModelsResearchReport } from "./ai-models-research";
 import { researchReport } from "./ai-research-assistant";
@@ -58,6 +59,7 @@ export interface PrintableReport {
 
 export const reports: Record<string, PrintableReport> = {
   "after-the-corridor": afterTheCorridorReport,
+  "agentic-language-development": agenticLanguageReport,
   "ai-carbon-footprint": carbonReport,
   "ai-models-research": aiModelsResearchReport,
   "ai-research-assistant": researchReport,

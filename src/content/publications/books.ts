@@ -9,6 +9,7 @@
 // edition at /print/<slug>.
 
 import { afterTheCorridorBook } from "./after-the-corridor-book";
+import { agenticLanguageDevelopmentBook } from "./agentic-language-development-book";
 import { aiCarbonFootprintBook } from "./ai-carbon-footprint-book";
 import { aiModelsResearchBook } from "./ai-models-research-book";
 import { aiResearchAssistantBook } from "./ai-research-assistant-book";
@@ -39,6 +40,11 @@ export const bookViews: Record<string, BookView> = {
     pages: [...afterTheCorridorBook.pages],
     aspect: afterTheCorridorBook.aspect,
     pdf: "/publications/after-the-corridor/report.pdf",
+  },
+  "agentic-language-development": {
+    pages: [...agenticLanguageDevelopmentBook.pages],
+    aspect: agenticLanguageDevelopmentBook.aspect,
+    pdf: "/publications/agentic-language-development/report.pdf",
   },
   "ai-carbon-footprint": {
     pages: [...aiCarbonFootprintBook.pages],
