@@ -415,7 +415,7 @@ family ships.
 
 ### UPD-017 - Decide how UI symbols are drawn
 
-**Priority:** Medium
+**Priority:** Medium — **done.**
 
 The nav's dropdown caret was the character `▾` (U+25BE). `next/font` subsets
 Space Mono to latin, latin-ext and vietnamese and emits a matching
@@ -423,38 +423,40 @@ Space Mono to latin, latin-ext and vietnamese and emits a matching
 permitted to use Space Mono for it and substituted whatever the visitor's OS
 provides. The result sat next to Space Mono text in a different typeface, at a
 different optical size, on its own baseline. Reported as a font inconsistency in
-the header on 2026-08-25 and fixed there by drawing the caret as an inline SVG.
+the header on 2026-08-25.
 
-**The same is true of every other symbol used as an interface affordance.** The
-subsets cover `U+2191` and `U+2193` but not, among others:
+The same was true of every other symbol used as an interface affordance: `→` in
+`Contact →` and `View profile →`, `←` in back links, `↗` on external links, `▶`
+on launch buttons, `▸`, `✕`, `●`, `◦` and `＋` — about 139 rendered occurrences
+across 43 files.
 
-| Glyph | Code point | Used in |
-|---|---|---|
-| `→` | U+2192 | `Contact →`, `View profile →`, cohort and archive links |
-| `←` | U+2190 | back links, poster rail |
-| `↗` | U+2197 | external links |
-| `▶` | U+25B6 | launch-demo buttons |
-| `▸` | U+25B8 | cohort and chart markers |
-| `✕` | U+2715 | close buttons |
-| `●` `◦` `─` `＋` `📖` | various | explorers, diagrams, book trigger |
+**Done, in two parts.**
 
-None of these is broken today — they render from a fallback, and because they
-*all* fall back they are at least consistent with each other. But the typeface
-is whatever the visitor's platform supplies, so the site looks different on
-Windows, macOS, Android and Linux in a way no one here controls, and a missing
-glyph would show a tofu box.
+The caret is drawn as an inline SVG, because it also needed to be a specific
+shape at a specific size: the substituted glyph and then a too-small filled
+wedge both read as a full stop at 14px. It is now a chevron.
 
-**Proposed update:** Decide one approach and apply it in a single pass rather
-than piecemeal — converting one arrow at a time is what would create a real
-inconsistency, since the converted one would no longer match its neighbours.
-Either draw them as inline SVGs (as `LinkedInLink`, `ThemeToggle` and now the
-nav caret already do), or add an explicit symbol fallback stack so the
-substitution is at least a deliberate choice. Worth a look at
-`docs/DESIGN-SYSTEM.md` at the same time, which documents typography but says
-nothing about symbols.
+Everything else was fixed by **correcting the fallback chain rather than
+converting 139 call sites**. The body face is the monospace, but the chain read
+`Arial, Helvetica, sans-serif`, so every glyph outside the subset was drawn by
+Arial — a proportional face inside monospace text. Chrome's
+`CSS.getPlatformFontsForNode` on a back link reported `Arial (1 glyph)` beside
+`Space Mono (31 glyphs)`; after naming a monospace fallback in `globals.css` and
+in the `next/font` config, the same probe reports `Cascadia Mono`. That also
+removed a latent defect: had the webfont ever failed to load, the entire site
+would have rendered in a proportional face.
 
-**Acceptance:** Interface symbols render identically across platforms, and the
-rule for adding a new one is written down.
+Converting the glyphs to SVG was the original proposal and would have been the
+wrong call — an enormous diff, and impossible for the glyphs that live inside
+content strings in `src/content/`.
+
+**Acceptance:** met for consistency — symbols now render in a monospace face
+alongside monospace text, and degrade to a monospace stack rather than to Arial.
+Not met for pixel-identical cross-platform rendering: `ui-monospace` leads the
+stack, so each platform still uses its own UI monospace. That is a deliberate
+trade, and the remaining lever would be self-hosting a font that covers these
+codepoints. `docs/DESIGN-SYSTEM.md` documents typography but still says nothing
+about symbols, which is worth adding if anyone codifies this further.
 
 ## B. Draft requests to document the maintenance workflow - review before sending
 
