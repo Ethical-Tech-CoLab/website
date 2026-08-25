@@ -108,16 +108,27 @@ export function SiteHeader() {
                           use Space Mono for it and silently substituted a
                           system font — a different typeface at a different
                           optical size, sitting on its own baseline, next to
-                          text that is Space Mono. Drawing the caret removes the
-                          dependency on what the visitor's OS happens to ship. */}
+                          text that is Space Mono.
+
+                          Drawn as a chevron rather than a filled wedge: at
+                          14px a solid triangle collapses into something that
+                          reads as a full stop, which is exactly what the
+                          substituted glyph looked like. Two strokes with round
+                          caps stay legible at this size and match the site's
+                          hairline borders and underline rules. */}
                       <svg
                         aria-hidden
                         viewBox="0 0 12 12"
-                        className={`h-3 w-3 shrink-0 transition-transform ${
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.75"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className={`h-3.5 w-3.5 shrink-0 transition-transform ${
                           open ? "rotate-180" : ""
                         }`}
                       >
-                        <path d="M2.5 4.75h7L6 9.25z" fill="currentColor" />
+                        <path d="M2.5 4.75 6 8.25l3.5-3.5" />
                       </svg>
                     </Link>
                     {open && (
