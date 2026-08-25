@@ -122,6 +122,46 @@ Confirm that every contributed asset:
 - has meaningful alternative text where it is rendered;
 - follows any crop, aspect-ratio, and naming rules documented in the backlog.
 
+### Images must be resized before they are committed
+
+**An image is served exactly as committed.** `output: "export"` requires
+`images: { unoptimized: true }`, because GitHub Pages has no image optimization
+server. `next/image` therefore does no resizing, emits no `srcset`, and does no
+WebP negotiation — a 2644x2644 photograph dropped into `public/` is downloaded
+at 2644x2644 by every visitor, even to fill a 48px circle. That is how `/team`
+came to weigh 8.5 MB.
+
+After adding or replacing any image, run:
+
+```powershell
+npm run optimize:images
+```
+
+It resizes anything over budget in place, keeps the same filename and format so
+no reference changes, and leaves compliant files untouched — so it is safe to
+run repeatedly and will not re-compress an already-optimized file. It also
+strips EXIF, which removes any GPS coordinates a camera recorded.
+
+| Location | Max width | Rendered at |
+|---|---|---|
+| `public/team/` | 384px | 48px in listings, up to 128px on a profile |
+| `public/logos/` | 256px | 56-80px tiles |
+| `public/repos/` | 600px | small 2:3 poster cards |
+| `public/summit/` | 1200px | gallery grid |
+| `public/backgrounds/` | 1920px | full-page ground at ~9% opacity |
+| `public/` (root) | 1920px | full-bleed hero photographs |
+
+`npm run check:images` reports violations without changing anything, and runs in
+CI — a pull request adding an oversized image fails before merge.
+
+Two directories are deliberately exempt. `public/publications/` holds book pages
+whose size is owned by `scripts/render-report-pages.mjs` through its own
+`--scale` and `--quality` options, and `public/newsletter/` is copied verbatim
+from the newsletter repository, so a heavy issue is fixed there.
+
+Because re-encoding is lossy, keep an unmodified copy of anything you may need
+to re-crop later. Previously published originals remain in git history.
+
 Some assets are wired up by filename rather than by code. An organisation logo
 dropped into `public/logos/` as `<org-name-slugified>.<ext>` is discovered
 automatically and rendered without any change to `src/`. That convenience cuts
