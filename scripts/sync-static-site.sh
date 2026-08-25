@@ -11,6 +11,20 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 echo "▸ Building Next.js static export…"
+# From a cleared cache, deliberately. Turbopack's incremental build does not
+# always evict a Tailwind utility whose last use has just been deleted, so the
+# CSS chunk keeps a rule the source no longer justifies. That chunk is named
+# after its own content hash, so the snapshot then disagrees with a clean build
+# — which is how two snapshot commits reached CI carrying utilities for classes
+# that had already been removed from the components. The snapshot only has value
+# if it is reproducible, and a few seconds of cold build is the price of that.
+#
+# Note for whoever edits this comment: Tailwind v4 detects content by scanning
+# every file in the project that isn't ignored, this script included. Spelling a
+# utility class out in prose here is enough to put that rule back into the
+# bundle, which is its own small version of the bug described above. Describe
+# them, don't quote them.
+rm -rf .next out
 npm run build
 
 echo "▸ Snapshotting out/ → static-site/…"
