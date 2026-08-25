@@ -413,6 +413,49 @@ whether `/print/` should be excluded or marked non-indexable.
 **Acceptance:** Only intended pages are publicly reachable, and no unused font
 family ships.
 
+### UPD-017 - Decide how UI symbols are drawn
+
+**Priority:** Medium
+
+The nav's dropdown caret was the character `▾` (U+25BE). `next/font` subsets
+Space Mono to latin, latin-ext and vietnamese and emits a matching
+`unicode-range`, and U+25BE falls outside all three — so the browser was never
+permitted to use Space Mono for it and substituted whatever the visitor's OS
+provides. The result sat next to Space Mono text in a different typeface, at a
+different optical size, on its own baseline. Reported as a font inconsistency in
+the header on 2026-08-25 and fixed there by drawing the caret as an inline SVG.
+
+**The same is true of every other symbol used as an interface affordance.** The
+subsets cover `U+2191` and `U+2193` but not, among others:
+
+| Glyph | Code point | Used in |
+|---|---|---|
+| `→` | U+2192 | `Contact →`, `View profile →`, cohort and archive links |
+| `←` | U+2190 | back links, poster rail |
+| `↗` | U+2197 | external links |
+| `▶` | U+25B6 | launch-demo buttons |
+| `▸` | U+25B8 | cohort and chart markers |
+| `✕` | U+2715 | close buttons |
+| `●` `◦` `─` `＋` `📖` | various | explorers, diagrams, book trigger |
+
+None of these is broken today — they render from a fallback, and because they
+*all* fall back they are at least consistent with each other. But the typeface
+is whatever the visitor's platform supplies, so the site looks different on
+Windows, macOS, Android and Linux in a way no one here controls, and a missing
+glyph would show a tofu box.
+
+**Proposed update:** Decide one approach and apply it in a single pass rather
+than piecemeal — converting one arrow at a time is what would create a real
+inconsistency, since the converted one would no longer match its neighbours.
+Either draw them as inline SVGs (as `LinkedInLink`, `ThemeToggle` and now the
+nav caret already do), or add an explicit symbol fallback stack so the
+substitution is at least a deliberate choice. Worth a look at
+`docs/DESIGN-SYSTEM.md` at the same time, which documents typography but says
+nothing about symbols.
+
+**Acceptance:** Interface symbols render identically across platforms, and the
+rule for adding a new one is written down.
+
 ## B. Draft requests to document the maintenance workflow - review before sending
 
 Addressed to [@carolina-moron](https://github.com/carolina-moron), who authors
