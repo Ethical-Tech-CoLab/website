@@ -20,6 +20,19 @@ const spaceMono = Space_Mono({
   subsets: ["latin"],
   weight: ["400", "700"],
   style: ["normal", "italic"],
+  // next/font otherwise builds its metric-adjusted "Space Mono Fallback" face
+  // from Arial, which then supplies any glyph the latin subset leaves out —
+  // arrows, the play triangle, the close cross — in a proportional face inside
+  // monospace text. Naming a monospace fallback keeps those glyphs in kind.
+  fallback: [
+    "ui-monospace",
+    "Cascadia Mono",
+    "Segoe UI Mono",
+    "DejaVu Sans Mono",
+    "Menlo",
+    "Consolas",
+    "monospace",
+  ],
 });
 
 export const metadata: Metadata = {

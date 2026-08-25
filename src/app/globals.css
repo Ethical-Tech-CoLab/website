@@ -91,7 +91,17 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  /* The fallback chain is monospace on purpose. The body face *is* the
+     monospace (see docs/DESIGN-SYSTEM.md); falling back to Arial would have
+     rendered the whole site in a proportional face if the webfont ever failed.
+     It also mattered glyph by glyph: next/font subsets Space Mono to latin,
+     latin-ext and vietnamese, so a character outside those ranges — the arrows
+     in "Contact →" and "← Publications", the play triangle, the close cross —
+     was drawn from the first fallback that had it, which was Arial. A
+     proportional arrow sitting inside monospace text is the mismatch that made
+     the header look inconsistent. */
+  font-family: var(--font-sans), ui-monospace, "Cascadia Mono", "Segoe UI Mono",
+    "DejaVu Sans Mono", Menlo, Consolas, monospace;
   -webkit-font-smoothing: antialiased;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
