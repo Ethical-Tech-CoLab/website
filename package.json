@@ -11,6 +11,8 @@
     "start": "next start",
     "lint": "eslint",
     "check:content": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-content-invariants.mjs",
+    "check:images": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/optimize-images.mjs --check",
+    "optimize:images": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/optimize-images.mjs",
     "sync:static": "bash scripts/sync-static-site.sh",
     "sync:newsletter": "node scripts/sync-newsletter.mjs",
     "export:haste-paper": "node scripts/export-haste-paper.mjs",
@@ -34,6 +36,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
     "pdfjs-dist": "^6.1.200",
+    "sharp": "0.35.3",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

@@ -328,6 +328,91 @@ CoLab does not hold.
 **Acceptance:** A clear, approved statement distinguishes code, original
 content, research publications, and third-party assets.
 
+### UPD-013 - Resize the published images to their display size
+
+**Priority:** High — **done.**
+
+Source images were committed at their original camera resolution and served
+unchanged, because `output: "export"` requires `images: { unoptimized: true }`,
+which disables all resizing and format negotiation in `next/image`. The
+committed file is the served file.
+
+Measured on 2026-08-25:
+
+- `/team` weighed **8.5 MB**, of which 7.6 MB was images;
+- 26 of 27 team headshots exceeded 256px while rendering in a 48px circle —
+  `team/alex.jpg` was 2644x2644 / 1,096 KB, `team/grace.jpg` 3201x3218;
+- the `/` and `/team` heroes **preloaded** a 548 KB photo that is then covered by
+  two darkening overlays;
+- page backgrounds up to 741 KB rendered at roughly 9% opacity in grayscale.
+
+Full evidence and method: [docs/PERFORMANCE.md](docs/PERFORMANCE.md).
+
+**Done:** every committed image was resized to its display size in one pass from
+the originals — **95 images, 16.01 MB -> 4.57 MB (-71%)**, taking `/team` from
+8.5 MB to 2.1 MB. Formats and filenames were left unchanged, because renaming an
+asset means editing every reference in `src/content` and a missed one fails
+silently to initials rather than to a broken image. Full-resolution originals
+remain in git history at `32e1ab9f`.
+
+**Acceptance:** met — no committed image materially exceeds its display size,
+`/team` is under 2.2 MB, and a before/after comparison of all 95 images confirms
+no lost transparency and no changed aspect ratio.
+
+### UPD-014 - Stop oversized images being committed again
+
+**Priority:** Medium — **done.**
+
+The documented intake for headshots was to drop a file in and convert it, with
+no resize step, which is the root cause of UPD-013. Fixing the files without
+fixing intake would mean the problem returns with the next cohort.
+
+**Done:** `scripts/optimize-images.mjs` resizes in place against a
+per-directory budget (with per-file overrides), `npm run check:images` reports
+violations without writing, and CI runs that check on every pull request. The
+budget table and the command are recorded in `CONTRIBUTING.md` and
+`public/team/README.md`. `sharp` is now an explicit `devDependency` rather than
+being borrowed from `next`.
+
+**Acceptance:** met — adding a 2644px headshot fails the check with the exact
+command that fixes it, verified by test.
+
+### UPD-015 - Reduce the burst when a book is opened
+
+**Priority:** Low
+
+The book viewer is already well behaved on page load: it is behind a click and
+`page-flip` is dynamically imported, so the 58 MB of rendered pages never
+affects normal browsing. But `mountFlipbook` calls `loadFromImages(pages)`,
+which requests every page at once - 46 pages / 8.7 MB for *What Is Ethical AI*.
+
+**Proposed update:** Re-render pages at a lower `--scale`/`--quality` (both are
+existing CLI options; sampled pages halve from 258 KB to 128 KB), and consider
+loading only the current spread plus one either side. The second part is an
+upstream change in `read-as-book`.
+
+**Acceptance:** Opening a book requests materially less than the whole book, and
+the page turn stays smooth.
+
+### UPD-016 - Decide whether the dev-only routes should be public
+
+**Priority:** Low
+
+`/font-lab/` returns HTTP 200 on the live site. It was added as a throwaway aid
+for choosing the wordmark face and loads three Google font families (18 `woff2`,
+163 KB) that nothing else uses. The 18 `/print/<slug>/` routes are build-time
+scaffolding for the book renderer rather than pages meant to be visited.
+
+Neither slows down other pages, so this is a question of public surface and
+build hygiene, not speed.
+
+**Proposed update:** Confirm with the author whether the font lab is still in
+use. When it is finished, remove it or exclude it from the export, and decide
+whether `/print/` should be excluded or marked non-indexable.
+
+**Acceptance:** Only intended pages are publicly reachable, and no unused font
+family ships.
+
 ## B. Draft requests to document the maintenance workflow - review before sending
 
 Addressed to [@carolina-moron](https://github.com/carolina-moron), who authors

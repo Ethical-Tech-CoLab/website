@@ -1,0 +1,311 @@
+// Resize committed images down to the size they are actually displayed at.
+//
+// Why this exists
+// ---------------
+// `next.config.ts` sets `images: { unoptimized: true }`, which is required by
+// `output: "export"` — GitHub Pages has no image optimization server. The
+// consequence is easy to miss: `next/image` does no resizing, no `srcset`, and
+// no format negotiation. Whatever is committed is exactly what every visitor
+// downloads.
+//
+// Without a resize step at intake, headshots arrive straight from a phone or a
+// camera. One 2644x2644 JPEG was being served into a 48px circle, and /team
+// weighed 8.5 MB. See docs/PERFORMANCE.md for the measurements.
+//
+// Usage
+//   npm run optimize:images           rewrite anything over budget
+//   npm run optimize:images -- --check    report only, exit 1 if over budget (CI)
+//   npm run optimize:images -- --dry-run  report what would change, write nothing
+//
+// Idempotency
+// -----------
+// A file is only rewritten when it breaks its budget. Once it fits, later runs
+// skip it untouched. That matters for more than speed: JPEG and WebP are lossy,
+// so re-encoding an already-compliant file on every run would quietly degrade
+// it a generation at a time. It also means `--check` is stable in CI.
+
+import { readdir, readFile, writeFile } from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import sharp from "sharp";
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const publicDir = path.join(root, "public");
+
+/**
+ * Budgets are set from how large each image actually renders, doubled to stay
+ * sharp on a 2x display, then rounded up.
+ *
+ * `maxKB` is a backstop for the case dimensions cannot catch: an image that
+ * fits its box but was saved at an absurd quality. It is deliberately loose —
+ * it should flag a mistake, not force a re-encode of every borderline file.
+ */
+const BUDGETS = [
+  {
+    dir: "team",
+    width: 384,
+    maxKB: 90,
+    quality: 78,
+    // Avatars render at 48px in listings, 120px on a profile, 128px for the
+    // founder. 384 keeps the largest of those crisp on a 3x phone screen.
+    note: "headshots render at most 128px",
+  },
+  {
+    dir: "logos",
+    width: 256,
+    maxKB: 110,
+    quality: 82,
+    // Logo tiles are 56px in the partners band and 80px in the detail card, so
+    // 256 is already over 3x. The ceiling is loose because
+    // blockchain-for-social-impact.png is a photographic screen grab kept in
+    // PNG for its transparency, which is an expensive combination — BACKLOG
+    // already asks its owner for a better source file.
+    note: "logo tiles are 56-80px",
+  },
+  {
+    dir: "repos",
+    width: 600,
+    maxKB: 150,
+    quality: 78,
+    // Posters render in a 2:3 card. 600px matches the re-crop width already
+    // used for the posters that were redone by hand.
+    note: "posters render in a small 2:3 card",
+  },
+  {
+    dir: "summit",
+    width: 1200,
+    maxKB: 220,
+    quality: 74,
+    note: "event photos in a gallery grid",
+  },
+  {
+    dir: "backgrounds",
+    width: 1600,
+    maxKB: 200,
+    quality: 62,
+    // These sit behind the whole page at ~0.09 opacity and ~0.74 grayscale.
+    // Almost no detail survives that, so quality is unusually cheap to trade.
+    note: "decorative ground at ~9% opacity, grayscale",
+  },
+  {
+    dir: ".",
+    width: 1600,
+    maxKB: 250,
+    quality: 72,
+    // Full-bleed hero photographs at the top of /, /team and /portfolio. Each
+    // one sits under two darkening gradients, so it is never seen at full
+    // contrast. Small marks that also live at the root are covered by
+    // FILE_BUDGETS below.
+    note: "full-bleed hero photographs",
+  },
+];
+
+/**
+ * Overrides for individual files whose directory budget does not describe them.
+ *
+ * The repository root of `public/` holds two unrelated kinds of image: hero
+ * photographs that genuinely need to be wide, and small marks that do not.
+ * `etc-logo.png` renders at 32px in the site header on every single page, so
+ * the 1600px hero budget would have let it stay at 238px and 87 KB forever.
+ */
+const FILE_BUDGETS = {
+  "etc-logo.png": { width: 128, maxKB: 40, quality: 82, note: "header mark renders at 32px" },
+  "etc-logo-3d.jpg": { width: 512, maxKB: 40, quality: 78, note: "intro splash renders at 420px" },
+  "nyu-sps-cga-logo.jpg": { width: 256, maxKB: 110, quality: 82, note: "partner logo tile" },
+
+  // Exempt: 696px but only 12 KB, because a flat mark compresses to almost
+  // nothing. Every re-encode of it comes out *larger*, so holding it to the
+  // 256px logo budget would fail the check with no fix available. If another
+  // file ever lands in this position, the optimizer says so explicitly and it
+  // belongs here too.
+  "logos/microsoft-garage.png": {
+    width: 696,
+    maxKB: 40,
+    quality: 82,
+    note: "flat mark; re-encoding makes it larger",
+  },
+};
+
+/**
+ * Directories deliberately left alone.
+ *
+ * `publications/` holds book pages generated by scripts/render-report-pages.mjs
+ * — that script owns their size through its own --scale/--quality options, and
+ * re-encoding its output here would compress twice. `newsletter/` is copied
+ * verbatim from the newsletter repository by scripts/sync-newsletter.mjs; the
+ * fix for a heavy issue belongs there, not here.
+ */
+const SKIP_DIRS = new Set(["publications", "newsletter"]);
+
+const RASTER = /\.(jpe?g|png|webp)$/i;
+
+/** Whether an image already meets its budget, and so needs no work. */
+function isCompliant(kb, width, budget) {
+  return width <= budget.width && kb <= budget.maxKB;
+}
+
+/** The budget governing a path like "team/alex.jpg", or null if exempt. */
+function budgetFor(rel) {
+  if (FILE_BUDGETS[rel]) return FILE_BUDGETS[rel];
+  const segments = rel.split("/");
+  const dir = segments.length > 1 ? segments[0] : ".";
+  if (SKIP_DIRS.has(dir)) return null;
+  return BUDGETS.find((b) => b.dir === dir) ?? null;
+}
+
+async function listImages(dir, base = "") {
+  const found = [];
+  for (const entry of await readdir(dir, { withFileTypes: true })) {
+    const abs = path.join(dir, entry.name);
+    const rel = base ? `${base}/${entry.name}` : entry.name;
+    if (entry.isDirectory()) {
+      if (SKIP_DIRS.has(rel)) continue;
+      found.push(...(await listImages(abs, rel)));
+    } else if (RASTER.test(entry.name)) {
+      found.push({ abs, rel });
+    }
+  }
+  return found;
+}
+
+/**
+ * Re-encode to the same format. Changing the extension would mean editing every
+ * reference in src/content, and a missed one fails silently — TeamAvatar falls
+ * back to initials rather than showing a broken image. The saving here comes
+ * overwhelmingly from the resize, not from the container.
+ */
+async function encode(pipeline, ext, quality) {
+  if (ext === ".png") {
+    // compressionLevel only. Do NOT add `effort` or `palette` here: both put
+    // libvips into its palette-quantizing path, which silently drops the alpha
+    // channel on some images. That took coinbase.png from a transparent mark to
+    // an opaque one — which would have rendered as a black box on the white
+    // logo tile. The transparency guard in main() is the backstop; the cheapest
+    // fix is not to ask for quantization in the first place.
+    return pipeline.png({ compressionLevel: 9 }).toBuffer();
+  }
+  if (ext === ".webp") return pipeline.webp({ quality }).toBuffer();
+  return pipeline.jpeg({ quality, mozjpeg: true }).toBuffer();
+}
+
+async function main() {
+  const args = new Set(process.argv.slice(2));
+  const check = args.has("--check");
+  const dryRun = args.has("--dry-run");
+
+  const images = await listImages(publicDir);
+  const over = [];
+  let scanned = 0;
+  let bytesBefore = 0;
+  let bytesAfter = 0;
+
+  for (const { abs, rel } of images) {
+    const budget = budgetFor(rel);
+    if (!budget) continue;
+    scanned++;
+
+    // Read the bytes up front and hand sharp a buffer rather than a path.
+    // Reading from the path keeps a handle open on Windows, and writing the
+    // result back to that same path then fails with EBUSY/UNKNOWN.
+    const input = await readFile(abs);
+    const size = input.byteLength;
+    const meta = await sharp(input).metadata();
+    const kb = size / 1024;
+    const tooWide = meta.width > budget.width;
+    bytesBefore += size;
+
+    if (isCompliant(kb, meta.width, budget)) {
+      bytesAfter += size;
+      continue;
+    }
+
+    if (check) {
+      over.push({ rel, width: meta.width, kb: Math.round(kb), budget });
+      bytesAfter += size;
+      continue;
+    }
+
+    // .rotate() with no argument applies the EXIF orientation flag. sharp drops
+    // metadata on write, so without this a phone photo saved sideways would be
+    // written out sideways. It also strips EXIF, which removes any GPS
+    // coordinates a camera recorded — worth having on published headshots.
+    let pipeline = sharp(input).rotate();
+    if (tooWide) {
+      pipeline = pipeline.resize({ width: budget.width, withoutEnlargement: true });
+    }
+
+    const ext = path.extname(rel).toLowerCase();
+    const buffer = await encode(pipeline, ext, budget.quality);
+
+    // Refuse to publish a result that lost the alpha channel. A logo that is
+    // mostly transparent composites against black when its alpha is dropped,
+    // so it would arrive on the white logo tile as a solid dark rectangle —
+    // and nothing else in the pipeline would notice.
+    if (meta.hasAlpha) {
+      const out = await sharp(buffer).metadata();
+      if (!out.hasAlpha) {
+        console.error(
+          `  ! ${rel} skipped: encoding dropped its transparency. ` +
+            `Check the encoder options in encode().`
+        );
+        bytesAfter += size;
+        continue;
+      }
+    }
+
+    // Never write a result that is not actually smaller. If this happens the
+    // file cannot meet its budget by re-encoding, so say what to do about it
+    // rather than leaving --check failing with no available fix.
+    if (buffer.length >= size) {
+      bytesAfter += size;
+      console.error(
+        `  ! ${rel} cannot be shrunk (re-encode came out no smaller). ` +
+          `Add it to FILE_BUDGETS in this script with its current size, and say why.`
+      );
+      continue;
+    }
+
+    bytesAfter += buffer.length;
+    const saved = Math.round((1 - buffer.length / size) * 100);
+    const line =
+      `  ${dryRun ? "~" : "\u2713"} ${rel}  ` +
+      `${meta.width}px/${Math.round(size / 1024)}KB -> ` +
+      `${tooWide ? budget.width : meta.width}px/${Math.round(buffer.length / 1024)}KB  (-${saved}%)`;
+    console.log(line);
+    if (!dryRun) await writeFile(abs, buffer);
+  }
+
+  if (check) {
+    if (over.length === 0) {
+      console.log(`Image budgets OK (${scanned} images checked).`);
+      return;
+    }
+    console.error("Images over budget:\n");
+    for (const o of over) {
+      console.error(
+        `  - public/${o.rel}\n` +
+          `      ${o.width}px / ${o.kb}KB exceeds ${o.budget.width}px / ${o.budget.maxKB}KB ` +
+          `(${o.budget.note})`
+      );
+    }
+    console.error(
+      "\nThese are served exactly as committed: next/image cannot resize them,\n" +
+        "because a static export has no image optimization server.\n" +
+        "Fix with:  npm run optimize:images\n"
+    );
+    process.exit(1);
+  }
+
+  const savedMB = (bytesBefore - bytesAfter) / 1024 / 1024;
+  console.log(
+    `\n${scanned} images checked. ` +
+      `${(bytesBefore / 1024 / 1024).toFixed(2)} MB -> ${(bytesAfter / 1024 / 1024).toFixed(2)} MB` +
+      (savedMB > 0.005 ? `  (saved ${savedMB.toFixed(2)} MB)` : "  (nothing to do)")
+  );
+  if (dryRun) console.log("Dry run: nothing was written.");
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
