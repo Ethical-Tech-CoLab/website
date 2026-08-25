@@ -78,3 +78,15 @@ jobs:
           echo "::error::static-site/ is out of sync with src/. Run 'npm run sync:static' and commit the result as a separate commit (see CONTRIBUTING.md section 4)."
           echo "$drift"
           exit 1
+
+      # Publish what this Linux runner actually produced, so a maintainer whose
+      # own build disagrees can inspect or adopt it. Only on a manual run, and
+      # only when the check above failed: a green pull request has nothing to
+      # look at, and the snapshot is large enough not to upload for nothing.
+      - name: Upload the regenerated snapshot for inspection
+        if: failure() && github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: static-site-linux
+          path: static-site
+          retention-days: 3
