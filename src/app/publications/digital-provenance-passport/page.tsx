@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Link } from "next-view-transitions";
 import { provenancePassportReport } from "@/content/publications/digital-provenance-passport";
 import { ReportBookLink } from "@/components/ReportBookLink";
+import { ReportPdfLink } from "@/components/ReportPdfLink";
 import { SectionTabs } from "@/components/SectionTabs";
 import { Reveal } from "@/components/motion/Reveal";
 import { ReportBody } from "@/components/ReportBody";
@@ -78,6 +79,7 @@ export default function DigitalProvenancePassportPage() {
               >
                 Source and paper <span aria-hidden>↗</span>
               </a>
+              <ReportPdfLink slug="digital-provenance-passport" />
               <ReportBookLink slug="digital-provenance-passport" title={provenancePassportReport.title} />
             </div>
           </Reveal>

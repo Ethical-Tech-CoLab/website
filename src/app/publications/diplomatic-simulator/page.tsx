@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Link } from "next-view-transitions";
 import { diplomaticSimulatorReport } from "@/content/publications/diplomatic-simulator";
 import { ReportBookLink } from "@/components/ReportBookLink";
+import { ReportPdfLink } from "@/components/ReportPdfLink";
 import { SectionTabs } from "@/components/SectionTabs";
 import { Reveal } from "@/components/motion/Reveal";
 import { ReportBody } from "@/components/ReportBody";
@@ -77,6 +78,7 @@ export default function DiplomaticSimulatorPage() {
               >
                 Source and run records <span aria-hidden>↗</span>
               </a>
+              <ReportPdfLink slug="diplomatic-simulator" />
               <ReportBookLink slug="diplomatic-simulator" title={diplomaticSimulatorReport.title} />
             </div>
           </Reveal>

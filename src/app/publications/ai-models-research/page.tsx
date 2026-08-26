@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Link } from "next-view-transitions";
 import { aiModelsResearchReport } from "@/content/publications/ai-models-research";
 import { ReportBookLink } from "@/components/ReportBookLink";
+import { ReportPdfLink } from "@/components/ReportPdfLink";
 import { SectionTabs } from "@/components/SectionTabs";
 import { Reveal } from "@/components/motion/Reveal";
 import { ReportBody } from "@/components/ReportBody";
@@ -83,6 +84,7 @@ export default function AiModelsResearchPage() {
               >
                 Data and sources <span aria-hidden>↗</span>
               </a>
+              <ReportPdfLink slug="ai-models-research" />
               <ReportBookLink slug="ai-models-research" title={aiModelsResearchReport.title} />
             </div>
           </Reveal>

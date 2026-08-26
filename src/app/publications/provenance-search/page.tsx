@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Link } from "next-view-transitions";
 import { provenanceSearchReport } from "@/content/publications/provenance-search";
 import { ReportBookLink } from "@/components/ReportBookLink";
+import { ReportPdfLink } from "@/components/ReportPdfLink";
 import { SectionTabs } from "@/components/SectionTabs";
 import { Reveal } from "@/components/motion/Reveal";
 import { ReportBody } from "@/components/ReportBody";
@@ -75,6 +76,7 @@ export default function ProvenanceSearchPage() {
               >
                 Source and paper <span aria-hidden>↗</span>
               </a>
+              <ReportPdfLink slug="provenance-search" />
               <ReportBookLink slug="provenance-search" title={provenanceSearchReport.title} />
             </div>
           </Reveal>

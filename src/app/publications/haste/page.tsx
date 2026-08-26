@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Link } from "next-view-transitions";
 import { hasteReport } from "@/content/publications/haste";
 import { ReportBookLink } from "@/components/ReportBookLink";
+import { ReportPdfLink } from "@/components/ReportPdfLink";
 import { SectionTabs } from "@/components/SectionTabs";
 import { Reveal } from "@/components/motion/Reveal";
 import { ReportBody } from "@/components/ReportBody";
@@ -76,6 +77,7 @@ export default function HastePage() {
               >
                 Fork and report <span aria-hidden>↗</span>
               </a>
+              <ReportPdfLink slug="haste" />
               <ReportBookLink slug="haste" title={hasteReport.title} />
             </div>
           </Reveal>
