@@ -3,7 +3,7 @@
 
 export const agenticBehaviorObservatoryBook = {
   "generatedFrom": "report.pdf",
-  "pageCount": 10,
+  "pageCount": 12,
   "aspect": 0.7067,
   "pages": [
     "publications/agentic-behavior-observatory/pages/p01.webp",
@@ -15,6 +15,8 @@ export const agenticBehaviorObservatoryBook = {
     "publications/agentic-behavior-observatory/pages/p07.webp",
     "publications/agentic-behavior-observatory/pages/p08.webp",
     "publications/agentic-behavior-observatory/pages/p09.webp",
-    "publications/agentic-behavior-observatory/pages/p10.webp"
+    "publications/agentic-behavior-observatory/pages/p10.webp",
+    "publications/agentic-behavior-observatory/pages/p11.webp",
+    "publications/agentic-behavior-observatory/pages/p12.webp"
   ]
 } as const;

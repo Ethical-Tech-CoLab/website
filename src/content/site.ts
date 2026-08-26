@@ -468,7 +468,7 @@ export const publications = {
       title:
         "The Agentic Behavior Observatory: Reading What a Repository Models, and What It Leaves Out",
       summary:
-        "Paste a GitHub repository URL and get an evidence-linked read of how it models agentic behaviour, scored on five axes, every point traceable to the file and line where its signal fired. The report is what the instrument found across 22 repositories: work that models children in 18 of them and income in 4, an evaluation layer strongest exactly where the subject matter is weakest, and eight repositories whose behavioural findings rest on a model version they never name. A score is signal coverage, not a quality judgement.",
+        "Paste a GitHub repository URL and get an evidence-linked read of how it models agentic behaviour, scored on six axes, every point traceable to the file and line where its signal fired. The report is what the instrument found across 22 repositories: work that models children in 19 of them and income in 3, an evaluation layer strongest exactly where the subject matter is weakest, and eight repositories whose behavioural findings rest on a model version they never name. A score is signal coverage, not a quality judgement.",
       status: "Published",
       date: "August 2026",
       // Internal route (starts with "/") — rendered on-site, see the card logic.
@@ -992,7 +992,7 @@ export const products: Product[] = [
     repo: "https://github.com/Ethical-Tech-CoLab/agentic-behavior-observatory",
     demo: "https://ethical-tech-colab.github.io/agentic-behavior-observatory/",
     blurb:
-      "Paste a GitHub repository URL and watch it get read: five axes of agentic behaviour scored from the code itself, every point linked to the file and line where its signal fired. The analysis runs in your browser against the public GitHub API, so nothing is uploaded and no token is needed. The population lab shows which demographic dimensions the analysed corpus models, and which nobody models at all.",
+      "Paste a GitHub repository URL and watch it get read: six axes of agentic behaviour scored from the code itself, including whether it keeps one agent's context out of another's, every point linked to the file and line where its signal fired. The analysis runs in your browser against the public GitHub API, so nothing is uploaded and no token is needed. The population lab shows which demographic dimensions the analysed corpus models, and which nobody models at all.",
     language: "Python",
     theme: "Research",
     publication: "/publications/agentic-behavior-observatory",

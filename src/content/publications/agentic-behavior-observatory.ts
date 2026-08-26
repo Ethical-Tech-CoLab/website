@@ -4,8 +4,8 @@
 //
 // Every figure here is computed from the committed corpus in
 // Ethical-Tech-CoLab/agentic-behavior-observatory (data/reports/, indexed at
-// docs/data/index.json), read on 26 August 2026: 22 repositories, 15 of them
-// the CoLab's own. Rendered by
+// docs/data/index.json), re-read on 26 August 2026 after the context-isolation
+// axis was added: 22 repositories, 15 of them the CoLab's own. Rendered by
 // src/app/publications/agentic-behavior-observatory/page.tsx.
 //
 // House style: no em dashes, no dash ranges, no inline bold. Emphasis is the
@@ -41,12 +41,12 @@ export const observatoryReport = {
         "repositories analyzed, 15 of them the CoLab's own and 7 reference frameworks",
     },
     {
-      value: "52",
-      label: "signals across five axes, each traceable to the file and line it fired on",
+      value: "62",
+      label: "signals across six axes, each traceable to the file and line it fired on",
     },
     {
-      value: "4 of 22",
-      label: "repositories that model income; 18 model children",
+      value: "3 of 22",
+      label: "repositories that model income; 19 model children",
     },
     {
       value: "8",
@@ -61,7 +61,7 @@ export const observatoryReport = {
       title: "The question the instrument exists to answer",
       paragraphs: [
         "When a system generates or evaluates a synthetic population at scale, it is making a claim about who that population contains. The claim is rarely written down. It is implied by which attributes the code carries, which behaviors the agents are allowed to have, and which differences between people the model treats as differences at all. A population dimension nobody models is a population nobody simulates, and an unmodeled dimension is an implicit assertion that it does not matter to the outcome.",
-        "That claim is legible in the source. The Agentic Behavior Observatory reads it. Paste a GitHub repository URL and it returns an evidence-linked account of how that repository models agentic behavior, scored on five axes, with the demographic dimensions and the model versions it rests on pulled out. Every point of every score links to the file and the line where its signal fired.",
+        "That claim is legible in the source. The Agentic Behavior Observatory reads it. Paste a GitHub repository URL and it returns an evidence-linked account of how that repository models agentic behavior, scored on six axes, with the demographic dimensions and the model versions it rests on pulled out. Every point of every score links to the file and the line where its signal fired.",
         {
           lead: "What a score is not.",
           text: "A score is signal coverage, not a quality judgment. A small, sharp repository can and should score lower than a sprawling framework, and the tool says so on its own front page. The number answers one question only: how much of the taxonomy's vocabulary does this repository exhibit. Whether the work is good is a question for a reader, not a regular expression.",
@@ -74,11 +74,11 @@ export const observatoryReport = {
       title: "How the reading is done",
       paragraphs: [
         "The analyzer fetches a repository's metadata and file tree from the GitHub API, then reads up to 120 file bodies from the raw content host, chosen by a heuristic that favors manifests, prose, and modeling-core filenames. Text source in roughly 25 extensions counts, including the single-file HTML applications much of the CoLab's work ships as. Generated bundles and lockfiles are skipped. Nothing is cloned and nothing is executed.",
-        "Each file is matched against 52 signals grouped into five axes. A signal is a dependency declaration, a file path, or a pattern in source and prose, and it carries a weight and a human-readable label. An axis score is the share of that axis's weighted signal set the repository covers, expressed on a 0 to 100 scale.",
+        "Each file is matched against 62 signals grouped into six axes. A signal is a dependency declaration, a file path, or a pattern in source and prose, and it carries a weight and a human-readable label. An axis score is the share of that axis's weighted signal set the repository covers, expressed on a 0 to 100 scale.",
         {
           table: {
             caption:
-              "The five axes and the signals behind each. Counts are of distinct signals, not of matches.",
+              "The six axes and the signals behind each. Counts are of distinct signals, not of matches.",
             headers: ["Axis", "Signals", "What it detects"],
             rows: [
               [
@@ -106,10 +106,15 @@ export const observatoryReport = {
                 "8",
                 "Tests, fidelity metrics such as KS, Wasserstein and TSTR, sensitivity analysis and ablations, seeded runs, experiment tracking, bias and representativeness audits",
               ],
+              [
+                "Context isolation",
+                "10",
+                "Private and privileged instructions, BATNAs and red lines; visibility and disclosure rules; per-agent scoped context; fresh sessions and state resets; independent replications; staying in character and knowledge-cutoff handling; contamination and leakage checks; blind evaluation",
+              ],
             ],
           },
         },
-        "The headline relevance score uses only the three subject axes, because the other two describe how work is done rather than what it is about.",
+        "The headline relevance score uses only the three subject axes, because the other three describe how work is done rather than what it is about.",
         {
           formula:
             "relevance = 0.6 x max(subject axes) + 0.4 x mean(subject axes)",
@@ -134,15 +139,15 @@ export const observatoryReport = {
               "Relevance across the corpus. The reference frameworks cluster at the top not because they are better work, but because they contain more of the taxonomy's vocabulary, which is what the score measures.",
             max: 100,
             rows: [
-              { label: "microsoft/autogen", value: 56, valueLabel: "56" },
               {
                 label: "agentic-behavior-observatory",
                 note: "the tool scoring itself",
-                value: 54,
-                valueLabel: "54",
+                value: 60,
+                valueLabel: "60",
               },
+              { label: "microsoft/autogen", value: 56, valueLabel: "56" },
               { label: "camel-ai/camel", value: 50, valueLabel: "50" },
-              { label: "projectmesa/mesa", value: 48, valueLabel: "48" },
+              { label: "mesa/mesa", value: 48, valueLabel: "48" },
               {
                 label: "joonspk-research/generative_agents",
                 value: 32,
@@ -162,10 +167,10 @@ export const observatoryReport = {
               caption: "The ten highest relevance scores in the corpus.",
               headers: ["Repository", "Relevance"],
               rows: [
+                ["Ethical-Tech-CoLab/agentic-behavior-observatory", "60"],
                 ["microsoft/autogen", "56"],
-                ["Ethical-Tech-CoLab/agentic-behavior-observatory", "54"],
                 ["camel-ai/camel", "50"],
-                ["projectmesa/mesa", "48"],
+                ["mesa/mesa", "48"],
                 ["joonspk-research/generative_agents", "32"],
                 ["Ethical-Tech-CoLab/race-condition-mod", "31"],
                 ["AgentTorch/AgentTorch", "29"],
@@ -192,16 +197,16 @@ export const observatoryReport = {
               "Repositories mentioning each demographic dimension, out of 22. Visible bodily and household attributes dominate; economic position is close to absent.",
             max: 22,
             rows: [
-              { label: "Children", value: 18, valueLabel: "18" },
+              { label: "Children", value: 19, valueLabel: "19" },
               { label: "Age", value: 15, valueLabel: "15" },
-              { label: "Disability", value: 14, valueLabel: "14" },
+              { label: "Disability", value: 15, valueLabel: "15" },
               { label: "Region", value: 12, valueLabel: "12" },
               { label: "Gender", value: 8, valueLabel: "8" },
               { label: "Migration", value: 7, valueLabel: "7" },
-              { label: "Education", value: 7, valueLabel: "7" },
-              { label: "Race", value: 7, valueLabel: "7" },
-              { label: "Income", value: 4, valueLabel: "4" },
-              { label: "Religion", value: 2, valueLabel: "2" },
+              { label: "Education", value: 6, valueLabel: "6" },
+              { label: "Race", value: 6, valueLabel: "6" },
+              { label: "Income", value: 3, valueLabel: "3" },
+              { label: "Religion", value: 1, valueLabel: "1" },
               { label: "Employment", value: 1, valueLabel: "1" },
               { label: "Literacy", value: 1, valueLabel: "1" },
             ],
@@ -210,16 +215,16 @@ export const observatoryReport = {
                 "Dimension prevalence across the 22-repository corpus, August 2026.",
               headers: ["Dimension", "Repositories"],
               rows: [
-                ["Children", "18"],
+                ["Children", "19"],
                 ["Age", "15"],
-                ["Disability", "14"],
+                ["Disability", "15"],
                 ["Region", "12"],
                 ["Gender", "8"],
                 ["Migration", "7"],
-                ["Education", "7"],
-                ["Race", "7"],
-                ["Income", "4"],
-                ["Religion", "2"],
+                ["Education", "6"],
+                ["Race", "6"],
+                ["Income", "3"],
+                ["Religion", "1"],
                 ["Employment", "1"],
                 ["Literacy", "1"],
               ],
@@ -228,11 +233,15 @@ export const observatoryReport = {
         },
         {
           lead: "Populations with bodies but no economics.",
-          text: "Eighteen of 22 repositories model children and 14 model disability, both of which change how a person moves in an evacuation. Four model income, one models employment, and one models literacy. In a body of work substantially about who gets out of a disaster and who does not, the attributes that determine whether a household has a car, can afford to leave early, or can read the warning are the ones least often represented. The instrument cannot say whether that is an oversight or a defensible modeling choice. It can say the choice is being made silently in most of these repositories.",
+          text: "Nineteen of 22 repositories model children and 15 model disability, both of which change how a person moves in an evacuation. Three model income, one models employment, and one models literacy. In a body of work substantially about who gets out of a disaster and who does not, the attributes that determine whether a household has a car, can afford to leave early, or can read the warning are the ones least often represented. The instrument cannot say whether that is an oversight or a defensible modeling choice. It can say the choice is being made silently in most of these repositories.",
         },
         {
           lead: "Eight repositories name no model.",
           text: "The analyzer extracts every model identifier it finds. Across the corpus it found 42 distinct versions, led by gpt-4o-mini in 7 repositories. Eight repositories doing model-driven behavioral work name no version anywhere the analyzer could read. Behavioral findings drift between model versions, so a result whose model is unrecorded cannot be reproduced later even by the people who produced it.",
+        },
+        {
+          lead: "The corpus is better at isolating contexts than at modelling economies.",
+          text: "Context isolation was added to the taxonomy after the findings above, to ask whether a repository has any vocabulary for keeping information where it belongs: one agent out of another's private brief, one run out of the next, the model's own training out of the persona it was given, the test item out of the prompt meant to test it. Median across the corpus is 40. The clearest case is the Diplomatic Simulator at 73, its highest axis by a wide margin and not an accident of vocabulary: every delegation holds private instructions, a BATNA and red lines, and the table carries explicit rules for what crosses between parties. Its own paper states the principle outright. At the other end the Stanford generative agents repository scores 0, which is worth sitting with, because the memory stream is the architecture and nothing in it names a boundary between one agent's stream and another's.",
         },
         {
           lead: "Evaluation is strongest where the subject is weakest.",
@@ -255,7 +264,7 @@ export const observatoryReport = {
             "The word party is counted as a demographic dimension in 17 repositories, which is the corpus's clearest false positive: in a negotiation simulator a party is a side at the table, not a political affiliation. It is left in rather than special-cased, because the general problem it illustrates does not go away by patching one term.",
             "The demographic vocabulary is a fixed English list of 39 terms, so it under-reports populations described in other words or other languages. That limit is itself a finding about who the tooling was built by.",
             "Up to 120 files are read per repository. Large repositories are sampled, not read whole, and every report carries files_read, files_eligible and files_total so the sampling is never silent.",
-            "The observatory scores itself 54, second in the corpus. A repository whose contents are the taxonomy will match the taxonomy, so this number is close to tautological and should not be read as the tool validating itself.",
+            "The observatory scores itself 60, first in the corpus, and rose from 54 when the context-isolation signals were added to the very file it analyses. A repository whose contents are the taxonomy will match the taxonomy, so this number is close to tautological and should not be read as the tool validating itself. It is the sharpest available demonstration of the limit above it.",
             "Twenty-two repositories is a small corpus, and 15 of them come from one organization. The dimension counts above describe this corpus. They are a prompt to check your own, not a measurement of the field.",
           ],
           intro:
@@ -293,8 +302,8 @@ export const observatoryReport = {
       url: "https://github.com/joonspk-research/generative_agents",
     },
     {
-      ref: "Project Mesa. Mesa: agent-based modeling in Python.",
-      url: "https://github.com/projectmesa/mesa",
+      ref: "Mesa. Mesa: agent-based modeling in Python.",
+      url: "https://github.com/mesa/mesa",
     },
     {
       ref: "Microsoft. AutoGen: a programming framework for agentic AI.",
