@@ -400,24 +400,6 @@ export const publications = {
       url: "/publications/ai-research-assistant",
     },
     {
-      // Stays on the Guidelines shelf: it is advice on choosing a model for a
-      // task, not a finding about AI itself. It leads that shelf ahead of the
-      // CoLab-only practice guides, which a visitor cannot open.
-      index: "19",
-      area: "AI systems",
-      topic: "Guidelines",
-      question:
-        "Which AI model should be selected for a task, and on what evidence?",
-      title:
-        "AI Model Performance: Capabilities, Accuracy, Speed, Energy Use, and Token Economics",
-      summary:
-        "A comparative review of frontier, open-weight, and efficient model families, separating independently verified measurement from provider marketing. Every figure carries its source, its date, and its evidence grade. Ships with a live cost-per-accepted-task calculator and a validated data layer.",
-      status: "Published",
-      date: "July 2026",
-      // Internal route (starts with "/") — rendered on-site, see the card logic.
-      url: "/publications/ai-models-research",
-    },
-    {
       // A concept report rather than a finding: the programme it describes has
       // not been run. Filed under Artificial Intelligence because the subject
       // is what artificial agents do to one another, and the card's status
@@ -453,6 +435,44 @@ export const publications = {
       date: "May 2025",
       // Internal route (starts with "/") — rendered on-site, see the card logic.
       url: "/publications/ai-carbon-footprint",
+    },
+    {
+      // Filed under Artificial Intelligence: the comparison is about the
+      // models themselves — what they cost, how fast they run, how accurate
+      // they are — rather than about a field they are applied to.
+      index: "19",
+      area: "AI systems",
+      topic: "Artificial Intelligence",
+      question:
+        "Which AI model should be selected for a task, and on what evidence?",
+      title:
+        "AI Model Performance: Capabilities, Accuracy, Speed, Energy Use, and Token Economics",
+      summary:
+        "A comparative review of frontier, open-weight, and efficient model families, separating independently verified measurement from provider marketing. Every figure carries its source, its date, and its evidence grade. Ships with a live cost-per-accepted-task calculator and a validated data layer.",
+      status: "Published",
+      date: "July 2026",
+      // Internal route (starts with "/") — rendered on-site, see the card logic.
+      url: "/publications/ai-models-research",
+    },
+    {
+      // A public tool rather than an internal guide, so it carries no
+      // access: "internal" and its links open for anyone. Filed under
+      // Artificial Intelligence: what it reads is how a repository models
+      // agentic behaviour, which is a finding about AI rather than advice on
+      // doing the work.
+      index: "30",
+      area: "Guidelines",
+      topic: "Artificial Intelligence",
+      question:
+        "When a repository claims to model human behaviour at scale, what is it actually modelling?",
+      title:
+        "The Agentic Behavior Observatory: Reading What a Repository Models, and What It Leaves Out",
+      summary:
+        "Paste a GitHub repository URL and get an evidence-linked read of how it models agentic behaviour, scored on five axes: agent-based simulation, synthetic data generation, language-model behavioural modelling, reinforcement learning, and evaluation. Every point is traceable to the file and line where its signal fired, and the population lab surfaces which demographic dimensions the analysed corpus models at all. A score is signal coverage, not a quality judgement.",
+      status: "Published",
+      date: "August 2026",
+      url: "https://ethical-tech-colab.github.io/agentic-behavior-observatory/",
+      repo: "https://github.com/Ethical-Tech-CoLab/agentic-behavior-observatory",
     },
     {
       // The Summer 2026 cohort's synthesis report. It leads the Evacuation
@@ -663,25 +683,9 @@ export const publications = {
     
     // ── Practice guides ──────────────────────────────────────────────────
     {
-      // Public tools rather than internal guides, so they carry no
-      // access: "internal" and their links open for anyone. They sit on the
-      // Guidelines shelf because both are reference material you consult
-      // while building, not research findings.
-      index: "30",
-      area: "Guidelines",
-      topic: "Guidelines",
-      question:
-        "When a repository claims to model human behaviour at scale, what is it actually modelling?",
-      title:
-        "The Agentic Behavior Observatory: Reading What a Repository Models, and What It Leaves Out",
-      summary:
-        "Paste a GitHub repository URL and get an evidence-linked read of how it models agentic behaviour, scored on five axes: agent-based simulation, synthetic data generation, language-model behavioural modelling, reinforcement learning, and evaluation. Every point is traceable to the file and line where its signal fired, and the population lab surfaces which demographic dimensions the analysed corpus models at all. A score is signal coverage, not a quality judgement.",
-      status: "Published",
-      date: "August 2026",
-      url: "https://ethical-tech-colab.github.io/agentic-behavior-observatory/",
-      repo: "https://github.com/Ethical-Tech-CoLab/agentic-behavior-observatory",
-    },
-    {
+      // Also a public tool rather than an internal guide: no
+      // access: "internal", and it sits on the Guidelines shelf because it is
+      // reference material you consult while building.
       index: "31",
       area: "Guidelines",
       topic: "Guidelines",
