@@ -693,10 +693,11 @@ export const publications = {
         "What does that term mean, and where do you get open data for the thing you are building?",
       title: "The Cyber Dictionary and Library",
       summary:
-        "Two rooms in one site. The dictionary defines 423 technology and cybersecurity terms across 11 domains in a sentence or two of plain English, written for the moment you actually looked the term up. The library is 105 open data sources and open-source technologies across 11 shelves, from satellite imagery to conflict and rights data, each with what it gives you, how to reach its API, and what it costs.",
+        "Two rooms in one book. The dictionary defines 542 technology and cybersecurity terms across 13 domains in a sentence or two of plain English, written for the moment you actually looked the term up. The library is 105 open data sources and open-source technologies across 11 shelves, from satellite imagery to conflict and rights data, each with what it gives you, how to reach its API, and what it costs. Search the live edition, or read the whole thing as a printed dictionary.",
       status: "Published",
       date: "August 2026",
-      url: "https://ethical-tech-colab.github.io/cyber-dictionary/",
+      // Internal route (starts with "/") — rendered on-site, see the card logic.
+      url: "/publications/cyber-dictionary",
       repo: "https://github.com/Ethical-Tech-CoLab/cyber-dictionary",
     },
     // The CoLab's how-to material, written for people arriving without the

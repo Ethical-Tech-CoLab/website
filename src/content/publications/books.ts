@@ -14,6 +14,7 @@ import { aiCarbonFootprintBook } from "./ai-carbon-footprint-book";
 import { aiModelsResearchBook } from "./ai-models-research-book";
 import { aiResearchAssistantBook } from "./ai-research-assistant-book";
 import { ceraiBook } from "./cerai-book";
+import { cyberDictionaryBook } from "./cyber-dictionary-book";
 import { digitalProvenancePassportBook } from "./digital-provenance-passport-book";
 import { diplomaticSimulatorBook } from "./diplomatic-simulator-book";
 import { ercfBook } from "./ercf-book";
@@ -65,6 +66,11 @@ export const bookViews: Record<string, BookView> = {
     pages: [...ceraiBook.pages],
     aspect: ceraiBook.aspect,
     pdf: "/publications/cerai/report.pdf",
+  },
+  "cyber-dictionary": {
+    pages: [...cyberDictionaryBook.pages],
+    aspect: cyberDictionaryBook.aspect,
+    pdf: "/publications/cyber-dictionary/report.pdf",
   },
   "digital-provenance-passport": {
     pages: [...digitalProvenancePassportBook.pages],
