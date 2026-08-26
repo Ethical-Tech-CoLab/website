@@ -292,10 +292,12 @@ result there. Anything reported means the snapshot did not match the current
 source. A large diff is normal after editing a component that every page
 renders, such as `SiteHeader`, because the shared chunk's content hash changes.
 
-Run it before pushing to `main` as well, not only on a branch. A push that
-edits `src/` without the snapshot leaves `main` red, and because the failure is
-in a generated directory nobody was working in, it surfaces on the next
-contributor's pull request as a diff they did not cause.
+Run it before pushing to `main` as well, not only on a branch. Nothing on
+`main` checks this today, because CI runs on pull requests only, so a push that
+edits `src/` without regenerating the snapshot goes unnoticed until the next
+contributor opens a pull request and it fails on a diff they did not cause.
+That is what happened to #42, a `BACKLOG.md` edit that failed six times on a
+War Games page it never touched.
 
 ## 5. Open a reviewable pull request
 
@@ -305,8 +307,7 @@ Push the branch without force:
 git push -u origin HEAD
 ```
 
-Opening the pull request starts `.github/workflows/ci.yml` (which also runs on
-every push to `main`), which lints,
+Opening the pull request starts `.github/workflows/ci.yml`, which lints,
 typechecks, builds the static export, and regenerates `static-site/` to confirm
 the committed snapshot still matches `src/`. That last check is the one most
 often tripped: if it fails, run `npm run sync:static` and commit the result as
