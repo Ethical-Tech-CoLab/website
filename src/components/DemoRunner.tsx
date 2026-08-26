@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link } from "next-view-transitions";
 import type { DemoLink } from "@/content/site";
 import { asset } from "@/lib/asset";
+import { ReportBookLink } from "@/components/ReportBookLink";
 
 /**
  * The full-screen demo runner, shared by the Live Demos catalogue and the
@@ -190,17 +191,36 @@ export function DemoRunner({
                     run entries rather than in the footer meta, because having
                     played with a tool is exactly when someone wants it. */}
                 {demo.publication && (
-                  <Link
-                    href={demo.publication}
-                    className="flex w-full items-center justify-between gap-4 rounded-xl border border-border bg-card px-5 py-4 transition-colors hover:border-accent"
-                  >
-                    <span className="font-semibold text-foreground">
-                      Read the research report
-                    </span>
-                    <span aria-hidden className="text-accent">
-                      →
-                    </span>
-                  </Link>
+                  <>
+                    <Link
+                      href={demo.publication}
+                      className="flex w-full items-center justify-between gap-4 rounded-xl border border-border bg-card px-5 py-4 transition-colors hover:border-accent"
+                    >
+                      <span className="font-semibold text-foreground">
+                        Read the research report
+                      </span>
+                      <span aria-hidden className="text-accent">
+                        →
+                      </span>
+                    </Link>
+                    {/* The same report as a page-turner, offered here rather
+                        than only on the report page: someone who has just run
+                        the thing is as likely to want to read it as to want to
+                        navigate to it. Renders nothing when the report has no
+                        rendered pages. */}
+                    <ReportBookLink
+                      slug={demo.publication.replace("/publications/", "")}
+                      title={demo.name}
+                      className="flex w-full items-center justify-between gap-4 rounded-xl border border-border bg-card px-5 py-4 transition-colors hover:border-accent"
+                    >
+                      <span className="font-semibold text-foreground">
+                        Read it as a book
+                      </span>
+                      <span aria-hidden className="text-accent">
+                        📖
+                      </span>
+                    </ReportBookLink>
+                  </>
                 )}
                 {entries.length === 0 && !demo.publication && (
                   <p className="text-sm text-muted">

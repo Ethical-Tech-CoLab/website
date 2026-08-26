@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Link } from "next-view-transitions";
 import { carbonReport } from "@/content/publications/ai-carbon-footprint";
+import { LiveDemoLink } from "@/components/LiveDemoLink";
 import { ReportBookLink } from "@/components/ReportBookLink";
 import { ReportPdfLink } from "@/components/ReportPdfLink";
 import { SectionTabs } from "@/components/SectionTabs";
@@ -55,6 +56,7 @@ export default function CarbonFootprintPage() {
           </Reveal>
           <Reveal delay={0.2}>
             <div className="mt-8 flex flex-wrap gap-3">
+              <LiveDemoLink slug="ai-carbon-footprint" />
               <ReportPdfLink slug="ai-carbon-footprint" />
               <ReportBookLink slug="ai-carbon-footprint" title={carbonReport.title} />
             </div>

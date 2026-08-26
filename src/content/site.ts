@@ -995,6 +995,7 @@ export const products: Product[] = [
       "Paste a GitHub repository URL and watch it get read: five axes of agentic behaviour scored from the code itself, every point linked to the file and line where its signal fired. The analysis runs in your browser against the public GitHub API, so nothing is uploaded and no token is needed. The population lab shows which demographic dimensions the analysed corpus models, and which nobody models at all.",
     language: "Python",
     theme: "Research",
+    publication: "/publications/agentic-behavior-observatory",
   },
   {
     name: "Cyber Dictionary and Library",
@@ -1003,9 +1004,10 @@ export const products: Product[] = [
     repo: "https://github.com/Ethical-Tech-CoLab/cyber-dictionary",
     demo: "https://ethical-tech-colab.github.io/cyber-dictionary/",
     blurb:
-      "Two rooms in one site. A dictionary of 423 technology and cybersecurity terms across 11 domains, each defined in a sentence or two of plain English, and a library of 105 open data sources and open-source technologies across 11 shelves, each with what it gives you, how to reach its API, and what it costs.",
+      "Two rooms in one site. A dictionary of 542 technology and cybersecurity terms across 13 domains, each defined in a sentence or two of plain English, and a library of 105 open data sources and open-source technologies across 11 shelves, each with what it gives you, how to reach its API, and what it costs. The whole collection is also typeset as a printed dictionary you can turn the pages of.",
     language: "JavaScript",
     theme: "Research",
+    publication: "/publications/cyber-dictionary",
   },
   {
     name: "Diplomatic Simulator",
@@ -1328,6 +1330,7 @@ export const products: Product[] = [
       "A terminal thriller in the shape of WarGames (1983), reframed around a modern AI agent: the only winning move is to understand the machine. Ships with a Monte Carlo simulation harness and a written case study behind the fiction.",
     language: "JavaScript",
     theme: "Diplomacy",
+    publication: "/publications/war-games",
   },
   {
     name: "Malawi Prevention Platform (MVDC)",
