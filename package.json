@@ -13,6 +13,7 @@
     "check:content": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-content-invariants.mjs",
     "check:images": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/optimize-images.mjs --check",
     "optimize:images": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/optimize-images.mjs",
+    "check:snapshot": "bash scripts/check-snapshot-sync.sh",
     "sync:static": "bash scripts/sync-static-site.sh",
     "sync:newsletter": "node scripts/sync-newsletter.mjs",
     "export:haste-paper": "node scripts/export-haste-paper.mjs",

@@ -284,12 +284,18 @@ That makes drift easy to check. From a clean tree:
 
 ```powershell
 npm run sync:static
-git status --short
+npm run check:snapshot
 ```
 
-Anything reported means the snapshot did not match the current source. A large
-diff is normal after editing a component that every page renders, such as
-`SiteHeader`, because the shared chunk's content hash changes.
+`check:snapshot` is the same script CI runs, so a green result here is a green
+result there. Anything reported means the snapshot did not match the current
+source. A large diff is normal after editing a component that every page
+renders, such as `SiteHeader`, because the shared chunk's content hash changes.
+
+Run it before pushing to `main` as well, not only on a branch. A push that
+edits `src/` without the snapshot leaves `main` red, and because the failure is
+in a generated directory nobody was working in, it surfaces on the next
+contributor's pull request as a diff they did not cause.
 
 ## 5. Open a reviewable pull request
 
@@ -299,7 +305,8 @@ Push the branch without force:
 git push -u origin HEAD
 ```
 
-Opening the pull request starts `.github/workflows/ci.yml`, which lints,
+Opening the pull request starts `.github/workflows/ci.yml` (which also runs on
+every push to `main`), which lints,
 typechecks, builds the static export, and regenerates `static-site/` to confirm
 the committed snapshot still matches `src/`. That last check is the one most
 often tripped: if it fails, run `npm run sync:static` and commit the result as
