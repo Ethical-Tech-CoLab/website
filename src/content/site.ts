@@ -468,10 +468,11 @@ export const publications = {
       title:
         "The Agentic Behavior Observatory: Reading What a Repository Models, and What It Leaves Out",
       summary:
-        "Paste a GitHub repository URL and get an evidence-linked read of how it models agentic behaviour, scored on five axes: agent-based simulation, synthetic data generation, language-model behavioural modelling, reinforcement learning, and evaluation. Every point is traceable to the file and line where its signal fired, and the population lab surfaces which demographic dimensions the analysed corpus models at all. A score is signal coverage, not a quality judgement.",
+        "Paste a GitHub repository URL and get an evidence-linked read of how it models agentic behaviour, scored on five axes, every point traceable to the file and line where its signal fired. The report is what the instrument found across 22 repositories: work that models children in 18 of them and income in 4, an evaluation layer strongest exactly where the subject matter is weakest, and eight repositories whose behavioural findings rest on a model version they never name. A score is signal coverage, not a quality judgement.",
       status: "Published",
       date: "August 2026",
-      url: "https://ethical-tech-colab.github.io/agentic-behavior-observatory/",
+      // Internal route (starts with "/") — rendered on-site, see the card logic.
+      url: "/publications/agentic-behavior-observatory",
       repo: "https://github.com/Ethical-Tech-CoLab/agentic-behavior-observatory",
     },
     {
