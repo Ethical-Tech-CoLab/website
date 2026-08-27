@@ -1850,6 +1850,16 @@ export const team = {
       slug: "brianna-gabaldon",
       bio: "Brianna Gabaldon is a Product Manager at Microsoft and an alum of NYU's Center for Global Affairs. Her work sits at the intersection of one of the most scaled-up user experiences in the world and the human condition.",
     },
+    {
+      initials: "NF",
+      name: "Nathaniel Fossella",
+      role: "Advisor",
+      org: "Financial Crime Investigations Analyst, Barclays · CoLab alum",
+      linkedin: "https://www.linkedin.com/in/nathaniel-fossella-2a8488249/",
+      photo: "/team/nate.jpg",
+      slug: "nathaniel-fossella",
+      bio: "Nathaniel Fossella is a Financial Crime Investigations Analyst at Barclays and a former Ethical Tech CoLab researcher.",
+    },
   ] as TeamMember[],
   residentFellowsLabel: "Staff",
   residentFellows: [
