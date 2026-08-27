@@ -33,7 +33,7 @@ member" — this skill covers the *procedure*, not a full field-by-field spec.
 | Personal / faculty website | Optional | Only if distinct from LinkedIn. |
 | Bio | Recommended for advisors | One to three short paragraphs, third person, past/present tense matching the existing bios. Without one, the detail page just shows "Bio coming soon." |
 | Cohort term | Only for `researchers` | e.g. `"Summer 2026"`. Advisors, staff, and collaborators don't need this. |
-| Slug | Recommended | `firstname-lastname`, lowercase, hyphenated. Omit only if the card should be non-clickable. |
+| Slug | Recommended | `firstname-lastname`, in lower case, hyphenated. Omit only if the card should be non-clickable. |
 
 **Never fabricate any "Recommended" field.** If a bio, LinkedIn URL, or photo
 isn't supplied, either omit the field (the site handles a missing
@@ -53,7 +53,7 @@ This decides which array in `team` the object goes into, and whether step 5
 ### 2. Add the headshot (if supplied)
 
 1. Drop the file into `public/team/<firstname>.<ext>` (`.jpg`, `.jpeg`, or
-   `.png`) — lowercase first name, matching the existing filenames.
+   `.png`) — first name in lower case, matching the existing filenames.
 2. Run:
    ```
    npm run optimize:images
@@ -133,7 +133,7 @@ Open `/team` and confirm:
 - If a slug was given, click through to `/team/<slug>` and confirm photo,
   role, org, LinkedIn/website links, and bio all render as expected.
 - Check both dark and light themes.
-- Advisors render in a 2-column grid — an odd total just leaves one empty
+- Advisors render in a 2-column layout — an odd total just leaves one empty
   slot on the last row; that's expected, not a bug.
 
 ### 8. Regenerate the snapshot — only if publishing this change on its own
