@@ -1840,6 +1840,16 @@ export const team = {
       slug: "sylvia-maier",
       bio: "Dr. Sylvia G. Maier is a Clinical Professor at NYU's Center for Global Affairs (SPS), where she serves as Academic Director of the MS in Global Affairs concentration in Global Gender Studies. She holds a PhD in Political Science and an MA from the University of Southern California.\n\nHer research and teaching center on women's rights and gender equality, LGBT rights, and gender-inclusive urban planning and design, with fieldwork spanning Western Europe, Latin America, the UAE and the GCC, Iraqi Kurdistan, and Afghanistan. She has examined the politics of gendered integration and multiculturalism in Western Europe, including legal responses to honor-based violence against women. She is co-founder and deputy editor-in-chief of Women Across Frontiers, has served as VP and Director of Education Programs for The Peace Project, and previously chaired the SPS Faculty Council.\n\nAt the Ethical Tech CoLab she is Principal Investigator (PI) for the refugee project, guiding its research on displacement and the human condition.",
     },
+    {
+      initials: "BG",
+      name: "Brianna Gabaldon",
+      role: "Advisor",
+      org: "Product Manager, Microsoft · NYU CGA alum",
+      linkedin: "https://www.linkedin.com/in/brianna-gabaldon-328011149/",
+      photo: "/team/brianna.jpg",
+      slug: "brianna-gabaldon",
+      bio: "Brianna Gabaldon is a Product Manager at Microsoft and an alum of NYU's Center for Global Affairs. Her work sits at the intersection of one of the most scaled-up user experiences in the world and the human condition.",
+    },
   ] as TeamMember[],
   residentFellowsLabel: "Staff",
   residentFellows: [
