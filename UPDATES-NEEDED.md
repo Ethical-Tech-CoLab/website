@@ -413,6 +413,53 @@ whether `/print/` should be excluded or marked non-indexable.
 **Acceptance:** Only intended pages are publicly reachable, and no unused font
 family ships.
 
+### UPD-018 - `@source not` appears inert on the Linux CI runner
+
+**Priority:** Medium
+
+Tailwind v4 scans every non-gitignored file in the project for candidate
+utility names, including comments and prose, not just component classNames.
+Two incidents so far: a shell-script comment describing a removed arbitrary
+value left the built CSS carrying it anyway, and separately, a plain English
+word used in a new skill file's instructions turned out to also be the name
+of a real single-word Tailwind utility, so an unused rule for it was compiled
+in. Both were fixed the same way: reword the prose so the exact word/token
+no longer appears verbatim, rather than changing any build configuration.
+
+**A more durable fix was attempted and reverted.** Excluding `.github/**/*`
+from the scan via `@source not "../../.github/**/*";` in
+`src/app/globals.css` fixed the incident with a verified byte-for-byte
+identical build **on Windows** (SHA-256 match against the already-committed
+snapshot). The same commit failed CI on the Linux runner: a downloaded build
+artifact from the failing run showed the excluded word's utility still
+present, meaning the directive had no effect there. `main` and this branch
+were confirmed at the same commit at the time (not a stale-`main` false
+alarm, the recurring cause of earlier snapshot-drift failures), and the CSS
+otherwise builds identically on both platforms, so the discrepancy is
+specific to `@source not` itself - not to `npm ci`, the Node version, or
+anything else in the pipeline.
+
+The cause was not identified: no local Linux environment was available to
+compare directly, and repeated `gh workflow run` / artifact-download round
+trips were the only diagnostic tool, which is slow and only shows the
+outcome, not why. Reverted rather than ship a fix confirmed to only work on
+one contributor's platform.
+
+**Proposed update:** With Linux/WSL access, reproduce directly: build with and
+without the `@source not` line and diff the output. Worth checking the
+installed `@tailwindcss/oxide-linux-*` vs `@tailwindcss/oxide-win32-*`
+package versions in `package-lock.json` for a mismatch, and whether
+`source(none)` plus an explicit `@source` allow-list (rather than
+`@source not` pruning automatic detection) behaves the same way on both
+platforms - that path was not tried here. If it turns out to be a genuine
+Tailwind v4 defect, file it upstream.
+
+**Acceptance:** Either `@source not` (or an equivalent explicit-source
+approach) excludes non-component paths with a verified identical build on
+both Windows and Linux, or the investigation concludes with a documented
+reason it isn't reliable enough to use, so the next person does not repeat
+this same multi-round-trip experiment from scratch.
+
 ### UPD-017 - Decide how UI symbols are drawn
 
 **Priority:** Medium — **done.**
