@@ -12,6 +12,13 @@ export type NewsletterIssue = {
 
 export const newsletterIssues: NewsletterIssue[] = [
   {
+    slug: "2026-08",
+    edition: "August 2026 · Edition 02",
+    date: "August 2026",
+    blurb:
+      "WeatherNext Cyclones open-sourced, HungerMap Live in Somalia, an AI-targeted cash program's exclusions, EU AI Act transparency in force, and the Opportunity Board.",
+  },
+  {
     slug: "2026-07",
     edition: "July 2026 · Edition 01",
     date: "July 2026",

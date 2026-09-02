@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ethical Tech CoLab · Monthly Intelligence Brief · August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --background:#120c1a; --surface:#1b1226; --card:#201630; --secondary:#3b1878;
+    --foreground:#f3eefb; --muted:rgba(233,228,244,0.62);
+    --border:rgba(139,92,246,0.26); --border-strong:rgba(200,240,75,0.4);
+    --accent:#c8f04b; --accent-ink:#141414; --glow:#7b5cff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--background);color:var(--foreground);font-family:'Space Mono',Menlo,monospace;font-size:15px;line-height:1.65;padding:0 16px 64px;}
+  .wrap{max-width:680px;margin:0 auto;}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--border-strong);}
+  a:hover{border-bottom-color:var(--accent);}
+  h1,h2,h3{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;letter-spacing:0.03em;}
+  .masthead{padding:56px 0 32px;text-align:left;border-bottom:1px solid var(--border);position:relative;}
+  .masthead .kicker{color:var(--accent);font-size:12px;text-transform:uppercase;letter-spacing:0.28em;margin-bottom:14px;}
+  .masthead h1{font-size:56px;line-height:0.95;margin-bottom:6px;}
+  .masthead h2{font-size:26px;color:var(--glow);margin-bottom:16px;}
+  .edition{display:inline-block;background:var(--accent);color:var(--accent-ink);font-size:12px;font-weight:700;padding:3px 12px;text-transform:uppercase;letter-spacing:0.12em;}
+  .tagline{color:var(--muted);margin-top:18px;font-size:14px;font-style:italic;}
+  .section{margin-top:52px;}
+  .section-label{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+  .section-label .bar{width:26px;height:4px;background:var(--accent);}
+  .section-label h2{font-size:34px;}
+  .section-sub{color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:0.18em;margin-bottom:22px;}
+  .story{background:var(--card);border:1px solid var(--border);padding:26px 26px 22px;margin-bottom:20px;border-radius:4px;}
+  .story h3{font-size:24px;margin-bottom:2px;}
+  .story .dek{color:var(--glow);font-size:13px;font-weight:700;margin-bottom:12px;}
+  .story p{margin-bottom:12px;}
+  .why{border-left:3px solid var(--accent);padding-left:14px;margin:14px 0;color:var(--muted);}
+  .why strong{color:var(--foreground);}
+  ul{list-style:none;margin:8px 0 12px;}
+  ul li{padding-left:20px;position:relative;margin-bottom:6px;}
+  ul li::before{content:"◆";color:var(--accent);position:absolute;left:0;font-size:9px;top:6px;}
+  .checks li::before{content:"✔";color:var(--accent);font-size:12px;top:2px;}
+  .src{font-size:12.5px;color:var(--muted);margin-top:8px;}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:14px 0;}
+  th{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:0.05em;text-align:left;color:var(--accent);border-bottom:1px solid var(--border-strong);padding:8px 10px 8px 0;}
+  td{border-bottom:1px solid var(--border);padding:10px 10px 10px 0;vertical-align:top;}
+  .pill{display:inline-block;background:var(--secondary);color:var(--foreground);font-size:11px;padding:2px 10px;border-radius:99px;margin:2px 4px 2px 0;}
+  .deadline{color:var(--accent);font-weight:700;}
+  .note{background:var(--surface);border:1px dashed var(--border);padding:16px 18px;font-size:13px;color:var(--muted);margin:16px 0;border-radius:4px;}
+  .placeholder{color:var(--glow);font-weight:700;}
+  .rating{font-size:20px;letter-spacing:4px;}
+  .footer{margin-top:56px;padding-top:24px;border-top:1px solid var(--border);color:var(--muted);font-size:12px;}
+  .join a{margin-right:6px;}
+  .qom{background:linear-gradient(135deg,var(--secondary),var(--card));border:1px solid var(--border-strong);padding:24px;border-radius:4px;}
+  .qom h3{font-size:22px;color:var(--accent);margin-bottom:8px;}
+  @media(max-width:520px){.masthead h1{font-size:42px;}.section-label h2{font-size:28px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="kicker">NYU · Center for Global Affairs</div>
+    <h1>Ethical Tech CoLab</h1>
+    <h2>Monthly Intelligence Brief</h2>
+    <span class="edition">August 2026 · Edition 02</span>
+    <p class="tagline">Exploring how technology is creating measurable impact for people, communities, and the planet.</p>
+  </header>
+
+  <section class="section">
+    <div class="section-label"><span class="bar"></span><h2>👋 Editor's Note</h2></div>
+    <p>Welcome back. Edition 01 argued that the most meaningful advances in AI are found in quiet, measurable work. This month tests that claim from both sides.</p>
+    <p style="margin-top:10px;">August gave us a hurricane model that buys forecasters an extra day, a hunger map that reached 48,000 people before malnutrition spiked, and an investigation showing an AI-targeted cash program that left most of its applicants behind. Our mission is unchanged: highlight technology that creates positive societal impact, and be honest about where it does not. Each month we curate AI for good initiatives, humanitarian innovation, startups, research in plain English, opportunities for early-career readers, events, and tools.</p>
+    <p style="margin-top:10px;">Let's dive in.</p>
+  </section>
+
+  <section class="section">
+    <div class="section-label"><span class="bar"></span><h2>🌍 Ethical Tech CoLab Updates</h2></div>
+    <h3 style="font-size:24px;margin-bottom:10px;">📢 This month</h3>
+    <ul>
+      <li><strong>Three new publications.</strong> <em>Agentic Language Development</em> pre-registers nineteen experiments on whether two isolated agents can build a shared, grounded language, with cryptographically anchored ledgers so the evidence can be audited. <em>The Agentic Behavior Observatory</em> reads 22 agent-simulation repositories across six dimensions and finds that visible attributes such as age and disability are modeled far more often than income or literacy, and that eight repositories depend on language models they never name. <em>The Cyber Dictionary and Library</em> defines 542 technology and cybersecurity terms across 13 domains and catalogs 105 open data sources, as a searchable site, a printable dictionary, and a PDF built from the same files.</li>
+      <li><strong>After the Corridor is on the site.</strong> Our synthesis report follows the evacuation question past the corridor into protracted displacement, using Dzaleka Refugee Camp in Malawi as the case study, and states plainly which of our five evacuation prototypes are validated, which are built but unvalidated, and which are proposed. <a href="https://ethical-tech-colab.github.io/after-the-corridor-report/">Read the report →</a></li>
+      <li><strong>The publications library now holds 28 write-ups</strong> across evacuation, cultural heritage, traceability, diplomacy, disaster response, and guidelines, including our GitHub and synthetic-data primers for new researchers. <a href="https://ethical-tech-colab.github.io/website/publications">Browse publications →</a> · <a href="https://ethical-tech-colab.github.io/website/demos">Explore the live demos →</a></li>
+    </ul>
+    <div class="story">
+      <h3>🛰 Reading this month's paper against the EII</h3>
+      <div class="dek">Evacuation Information Index · equity scoring</div>
+      <p>Our <strong>Evacuation Information Index</strong> scores crisis information on quality, accessibility, and equity. This month's Paper Worth Reading (below) measures exactly the failure the equity family is meant to catch: the same evacuation alert, delivered by text and by voice, produces different answers from the same model, and the answers are least faithful for hard-of-hearing users.</p>
+      <p>It is a reminder that an index of information access has to score the channel, not only the content. We will say more once we have run its prompts against our own alert corpus.</p>
+    </div>
+    <div class="note"><strong>Coming soon:</strong> AI Reading Group · Lightning Talks · Startup Founder Series · Research Showcase · Mentor Office Hours</div>
+  </section>
+
+  <section class="section">
+    <div class="section-label"><span class="bar"></span><h2>🚀 AI for Good</h2></div>
+    <div class="section-sub">The stories everyone should know</div>
+
+    <div class="story">
+      <h3>🌀 Google DeepMind open-sources WeatherNext Cyclones</h3>
+      <div class="dek">A day of extra warning, and the code to run it yourself</div>
+      <p>On August 6, Google DeepMind published "Operational tropical cyclone forecasting with AI" in <em>Nature</em> and released the code and weights for three models: WeatherNext Cyclones, WeatherNext 2, and WeatherNext 2-mini. The paper, with co-authors at NOAA's National Hurricane Center, Colorado State University, and the UK Met Office, reports that the cyclone model's track, intensity, and wind-radii forecasts offer on average a day or more of lead time over leading operational models, an improvement the authors compare to the previous decade of operational progress. The National Hurricane Center ran the model during the 2025 Atlantic season, including Hurricane Melissa.</p>
+      <div class="why"><strong>Why it matters:</strong> evacuation orders are only as good as the forecast behind them. A day of extra lead time is the difference between an orderly departure and a corridor that fills after the roads flood. The mini model runs at one-degree resolution in a free Colab notebook, which puts a usable ensemble forecast within reach of emergency managers without a supercomputer. The lead-time claim is the developers' own, measured against 2025 operational baselines, and has not yet been independently reproduced.</div>
+      <p><strong>Why Ethical Tech CoLab loves it</strong></p>
+      <ul class="checks">
+        <li>Open source: <a href="https://github.com/google-deepmind/weathernext">github.com/google-deepmind/weathernext</a> (Apache 2.0 for code; check the LICENSE file for weights)</li>
+        <li>Humanitarian impact</li>
+        <li>Used operationally, not only benchmarked</li>
+        <li>Runs in resource-constrained settings</li>
+      </ul>
+      <p class="src">📄 Paper in <a href="https://www.nature.com/">Nature</a> · 🔗 <a href="https://deepmind.google/">DeepMind announcement</a></p>
+    </div>
+
+    <div class="story">
+      <h3>🌾 WFP's HungerMap Live 2.0 reached 48,000 people in Somalia before the spike</h3>
+      <div class="dek">Anticipatory action, measured by who it reached</div>
+      <p>UN News reported on August 3 that the World Food Programme's HungerMap Live 2.0, released in April, flagged deteriorating conditions in Burhakaba district, about 180 kilometres northwest of Mogadishu, before child malnutrition rose. WFP delivered food assistance to 48,000 people and nutrition support to 3,000 women and children. "Instead of waiting for that malnutrition of children to deteriorate and lead to displacement or even death, we knew it prior," said Simon Renk, WFP's head of vulnerability analysis and mapping.</p>
+      <p>The context is bleak: six million Somalis face hunger, WFP can reach roughly one in ten, and it needs a further US$192 million through January 2027.</p>
+      <p class="src">🔗 <a href="https://news.un.org/">UN News</a> · Channel Africa</p>
+    </div>
+
+    <div class="story">
+      <h3>⚠️ The New Humanitarian: an AI-targeted cash program that left flood victims behind</h3>
+      <div class="dek">Anticipatory action, measured by who it missed</div>
+      <p>On August 31, The New Humanitarian published an investigation into GiveDirectly's 2024 anticipatory-cash program in Ibaji, Kogi State, Nigeria, funded through a US$4.6 million Google.org grant shared with the International Rescue Committee and triggered by Google Flood Hub forecasts. Nearly 39,000 people pre-enrolled by phone. About 4,600 received transfers of US$105 before the flood and US$210 afterward. Nearly 1,000 applicants failed biometric ID checks and thousands more were disqualified at in-person verification or could not be reached.</p>
+      <p>GiveDirectly corrected its earlier claim of "4,600 households" to "4,600 individuals," and its vice president Stella Luk acknowledged that a phone-based design "inherently excluded" people with limited access. GiveDirectly's own program page reports that recipients' weekly income more than doubled and that all 53 targeted communities did flood in October 2024.</p>
+      <div class="why">We include this alongside the WFP story on purpose. Both are anticipatory programs targeted by models; one is being measured by who it reached, the other by who it missed. Both measurements are necessary. This is a single-outlet investigation; read the original and GiveDirectly's response together.</div>
+      <p class="src">🔗 <a href="https://www.thenewhumanitarian.org/">The New Humanitarian</a> · <a href="https://www.givedirectly.org/">GiveDirectly</a></p>
+    </div>
+
+    <div class="story">
+      <h3>🧬 AI for science, in brief</h3>
+      <p>Three access and funding moves in August. On <strong>August 13</strong>, the OpenAI Foundation committed an initial US$100 million to the Common Health Coalition's Breakthroughs to Follow-Through initiative, aimed at doubling hepatitis C cure rates starting in Alabama, Illinois, Louisiana, and Massachusetts; the grants are not tied to any particular AI platform. On <strong>August 20 and 31</strong>, Microsoft Research released Skala 1.1, a deep-learning density functional integrated into CP2K, Psi4, and FHI-aims, and the Apache-licensed GigaPath-Flash pathology models, which reach about 97 percent of GigaPath's predictive performance at roughly one-fiftieth of the compute. On <strong>August 27</strong>, Anthropic opened 10,000 Claude seats for scientists at academic and nonprofit institutions and extended its AI for Science credits beyond biology, with up to US$50,000 per project.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label"><span class="bar"></span><h2>🧭 Policy Radar</h2></div>
+    <div class="section-sub">Three governance stories we are tracking</div>
+
+    <div class="story">
+      <h3>The EU AI Act's transparency rules are now in force</h3>
+      <p>As of August 2, providers must disclose when people are interacting with an AI system, mark synthetic audio, image, video, and text in machine-readable form, and deployers must label deepfakes and notify people exposed to emotion recognition or biometric categorization. The one grace period: generative systems already on the market before August 2 have until December 2, 2026 to comply with the marking duty. Fines run up to EUR 15 million or 3 percent of worldwide turnover.</p>
+      <p>On July 31 the Commission reported about 190 signatories to its voluntary Code of Practice on AI-generated content, including Anthropic, Google, Meta, Microsoft, and OpenAI. Separately, the AI Omnibus regulation that entered into force July 27 moved stand-alone high-risk obligations to December 2027 and product-embedded ones to August 2028, and added a ban on AI systems for non-consensual intimate imagery effective December 2, 2026.</p>
+    </div>
+
+    <div class="story">
+      <h3>Colorado publishes draft rules for its replacement AI law</h3>
+      <div class="dek">Comments open until October 26</div>
+      <p>Colorado's original AI Act was replaced in May by SB 26-189, the Automated Decision-Making Technology Act, effective January 1, 2027. On August 11 the Attorney General filed proposed rules covering pre-use notice, plain-language explanations of adverse decisions within 30 days, three-year record retention, and meaningful human review, plus companion rules for the Chatbot Safety Act on age verification and protections for minors. A public hearing is set for October 26.</p>
+      <div class="why">If you work on automated decisions that touch people's housing, jobs, or benefits, this is the US rulebook to read.</div>
+    </div>
+
+    <div class="story">
+      <h3>California sends sixteen AI bills to the Governor</h3>
+      <p>The legislature adjourned August 31 with bills on the Governor's desk covering automated decision systems in employment (SB 947), a ban on workplace AI that collects neural data or infers emotional state (AB 1883), independent child-safety audits for chatbots (SB 1119), a registry and verification bodies for AI auditors (SB 813 and AB 1405), and bias-risk disclosure for clinical decision support (SB 503). The Governor has 30 days to sign or veto. The Transparency Coalition counts 85 new AI laws across 27 states as of July.</p>
+      <p class="src">Bill summaries here come from law-firm and advocacy digests; check the text at <a href="https://leginfo.legislature.ca.gov/">leginfo.legislature.ca.gov</a> before quoting.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label"><span class="bar"></span><h2>🔬 Research Spotlight</h2></div>
+    <div class="section-sub">Anticipatory aid meets its audit</div>
+    <p>The trend this month is not a new model. It is that AI-targeted anticipatory action is now producing measured wins and documented exclusion in the same month, and the field is starting to count both. Targeting accuracy is not the same as inclusion. An evaluation that counts only the people reached is half an evaluation.</p>
+    <ul>
+      <li>WFP's HungerMap Live 2.0 flagged Burhakaba early; 48,000 people reached (UN News)</li>
+      <li>GiveDirectly's Flood Hub-triggered cash in Kogi State excluded thousands through phone and biometric verification (The New Humanitarian)</li>
+      <li>A UNDRR, WMO, ITU, and IFRC report argues AI early warning depends on institutional strength and human decision authority, not model skill alone (UNDRR)</li>
+      <li>The Humanitarian Leadership Academy finds 75 percent of humanitarian workers use AI weekly while only 13 percent of local organisations have an AI policy (HLA)</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <div class="section-label"><span class="bar"></span><h2>🚀 Startup Spotlight</h2></div>
+
+    <div class="story">
+      <h3>⭐ Altana</h3>
+      <p><strong>What they do:</strong> Altana builds a shared system of record for products and their value chains, using AI over public and private trade data to trace how goods move through the global economy. US Customs and Border Protection uses its Atlas platform to prioritize enforcement under the Uyghur Forced Labor Prevention Act, and the company joined the Global Alliance for Trade Facilitation as a business partner in February.</p>
+      <p><strong>Why we're watching</strong></p>
+      <p><span class="pill">Supply chain traceability</span><span class="pill">Forced labor enforcement</span><span class="pill">Knowledge graphs</span><span class="pill">Government deployment</span></p>
+      <p class="src"><strong>Hiring note:</strong> seventeen openings, all senior or specialist (principal product, staff engineering, federal sales, government affairs in Brussels). No analyst roles open.</p>
+    </div>
+
+    <div class="story">
+      <h3>⭐ Floodbase</h3>
+      <p><strong>What they do:</strong> Floodbase maps flood extent continuously from satellite imagery and hydrological models, and sells the output as parametric insurance triggers. It mapped more than 500,000 square miles across nine states for FEMA during the 2024 hurricane season, powers a parametric program covering 25,000 churches in Italy, and launched instant flood quoting with Liberty Mutual for the US commercial market in February.</p>
+      <p><strong>Why we're watching</strong></p>
+      <p><span class="pill">Crisis mapping</span><span class="pill">Near-real-time flood data</span><span class="pill">Humanitarian use inside a commercial model</span></p>
+      <p class="src"><strong>Hiring note:</strong> one opening, VP of Product, New York or Boston. No analyst roles.</p>
+    </div>
+
+    <div class="story">
+      <h3>⭐ Prime Intellect</h3>
+      <p><strong>What they do:</strong> Prime Intellect runs a cloud platform for fine-tuning and deploying open-source models across distributed GPU clusters and describes its goal as an open superintelligence stack. It raised US$130 million at a US$1 billion valuation on July 8, led by Nvidia's NVentures, Intel Capital, and Dell Technologies Capital.</p>
+      <p><strong>Why we're watching</strong></p>
+      <p><span class="pill">Open-source AI infrastructure</span><span class="pill">Decentralized training</span><span class="pill">Open by default</span></p>
+      <p class="src"><strong>Hiring note:</strong> around 25 roles, almost all research engineering. One non-engineering research role, Applied Research (Evals and Data) in New York, plus an internship and an open application for unconventional talent. The board requires JavaScript, so confirm in a browser. <a href="https://jobs.ashbyhq.com/PrimeIntellect">jobs.ashbyhq.com/PrimeIntellect</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label"><span class="bar"></span><h2>💼 Opportunity Board</h2></div>
+    <div class="section-sub">Fellowships and programs open now</div>
+    <ul>
+      <li><strong><a href="https://www.schwarzmanscholars.org/">Schwarzman Scholars</a>, 2027 to 2028.</strong> One fully funded year for a master's in Global Affairs at Tsinghua University, Beijing; ages 18 to 28 as of August 1, 2027. <span class="deadline">Deadline: September 9, 2026, 3pm EDT. Closing this week.</span></li>
+      <li><strong>Cambridge ERA:AI Fellowship, Winter 2027.</strong> Ten weeks, fully funded, in person in Cambridge, UK, from January 18, 2027, on AI safety and governance research. Open to anyone over 18; £10,000 stipend plus travel and meals; visa support. <span class="deadline">Deadline: September 13, 2026, 11:59pm Anywhere on Earth.</span></li>
+      <li><strong>UNDP and ITU Academy, Responsible Digital Transformation: Impact Assessments for AI and Data Governance.</strong> Free four-week online course for public-sector professionals on drafting human-rights and data-governance impact assessments. <span class="deadline">Applications close September 19, 2026.</span> Listed via one aggregator; confirm on the <a href="https://academy.itu.int/">ITU Academy</a> page.</li>
+      <li><strong><a href="https://www.techpolicy.press/">Tech Policy Press</a> Fellowship 2027.</strong> Year-long, part-time, US$10,000 paid quarterly, for monthly analysis or reporting on technology and democracy; international applicants welcome, no US work authorization required. Info sessions September 9 and 16. <span class="deadline">Deadline: September 24, 2026, 11:59pm EDT.</span></li>
+      <li><strong>UNDP Digital, AI and Innovation Internship, Global Call 2026.</strong> Remote, roughly three months, monthly stipend, for current graduate students and recent graduates. <span class="deadline">Deadline: September 30, 2026.</span> F-1 students should confirm CPT or OPT treatment with their DSO.</li>
+      <li><strong>Anthropic Fellows Program, Economics and Policy (The Anthropic Institute).</strong> Four months of full-time mentored research on AI's economic and policy impacts, Berkeley or London; US$3,850 per week plus research budget. Requires existing US, UK, or Canada work authorization; no sponsorship. Rolling, next cohort expected January 2027.</li>
+      <li><strong><a href="https://us.fulbrightonline.org/">Fulbright U.S. Student Program</a>, 2027 to 2028.</strong> US citizens only. <span class="deadline">Deadline: October 6, 2026, 5pm Eastern</span> (campus deadlines are earlier).</li>
+      <li><strong><a href="https://knight-hennessy.stanford.edu/">Knight-Hennessy Scholars</a>, 2027.</strong> Full funding for any Stanford graduate degree; all nationalities. <span class="deadline">Deadline: October 6, 2026, 1pm Pacific.</span></li>
+      <li><strong><a href="https://www.rhodesscholar.org/">Rhodes Scholarship</a>, United States, 2027.</strong> <span class="deadline">Deadline: October 7, 2026, 23:59 Eastern.</span></li>
+      <li><strong><a href="https://www.rand.org/">RAND</a> Center on AI, Security, and Technology Fellows.</strong> Funded research fellowship from undergraduate to mid-career level in AI security, technology policy, or biosecurity; US$40,000 to US$200,000 depending on experience. US track requires citizenship and clearance eligibility; a UK track exists. <span class="deadline">Next quarterly cutoff: November 1, 2026.</span></li>
+    </ul>
+
+    <h3 style="font-size:24px;margin:24px 0 10px;">Watch for the next cycle</h3>
+    <ul>
+      <li><strong>Mozilla Fellows 2027:</strong> the 2026 nominations ran November 9 to January 30; expect a similar November window.</li>
+      <li><strong>Horizon Fellowship 2028:</strong> the 2027 cycle closed August 30 and was not extended; expect a July 2027 opening. Join the career interest form.</li>
+      <li><strong>Berkman Klein Center 2027 to 2028:</strong> last call closed December 5, 2025; expect a fall 2026 call, up to US$75,000 for twelve months.</li>
+      <li><strong>GovAI Summer Fellowships 2027:</strong> summer calls have opened around November to December; the UK track sponsors three-month visas.</li>
+      <li><strong>CAIS AI and Society Fellowship, Summer 2027:</strong> 2026 closed March 24; expect a February to March 2027 window; US$25,000 for scholars in economics, international relations, and law.</li>
+      <li><strong>OpenAI Safety Fellowship:</strong> the 2026 cycle closed May 3 and runs September 14 to February 5; expect spring 2027.</li>
+      <li><strong>Mozilla Responsible Computing Challenge (US):</strong> letters of intent November 3, 2026 to January 6, 2027; up to US$125,000 per institution for faculty teams. Relevant to CGA faculty rather than individuals.</li>
+      <li><strong>TechCongress:</strong> the next cycle opens summer 2027 for a January 2028 cohort; US citizens and DACA recipients only.</li>
+    </ul>
+
+    <h3 style="font-size:24px;margin:24px 0 10px;">Organizations hiring right now</h3>
+    <table>
+      <tr><th>Organization</th><th>Role</th><th>Notes</th></tr>
+      <tr><td>International Rescue Committee, Airbel Impact Lab</td><td>Research Associate, Education</td><td>Remote from the US, Kenya, or Colombia; MA plus up to three years' experience; Stata, R, or Python; US$80,000 to US$95,000; posted August 21</td></tr>
+      <tr><td>Recorded Future</td><td>Fraud Analyst</td><td>New York, DC, or Boston; one to two years including internships; US$78,500 to US$117,500; requires professional Chinese</td></tr>
+      <tr><td>Centre for the Governance of AI</td><td>DC Research Manager</td><td>Washington, DC; associate level considered for promising candidates; deadline September 13</td></tr>
+      <tr><td>Centre for the Governance of AI</td><td>Research Manager, UK Fellowships</td><td>London; deadline September 27</td></tr>
+      <tr><td>Brookings, Global Economy and Development</td><td>Research Analyst, Workforce of the Future</td><td>DC hybrid; two years' empirical research; US$60,000 to US$66,000; page live but posted in February, so confirm before applying</td></tr>
+      <tr><td>Center for Democracy &amp; Technology</td><td>Academic Year Externship, Fall 2026 and Spring 2027</td><td>DC, partially remote, unpaid for credit; enrolled students; deadline March 15, 2027</td></tr>
+    </table>
+
+    <div class="note"><strong>A note on this month's market:</strong> Partnership on AI, AI Now, Data &amp; Society, the Center for AI Safety, Ada Lovelace Institute, Sayari, Kharon, Tavily, and Microsoft's AI for Good Lab have no early-career research or analyst roles open. Coinbase's Global Intelligence Analyst posting from July is gone. The Anthropic Institute "Analyst" and OpenAI "External Affairs Associate" titles look junior and are not: both require seven or more years or an established network. Fellowship cycles above remain the better door this quarter.</div>
+
+    <h3 style="font-size:24px;margin:24px 0 10px;">Early career skills to build</h3>
+    <p><span class="pill">✅ Python</span><span class="pill">✅ GitHub</span><span class="pill">✅ Prompt engineering</span><span class="pill">✅ AI evaluation</span><span class="pill">✅ RAG</span><span class="pill">✅ Data visualization</span><span class="pill">✅ Policy writing</span><span class="pill">✅ Impact assessment methods (new this month)</span></p>
+  </section>
+
+  <section class="section">
+    <div class="section-label"><span class="bar"></span><h2>🛠 Tool of the Month</h2></div>
+    <div class="story">
+      <h3>WeatherNext 2-mini in Colab</h3>
+      <p>The same August 6 release that leads this issue ships something researchers can use today: WeatherNext 2-mini, a one-degree-resolution version of the model that runs in a free Google Colab notebook, with weights available through a public Cloud bucket, Earth Engine, BigQuery, and Vertex AI, and live outputs viewable in Weather Lab. The repository also carries the legacy GraphCast and GenCast models.</p>
+      <p><strong>Great for</strong></p>
+      <ul>
+        <li>building a 15 day ensemble forecast for a crisis region without a cluster</li>
+        <li>testing how forecast uncertainty changes evacuation timing in a simulator</li>
+        <li>teaching students what an AI weather model actually outputs</li>
+        <li>pairing forecasts with displacement or hunger data in an index</li>
+      </ul>
+      <p><strong>Our rating:</strong> <span class="rating">⭐⭐⭐⭐</span></p>
+      <p class="src">One star withheld until we have run it end to end on our own hardware. <a href="https://github.com/google-deepmind/weathernext">Repository</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label"><span class="bar"></span><h2>📖 Paper Worth Reading</h2></div>
+    <div class="story">
+      <h3>Evaluating Multimodal LLMs across Text and Audio Modalities for Accessible Disaster Assistance</h3>
+      <div class="dek">Gupta, Mansoor, and Purohit · George Mason University · arXiv</div>
+      <p>The Humanitarian Informatics Lab gave three open-weight audio-language models (AudioFlamingo 7B, SALMONN, and Qwen3-Omni) 40 prompts built from real FEMA emergency alerts, delivered once as text and once as audio, on behalf of four personas: pregnant women, mothers with toddlers, hard-of-hearing people, and elderly people with dementia. No model answered consistently across the two channels. Qwen3-Omni held its meaning best between text and audio (semantic similarity 0.896) against 0.625 for SALMONN and 0.495 for AudioFlamingo, and factual overlap was lowest for the hard-of-hearing persona across all three models. The authors call this "modality-dependent inequity."</p>
+      <p>It is eight pages, the figures are the authors' own, and the prompts and logs are promised with the camera-ready version rather than released now. Read it for the method: it is a template for auditing any assistant that will be asked for evacuation advice by voice.</p>
+      <p class="src">📄 <a href="https://arxiv.org/">arXiv</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label"><span class="bar"></span><h2>🎙 Podcast Picks</h2></div>
+    <div class="story">
+      <p><strong style="color:var(--accent);">Your Undivided Attention: We Measure What AI Can Do. We Should Measure What It Does to Us.</strong> (August 27, 2026). Aza Raskin with Imran Khan and Jared Moore on the Center for Humane Technology's Humane Evals initiative, and why almost nothing in the field measures an AI system's effect on users' cognition and wellbeing.</p>
+      <p style="margin-top:12px;"><strong style="color:var(--accent);">The AI Policy Podcast (CSIS): Responding to AI Agent Containment Failures</strong> (August 27, 2026). Helen Toner of CSET, Mackenzie Arnold of the Institute for Law and AI, and CSIS's Matt Pearl on incident reporting, lab incentives, and what governments can do when an agent exceeds its sandbox.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label"><span class="bar"></span><h2>🎬 Documentary Recommendation</h2></div>
+    <div class="story">
+      <p><strong style="color:var(--accent);">Ghost in the Machine (2026)</strong>, directed by Valerie Veatch. Premiered at Sundance in January and picked up by Independent Lens; PBS broadcasts it on September 14, with streaming in the PBS app. The film traces how human biases and power structures embedded in AI reach into society and the environment, and critics have read it as a direct challenge to AI hype.</p>
+      <p>Also worth revisiting: <strong>Coded Bias</strong> (2020), Shalini Kantayya's account of Joy Buolamwini's discovery of racial and gender bias in facial recognition and the campaign for algorithmic accountability that followed. On Netflix.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label"><span class="bar"></span><h2>📚 Book of the Month</h2></div>
+    <div class="story">
+      <p><strong style="color:var(--accent);">The Rise and Fall of the Artificial State, by Jill Lepore</strong> (Liveright, August 25, 2026). Drawing on Arendt, the Harvard historian argues that data-driven systems and a small group of technocrats are displacing democratic institutions, producing government without consent, and that none of it was inevitable. Longlisted for the Financial Times Business Book of the Year. Lepore discusses it on the August 21 episode of <em>Hard Fork</em>.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label"><span class="bar"></span><h2>👩‍🏫 Mentor Spotlight</h2></div>
+    <div class="story">
+      <p style="color:var(--muted);font-style:italic;">This section rotates monthly. Each edition features one mentor: biography, expertise, current role, recommended resources, office hours, and LinkedIn.</p>
+      <p style="margin-top:12px;">Mentor tracks we are recruiting for: AI governance, humanitarian technology, blockchain for social impact, startup founders, and UN innovation specialists. Want to mentor? Reply to this email.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label"><span class="bar"></span><h2>📅 Upcoming Events</h2></div>
+    <ul>
+      <li>AI Tinkerers NYC, "Agents, Everywhere" hackathon, September 12, New York</li>
+      <li>UNESCO Global Forum on the Ethics of AI, September 14 to 17, Riyadh</li>
+      <li>UNGA 81 High-level Week, September 18 to 28, New York; note that none of the eight scheduled high-level meetings is on AI</li>
+      <li>Climate Week NYC, September 20 to 27, including "Powering AI: who wins when demand outpaces the grid" (September 21) and "The AI Forum: scaling sustainable infrastructure" (September 22)</li>
+      <li>UN Digital Cooperation Day, September 21, UN Headquarters, launching the Blueprint for National AI Strategies and a UN ODET and UNDRR partnership on AI for disaster risk reduction</li>
+      <li><a href="https://www.rightscon.org/">RightsCon</a> Continues, September 22, a 24 hour, online summit, pay what you can</li>
+      <li><a href="https://datasociety.net/">Data &amp; Society</a>, "Protecting Democracy's Data" with danah boyd, September 23, 1pm ET, online</li>
+      <li><a href="https://www.mozillafestival.org/">Mozilla Festival 2026</a>, October 28 to 30, Barcelona</li>
+      <li><a href="https://neurips.cc/">NeurIPS 2026</a>, December, held across Sydney, Atlanta, and Paris</li>
+      <li><a href="https://aiforgood.itu.int/">AI for Good webinars</a> (year round, free) · <a href="https://developer.microsoft.com/en-us/reactor/">Microsoft Reactor</a> (free, many virtual)</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <div class="section-label"><span class="bar"></span><h2>💬 Community Corner</h2></div>
+    <div class="qom">
+      <h3>Question of the Month</h3>
+      <p>When an AI-targeted aid program reaches some people and excludes others, how should its success be measured, and who should be accountable for the people it missed?</p>
+      <p style="color:var(--muted);font-size:13px;margin-top:8px;">We'll feature selected responses in next month's newsletter.</p>
+    </div>
+    <h3 style="font-size:24px;margin:24px 0 10px;">Join the community</h3>
+    <ul class="join">
+      <li>🌐 Website: <a href="https://ethical-tech-colab.github.io/website/">ethical-tech-colab.github.io/website</a></li>
+      <li>💼 LinkedIn: <a href="https://www.linkedin.com/company/ethical-tech-lab/">Ethical Tech CoLab</a></li>
+      <li>✉️ Email: <a href="mailto:ethical-tech-colab@nyu.edu">ethical-tech-colab@nyu.edu</a></li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <div class="section-label"><span class="bar"></span><h2>Closing Thoughts</h2></div>
+    <p>August's stories share a discipline rather than a theme. A cyclone model was judged against operational forecasters, not a benchmark. A hunger map was judged by the children it reached before they were malnourished. A cash program was judged, belatedly, by the people it turned away. Our own report this month keeps three registers apart: built and validated, built and unvalidated, and proposed. That is the standard we want to be held to, and the one we will keep applying to the work we feature.</p>
+  </section>
+
+  <footer class="footer">
+    <p>Views expressed here are those of the CoLab team and do not represent official positions of NYU or Microsoft.</p>
+    <p style="margin-top:8px;">Ethical Tech CoLab · NYU School of Professional Studies, Center for Global Affairs · New York</p>
+  </footer>
+
+</div>
+</body>
+</html>
