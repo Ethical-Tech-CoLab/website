@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Link } from "next-view-transitions";
-import { SectionTabs } from "@/components/SectionTabs";
 import { Reveal } from "@/components/motion/Reveal";
 import { newsletterIssues } from "@/content/newsletter";
 
@@ -43,8 +42,6 @@ export default function NewsletterPage() {
           </Reveal>
         </div>
       </section>
-
-      <SectionTabs />
 
       <div className="mx-auto max-w-6xl px-6 py-20">
         <div className="grid gap-6 sm:grid-cols-2">

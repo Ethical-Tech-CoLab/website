@@ -48,8 +48,7 @@ export function SiteHeader() {
         (href === "/portfolio" &&
           (pathname.startsWith("/demos") ||
             pathname.startsWith("/publications") ||
-            pathname.startsWith("/media") ||
-            pathname.startsWith("/newsletter")));
+            pathname.startsWith("/media")));
 
   return (
     <header className="glass sticky top-0 z-50 border-b border-border">

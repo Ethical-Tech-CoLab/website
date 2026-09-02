@@ -60,13 +60,13 @@ export const nav: NavItem[] = [
       { label: "Live Demos", href: "/demos" },
       { label: "Publications", href: "/publications" },
       { label: "Media", href: "/media" },
-      { label: "Newsletter", href: "/newsletter" },
     ],
   },
   // Cohorts tab removed — its content now lives on the Home page.
   // About tab temporarily hidden — page preserved at src/app/about/page.tsx.
   // { label: "About", href: "/about" },
   { label: "Team", href: "/team" },
+  { label: "Newsletter", href: "/newsletter" },
 ];
 
 /** A single project that lives under a research question. */

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Link } from "next-view-transitions";
-import { SectionTabs } from "@/components/SectionTabs";
 import { IssueFrame } from "@/components/IssueFrame";
 import { Reveal } from "@/components/motion/Reveal";
 import { asset } from "@/lib/asset";
@@ -51,8 +50,6 @@ export default async function IssuePage({
           </Reveal>
         </div>
       </section>
-
-      <SectionTabs />
 
       <div className="mx-auto max-w-6xl px-6 py-12">
         <Reveal>
