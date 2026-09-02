@@ -5,6 +5,7 @@ import {
   products,
   productTerms,
   productThemes,
+  productThemeQuestions,
   type Product,
 } from "@/content/site";
 import { asset } from "@/lib/asset";
@@ -231,6 +232,7 @@ function Shelf({
   return (
     <PosterRail
       title={theme}
+      eyebrow={productThemeQuestions[theme]}
       count={items.length}
       countNoun="title"
       ariaLabel={`${theme} demos`}

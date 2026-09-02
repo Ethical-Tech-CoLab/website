@@ -83,7 +83,7 @@ export default function AfterTheCorridorPage() {
                 Source and citation <span aria-hidden>↗</span>
               </a>
               <Link
-                href="/demos"
+                href="/portfolio"
                 className="btn-sweep inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-border-strong"
               >
                 See the prototypes running <span aria-hidden>→</span>

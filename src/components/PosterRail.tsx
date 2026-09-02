@@ -15,12 +15,16 @@ import { useCallback, useEffect, useRef, useState } from "react";
  */
 export function PosterRail({
   title,
+  eyebrow,
   count,
   countNoun,
   ariaLabel,
   children,
 }: {
   title: string;
+  /** Optional line above the title — on the Portfolio page, the research
+   *  question the rail's subject answers. */
+  eyebrow?: string;
   /** Shown at the right of the heading rule, e.g. "6 titles". */
   count: number;
   /** Singular noun; pluralised with an "s". */
@@ -69,9 +73,16 @@ export function PosterRail({
   return (
     <section>
       <div className="flex items-baseline justify-between gap-4 border-b border-border pb-3">
-        <h2 className="font-heading text-2xl uppercase tracking-wide sm:text-3xl">
-          {title}
-        </h2>
+        <div>
+          {eyebrow && (
+            <p className="max-w-2xl text-sm leading-snug text-accent">
+              {eyebrow}
+            </p>
+          )}
+          <h2 className="mt-1 font-heading text-2xl uppercase tracking-wide sm:text-3xl">
+            {title}
+          </h2>
+        </div>
         <span className="shrink-0 font-mono text-xs text-muted">
           {count} {count === 1 ? countNoun : `${countNoun}s`}
         </span>

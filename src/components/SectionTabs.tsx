@@ -4,15 +4,15 @@ import { Link } from "next-view-transitions";
 import { usePathname } from "next/navigation";
 
 const TABS = [
-  { label: "Overview", href: "/portfolio" },
-  { label: "Live Demos", href: "/demos" },
+  { label: "Live Demos", href: "/portfolio" },
   { label: "Publications", href: "/publications" },
   { label: "Media", href: "/media" },
 ];
 
 /**
- * Secondary navigation shared by the Portfolio, Live Demos, and Publications
- * pages, presenting the three as sub-tabs of the Portfolio section.
+ * Secondary navigation shared by the Portfolio, Publications, and Media pages.
+ * The Live Demos catalogue is the Portfolio page itself, so its tab points at
+ * /portfolio rather than a route of its own.
  */
 export function SectionTabs() {
   const pathname = usePathname();

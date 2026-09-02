@@ -53,11 +53,11 @@ export const nav: NavItem[] = [
   {
     label: "Portfolio",
     href: "/portfolio",
-    // Live Demos and Publications live under Portfolio: a dropdown in the top
-    // nav and the SectionTabs bar on the pages themselves.
+    // The Portfolio page is the Live Demos catalogue; Publications and Media
+    // sit under it as a dropdown in the top nav and the SectionTabs bar on the
+    // pages themselves.
     children: [
-      { label: "Overview", href: "/portfolio" },
-      { label: "Live Demos", href: "/demos" },
+      { label: "Live Demos", href: "/portfolio" },
       { label: "Publications", href: "/publications" },
       { label: "Media", href: "/media" },
     ],
@@ -953,6 +953,24 @@ export const productThemes = [
 
 /** Semesters shown in the Live Demos filter, newest first. */
 export const productTerms = ["Summer 2026", "Fall 2025", "Spring 2025"];
+
+/** The research question each subject rail answers, shown above the rail's
+ *  title on the Portfolio page. The first four restate the questions in
+ *  `researchAreas`; the last three cover subjects that have no research area
+ *  of their own. A theme with no entry here simply renders no question. */
+export const productThemeQuestions: Record<string, string> = {
+  Evacuation: "How can AI inform evacuation decisions?",
+  "Cultural heritage":
+    "How can technology support the ethical return of cultural artifacts?",
+  Traceability: "How can ethical claims in supply chains be made verifiable?",
+  "Early warning":
+    "How can a community be warned early enough to act on the warning?",
+  Diplomacy: "How can AI help practitioners rehearse high-stakes diplomacy?",
+  Research:
+    "How do new researchers learn to build this work, and share it openly?",
+  Storytelling:
+    "How can a story carry a technical risk to the people it affects?",
+};
 
 export const products: Product[] = [
   {

@@ -81,7 +81,7 @@ const statements: Statement[] = [
     figure: `${siteCounts.openableDemos} demos you can open`,
     line: "Not screenshots: the prototypes themselves, running in the browser with their source alongside.",
     cta: "Open the live demos",
-    href: "/demos",
+    href: "/portfolio",
   },
   {
     lead: "The research, ",

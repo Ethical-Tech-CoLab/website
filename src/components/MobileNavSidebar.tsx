@@ -71,7 +71,7 @@ export function MobileNavSidebar() {
               item.href === "/"
                 ? pathname === "/"
                 : pathname.startsWith(item.href) ||
-                  // Portfolio stays active on its sub-tabs (Live Demos, Publications).
+                  // Portfolio stays active on its sub-tabs, and on the old /demos URL.
                   (item.href === "/portfolio" &&
                     (pathname.startsWith("/demos") ||
                       pathname.startsWith("/publications")));

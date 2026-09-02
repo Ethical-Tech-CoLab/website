@@ -27,7 +27,7 @@ export function LiveDemoLink({ slug }: { slug: string }) {
 
   if (!single) {
     return (
-      <Link href="/demos" className={className}>
+      <Link href="/portfolio" className={className}>
         See it running <span aria-hidden>→</span>
       </Link>
     );

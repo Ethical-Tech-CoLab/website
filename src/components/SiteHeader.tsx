@@ -44,7 +44,7 @@ export function SiteHeader() {
     href === "/"
       ? pathname === "/"
       : pathname.startsWith(href) ||
-        // Portfolio stays active on its sub-tabs (Live Demos, Publications).
+        // Portfolio stays active on its sub-tabs, and on the old /demos URL.
         (href === "/portfolio" &&
           (pathname.startsWith("/demos") ||
             pathname.startsWith("/publications") ||
