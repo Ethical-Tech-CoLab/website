@@ -135,9 +135,17 @@ silently disappears when you add one.
 ### Update social / newsletter
 - Social handles: edit `site.social.instagram` / `site.social.twitter`. Set a value
   to `""` to hide that link entirely.
-- Newsletter: paste your Mailchimp form `action` URL into `newsletter.action` and the
-  hidden anti-bot field name into `newsletter.hiddenField`. Until both are set the
-  form renders in a disabled "coming soon" state.
+- Newsletter (Mailchimp, no server involved — the browser posts straight to
+  Mailchimp): in Mailchimp, go to **Audience → Signup forms → Embedded forms**,
+  generate the embed code, then copy two values out of it into
+  [`src/content/site.ts`](../src/content/site.ts):
+  1. The `<form action="...">` URL → paste into `newsletter.action`.
+  2. The hidden bot-protection input's `name` attribute (looks like
+     `b_XXXXXXXX_YYYYYYYY`) → paste into `newsletter.hiddenField`.
+  Until both are set the form renders in a disabled "coming soon" state; the
+  moment they're filled in it goes live with no other code changes. See
+  [`BACKLOG.md`](../BACKLOG.md) for why this direct-post pattern (rather than a
+  custom API or a Google Form) is the right fit for a server-less static site.
 
 ---
 

@@ -236,8 +236,36 @@ gap is invisible — do not renumber, it would reshuffle every cover.
       for every visitor. YouTube thumbnails are hotlinked from Google's CDN, so
       a local still is preferable if a thumbnail is wanted.
 
-- [ ] **Newsletter** — real Mailchimp (or other) embed/URL to replace the
-      placeholder in `newsletter`.
+- [ ] **Newsletter signup** — the code side is done; this is now purely an
+      account/config task. **Recommendation (decided 2026, evaluated against
+      "CRM + backend", "API → Google Form", and "browser → Google Form
+      directly"):** keep the site's existing Mailchimp direct-POST scaffold
+      (`NewsletterSignup.tsx`) rather than adding any server. On a static
+      export the lowest-uptime-dependency option is always a direct
+      browser→SaaS POST — this mirrors the `/contact` recommendation in
+      §10.6. Ranked against the alternatives:
+      - A custom backend (own API in front of a CRM) adds a service *you*
+        must host and patch for zero benefit over posting to the CRM
+        directly — avoid.
+      - "API → Google Form" has the same problem: the API hop adds an
+        uptime dependency the direct-POST pattern doesn't need.
+      - A Google Form accepts direct browser POSTs with no backend too, but
+        it only writes rows to a Sheet — no sending, no unsubscribe, no
+        compliance handling. Fine for lead capture, not a mailing list;
+        would need a second, unbuilt step to get emails into whatever
+        actually sends future editions.
+      - Mailchimp (or HubSpot's public Forms Submit API, if the CoLab
+        already runs HubSpot) both captures **and** sends **and** handles
+        unsubscribe/compliance, with Mailchimp's uptime — not something
+        this repo has to run.
+      **Next step (not a code task):** whoever owns the CoLab's Mailchimp
+      account creates an embedded signup form there, then pastes the
+      generated `action` URL and hidden anti-bot field name into
+      `newsletter.action` / `newsletter.hiddenField` in
+      [`src/content/site.ts`](../src/content/site.ts). See the step-by-step
+      in [`docs/CONTENT-GUIDE.md`](docs/CONTENT-GUIDE.md#update-social--newsletter).
+      The form is already wired to switch from "coming soon" to live the
+      moment those two strings are non-empty.
 - [ ] **Instagram** — handle appears to be `@NYUSPS_ETHICALTECH_LAB` (from the
       summit deck); confirm and wire into `site.social`.
 - [ ] **X / Twitter** — handle to confirm + wire (currently placeholder).
