@@ -51,13 +51,15 @@ for (const [name, value] of Object.entries({ DOMAINS, TERMS, SHELVES, SOURCES })
   }
 }
 
-// Entries are keyed for terseness in the browser script (t/a/d/def, n/o/u/s/w/h/c).
+// Entries are keyed for terseness in the browser script (t/a/d/def/s, n/o/u/s/w/h/c).
 // Spell them out here: this file is read by people laying out pages.
 const terms = TERMS.map((e) => ({
   term: e.t,
   alias: e.a ?? "",
   domain: e.d,
   definition: e.def,
+  // The other names a term answers to, comma separated. Most terms have none.
+  synonyms: e.s ?? "",
 }));
 const sources = SOURCES.map((e) => ({
   name: e.n,
@@ -81,6 +83,8 @@ export type DictionaryTerm = {
   alias: string;
   domain: string;
   definition: string;
+  /** Other names it goes by, comma separated. Empty for most terms. */
+  synonyms: string;
 };
 
 export type LibrarySource = {

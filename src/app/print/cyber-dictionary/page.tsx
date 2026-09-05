@@ -6,7 +6,7 @@ import {
   librarySources,
 } from "@/content/publications/cyber-dictionary-data";
 
-// The printed edition of the Cyber Dictionary and Library.
+// The printed edition of the Cyber Dictionary and Database Library.
 //
 // The live tool is a search box: you arrive knowing the word you want. Print
 // cannot do that, so this edition uses the two forms that solved the same
@@ -21,7 +21,7 @@ import {
 // every rule here is a rule about paper.
 
 export const metadata: Metadata = {
-  title: "The Cyber Dictionary and Library (print edition)",
+  title: "The Cyber Dictionary and Database Library (print edition)",
   // A printable duplicate of a page that is already indexed.
   robots: { index: false, follow: false },
 };
@@ -39,6 +39,8 @@ function fileLetter(term: string): string {
 const sortKey = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
 
 export default function CyberDictionaryPrintPage() {
+  /* Four figures on a title page want their separator. */
+  const termCount = dictionaryTerms.length.toLocaleString("en-GB");
   const sorted = [...dictionaryTerms].sort((a, b) =>
     sortKey(a.term).localeCompare(sortKey(b.term)),
   );
@@ -83,15 +85,15 @@ export default function CyberDictionaryPrintPage() {
           <br />
           Dictionary
           <br />
-          and Library
+          and Database Library
         </h1>
         <p className="print-subtitle">
-          {dictionaryTerms.length} terms in plain English, and{" "}
+          {termCount} terms in plain English, and{" "}
           {librarySources.length} places to get the data
         </p>
         <div className="print-byline">
           <p>Ethical Tech CoLab</p>
-          <p>August 2026</p>
+          <p>September 2026</p>
           <p className="print-authors">
             Compiled from the live dictionary at
             ethical-tech-colab.github.io/cyber-dictionary
@@ -100,9 +102,9 @@ export default function CyberDictionaryPrintPage() {
         <p className="print-thesis">
           A dictionary is a machine for the moment you looked something up. This
           edition keeps that moment intact on paper: the terms run A to Z with
-          the range printed at the head of every page, and the library is a
-          catalogue you walk shelf by shelf rather than a search box you have to
-          already know the answer for.
+          the range printed at the head of every page, and the database library
+          is a catalogue you walk shelf by shelf rather than a search box you
+          have to already know the answer for.
         </p>
       </section>
 
@@ -113,10 +115,10 @@ export default function CyberDictionaryPrintPage() {
         <div className="dict-frontmatter">
           <p>
             The book has two rooms. <strong>The Dictionary</strong> defines{" "}
-            {dictionaryTerms.length} technology and cybersecurity terms across{" "}
+            {termCount} technology and cybersecurity terms across{" "}
             {dictionaryDomains.length} domains, each in a sentence or two of the
             plain English you wanted at the moment you actually looked the term
-            up. <strong>The Library</strong> catalogues{" "}
+            up. <strong>The Database Library</strong> catalogues{" "}
             {librarySources.length} open data sources and open-source
             technologies across {shelves.length} shelves, each with what it
             gives you, how to reach it, and what it costs.
@@ -132,7 +134,7 @@ export default function CyberDictionaryPrintPage() {
             but which part of the field is talking.
           </p>
           <p>
-            The Library is arranged by shelf rather than alphabetically, because
+            The Database Library is arranged by shelf rather than alphabetically, because
             nobody arrives at a library knowing the name of the thing they need.
             Each catalogue card gives the operator, the address, what the source
             actually holds, how to connect a program to it, and the cost line —
@@ -143,7 +145,7 @@ export default function CyberDictionaryPrintPage() {
           <p className="dict-caveat">
             <strong>A note on currency.</strong> Definitions age slowly;
             endpoints, licences and free tiers age fast. The live edition is the
-            authority on the Library. Treat a cost line here as a description of
+            authority on the Database Library. Treat a cost line here as a description of
             what the source offered when this edition was compiled, not as a
             promise about today.
           </p>
@@ -156,7 +158,7 @@ export default function CyberDictionaryPrintPage() {
         <h2 className="print-h2">What is in here</h2>
         <div className="print-stats">
           <div className="print-stat">
-            <p className="print-stat-value">{dictionaryTerms.length}</p>
+            <p className="print-stat-value">{termCount}</p>
             <p className="print-stat-label">
               terms defined, across {dictionaryDomains.length} domains
             </p>
@@ -212,7 +214,7 @@ export default function CyberDictionaryPrintPage() {
         <p className="print-section-number">Part one</p>
         <h2 className="dict-part">The Dictionary</h2>
         <p className="dict-part-note">
-          {dictionaryTerms.length} terms, A to Z. The head of each page carries
+          {termCount} terms, A to Z. The head of each page carries
           the range of terms on it.
         </p>
       </section>
@@ -250,7 +252,7 @@ export default function CyberDictionaryPrintPage() {
       {/* Part two: the library */}
       <section className="print-page dict-divider">
         <p className="print-section-number">Part two</p>
-        <h2 className="dict-part">The Library</h2>
+        <h2 className="dict-part">The Database Library</h2>
         <p className="dict-part-note">
           {librarySources.length} open data sources and open-source tools,
           arranged by shelf.

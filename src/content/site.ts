@@ -700,11 +700,11 @@ export const publications = {
       topic: "Guidelines",
       question:
         "What does that term mean, and where do you get open data for the thing you are building?",
-      title: "The Cyber Dictionary and Library",
+      title: "The Cyber Dictionary and Database Library",
       summary:
-        "Two rooms in one book. The dictionary defines 542 technology and cybersecurity terms across 13 domains in a sentence or two of plain English, written for the moment you actually looked the term up. The library is 105 open data sources and open-source technologies across 11 shelves, from satellite imagery to conflict and rights data, each with what it gives you, how to reach its API, and what it costs. Search the live edition, or read the whole thing as a printed dictionary.",
+        "Two rooms in one book. The dictionary defines 1,020 technology, cybersecurity and investigation terms across 15 domains in a sentence or two of plain English, written for the moment you actually looked the term up — including the agencies that investigate cybercrime, the legal process they work under, and the classification and personal-data categories that decide who may see what. The database library is 105 open data sources and open-source technologies across 11 shelves, from satellite imagery to conflict and rights data, each with what it gives you, how to reach its API, and what it costs. Search the live edition, or read the whole thing as a printed dictionary.",
       status: "Published",
-      date: "August 2026",
+      date: "September 2026",
       // Internal route (starts with "/") — rendered on-site, see the card logic.
       url: "/publications/cyber-dictionary",
       repo: "https://github.com/Ethical-Tech-CoLab/cyber-dictionary",
@@ -1024,13 +1024,13 @@ export const products: Product[] = [
     publication: "/publications/agentic-behavior-observatory",
   },
   {
-    name: "Cyber Dictionary and Library",
+    name: "Cyber Dictionary and Database Library",
     repoName: "cyber-dictionary",
     term: "Summer 2026",
     repo: "https://github.com/Ethical-Tech-CoLab/cyber-dictionary",
     demo: "https://ethical-tech-colab.github.io/cyber-dictionary/",
     blurb:
-      "Two rooms in one site. A dictionary of 542 technology and cybersecurity terms across 13 domains, each defined in a sentence or two of plain English, and a library of 105 open data sources and open-source technologies across 11 shelves, each with what it gives you, how to reach its API, and what it costs. The whole collection is also typeset as a printed dictionary you can turn the pages of.",
+      "Two rooms in one site. A dictionary of 1,020 technology, cybersecurity and investigation terms across 15 domains, each defined in a sentence or two of plain English, and a database library of 105 open data sources and open-source technologies across 11 shelves, each with what it gives you, how to reach its API, and what it costs. The search forgives typos, spacing and acronyms, and the whole collection is typeset as printed volumes you can turn the pages of.",
     language: "JavaScript",
     theme: "Research",
     publication: "/publications/cyber-dictionary",

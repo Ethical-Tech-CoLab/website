@@ -15,12 +15,14 @@ const LIVE_TOOL = "https://ethical-tech-colab.github.io/cyber-dictionary/";
 const REPO = "https://github.com/Ethical-Tech-CoLab/cyber-dictionary";
 
 export const metadata: Metadata = {
-  title: "The Cyber Dictionary and Library",
+  title: "The Cyber Dictionary and Database Library",
   description:
-    "An Ethical Tech CoLab reference edition: technology and cybersecurity terms defined in plain English, and open data sources catalogued by shelf — as a searchable tool, a printed dictionary, and a PDF.",
+    "An Ethical Tech CoLab reference edition: 1,020 technology, cybersecurity and investigation terms defined in plain English, and open data sources catalogued by shelf — as a searchable tool, a printed dictionary, and a PDF.",
 };
 
 export default function CyberDictionaryPage() {
+  /* Four figures on a title page want their separator. */
+  const termCount = dictionaryTerms.length.toLocaleString("en-GB");
   const domainCounts = dictionaryDomains
     .map((domain) => ({
       domain,
@@ -42,7 +44,7 @@ export default function CyberDictionaryPage() {
   ).length;
 
   const stats = [
-    { value: String(dictionaryTerms.length), label: "terms defined in plain English" },
+    { value: termCount, label: "terms defined in plain English" },
     {
       value: String(dictionaryDomains.length),
       label: "domains, from networking to compute hardware",
@@ -68,12 +70,12 @@ export default function CyberDictionaryPage() {
           <Reveal delay={0.05}>
             <h1 className="mt-6 fluid-hero font-heading uppercase leading-[0.9]">
               The Cyber <span className="display-em">Dictionary</span> and
-              Library
+              Database Library
             </h1>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-5 max-w-2xl font-heading text-2xl uppercase tracking-wide text-muted sm:text-3xl">
-              {dictionaryTerms.length} terms in plain English, and{" "}
+              {termCount} terms in plain English, and{" "}
               {librarySources.length} places to get the data
             </p>
           </Reveal>
@@ -87,7 +89,7 @@ export default function CyberDictionaryPage() {
               <span aria-hidden className="text-muted">
                 ·
               </span>
-              <span>August 2026</span>
+              <span>September 2026</span>
             </div>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
               A searchable tool, a printed dictionary, and a PDF — all typeset
@@ -106,7 +108,7 @@ export default function CyberDictionaryPage() {
               </a>
               <ReportBookLink
                 slug="cyber-dictionary"
-                title="The Cyber Dictionary and Library"
+                title="The Cyber Dictionary and Database Library"
               />
               <ReportPdfLink slug="cyber-dictionary" />
               <a
@@ -166,7 +168,7 @@ export default function CyberDictionaryPage() {
                 ["02", "How the entries are written", "how-written"],
                 ["03", "Reading it as a book", "as-a-book"],
                 ["04", "The Dictionary: terms by domain", "domains"],
-                ["05", "The Library: sources by shelf", "shelves"],
+                ["05", "The Database Library: sources by shelf", "shelves"],
               ].map(([number, title, id]) => (
                 <li key={id}>
                   <a
@@ -192,7 +194,7 @@ export default function CyberDictionaryPage() {
           <div className="mt-6 space-y-5 leading-relaxed text-foreground/85">
             <p>
               <span className="font-semibold text-accent">The Dictionary</span>{" "}
-              defines {dictionaryTerms.length} technology and cybersecurity
+              defines {termCount} technology and cybersecurity
               terms across {dictionaryDomains.length} domains, each in a
               sentence or two. It is written for the moment you actually looked
               the term up — mid-sentence in a meeting, mid-paragraph in a
@@ -200,7 +202,7 @@ export default function CyberDictionaryPage() {
               beginning.
             </p>
             <p>
-              <span className="font-semibold text-accent">The Library</span>{" "}
+              <span className="font-semibold text-accent">The Database Library</span>{" "}
               catalogues {librarySources.length} open data sources and
               open-source technologies across {shelfCounts.length} shelves, from
               satellite imagery to conflict and rights data. Each card says what
@@ -210,8 +212,8 @@ export default function CyberDictionaryPage() {
             </p>
             <p>
               The two answer the two halves of the same question. The Dictionary
-              tells you what the thing is called; the Library tells you where to
-              get it.
+              tells you what the thing is called; the Database Library tells you
+              where to get it.
             </p>
           </div>
         </section>
@@ -247,7 +249,7 @@ export default function CyberDictionaryPage() {
                 A note on currency.
               </span>{" "}
               Definitions age slowly; endpoints, licences and free tiers age
-              fast. The live edition is the authority on the Library. Treat a
+              fast. The live edition is the authority on the Database Library. Treat a
               cost line in the printed edition as a description of what the
               source offered when it was compiled, not as a promise about today.
             </p>
@@ -274,7 +276,7 @@ export default function CyberDictionaryPage() {
           <div className="mt-8 flex flex-wrap gap-3">
             <ReportBookLink
               slug="cyber-dictionary"
-              title="The Cyber Dictionary and Library"
+              title="The Cyber Dictionary and Database Library"
             />
             <ReportPdfLink slug="cyber-dictionary" />
           </div>
@@ -304,7 +306,7 @@ export default function CyberDictionaryPage() {
           <Reveal>
             <p className="font-mono text-sm text-accent">05</p>
             <h2 className="mt-2 fluid-h2 font-heading uppercase">
-              The Library: sources by shelf
+              The Database Library: sources by shelf
             </h2>
           </Reveal>
           <ul className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
