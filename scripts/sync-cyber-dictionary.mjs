@@ -39,12 +39,12 @@ if (!repo) {
 // Both files are browser scripts that assign to window; give them one.
 const sandbox = { window: {} };
 vm.createContext(sandbox);
-for (const file of ["terms.js", "library.js"]) {
+for (const file of ["terms.js", "library.js", "cases.js"]) {
   vm.runInContext(readFileSync(join(repo, file), "utf8"), sandbox, { filename: file });
 }
-const { DOMAINS, TERMS, SHELVES, SOURCES } = sandbox.window;
+const { DOMAINS, TERMS, SHELVES, SOURCES, CASES } = sandbox.window;
 
-for (const [name, value] of Object.entries({ DOMAINS, TERMS, SHELVES, SOURCES })) {
+for (const [name, value] of Object.entries({ DOMAINS, TERMS, SHELVES, SOURCES, CASES })) {
   if (!Array.isArray(value) || value.length === 0) {
     console.error(`${name} is missing or empty in the source repo.`);
     process.exit(1);
@@ -104,10 +104,42 @@ export const dictionaryTerms: DictionaryTerm[] = ${JSON.stringify(terms, null, 2
 export const libraryShelves: string[] = ${JSON.stringify(SHELVES, null, 2)};
 
 export const librarySources: LibrarySource[] = ${JSON.stringify(sources, null, 2)};
+
+export type CaseStudy = {
+  id: string;
+  title: string;
+  year: string;
+  where: string;
+  actor: string;
+  sector: string;
+  kind: string;
+  cost: string;
+  /** Dictionary headwords this case turns on. Checked at build time upstream. */
+  terms: string[];
+  /** Each reference carries what the upstream link checker last found. */
+  sources: { title: string; url: string; state: string; checked: string }[];
+  sections: { heading: string; paragraphs: string[] }[];
+};
+
+export const caseStudies: CaseStudy[] = ${JSON.stringify(CASES, null, 2)};
+
+/** A fingerprint of the upstream data, so drift can be detected rather than
+ *  discovered. checkCyberDictionarySync() in check-content-invariants.mjs
+ *  compares this against the live files. */
+export const cyberDictionaryFingerprint = ${JSON.stringify({
+  terms: terms.length,
+  domains: DOMAINS.length,
+  sources: sources.length,
+  shelves: SHELVES.length,
+  cases: CASES.length,
+  syncedAt: new Date().toISOString().slice(0, 10),
+}, null, 2)};
 `;
 
 const dest = join(siteRoot, "src", "content", "publications", "cyber-dictionary-data.ts");
 writeFileSync(dest, out);
 console.log(
-  `✓ ${terms.length} terms across ${DOMAINS.length} domains, ${sources.length} sources across ${SHELVES.length} shelves → src/content/publications/cyber-dictionary-data.ts`,
+  `✓ ${terms.length} terms across ${DOMAINS.length} domains, ${sources.length} sources ` +
+    `across ${SHELVES.length} shelves, ${CASES.length} case studies ` +
+    `→ src/content/publications/cyber-dictionary-data.ts`,
 );

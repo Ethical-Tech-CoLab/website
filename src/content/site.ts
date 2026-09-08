@@ -702,7 +702,7 @@ export const publications = {
         "What does that term mean, and where do you get open data for the thing you are building?",
       title: "The Cyber Dictionary and Database Library",
       summary:
-        "Two rooms in one book. The dictionary defines 1,020 technology, cybersecurity and investigation terms across 15 domains in a sentence or two of plain English, written for the moment you actually looked the term up — including the agencies that investigate cybercrime, the legal process they work under, and the classification and personal-data categories that decide who may see what. The database library is 105 open data sources and open-source technologies across 11 shelves, from satellite imagery to conflict and rights data, each with what it gives you, how to reach its API, and what it costs. Search the live edition, or read the whole thing as a printed dictionary.",
+        "Two rooms and a casebook. The dictionary defines 1,219 technology, cybersecurity and investigation terms across 15 domains in a sentence or two of plain English, written for the moment you actually looked the term up — including the agencies that investigate cybercrime, the legal process they work under, and the classification and personal-data categories that decide who may see what. The database library is 119 open data sources and open-source technologies across 12 shelves, from satellite imagery and city portals to conflict and rights data, each with what it gives you, how to reach its API, and what it costs. Twenty-four case studies — Stuxnet to the 2026 AI sandbox escapes — carry four checked references each. Search the live edition, or read the whole thing as a printed dictionary.",
       status: "Published",
       date: "September 2026",
       // Internal route (starts with "/") — rendered on-site, see the card logic.
@@ -1030,7 +1030,7 @@ export const products: Product[] = [
     repo: "https://github.com/Ethical-Tech-CoLab/cyber-dictionary",
     demo: "https://ethical-tech-colab.github.io/cyber-dictionary/",
     blurb:
-      "Two rooms in one site. A dictionary of 1,020 technology, cybersecurity and investigation terms across 15 domains, each defined in a sentence or two of plain English, and a database library of 105 open data sources and open-source technologies across 11 shelves, each with what it gives you, how to reach its API, and what it costs. The search forgives typos, spacing and acronyms, and the whole collection is typeset as printed volumes you can turn the pages of.",
+      "Two rooms and a casebook. A dictionary of 1,219 technology, cybersecurity and investigation terms across 15 domains, each defined in a sentence or two of plain English, a database library of 119 open data sources and open-source technologies across 12 shelves, each with what it gives you, how to reach its API, and what it costs. The search forgives typos, spacing and acronyms, and the whole collection is typeset as printed volumes you can turn the pages of.",
     language: "JavaScript",
     theme: "Research",
     publication: "/publications/cyber-dictionary",

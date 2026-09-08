@@ -3,7 +3,7 @@
 
 export const cyberDictionaryBook = {
   "generatedFrom": "report.pdf",
-  "pageCount": 66,
+  "pageCount": 80,
   "aspect": 0.7067,
   "pages": [
     "publications/cyber-dictionary/pages/p01.webp",
@@ -71,6 +71,20 @@ export const cyberDictionaryBook = {
     "publications/cyber-dictionary/pages/p63.webp",
     "publications/cyber-dictionary/pages/p64.webp",
     "publications/cyber-dictionary/pages/p65.webp",
-    "publications/cyber-dictionary/pages/p66.webp"
+    "publications/cyber-dictionary/pages/p66.webp",
+    "publications/cyber-dictionary/pages/p67.webp",
+    "publications/cyber-dictionary/pages/p68.webp",
+    "publications/cyber-dictionary/pages/p69.webp",
+    "publications/cyber-dictionary/pages/p70.webp",
+    "publications/cyber-dictionary/pages/p71.webp",
+    "publications/cyber-dictionary/pages/p72.webp",
+    "publications/cyber-dictionary/pages/p73.webp",
+    "publications/cyber-dictionary/pages/p74.webp",
+    "publications/cyber-dictionary/pages/p75.webp",
+    "publications/cyber-dictionary/pages/p76.webp",
+    "publications/cyber-dictionary/pages/p77.webp",
+    "publications/cyber-dictionary/pages/p78.webp",
+    "publications/cyber-dictionary/pages/p79.webp",
+    "publications/cyber-dictionary/pages/p80.webp"
   ]
 } as const;

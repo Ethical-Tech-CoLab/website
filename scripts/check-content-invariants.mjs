@@ -12,11 +12,15 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import vm from "node:vm";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const { team, cohorts, cohortTerms } = await import(
   new URL("../src/content/site.ts", import.meta.url).href
+);
+const { cyberDictionaryFingerprint } = await import(
+  new URL("../src/content/publications/cyber-dictionary-data.ts", import.meta.url).href
 );
 
 const failures = [];
@@ -120,6 +124,60 @@ for (const cohort of cohorts) {
   }
 }
 
+
+// ---------------------------------------------------------------------------
+// The Cyber Dictionary publication is a copy of another repository's data, and
+// copies drift. This one had gone three releases stale before anyone noticed —
+// the page claiming 1,020 terms while the tool served 1,219 — which is exactly
+// the class of error a build cannot catch, because a stale number is a valid
+// number. So compare what we hold against what is actually published.
+//
+// A network failure is not drift. Offline builds are normal and a timeout says
+// nothing about upstream, so it warns and moves on.
+// ---------------------------------------------------------------------------
+async function checkCyberDictionarySync() {
+  const BASE = "https://ethical-tech-colab.github.io/cyber-dictionary";
+  let live;
+  try {
+    const sandbox = { window: {} };
+    vm.createContext(sandbox);
+    for (const file of ["terms.js", "library.js", "cases.js"]) {
+      const res = await fetch(`${BASE}/${file}`, { signal: AbortSignal.timeout(20000) });
+      if (!res.ok) throw new Error(`${file} returned HTTP ${res.status}`);
+      vm.runInContext(await res.text(), sandbox, { filename: file });
+    }
+    live = {
+      terms: sandbox.window.TERMS.length,
+      domains: sandbox.window.DOMAINS.length,
+      sources: sandbox.window.SOURCES.length,
+      shelves: sandbox.window.SHELVES.length,
+      cases: sandbox.window.CASES.length,
+    };
+  } catch (err) {
+    console.warn(
+      `  ! could not reach the Cyber Dictionary to check for drift ` +
+        `(${err.message}) — skipping that check.`
+    );
+    return;
+  }
+
+  const drifted = Object.entries(live).filter(
+    ([key, upstream]) => cyberDictionaryFingerprint[key] !== upstream
+  );
+  if (drifted.length > 0) {
+    fail(
+      "the Cyber Dictionary publication is behind the live tool — " +
+        drifted
+          .map(([k, v]) => `${k}: this site has ${cyberDictionaryFingerprint[k]}, upstream has ${v}`)
+          .join("; ") +
+        ". Fix with: node scripts/sync-cyber-dictionary.mjs && " +
+        "npm run build && npm run render:books cyber-dictionary -- --force"
+    );
+  }
+}
+
+await checkCyberDictionarySync();
+
 if (failures.length > 0) {
   console.error("Content invariants failed:\n");
   for (const f of failures) console.error("  - " + f);
@@ -129,5 +187,6 @@ if (failures.length > 0) {
 
 console.log(
   `Content invariants OK (${cohorts.length} cohorts, ` +
-    `${team.researchers.length} researcher records).`
+    `${team.researchers.length} researcher records, ` +
+    `Cyber Dictionary in sync at ${cyberDictionaryFingerprint.terms} terms).`
 );
