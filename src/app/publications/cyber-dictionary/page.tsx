@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Link } from "next-view-transitions";
 import {
+  caseStudies,
   dictionaryDomains,
   dictionaryTerms,
   libraryShelves,
@@ -19,6 +20,32 @@ export const metadata: Metadata = {
   description:
     "An Ethical Tech CoLab reference edition: 1,020 technology, cybersecurity and investigation terms defined in plain English, and open data sources catalogued by shelf — as a searchable tool, a printed dictionary, and a PDF.",
 };
+
+/** What the weekly link check last found at a reference's address. "Not
+ *  verified" is not a claim that a page is gone — most government sites refuse
+ *  automated requests — so it is said plainly rather than dressed as a fault. */
+function LinkState({ state, checked }: { state: string; checked: string }) {
+  const styles: Record<string, string> = {
+    ok: "border-emerald-500/60 text-emerald-500",
+    dead: "border-rose-500/70 text-rose-500",
+    unverified: "border-amber-500/60 text-amber-500",
+  };
+  const label =
+    state === "ok" && checked
+      ? `checked ${checked}`
+      : state === "dead"
+        ? "link dead"
+        : "not verified";
+  return (
+    <span
+      className={`whitespace-nowrap rounded-full border px-2 py-0.5 align-middle font-mono text-[0.6rem] uppercase tracking-wider ${
+        styles[state] ?? styles.unverified
+      }`}
+    >
+      {label}
+    </span>
+  );
+}
 
 export default function CyberDictionaryPage() {
   /* Four figures on a title page want their separator. */
@@ -39,6 +66,9 @@ export default function CyberDictionaryPage() {
     .filter((s) => s.count > 0)
     .sort((a, b) => b.count - a.count);
 
+  const years = caseStudies.map((c) => c.year.slice(0, 4)).sort();
+  const caseYears = `${years[0]} to ${years[years.length - 1]}`;
+
   const freeSources = librarySources.filter((s) =>
     /^free/i.test(s.cost.trim()),
   ).length;
@@ -50,7 +80,10 @@ export default function CyberDictionaryPage() {
       label: "domains, from networking to compute hardware",
     },
     { value: String(librarySources.length), label: "open data sources and tools catalogued" },
-    { value: String(freeSources), label: "of them free to use at the tier described" },
+    {
+      value: String(caseStudies.length),
+      label: "case studies, each citing public references",
+    },
   ];
 
   return (
@@ -92,8 +125,8 @@ export default function CyberDictionaryPage() {
               <span>September 2026</span>
             </div>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
-              A searchable tool, a printed dictionary, and a PDF — all typeset
-              from the same two files.
+              A searchable tool, a printed dictionary, and a PDF — all generated
+              from the same data files.
             </p>
           </Reveal>
           <Reveal delay={0.2}>
@@ -164,11 +197,12 @@ export default function CyberDictionaryPage() {
             </p>
             <ol className="mt-4 grid gap-2 sm:grid-cols-2">
               {[
-                ["01", "Two rooms in one book", "two-rooms"],
+                ["01", "Two rooms and a casebook", "two-rooms"],
                 ["02", "How the entries are written", "how-written"],
                 ["03", "Reading it as a book", "as-a-book"],
                 ["04", "The Dictionary: terms by domain", "domains"],
                 ["05", "The Database Library: sources by shelf", "shelves"],
+                ["06", "The case studies", "cases"],
               ].map(([number, title, id]) => (
                 <li key={id}>
                   <a
@@ -188,7 +222,7 @@ export default function CyberDictionaryPage() {
           <Reveal>
             <p className="font-mono text-sm text-accent">01</p>
             <h2 className="mt-2 fluid-h2 font-heading uppercase">
-              Two rooms in one book
+              Two rooms and a casebook
             </h2>
           </Reveal>
           <div className="mt-6 space-y-5 leading-relaxed text-foreground/85">
@@ -213,7 +247,9 @@ export default function CyberDictionaryPage() {
             <p>
               The two answer the two halves of the same question. The Dictionary
               tells you what the thing is called; the Database Library tells you
-              where to get it.
+              where to get it. The case studies are the third thing: {caseStudies.length}{" "}
+              documented incidents showing the vocabulary doing its work, each
+              one cross-referenced back to the terms it turns on.
             </p>
           </div>
         </section>
@@ -325,6 +361,134 @@ export default function CyberDictionaryPage() {
             how to connect, and cost — in the book and the PDF, and is
             searchable in the live edition.
           </p>
+        </section>
+
+        <section id="cases" className="mt-16 scroll-mt-24">
+          <Reveal>
+            <p className="font-mono text-sm text-accent">06</p>
+            <h2 className="mt-2 fluid-h2 font-heading uppercase">
+              The case studies
+            </h2>
+          </Reveal>
+          <div className="mt-6 space-y-5 leading-relaxed text-foreground/85">
+            <p>
+              {caseStudies.length} documented incidents, {caseYears}, each
+              written to the same four headings: what happened, how it worked,
+              how it was found, and what changed. The third is usually the most
+              interesting — Equifax was found by renewing an expired
+              certificate, Silk Road by a forum post from two years before the
+              site launched, SolarWinds by a help desk noticing one extra phone
+              enrolment.
+            </p>
+            <p>
+              Every case cites public primary sources and cross-references the
+              dictionary terms it turns on. Those cross-references are checked
+              when the collection is built: a case that points at a term nobody
+              has written will not build, which is how several terms came to
+              exist. The references are re-fetched weekly, and each one below
+              says what was last found at that address.
+            </p>
+          </div>
+
+          <div className="mt-8 space-y-4">
+            {caseStudies.map((study) => (
+              <details
+                key={study.id}
+                className="group rounded-2xl border border-border bg-card"
+              >
+                <summary className="flex cursor-pointer list-none items-baseline gap-3 p-5">
+                  <span className="font-mono text-sm text-accent">
+                    {study.year}
+                  </span>
+                  <span className="flex-1">
+                    <span className="block font-heading text-lg uppercase tracking-wide">
+                      {study.title}
+                    </span>
+                    <span className="mt-1 block text-sm text-muted">
+                      {study.kind}
+                    </span>
+                  </span>
+                  <span
+                    aria-hidden
+                    className="text-muted transition-transform group-open:rotate-90"
+                  >
+                    →
+                  </span>
+                </summary>
+
+                <div className="border-t border-border px-5 py-5">
+                  <dl className="grid gap-4 sm:grid-cols-2">
+                    {[
+                      ["Actor", study.actor],
+                      ["Where", study.where],
+                      ["Sector", study.sector],
+                      ["Cost", study.cost],
+                    ]
+                      .filter(([, value]) => value)
+                      .map(([label, value]) => (
+                        <div key={label}>
+                          <dt className="font-mono text-[0.65rem] uppercase tracking-wider text-accent">
+                            {label}
+                          </dt>
+                          <dd className="mt-1 text-sm text-foreground/85">
+                            {value}
+                          </dd>
+                        </div>
+                      ))}
+                  </dl>
+
+                  {study.sections.map((section) => (
+                    <div key={section.heading} className="mt-6">
+                      <h3 className="font-mono text-[0.65rem] uppercase tracking-wider text-accent">
+                        {section.heading}
+                      </h3>
+                      {section.paragraphs.map((paragraph, index) => (
+                        <p
+                          key={index}
+                          className="mt-2 max-w-3xl text-sm leading-relaxed text-foreground/85"
+                        >
+                          {paragraph}
+                        </p>
+                      ))}
+                    </div>
+                  ))}
+
+                  <h3 className="mt-6 font-mono text-[0.65rem] uppercase tracking-wider text-muted">
+                    Terms in this case
+                  </h3>
+                  <ul className="mt-2 flex flex-wrap gap-2">
+                    {study.terms.map((term) => (
+                      <li
+                        key={term}
+                        className="rounded-full border border-border px-3 py-1 text-xs text-muted"
+                      >
+                        {term}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <h3 className="mt-6 font-mono text-[0.65rem] uppercase tracking-wider text-muted">
+                    References and sources ({study.sources.length})
+                  </h3>
+                  <ul className="mt-2 space-y-1.5">
+                    {study.sources.map((source) => (
+                      <li key={source.url} className="text-sm leading-relaxed">
+                        <a
+                          href={source.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="link-underline text-foreground/85"
+                        >
+                          {source.title} ↗
+                        </a>{" "}
+                        <LinkState state={source.state} checked={source.checked} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </details>
+            ))}
+          </div>
         </section>
 
         {/* Back link */}

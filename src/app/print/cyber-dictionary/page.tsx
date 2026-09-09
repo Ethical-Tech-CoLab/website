@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import {
+  caseStudies,
   dictionaryDomains,
   dictionaryTerms,
   libraryShelves,
@@ -88,8 +89,8 @@ export default function CyberDictionaryPrintPage() {
           and Database Library
         </h1>
         <p className="print-subtitle">
-          {termCount} terms in plain English, and{" "}
-          {librarySources.length} places to get the data
+          {termCount} terms in plain English, {librarySources.length} places to
+          get the data, and {caseStudies.length} cases where it went wrong
         </p>
         <div className="print-byline">
           <p>Ethical Tech CoLab</p>
@@ -102,9 +103,10 @@ export default function CyberDictionaryPrintPage() {
         <p className="print-thesis">
           A dictionary is a machine for the moment you looked something up. This
           edition keeps that moment intact on paper: the terms run A to Z with
-          the range printed at the head of every page, and the database library
-          is a catalogue you walk shelf by shelf rather than a search box you
-          have to already know the answer for.
+          the range printed at the head of every page, the database library is a
+          catalogue you walk shelf by shelf rather than a search box you have to
+          already know the answer for, and the cases are there because a
+          vocabulary is easier to hold once you have seen it used.
         </p>
       </section>
 
@@ -285,6 +287,48 @@ export default function CyberDictionaryPrintPage() {
         </section>
       ))}
 
+      {/* Part three: the case studies */}
+      <section className="print-page dict-divider">
+        <p className="print-section-number">Part three</p>
+        <h2 className="dict-part">The Case Studies</h2>
+        <p className="dict-part-note">
+          {caseStudies.length} documented incidents, each to the same four
+          headings, with the references to go and check.
+        </p>
+      </section>
+
+      {caseStudies.map((study) => (
+        <section key={study.id} className="case-section">
+          <div className="dict-letter-rule">
+            <span className="dict-shelf">{study.title}</span>
+            <span className="dict-letter-count">{study.year}</span>
+          </div>
+          <p className="case-facts">
+            <span className="lib-label">Actor</span> {study.actor}
+            {"  ·  "}
+            <span className="lib-label">Where</span> {study.where}
+            {"  ·  "}
+            <span className="lib-label">Cost</span> {study.cost}
+          </p>
+          {study.sections.map((section) => (
+            <div key={section.heading} className="case-part">
+              <p className="case-heading">{section.heading}</p>
+              {section.paragraphs.map((paragraph, index) => (
+                <p key={index} className="case-para">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          ))}
+          <p className="case-refs">
+            <span className="lib-label">References</span>{" "}
+            {study.sources
+              .map((source) => `${source.title} — ${source.url.replace(/^https?:\/\//, "")}`)
+              .join("  ·  ")}
+          </p>
+        </section>
+      ))}
+
       {/* Colophon */}
       <section className="print-page">
         <p className="print-section-number">Colophon</p>
@@ -365,6 +409,40 @@ const PRINT_CSS = `
   border-left: 2px solid var(--print-accent);
   font-size: 11pt; line-height: 1.6;
 }
+.case-section {
+  break-before: page;
+}
+.case-facts {
+  font-size: 8pt;
+  line-height: 1.5;
+  color: #4a4356;
+  margin: 0 0 4mm;
+}
+.case-part {
+  break-inside: avoid;
+  margin-bottom: 3.5mm;
+}
+.case-heading {
+  font-size: 6.6pt;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #3d1f75;
+  margin: 0 0 1.2mm;
+}
+.case-para {
+  font-size: 8.6pt;
+  line-height: 1.45;
+  text-align: justify;
+  margin: 0 0 2mm;
+}
+.case-refs {
+  font-size: 7.2pt;
+  line-height: 1.45;
+  color: #4a4356;
+  border-top: 0.4pt solid #e5dff0;
+  padding-top: 2mm;
+  margin-top: 3mm;
+}
 .print-section-number {
   font-family: var(--font-space-mono), monospace;
   font-size: 9pt; color: var(--print-accent);
@@ -411,7 +489,41 @@ const PRINT_CSS = `
   padding-top: 60mm;
   text-align: center;
 }
-.dict-divider .print-section-number { color: rgba(20, 16, 28, 0.5); }
+.dict-divider .case-section {
+  break-before: page;
+}
+.case-facts {
+  font-size: 8pt;
+  line-height: 1.5;
+  color: #4a4356;
+  margin: 0 0 4mm;
+}
+.case-part {
+  break-inside: avoid;
+  margin-bottom: 3.5mm;
+}
+.case-heading {
+  font-size: 6.6pt;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #3d1f75;
+  margin: 0 0 1.2mm;
+}
+.case-para {
+  font-size: 8.6pt;
+  line-height: 1.45;
+  text-align: justify;
+  margin: 0 0 2mm;
+}
+.case-refs {
+  font-size: 7.2pt;
+  line-height: 1.45;
+  color: #4a4356;
+  border-top: 0.4pt solid #e5dff0;
+  padding-top: 2mm;
+  margin-top: 3mm;
+}
+.print-section-number { color: rgba(20, 16, 28, 0.5); }
 .dict-part {
   font-family: var(--font-bebas), sans-serif;
   font-size: 40pt; line-height: 1; text-transform: uppercase;
