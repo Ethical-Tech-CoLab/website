@@ -4,19 +4,28 @@ import { siteCounts } from "@/lib/counts";
 import { HeroField } from "@/components/HeroField";
 import { HomeBody } from "@/components/HomeBody";
 import { StatementCarousel, type Statement } from "@/components/StatementCarousel";
+import { DemoPoster } from "@/components/DemoPoster";
+import { products, type Product } from "@/content/site";
 import { Reveal } from "@/components/motion/Reveal";
 
 /* Title and description come from the root layout's defaults — this is the
    page they were written for. */
 
 /**
- * /portfolio spells its count out in its own heading ("Four questions."), so
- * the slide that links there has to spell it the same way — a slide that says
- * "4 questions" while the page it opens says "Four" reads as a different page.
+ * A live demo from the catalogue, by repo name. Throws rather than falling
+ * back, so a renamed or withdrawn demo fails the build instead of leaving a
+ * card that points nowhere — and an internal one fails it too, since the demo
+ * cards advertise demos a visitor can open.
  */
-const WORDS = ["Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine"];
-const questionCount =
-  WORDS[siteCounts.researchQuestions] ?? siteCounts.researchQuestions;
+function liveDemo(repoName: string): Product {
+  const product = products.find((p) => p.repoName === repoName);
+  if (!product?.demo || product.access === "internal") {
+    throw new Error(
+      `Home demo card: "${repoName}" is not an openable demo in src/content/site.ts`,
+    );
+  }
+  return product;
+}
 
 /**
  * One card per destination, each led by that destination's own `<h1>` — same
@@ -66,31 +75,62 @@ const statements: Statement[] = [
       </p>
     ),
   },
+  // One card per demo, all under one heading. It is not its destination's
+  // `<h1>` like the others: it leads into the demos, which live at the top of
+  // /portfolio. The carousel keeps a heading the cards share on screen as one,
+  // and each card's dot is named for its demo. No figure or line — the poster
+  // carries the card, and it sits straight under the heading.
+  ...["mariupol-3d", "VANGO", "War-Games"].map((repoName): Statement => {
+    const product = liveDemo(repoName);
+    return {
+      lead: "Open research, ",
+      em: "live demos",
+      // Held to one line: the size follows the viewport (the width less the
+      // hero's side padding, over roughly the heading's length in ems, with
+      // headroom) up to a cap, so it shrinks with the screen rather than
+      // wrapping.
+      headingClass:
+        "whitespace-nowrap text-[clamp(1.75rem,calc((100vw_-_3rem)/10),5.5rem)]",
+      name: product.name,
+      block: <DemoPoster product={product} />,
+      cta: "See more live demos",
+      href: "/portfolio",
+    };
+  }),
+  // Set aside, not deleted: the three demo cards above now end in "See more
+  // live demos", so this card sent a reader to the same place a second time.
+  // Uncomment it to bring it back — it slots in after them.
+  //
+  // {
+  //   lead: "Run the ",
+  //   em: "research",
+  //   tail: ".",
+  //   figure: `${siteCounts.openableDemos} demos you can open`,
+  //   line: "Not screenshots: the prototypes themselves, running in the browser with their source alongside.",
+  //   cta: "Open the live demos",
+  //   href: "/portfolio",
+  // },
+  // Set aside, not deleted: the events card below is taking its place for now.
+  // Uncomment it to bring it back — it goes wherever you want it in the list.
+  //
+  // {
+  //   lead: "The research, ",
+  //   em: "written up",
+  //   tail: ".",
+  //   figure: `${siteCounts.catalogue} in the catalogue`,
+  //   line: "Every research question the CoLab takes on is written up academically, including what did not hold.",
+  //   cta: "Read the publications",
+  //   href: "/publications",
+  // },
   {
-    lead: `${questionCount} questions. `,
-    em: "One frontier.",
-    figure: `${siteCounts.projects} projects in the portfolio`,
-    line: "Evacuation, cultural heritage, traceability, diplomacy — each question carried through to a fielded prototype, in the open.",
-    cta: "Explore the portfolio",
-    href: "/portfolio",
-  },
-  {
-    lead: "Run the ",
-    em: "research",
+    // PLACEHOLDER — temporary text, to be replaced with the real events copy.
+    // No `cta` yet: there is no events page to send a reader to. When there is
+    // one, give this card a `cta` and `href` like the others.
+    lead: "Upcoming ",
+    em: "events",
     tail: ".",
-    figure: `${siteCounts.openableDemos} demos you can open`,
-    line: "Not screenshots: the prototypes themselves, running in the browser with their source alongside.",
-    cta: "Open the live demos",
-    href: "/portfolio",
-  },
-  {
-    lead: "The research, ",
-    em: "written up",
-    tail: ".",
-    figure: `${siteCounts.catalogue} in the catalogue`,
-    line: "Every research question the CoLab takes on is written up academically, including what did not hold.",
-    cta: "Read the publications",
-    href: "/publications",
+    figure: "Dates to be announced",
+    line: "Temporary text. This card is reserved for CoLab events; the details will go here.",
   },
   {
     lead: "The people ",
@@ -133,7 +173,10 @@ export default function Home() {
         />
         <HeroField />
 
-        <div className="relative mx-auto max-w-6xl px-6 py-24 text-center sm:py-28">
+        {/* Less padding above than below: the demo cards have to fit from the
+            top of the page to the carousel controls in one screen, and nothing
+            under the controls needs to. */}
+        <div className="relative mx-auto max-w-6xl px-6 pb-24 pt-10 text-center sm:pb-28 sm:pt-12">
           <Reveal>
             {/* Runs larger than the site's other eyebrows: this one names the
                 collaboration the whole page rests on, and the carousel below
