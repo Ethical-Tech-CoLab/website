@@ -41,6 +41,7 @@ const TOPIC_GROUND: Record<string, [string, string]> = {
   Diplomacy: ["#2a2160", "#100d20"],
   Sustainability: ["#1c3a24", "#0b1710"],
   "Disaster response": ["#4a2417", "#1a0e0a"],
+  "Urban infrastructure": ["#3a3416", "#17140a"],
 };
 
 /** The ground for one cover. The topic fixes the hue pair; `seed` swings the
@@ -370,6 +371,38 @@ function CoverMotif({ topic, seed }: { topic: string; seed: number }) {
               strokeWidth={1.6}
             />
             <circle cx={100} cy={180} r={4.5} fill={line} />
+          </>
+        );
+
+      // A span between two towers with sound radiating down from it: the
+      // structure is the source, and what is underneath is the subject.
+      case "Urban infrastructure":
+        return (
+          <>
+            <path
+              d={`M 24 ${150 + j(1, 6)} Q 100 ${200 + j(2, 6)} 176 ${150 + j(3, 6)}`}
+              fill="none"
+              stroke={line}
+              strokeWidth={1.6}
+            />
+            <line x1={44} y1={120} x2={44} y2={178} stroke={line} strokeWidth={1.6} />
+            <line x1={156} y1={120} x2={156} y2={178} stroke={line} strokeWidth={1.6} />
+            <line x1={20} y1={178} x2={180} y2={178} stroke={line} strokeWidth={1.4} />
+            {[60, 80, 100, 120, 140].map((x) => (
+              <line key={x} x1={x} y1={178} x2={x} y2={150 + Math.abs(x - 100) * 0.5} stroke={faint} strokeWidth={1} />
+            ))}
+            {[14, 28, 42].map((r, i) => (
+              <path
+                key={r}
+                d={`M ${100 - r} 186 A ${r} ${r} 0 0 0 ${100 + r} 186`}
+                fill="none"
+                stroke={i === 0 ? line : faint}
+                strokeWidth={1.2}
+              />
+            ))}
+            <rect x={30} y={236} width={20} height={20} fill="none" stroke={ghost} strokeWidth={1.2} />
+            <rect x={90} y={244} width={20} height={12} fill="none" stroke={ghost} strokeWidth={1.2} />
+            <rect x={150} y={240} width={20} height={16} fill="none" stroke={ghost} strokeWidth={1.2} />
           </>
         );
 

@@ -403,12 +403,88 @@ function AiSystems() {
   );
 }
 
+/** A suspension span in section: two towers, the cable, a train on the outer
+ *  edge of the deck, and the sound it radiates into the receptors below. The
+ *  receptors are labelled with the paper's own measured levels. */
+function UrbanInfrastructure() {
+  const deckY = 62;
+  const receptors = [
+    { x: 92, label: "LIBRARY 84.65", h: 26 },
+    { x: 160, label: "ARCHWAY 81.33", h: 18 },
+    { x: 236, label: "DOG RUN 87.50", h: 12 },
+  ];
+  return (
+    <>
+      <Title>Silencing the Span · Source → Structure → Receptor</Title>
+
+      {/* towers */}
+      {[70, 250].map((x) => (
+        <g key={x} stroke="var(--muted)" strokeWidth="1.2" opacity="0.8">
+          <line x1={x - 4} y1={deckY} x2={x - 4} y2={28} />
+          <line x1={x + 4} y1={deckY} x2={x + 4} y2={28} />
+          <line x1={x - 6} y1={30} x2={x + 6} y2={30} />
+        </g>
+      ))}
+      {/* main cable and suspenders */}
+      <path data-draw d="M 20 40 L 66 28 Q 160 78 254 28 L 300 40" fill="none" stroke="var(--accent)" strokeWidth="1.4" />
+      {[90, 110, 130, 150, 170, 190, 210, 230].map((x) => {
+        const t = (x - 66) / (254 - 66);
+        // Point on the quadratic cable: (66,28) → control (160,78) → (254,28).
+        const cy = (1 - t) * (1 - t) * 28 + 2 * (1 - t) * t * 78 + t * t * 28;
+        return (
+          <line key={x} x1={x} y1={Math.min(cy, deckY - 2)} x2={x} y2={deckY} stroke="var(--muted)" strokeWidth="0.8" opacity="0.6" />
+        );
+      })}
+      {/* deck */}
+      <line data-draw x1="14" y1={deckY} x2="306" y2={deckY} stroke="var(--foreground)" strokeWidth="1.6" />
+      <line x1="14" y1={deckY + 4} x2="306" y2={deckY + 4} stroke="var(--muted)" strokeWidth="0.8" opacity="0.6" />
+
+      {/* train on the outer edge of the deck */}
+      <g className="diagram-runner">
+        {[0, 1, 2].map((i) => (
+          <rect key={i} x={118 + i * 22} y={deckY - 10} width="20" height="9" rx="2" fill="var(--surface)" stroke="var(--accent)" strokeWidth="1.2" />
+        ))}
+      </g>
+      <text x="184" y={deckY - 4} fill="var(--accent)" fontSize="6.5" letterSpacing="0.6" style={{ fontFamily: FONT }}>
+        B·D·N·Q
+      </text>
+
+      {/* radiated sound: arcs below the deck */}
+      {[12, 22, 32].map((r, i) => (
+        <path
+          key={r}
+          data-draw
+          d={`M ${150 - r} ${deckY + 6} A ${r} ${r} 0 0 0 ${150 + r} ${deckY + 6}`}
+          fill="none"
+          stroke="var(--accent)"
+          strokeWidth="1"
+          opacity={0.7 - i * 0.2}
+        />
+      ))}
+
+      {/* receptors below, labelled with the measured level */}
+      {receptors.map((r) => (
+        <g key={r.label}>
+          <rect x={r.x - 12} y={128 - r.h} width="24" height={r.h} rx="2" fill="var(--surface)" stroke="var(--muted)" strokeWidth="1" />
+          <circle data-pop cx={r.x} cy={128 - r.h - 5} r="2.5" fill="var(--accent)" />
+          <text x={r.x} y="136" fill="var(--muted)" fontSize="5.5" letterSpacing="0.4" textAnchor="middle" style={{ fontFamily: FONT }}>
+            {r.label}
+          </text>
+        </g>
+      ))}
+      {/* ground */}
+      <line x1="14" y1="128" x2="306" y2="128" stroke="var(--muted)" strokeWidth="0.8" opacity="0.5" />
+    </>
+  );
+}
+
 const VARIANTS: Record<string, () => React.ReactElement> = {
   Evacuation,
   "Cultural heritage": CulturalHeritage,
   Traceability,
   Diplomacy,
   "AI systems": AiSystems,
+  "Urban infrastructure": UrbanInfrastructure,
 };
 
 export function ProjectDiagram({

@@ -27,6 +27,7 @@ import { forcedLaborRiskReport } from "./forced-labor-structural-risk-index";
 import { hasteReport } from "./haste";
 import { mariupolReport } from "./mariupol-severity-model";
 import { provenanceSearchReport } from "./provenance-search";
+import { silencingTheSpanReport } from "./silencing-the-span";
 import { vangoReport } from "./vango";
 import { warGamesReport } from "./war-games";
 import { whatIsEthicalAiReport } from "./what-is-ethical-ai";
@@ -76,6 +77,7 @@ export const reports: Record<string, PrintableReport> = {
   haste: hasteReport,
   "mariupol-severity-model": mariupolReport,
   "provenance-search": provenanceSearchReport,
+  "silencing-the-span": silencingTheSpanReport,
   vango: vangoReport,
   "war-games": warGamesReport,
   "what-is-ethical-ai": whatIsEthicalAiReport,

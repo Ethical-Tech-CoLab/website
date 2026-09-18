@@ -26,6 +26,7 @@ import { forcedLaborStructuralRiskIndexBook } from "./forced-labor-structural-ri
 import { hasteBook } from "./haste-book";
 import { mariupolSeverityModelBook } from "./mariupol-severity-model-book";
 import { provenanceSearchBook } from "./provenance-search-book";
+import { silencingTheSpanBook } from "./silencing-the-span-book";
 import { vangoBook } from "./vango-book";
 import { warGamesBook } from "./war-games-book";
 import { whatIsEthicalAiBook } from "./what-is-ethical-ai-book";
@@ -127,6 +128,11 @@ export const bookViews: Record<string, BookView> = {
     pages: [...provenanceSearchBook.pages],
     aspect: provenanceSearchBook.aspect,
     pdf: "/publications/provenance-search/report.pdf",
+  },
+  "silencing-the-span": {
+    pages: [...silencingTheSpanBook.pages],
+    aspect: silencingTheSpanBook.aspect,
+    pdf: "/publications/silencing-the-span/report.pdf",
   },
   vango: {
     pages: [...vangoBook.pages],

@@ -303,6 +303,49 @@ export const researchAreas: ResearchArea[] = [
       },
     ],
   },
+  {
+    index: "05",
+    key: "Urban infrastructure",
+    question: "How can open evidence make infrastructure noise accountable?",
+    tags: ["Public realm", "Civic tech", "Open data"],
+    summary:
+      "Turning a neighbourhood's daily harm into a problem an agency can be asked to price, from public records, open data and instruments anyone can rerun.",
+    detail:
+      "Projects under this question take a piece of city infrastructure whose cost falls on the people beside it, and build the evidence base that has never existed: what the agencies themselves measured, who is responsible under what law, what has never been asked of the site, and a digital twin every dimension of which traces to a registered source.",
+    stack: [
+      "Agency records and statute",
+      "MTA and NYC open data",
+      "Acoustic derivation",
+      "Source-governed 3-D twins",
+    ],
+    projects: [
+      {
+        name: "Silencing the Span",
+        summary:
+          "A problem definition for the noise of the B, D, N and Q trains crossing the Manhattan Bridge into DUMBO. Two agencies measured it eighteen years apart and both found it severe: 84.65 dB(A) at a public library, trains 14 dB above road traffic, a crossing every 76 seconds. The state statute that covers elevated structures left their sound level blank in 1982 and no evidence was found it was ever filled in. Thirteen questions nobody has asked of the site, five ranked methods, a phased procurement, and an adversarial red-team pass whose corrections are left visible. The repository has since grown twelve documents, seven interactive demonstrations, and a train-crossing census derived from the MTA's own feed.",
+        status: "Active",
+        repo: "https://github.com/Ethical-Tech-CoLab/manhattan-bridge-noise-dumbo",
+        demo: "https://ethical-tech-colab.github.io/manhattan-bridge-noise-dumbo/",
+        publication: "/publications/silencing-the-span",
+      },
+      {
+        name: "Manhattan Bridge Digital Twin",
+        summary:
+          "A source-governed, part-addressable control skeleton of the Manhattan Bridge for browser rendering and HO-scale study. No existing 3-D model is authoritative: official dimensions and archival drawings are the control geometry, every part carries a confidence grade, and anything without a registered source is named as a placeholder and linked to the open question that would retire it. Ships with the records request that would retire every remaining placeholder.",
+        status: "Active",
+        repo: "https://github.com/Ethical-Tech-CoLab/manhattan-bridge-3d",
+        demo: "https://ethical-tech-colab.github.io/manhattan-bridge-3d/",
+      },
+      {
+        name: "DUMBO District Digital Twin",
+        summary:
+          "A walkable browser twin of the neighbourhood under the bridge, built from authoritative NYC open data with every asset traceable to a registered source: 381 buildings from footprints joined to PLUTO, a 4,346-node pedestrian network, 1,252 street trees from the forestry census, the Manhattan skyline across the river, and a first-person walk mode. It contains no bridge geometry; it interoperates with the bridge twin through shared contracts.",
+        status: "Active",
+        repo: "https://github.com/Ethical-Tech-CoLab/dumbo-district-3d",
+        demo: "https://ethical-tech-colab.github.io/dumbo-district-3d/",
+      },
+    ],
+  },
 ];
 
 /** An academic report / write-up tied to one of the research questions. */
@@ -326,6 +369,7 @@ export const publicationTopics = [
   "Diplomacy",
   "Sustainability",
   "Disaster response",
+  "Urban infrastructure",
 ];
 
 export interface Publication {
@@ -689,6 +733,27 @@ export const publications = {
       date: "July 2026",
       url: "/publications/haste",
     },
+    // ── Urban infrastructure ─────────────────────────────────────────────
+    {
+      // A problem definition rather than a finding: the paper's own status
+      // line is "pre-proposal", and its operative recommendation is that
+      // nobody price a solution yet. The card says Published because the
+      // document itself is complete and public, not because the noise is.
+      index: "32",
+      area: "Urban infrastructure",
+      topic: "Urban infrastructure",
+      question:
+        "How can open evidence make infrastructure noise accountable?",
+      title:
+        "Silencing the Span: Defining the Manhattan Bridge Rail-Noise Problem in DUMBO for a Design-Build Intervention",
+      summary:
+        "The B, D, N and Q trains cross the Manhattan Bridge into DUMBO roughly every 76 seconds, twenty hours a day. The MTA measured 84.65 dB(A) at a public library; a 2005 impact statement found trains 14 dB above road traffic and already over the City's clearly-unacceptable line. Nothing has been done in twenty-one years. This paper is the document that has to exist before a design can honestly be procured: what two agencies measured, who is responsible under what law, the blank cell in a 1982 statute that helps explain the inaction, thirteen questions never asked of the site, five ranked methods, and a phased procurement that puts four records requests ahead of any research. Revised after an adversarial review whose corrections are left visible, and followed by the datasets the repository built afterwards, two of which withdraw the programme's own earlier claims.",
+      status: "Published",
+      date: "August 2026",
+      // Internal route (starts with "/") — rendered on-site, see the card logic.
+      url: "/publications/silencing-the-span",
+      repo: "https://github.com/Ethical-Tech-CoLab/manhattan-bridge-noise-dumbo",
+    },
     
     // ── Practice guides ──────────────────────────────────────────────────
     {
@@ -957,6 +1022,7 @@ export const productThemes = [
   "Diplomacy",
   "Research",
   "Storytelling",
+  "Urban infrastructure",
 ];
 
 /** Semesters shown in the Live Demos filter, newest first. */
@@ -978,9 +1044,67 @@ export const productThemeQuestions: Record<string, string> = {
     "How do new researchers learn to build this work, and share it openly?",
   Storytelling:
     "How can a story carry a technical risk to the people it affects?",
+  "Urban infrastructure":
+    "How can open evidence make infrastructure noise accountable?",
 };
 
 export const products: Product[] = [
+  {
+    name: "Silencing the Span",
+    repoName: "manhattan-bridge-noise-dumbo",
+    term: "Summer 2026",
+    repo: "https://github.com/Ethical-Tech-CoLab/manhattan-bridge-noise-dumbo",
+    demo: "https://ethical-tech-colab.github.io/manhattan-bridge-noise-dumbo/",
+    demos: [
+      {
+        label: "Open the project site",
+        href: "https://ethical-tech-colab.github.io/manhattan-bridge-noise-dumbo/",
+      },
+      {
+        label: "Hear a train pass at the measured level",
+        href: "https://ethical-tech-colab.github.io/manhattan-bridge-noise-dumbo/visual-review/acoustic-demo.html",
+      },
+      {
+        label: "Train crossings and exposure by hour",
+        href: "https://ethical-tech-colab.github.io/manhattan-bridge-noise-dumbo/visual-review/frequency-dashboard.html",
+      },
+      {
+        label: "The noise canyon, drawn from open data",
+        href: "https://ethical-tech-colab.github.io/manhattan-bridge-noise-dumbo/visual-review/noise-canyon.html",
+      },
+      {
+        label: "The evidence underneath",
+        href: "https://ethical-tech-colab.github.io/manhattan-bridge-noise-dumbo/research.html",
+      },
+    ],
+    blurb:
+      "The rail noise of the Manhattan Bridge, received in DUMBO, defined well enough to be procured against. Hear a train pass the Brooklyn Bridge Park dog run at the MTA\u2019s own measured levels and watch the running average settle onto the published 87.50 dB(A). Explore every B, D, N and Q crossing by hour, 1,073 on a weekday, against how many people are underneath, and find that exposure peaks at two in the afternoon, not at the morning train peak the programme had first claimed. Then read why three of the city\u2019s instruments for recording noise have no category for rail at all.",
+    language: "Python",
+    theme: "Urban infrastructure",
+    publication: "/publications/silencing-the-span",
+  },
+  {
+    name: "Manhattan Bridge Digital Twin",
+    repoName: "manhattan-bridge-3d",
+    term: "Summer 2026",
+    repo: "https://github.com/Ethical-Tech-CoLab/manhattan-bridge-3d",
+    demo: "https://ethical-tech-colab.github.io/manhattan-bridge-3d/",
+    blurb:
+      "A browser model of the Manhattan Bridge in which every dimension traces to a registered source with an explicit confidence grade. No existing 3-D model is treated as authoritative: official dimensions and archival drawings are the control geometry, and anything without a source is named as a placeholder and tied to the open question that would retire it. Rebuilt from the geometry-control document on every push, with the deploy gated on the regression suite.",
+    language: "HTML",
+    theme: "Urban infrastructure",
+  },
+  {
+    name: "DUMBO District Digital Twin",
+    repoName: "dumbo-district-3d",
+    term: "Summer 2026",
+    repo: "https://github.com/Ethical-Tech-CoLab/dumbo-district-3d",
+    demo: "https://ethical-tech-colab.github.io/dumbo-district-3d/",
+    blurb:
+      "Walk the neighbourhood under the bridge in a browser. 381 buildings from NYC footprints joined to PLUTO, a 4,346-node pedestrian network from OpenStreetMap, 1,252 street trees from the forestry census, ferries on real routes, and the Manhattan skyline across the river, all in 446 KB of tiles. Every asset is traceable to a registered source, and 537 openly licensed photographs were reviewed by a person to prove the pipeline.",
+    language: "Python",
+    theme: "Urban infrastructure",
+  },
   {
     name: "Agentic Language Development",
     repoName: "agentic-language-development",
