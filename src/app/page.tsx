@@ -3,7 +3,10 @@ import { asset } from "@/lib/asset";
 import { siteCounts } from "@/lib/counts";
 import { HeroField } from "@/components/HeroField";
 import { HomeBody } from "@/components/HomeBody";
-import { StatementCarousel, type Statement } from "@/components/StatementCarousel";
+import {
+  StatementCarousel,
+  type Statement,
+} from "@/components/StatementCarousel";
 import { DemoPoster } from "@/components/DemoPoster";
 import { products, type Product } from "@/content/site";
 import { Reveal } from "@/components/motion/Reveal";
@@ -77,10 +80,13 @@ const statements: Statement[] = [
   },
   // One card per demo, all under one heading. It is not its destination's
   // `<h1>` like the others: it leads into the demos, which live at the top of
-  // /portfolio. The carousel keeps a heading the cards share on screen as one,
-  // and each card's dot is named for its demo. No figure or line — the poster
-  // carries the card, and it sits straight under the heading.
-  ...["mariupol-3d", "VANGO", "War-Games"].map((repoName): Statement => {
+  // /portfolio. Each card's dot is named for its demo. No figure or line —
+  // the poster carries the card, and it sits straight under the heading.
+  ...[
+    "mariupol-3d",
+    "diplomatic-simulator",
+    "agentic-language-development",
+  ].map((repoName): Statement => {
     const product = liveDemo(repoName);
     return {
       lead: "Open research, ",
@@ -90,7 +96,7 @@ const statements: Statement[] = [
       // headroom) up to a cap, so it shrinks with the screen rather than
       // wrapping.
       headingClass:
-        "whitespace-nowrap text-[clamp(1.75rem,calc((100vw_-_3rem)/10),5.5rem)]",
+        "whitespace-nowrap text-[clamp(1.75rem,calc((100vw_-_3rem)/10),5.5rem)]!",
       name: product.name,
       block: <DemoPoster product={product} />,
       cta: "See more live demos",

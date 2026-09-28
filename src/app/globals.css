@@ -496,6 +496,31 @@ body::after {
   }
 }
 
+/* Home carousel: a card slides in from one side as the last slides out the
+   other. A full viewport width, so a card is off-screen wherever it sits in
+   the column; the hero clips it there. `both` holds the start position until
+   the animation begins and the end position after it. */
+@keyframes slide-in-from-right {
+  from {
+    translate: 100vw 0;
+  }
+}
+@keyframes slide-in-from-left {
+  from {
+    translate: -100vw 0;
+  }
+}
+@keyframes slide-out-to-left {
+  to {
+    translate: -100vw 0;
+  }
+}
+@keyframes slide-out-to-right {
+  to {
+    translate: 100vw 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

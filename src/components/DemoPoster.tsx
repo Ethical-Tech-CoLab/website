@@ -12,6 +12,7 @@ import { Tilt3D } from "@/components/motion/Tilt3D";
  */
 const WIDE_POSTER: Record<string, string> = {
   "mariupol-3d": "/home/mariupol-3d.jpg",
+  "agentic-language-development": "/home/agentic-language-development.jpg",
 };
 
 /**
