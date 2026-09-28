@@ -1,98 +1,24 @@
 import type { Metadata } from "next";
-import { about, site } from "@/content/site";
+import { ContactQRSlide } from "@/components/ContactQRSlide";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Partner with the NYU Ethical Tech CoLab. Start a conversation about interventions at the edge of technology and society.",
+    "Scan a code to join the NYU Ethical Tech CoLab's events calendar, LinkedIn page, or WhatsApp community.",
 };
+
+// Paste the three real links here — this is the only thing to edit on this
+// page. Each one drives the QR code of the same name in ContactQRSlide.
+const LUMA_URL = "https://luma.com/ethical-tech-colab";
+const LINKEDIN_URL = "https://www.linkedin.com/company/ethical-tech-lab/";
+const WHATSAPP_URL = "https://chat.whatsapp.com/Is4rMvXb16N5c5F4nXUdIz";
 
 export default function ContactPage() {
   return (
-    <>
-      <section className="border-b border-border">
-        <div className="mx-auto max-w-6xl px-6 py-24">
-          <p className="text-xs uppercase tracking-wider text-muted">Contact</p>
-          <h1 className="mt-4 max-w-3xl text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
-            Start a <span className="display-em">conversation.</span>
-          </h1>
-          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted">
-            Have a hard problem at the edge of technology and society? We partner
-            with institutions, agencies, and communities to prototype
-            interventions that hold up outside the lab.
-          </p>
-        </div>
-      </section>
-
-      <div className="mx-auto grid max-w-6xl gap-px overflow-hidden border-b border-border md:grid-cols-[1fr_1.2fr]">
-        {/* Direct channels */}
-        <div className="bg-surface/40 px-6 py-16 md:px-10">
-          <p className="text-xs uppercase tracking-wider text-muted">Reach us</p>
-
-          <div className="mt-8 space-y-8">
-            <div>
-              <p className="text-sm text-muted">Email</p>
-              <a
-                href={`mailto:${site.email}`}
-                className="mt-1 inline-block text-xl font-semibold tracking-tight transition-colors hover:text-accent"
-              >
-                {site.email}
-              </a>
-            </div>
-
-            <div>
-              <p className="text-sm text-muted">LinkedIn</p>
-              <a
-                href={site.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-1 inline-block text-xl font-semibold tracking-tight transition-colors hover:text-accent"
-              >
-                Ethical Tech CoLab ↗
-              </a>
-            </div>
-
-            <div>
-              <p className="text-sm text-muted">Where we are</p>
-              <p className="mt-1 text-lg">{site.partnersLine}</p>
-            </div>
-          </div>
-
-          <div className="mt-12 border-t border-border pt-8">
-            <p className="text-xs uppercase tracking-wider text-muted">
-              Founding partners
-            </p>
-            <div className="mt-4 flex flex-col gap-1.5 text-sm text-foreground/85">
-              {about.foundingPartners.map((partner) => (
-                <span key={partner.name}>{partner.name}</span>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* LinkedIn CTA */}
-        <div className="flex flex-col justify-center bg-background px-6 py-16 md:px-10">
-          <p className="text-xs uppercase tracking-wider text-muted">
-            Let&apos;s talk
-          </p>
-          <h2 className="mt-3 text-2xl font-semibold tracking-tight">
-            Connect with us on LinkedIn
-          </h2>
-          <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">
-            Send a message or a connection request and tell us about the problem
-            you&apos;re working on. We read every note and reply to partnership
-            and collaboration inquiries.
-          </p>
-          <a
-            href={site.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-background transition-opacity hover:opacity-90"
-          >
-            Message us on LinkedIn <span aria-hidden>↗</span>
-          </a>
-        </div>
-      </div>
-    </>
+    <ContactQRSlide
+      lumaUrl={LUMA_URL}
+      linkedinUrl={LINKEDIN_URL}
+      whatsappUrl={WHATSAPP_URL}
+    />
   );
 }
