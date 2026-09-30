@@ -12,6 +12,13 @@ export type NewsletterIssue = {
 
 export const newsletterIssues: NewsletterIssue[] = [
   {
+    slug: "2026-09",
+    edition: "September 2026 · Edition 03",
+    date: "September 2026",
+    blurb:
+      "Trace the Unseen and its winners, NYU inside the Microsoft Global Hackathon, Nepal's open-map flood response, the UN scientific brief on losing control of AI agents, California's AI bills, and the Opportunity Board.",
+  },
+  {
     slug: "2026-08",
     edition: "August 2026 · Edition 02",
     date: "August 2026",
