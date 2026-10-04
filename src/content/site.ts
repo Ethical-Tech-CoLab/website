@@ -11,11 +11,12 @@ export const site = {
   partnersLine: "NYU SPS · CGA · Microsoft · New York",
   footerBlurb:
     "Exploring intervention opportunities at the intersection of emerging technologies and the human condition.",
-  cohortRange: "Four cohorts · est. 2024-2026",
+  cohortRange: "Four cohorts · est. 2024",
   // Social links. GitHub is the real org; instagram/twitter are placeholders —
   // swap in the real handles once the accounts exist. Set to "" to hide a link.
   social: {
     github: "https://github.com/Ethical-Tech-CoLab",
+    luma: "https://luma.com/ethical-tech-colab",
     // Hidden for now — the footer drops any social with an empty href. Restore
     // by pasting the real handle back in.
     instagram: "", // TODO: real Instagram handle (hidden until account exists)
