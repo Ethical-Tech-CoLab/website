@@ -507,6 +507,46 @@ produces the same CSS chunk hash as one regenerated on Linux, or the
 Windows→Linux-artifact workaround above is written into `CONTRIBUTING.md` as
 the documented procedure.
 
+### UPD-020 - The default 404/not-found page's `<head>` tag order is non-deterministic
+
+**Priority:** Low
+
+While chasing UPD-019's CSS discrepancy, two separate Linux CI builds of the
+exact same commit (one triggered by `workflow_dispatch`, one rebuilt moments
+later for comparison) produced byte-identical output everywhere except
+`404.html`, `404/index.html`, and `_not-found/index.html`. The diff is not
+content, only order: one build emitted
+`<title>404: This page could not be found.</title><meta name="robots"
+content="noindex"/>`, the other emitted the same two tags swapped. This
+repeated on a second pair of same-commit Linux builds, so it is a genuine
+run-to-run race, not a Windows-vs-Linux difference, and not caused by any
+particular source change — `src/app` has no custom `not-found.tsx`, so both
+tags come from Next.js's own default export-mode 404 handling. The likely
+cause is concurrent metadata resolution (the root layout and the generated
+not-found boundary both contributing `<head>` tags) racing during static
+export, which is a known class of issue in the app router's streaming
+metadata API.
+
+The tags themselves are correct and harmless either way — this does not
+affect page behavior, SEO, or appearance — but it means
+`npm run check:snapshot` / CI's drift check can fail on these two routes for
+a commit that has not actually drifted, indistinguishable at a glance from a
+real missed `npm run sync:static`. It surfaced now only because recent PRs
+happened to trigger enough separate rebuilds in a row (chasing UPD-019) to
+catch it; it was very likely always possible.
+
+**Proposed update:** Either special-case these two routes out of the drift
+check the same way `__next.*` is excluded (with the same comment explaining
+why), or find the specific concurrent `generateMetadata`/root-layout
+resolution path responsible and make its tag emission order deterministic
+upstream in Next.js. Re-running CI is a sufficient workaround for a human
+hitting this by chance; it is not a fix.
+
+**Acceptance:** A commit that has not touched `src/` no longer fails
+`check:snapshot` on `404.html` / `_not-found` across repeated Linux rebuilds,
+or the two routes are excluded from the drift check with the reasoning
+recorded in `ci.yml`.
+
 ### UPD-017 - Decide how UI symbols are drawn
 
 **Priority:** Medium — **done.**
