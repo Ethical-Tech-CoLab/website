@@ -460,6 +460,53 @@ both Windows and Linux, or the investigation concludes with a documented
 reason it isn't reliable enough to use, so the next person does not repeat
 this same multi-round-trip experiment from scratch.
 
+### UPD-019 - Tailwind's generated `lab()` fallback colors differ by platform
+
+**Priority:** Low
+
+While regenerating `static-site/` on Windows for an unrelated, CSS-free footer
+change (a new social link plus a copy edit — no new Tailwind utility was
+introduced), the resulting global stylesheet chunk hashed differently than the
+one CI produced from the identical commit. Diffing the two byte-for-byte
+found exactly one differing value, four decimal places into a generated
+`lab()` fallback: `--color-rose-500: lab(56.101% 79.4328 31.4532)` on Linux
+vs. `lab(56.101% 79.4329 31.4532)` on Windows — a 1-in-100,000 rounding
+difference in the sRGB→Lab conversion Tailwind v4/Lightning CSS performs for
+wide-gamut color fallbacks. `--color-rose-500` is not used anywhere in this
+codebase; this would affect any Tailwind v4 default-palette color whose
+conversion happens to land near a rounding boundary.
+
+Because Next.js names CSS chunks after a content hash, this single-ULP
+difference was enough to rename the whole shared stylesheet, which in turn
+touched every page's HTML (new `<link>` href) and RSC payload (new chunk
+reference) — a large, misleading diff for a change that did not touch styles
+at all. Likely root cause: a platform-dependent floating-point library
+(libm/CRT) used by Lightning CSS's Rust color-math, same family of issue as
+UPD-004 and UPD-018, but in the opposite direction — content byte-identical
+except for one rounded value, rather than a path-shape or scan-visibility
+difference.
+
+**Workaround used:** rather than committing the Windows-built snapshot,
+triggered `workflow_dispatch` on the branch, downloaded the `static-site-linux`
+artifact CI uploads on failure, and committed that in place of the local
+build. Reliable, but it only works because that artifact-upload step
+(added for UPD-018's investigation) already exists, and it costs a CI
+round trip per snapshot regeneration on Windows.
+
+**Proposed update:** Confirm whether pinning `@tailwindcss/oxide-win32-*` /
+`-linux-*` to matching Lightning CSS versions removes the discrepancy, or
+whether it is inherent to the two platforms' floating-point math. If
+inherent, consider whether Tailwind's generated color fallbacks can be
+rounded to fewer decimal places (reducing the chance any platform's rounding
+crosses a boundary), or accept that any Windows-built snapshot touching
+global CSS must be verified against a Linux CI artifact before committing,
+and say so in `CONTRIBUTING.md` section 4.
+
+**Acceptance:** A snapshot regenerated on Windows with no real style changes
+produces the same CSS chunk hash as one regenerated on Linux, or the
+Windows→Linux-artifact workaround above is written into `CONTRIBUTING.md` as
+the documented procedure.
+
 ### UPD-017 - Decide how UI symbols are drawn
 
 **Priority:** Medium — **done.**

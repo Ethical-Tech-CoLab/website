@@ -280,6 +280,17 @@ the snapshot copy, and line endings are fixed by `.gitattributes`. So
 regenerating it on an unchanged checkout should produce no diff at all, on any
 platform.
 
+**Known exception:** a change that touches global CSS (anything that changes
+Tailwind's output, not just adds an already-used utility class) can rebuild
+with a different content hash on Windows than on Linux CI, even with
+byte-identical source and zero actual style changes — a platform-dependent
+1-ULP rounding difference in a generated color fallback has been observed
+(`UPD-019` in `UPDATES-NEEDED.md`). If `npm run check:snapshot` is clean
+locally on Windows but CI still reports drift after a CSS-touching change,
+don't keep re-running the Windows build: trigger `workflow_dispatch` on the
+branch, download the `static-site-linux` artifact CI uploads on that failure,
+and commit that snapshot in place of the local one.
+
 That makes drift easy to check. From a clean tree:
 
 ```powershell
