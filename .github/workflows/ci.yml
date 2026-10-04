@@ -70,7 +70,21 @@ jobs:
           # a snapshot generated on one platform can never match a rebuild on the
           # other. Everything else (HTML, JS, CSS, assets) is byte-identical
           # across both. Tracked as UPD-004 in UPDATES-NEEDED.md.
-          drift="$(git status --porcelain -- static-site | grep -v '/__next\.' || true)"
+          #
+          # The default 404/not-found pages are also excluded. Two Linux builds
+          # of the same commit have been observed to emit the same <head> tags
+          # on these routes in a different order (a <title> and a <meta
+          # name="robots"> swapping places) — a race in Next.js's own default
+          # export-mode 404 handling, not anything in src/. Any real content
+          # regression on these routes (e.g. a broken header or footer) would
+          # still be caught, since every other page shares the same layout and
+          # is not excluded. Tracked as UPD-020 in UPDATES-NEEDED.md.
+          drift="$(git status --porcelain -- static-site \
+            | grep -v '/__next\.' \
+            | grep -v '^.. static-site/404\.html$' \
+            | grep -v '^.. static-site/404/index\.html$' \
+            | grep -v '^.. static-site/_not-found/index\.html$' \
+            || true)"
           if [ -z "$drift" ]; then
             echo "static-site/ matches src/."
             exit 0
