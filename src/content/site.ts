@@ -758,6 +758,25 @@ export const publications = {
     
     // ── Practice guides ──────────────────────────────────────────────────
     {
+      // The newest entry on this shelf — placed first so the Guidelines
+      // list reads most-recent-to-earliest. Public repo with its own
+      // GitHub Pages dashboard, so url points straight at that (no on-site
+      // reader page exists for it, unlike the Cyber Dictionary below).
+      index: "33",
+      area: "Guidelines",
+      topic: "Guidelines",
+      question:
+        "How do you start a project with an AI assistant without skipping the thinking?",
+      title:
+        "Project Startup Guide: Think in Documents, Review With a Human, Then Build",
+      summary:
+        "A starter kit and interactive dashboard for students and non-engineers beginning a project with AI assistance. Four Markdown documents to write before any code — concept/idea, specification, plan and backlog — each gated by a human review before work moves forward, plus a recommended free toolchain and MCP server setup. The dashboard walks the whole method step by step with progress tracking, copy-ready prompts, and downloadable templates; this repository is the source behind it.",
+      status: "Published",
+      date: "September 2026",
+      url: "https://ethical-tech-colab.github.io/project-startup-guide/",
+      repo: "https://github.com/Ethical-Tech-CoLab/project-startup-guide",
+    },
+    {
       // Also a public tool rather than an internal guide: no
       // access: "internal", and it sits on the Guidelines shelf because it is
       // reference material you consult while building.
