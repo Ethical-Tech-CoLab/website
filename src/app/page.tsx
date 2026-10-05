@@ -20,6 +20,11 @@ import { Reveal } from "@/components/motion/Reveal";
  * card that points nowhere — and an internal one fails it too, since the demo
  * cards advertise demos a visitor can open.
  */
+/** Card titles set by hand, by repo name, where the catalogue name would not do. */
+const CARD_TITLES: Record<string, string> = {
+  "mariupol-3d": "Evacuation Simulator - Mariupol 3D",
+};
+
 function liveDemo(repoName: string): Product {
   const product = products.find((p) => p.repoName === repoName);
   if (!product?.demo || product.access === "internal") {
@@ -45,6 +50,7 @@ function liveDemo(repoName: string): Product {
 const statements: Statement[] = [
   {
     lead: "Ethical Tech CoLab",
+    centerHeading: true,
     // The wordmark carries this card the way it carries `/`, so it runs a step
     // larger than the sentence-shaped headings on the other cards.
     headingClass: "text-[clamp(4.25rem,13vw,11rem)] leading-[0.88]",
@@ -63,7 +69,7 @@ const statements: Statement[] = [
       </p>
     ),
     line: (
-      <p className="mx-auto mt-7 max-w-2xl leading-relaxed text-foreground/85">
+      <p className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-foreground/85 sm:text-xl">
         A research collaboration between NYU&apos;s{" "}
         <a
           href="https://www.sps.nyu.edu/about/academic-divisions-and-departments/center-for-global-affairs.html"
@@ -88,15 +94,17 @@ const statements: Statement[] = [
     "agentic-language-development",
   ].map((repoName): Statement => {
     const product = liveDemo(repoName);
+    // The part of the catalogue name before the dash, as the poster sets it,
+    // unless the card has its own title.
+    const [catalogueHeading] = product.name.split(" — ");
     return {
-      lead: "Open research, ",
-      em: "live demos",
+      lead: CARD_TITLES[repoName] ?? catalogueHeading,
       // Held to one line: the size follows the viewport (the width less the
       // hero's side padding, over roughly the heading's length in ems, with
       // headroom) up to a cap, so it shrinks with the screen rather than
       // wrapping.
       headingClass:
-        "whitespace-nowrap text-[clamp(1.75rem,calc((100vw_-_3rem)/10),5.5rem)]!",
+        "whitespace-nowrap text-[clamp(1.5rem,calc((100vw_-_3rem)/11),5rem)]!",
       name: product.name,
       block: <DemoPoster product={product} />,
       cta: "See more live demos",
@@ -129,14 +137,44 @@ const statements: Statement[] = [
   //   href: "/publications",
   // },
   {
-    // PLACEHOLDER — temporary text, to be replaced with the real events copy.
-    // No `cta` yet: there is no events page to send a reader to. When there is
-    // one, give this card a `cta` and `href` like the others.
-    lead: "Upcoming ",
-    em: "events",
-    tail: ".",
-    figure: "Dates to be announced",
-    line: "Temporary text. This card is reserved for CoLab events; the details will go here.",
+    // No `cta` yet: there is no events page to send a reader to. The empty
+    // frames under the text are kept for event photos.
+    lead: "Gather With the ",
+    em: "CoLab",
+    line: "Workshops, talks, and demo days where our research meets practitioners, funders, and partners.",
+    block: (
+      <div className="mx-auto grid max-w-3xl grid-cols-3 gap-3">
+        {[
+          { src: "/home/events/hackathon.jpg", alt: "Students and mentors at the Microsoft hackathon in New York City" },
+          { src: "/home/events/ai-demo.jpg", alt: "A CoLab speaker presenting an AI research visualisation to a room" },
+          { src: "/home/events/networking.jpg", alt: "Guests talking over coffee at a CoLab reception" },
+        ].map((photo) => (
+          <div
+            key={photo.src}
+            className="relative aspect-[4/3] overflow-hidden rounded-xl border border-border"
+          >
+            <Image
+              src={asset(photo.src)}
+              alt={photo.alt}
+              fill
+              sizes="(min-width: 768px) 20vw, 30vw"
+              className="object-cover object-center"
+            />
+          </div>
+        ))}
+      </div>
+    ),
+    actions: [
+      {
+        label: "Join Events",
+        href: "https://luma.com/ethical-tech-colab",
+        primary: true,
+      },
+      {
+        label: "Cohost with us",
+        href: "mailto:ethical-tech-colab@nyu.edu?subject=event%20collab%20inquiry",
+      },
+    ],
   },
   {
     lead: "The people ",

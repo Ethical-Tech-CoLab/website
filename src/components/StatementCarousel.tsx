@@ -30,6 +30,12 @@ export interface Statement {
    */
   headingClass?: string;
   /**
+   * Centres the heading between the top of the card and the copy below it,
+   * with equal space above and below. Off by default: the heading sits at the
+   * top and the copy is anchored to the bottom.
+   */
+  centerHeading?: boolean;
+  /**
    * The caps line under the heading, e.g. "26 demos you can open". Optional:
    * the card standing for the home page has no figure to report.
    *
@@ -47,6 +53,11 @@ export interface Statement {
    */
   cta?: string;
   href?: string;
+  /**
+   * Further buttons under the main one, in a row. External links open in a
+   * new tab; a `mailto:` link opens the reader's mail client.
+   */
+  actions?: { label: string; href: string; primary?: boolean }[];
   /**
    * What tells this card apart from the others when several share a heading:
    * it names the card on its dot.
@@ -116,8 +127,7 @@ interface Position {
  * the tab is hidden — and resumes when that ends. Only an explicit act stops
  * it for good: the dots, the arrow keys, or the Pause button. Those two are
  * separate on purpose. Making hover a permanent stop reads as "the carousel
- * is broken", because the hero sits where the cursor already is. The Back
- * button is the exception among the controls: it steps without stopping.
+ * is broken", because the hero sits where the cursor already is.
  *
  * Under reduced motion it never autoplays, cards swap without sliding, and
  * the control becomes a manual "Next".
@@ -238,7 +248,7 @@ export function StatementCarousel({
           heading set on one line cannot widen it and push the card over. */}
       <div
         aria-live="polite"
-        className="grid grid-cols-[minmax(0,1fr)] items-start"
+        className="grid grid-cols-[minmax(0,1fr)] items-stretch"
       >
         {statements.map((statement, i) => {
           const active = i === index;
@@ -255,12 +265,17 @@ export function StatementCarousel({
               inert={!active}
               aria-hidden={!active}
               style={{ gridArea: "1 / 1", animation: animationOf(i) }}
-              className={shown ? undefined : "invisible"}
+              className={`${
+                statement.centerHeading
+                  ? "grid grid-rows-[1fr_auto_1fr_auto]"
+                  : "flex flex-col"
+              } ${shown ? "" : "invisible"}`}
             >
               {/* The destination's own heading, in the destination's own
                   colours — the accent half is the same `display-em` that page
                   sets on its `<h1>` — so the hero reads as a door into that
                   page rather than as a slogan with a statistic under it. */}
+              {statement.centerHeading && <div aria-hidden />}
               <Heading
                 className={`mx-auto block max-w-4xl fluid-hero font-heading uppercase leading-[0.95] ${
                   statement.headingClass ?? ""
@@ -275,59 +290,72 @@ export function StatementCarousel({
 
               {/* Copy only: the way into the destination is the button, so the
                   text itself is not a link. */}
-              {(statement.figure || statement.line) && (
-                <div className="pt-8 text-center">
-                  {typeof statement.figure === "string" ? (
-                    <span className="mb-2 block text-sm font-semibold uppercase tracking-[0.12em] text-foreground sm:text-base">
-                      {statement.figure}
-                    </span>
-                  ) : (
-                    statement.figure
-                  )}
-                  {typeof statement.line === "string" ? (
-                    <span className="mx-auto block max-w-[40em] leading-relaxed text-muted">
-                      {statement.line}
-                    </span>
-                  ) : (
-                    statement.line
-                  )}
-                </div>
-              )}
+              {statement.centerHeading && <div aria-hidden />}
+              <div className="mt-auto">
+                {(statement.figure || statement.line) && (
+                  <div
+                  className={`${statement.centerHeading ? "" : "pt-8"} text-center`}
+                >
+                    {typeof statement.figure === "string" ? (
+                      <span className="mb-2 block text-sm font-semibold uppercase tracking-[0.12em] text-foreground sm:text-base">
+                        {statement.figure}
+                      </span>
+                    ) : (
+                      statement.figure
+                    )}
+                    {typeof statement.line === "string" ? (
+                      <span className="mx-auto block max-w-[40em] leading-relaxed text-muted">
+                        {statement.line}
+                      </span>
+                    ) : (
+                      statement.line
+                    )}
+                  </div>
+                )}
 
-              {statement.block && <div className="pt-5">{statement.block}</div>}
+                {statement.block && <div className="pt-5">{statement.block}</div>}
 
-              {/* A single call to action rather than a fixed pair: each card
-                  points wherever it points. */}
-              {statement.cta && statement.href && (
-                <div className="pt-6 text-center">
-                  <Magnetic className="inline-block">
-                    <Link
-                      href={statement.href}
-                      className="btn-sweep inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.02]"
-                    >
-                      {statement.cta} <span aria-hidden>→</span>
-                    </Link>
-                  </Magnetic>
-                </div>
-              )}
+                {/* A single call to action rather than a fixed pair: each card
+                    points wherever it points. */}
+                {statement.cta && statement.href && (
+                  <div className="pt-6 text-center">
+                    <Magnetic className="inline-block">
+                      <Link
+                        href={statement.href}
+                        className="btn-sweep inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.02]"
+                      >
+                        {statement.cta} <span aria-hidden>→</span>
+                      </Link>
+                    </Magnetic>
+                  </div>
+                )}
+                {statement.actions && (
+                  <div className="flex flex-wrap items-center justify-center gap-3 pt-6">
+                    {statement.actions.map((action) => (
+                      <a
+                        key={action.label}
+                        href={action.href}
+                        {...(action.href.startsWith("mailto:")
+                          ? {}
+                          : { target: "_blank", rel: "noopener noreferrer" })}
+                        className={
+                          action.primary
+                            ? "btn-sweep inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-ink transition-transform hover:scale-[1.02]"
+                            : "inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent hover:text-accent"
+                        }
+                      >
+                        {action.label} <span aria-hidden>→</span>
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           );
         })}
       </div>
 
       <div className="mt-4 flex items-center justify-center">
-        {/* Steps back one card, wrapping from the first to the last. Unlike the
-            dots it does not stop the rotation for good: it holds focus once
-            clicked, and focus already holds the rotation, so a reader can page
-            back through the cards and it carries on afterwards. */}
-        <button
-          type="button"
-          onClick={() => step(-1)}
-          aria-label={`Previous ${label.toLowerCase()}`}
-          className="mr-3 inline-grid h-11 w-11 place-items-center rounded-full border-2 border-accent text-base font-semibold text-accent transition-colors hover:bg-accent hover:text-accent-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-        >
-          <span aria-hidden>←</span>
-        </button>
         {statements.map((statement, i) => (
           // The button is a 44px-tall target around a slim bar: the bar is what
           // is seen, the padding is what is clicked. The focus ring goes on the
