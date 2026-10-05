@@ -413,6 +413,13 @@ whether `/print/` should be excluded or marked non-indexable.
 **Acceptance:** Only intended pages are publicly reachable, and no unused font
 family ships.
 
+**Partly done:** `/font-lab/` has been deleted, with its three font families.
+It had also become a source of snapshot drift: `next/font/google` fetches each
+family's `@font-face` rules at build time, and Google was returning different
+`unicode-range` lists from one build to the next, so the page's CSS chunk (and
+its content-hashed filename) changed on every build, two CI attempts on the same
+commit included. The `/print/` question is still open.
+
 ### UPD-018 - `@source not` appears inert on the Linux CI runner
 
 **Priority:** Medium

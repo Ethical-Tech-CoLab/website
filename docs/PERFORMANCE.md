@@ -239,6 +239,7 @@ These are measured re-encodes, not estimates.
 11. **Remove `/font-lab` from the production build** once the wordmark is
     chosen, or exclude it from export. Same question for the 18 `/print/`
     routes, which exist to feed the book renderer rather than to be visited.
+    *`/font-lab` has since been deleted; `/print/` is still open (UPD-016).*
 
 ### Explicitly not recommended
 
