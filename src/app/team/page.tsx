@@ -75,7 +75,7 @@ function Subsection({
 }) {
   return (
     <div id={id} className="mt-14 scroll-mt-24 first-of-type:mt-12">
-      <h3 className="font-heading text-3xl uppercase leading-none sm:text-4xl">
+      <h3 className="font-heading text-2xl uppercase leading-none tracking-[0.12em] text-accent sm:text-3xl">
         {heading}
       </h3>
       <div className="mt-8">{children}</div>

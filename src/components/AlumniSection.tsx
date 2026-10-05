@@ -50,7 +50,7 @@ export function AlumniSection() {
             id={`alumni-${group.term.toLowerCase().replace(/\s+/g, "-")}`}
             className="relative w-72 shrink-0 snap-start scroll-mt-24 not-first:before:absolute not-first:before:inset-y-0 not-first:before:-left-8 not-first:before:w-px not-first:before:bg-border sm:w-80 lg:w-[max(18rem,calc((100%-8rem)/3))]"
           >
-            <h4 className="font-heading text-2xl uppercase leading-none tracking-[0.06em] text-accent sm:text-3xl">
+            <h4 className="font-heading text-xl uppercase leading-none tracking-[0.06em] text-foreground sm:text-2xl">
               {group.term}
             </h4>
 

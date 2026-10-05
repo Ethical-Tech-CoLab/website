@@ -2011,6 +2011,8 @@ export const team = {
     "yago-rocha",
     "kirsten-co",
     "brianna-gabaldon",
+    "kaishuu-shinozaki-conefrey",
+    "dhruvi-desai",
   ],
   advisorsLabel: "Advisors",
   advisors: [
@@ -2321,20 +2323,37 @@ export const team = {
       bio: "Alex Du is the Ethical Tech CoLab's Marketing & Community Lead, and joined the lab with the Spring 2025 cohort. She co-authored AI's Carbon Footprint, the cohort's report on the environmental cost of building and running large AI models, which weighs data-center energy use, cooling, and hardware against the efficiency practices and policy interventions that could reduce AI's ecological footprint.",
     },
   ] as TeamMember[],
-  collaboratorsLabel: "Collaborators and Researchers",
+  collaboratorsLabel: "Researchers & Collaborators",
   collaborators: [
     {
       initials: "AD",
       name: "Adeline Daab",
       role: "Collaborator",
       org: "NYU Gallatin",
-      // No public LinkedIn profile found (searched 2026-08-08); the NYU Gallatin
-      // "My Gallatin Story" feature below is the authoritative public profile.
+      linkedin: "https://www.linkedin.com/in/adeline-d-504208283/",
       website:
         "https://www.facebook.com/nyugallatin/posts/my-gallatin-story-adeline-daab-ba-28-what-is-your-concentrationmy-concentration-/1436765148221804/",
       photo: "/team/adeline.jpg",
       slug: "adeline-daab",
       bio: "Adeline Daab is an undergraduate at NYU's Gallatin School of Individualized Study (BA '28). Her concentration explores the intersection of human and labor exploitation with environmental resource exploitation, and how both interact with and emerge from broader social and economic systems.\n\nShe works with Empowerment Collective, a survivor-led organization focused on ending modern slavery. She first encountered it on a gap year after high school, living and working in its fair-trade clothing shop in Kathmandu, Nepal, and joined the team after being drawn to its circular survivor-leadership framework and person-to-person, community-based model of aid. Gallatin's emphasis on collaborative learning has since moved her research and writing toward a more community-based practice, and her work has helped convene survivor leaders, business leaders, academics, and activists around modern slavery and its ties to the climate crisis, gender hierarchies, economic systems, and consumption culture.",
+    },
+    {
+      initials: "KS",
+      name: "Kaishuu Shinozaki-Conefrey",
+      role: "Software Engineer",
+      org: "PhD candidate, NYU Tandon School of Engineering",
+      linkedin: "https://www.linkedin.com/in/kaishuu-shinozaki-conefrey/",
+      photo: "/team/Kaishuu.jpeg",
+      slug: "kaishuu-shinozaki-conefrey",
+    },
+    {
+      initials: "DD",
+      name: "Dhruvi Desai",
+      role: "CRM Specialist",
+      org: "Ethical Tech CoLab",
+      linkedin: "https://www.linkedin.com/in/dhruvi-desai-55d/",
+      photo: "/team/Dhruvi.png",
+      slug: "dhruvi-desai",
     },
   ] as TeamMember[],
 };
