@@ -1969,10 +1969,9 @@ export interface TeamMember {
 export const cohortTerms = ["Spring 2025", "Fall 2025", "Summer 2026"];
 
 export const team = {
-  eyebrow: "Team",
-  heading: "The people building this.",
+  heading: "Meet the Team",
   intro:
-    "A small, selected team of graduate students working at the intersection of the human condition and emerging technology. Alongside them, faculty advisors, industry partners, and collaborators mentor, guide, and build the work together.",
+    "Researchers running applied projects, backed by faculty advisors, industry partners, and collaborators who mentor, guide, and build alongside them.",
   // Closing band on /team: the organisations the CoLab works with, shown as
   // logo cards. The org data itself (and the logos) lives in `about` — this is
   // only the framing copy, so the two stay in step if `about` is restored.
@@ -1983,9 +1982,7 @@ export const team = {
   // collaborators" grid — the client/partner split was not a distinction worth
   // making to a visitor.
   orgs: {
-    eyebrow: "Partners & collaborators",
     heading: "The organisations behind the work.",
-    note: "Click any organisation to see their logo and details.",
   },
   founder: {
     initials: "YR",
@@ -1997,6 +1994,26 @@ export const team = {
     slug: "yorke-rhodes",
     bio: "Professor Yorke Rhodes is the Microsoft Director of Traceability, Cofounder of Blockchain at Microsoft, and Cofounder of the NYU Ethical Tech CoLab. A visionary technologist and strategic leader at the intersection of blockchain innovation, artificial intelligence, and ethical systems design. As Director of Traceability, he drives transformative initiatives that enhance traceability, transparency, and trust across global ecosystems. Yorke's work spans enterprise architecture, compliance frameworks, and humanitarian tech, with a focus on applying emerging technologies to real-world challenges, from forced labor mitigation to responsible AI deployment. He is also an educator and speaker, shaping the next generation of ethical technologists through hands-on learning and thought leadership.",
   } as TeamMember,
+  // Who is working with the CoLab now, by profile slug. /team splits the page
+  // into current and past members on this list: a current member listed in
+  // `advisors` shows under Current → Advisors, anyone else under Current →
+  // Collaborators. Advisors not listed stay under Past → Advisors; past
+  // collaborators and researchers are covered by the cohort columns under
+  // Past, so a collaborator not listed here is not shown. The cohort columns
+  // are a record of each group as it was, so a current member who came
+  // through a cohort is listed there too.
+  currentMembers: [
+    "india-clarke",
+    "alex-du",
+    "adeline-daab",
+    "hannah-zhao",
+    "carolina-moron",
+    "yago-rocha",
+    "kirsten-co",
+    "brianna-gabaldon",
+    "kaishuu-shinozaki-conefrey",
+    "dhruvi-desai",
+  ],
   advisorsLabel: "Advisors",
   advisors: [
     {
@@ -2041,6 +2058,16 @@ export const team = {
       slug: "nathaniel-fossella",
       bio: "Nathaniel Fossella is a Financial Crime Investigations Analyst at Barclays and a former Ethical Tech CoLab researcher.",
     },
+    {
+      initials: "SD",
+      name: "Susan deMenil",
+      role: "Advisor",
+      org: "AABC Co-Founder · Cultural Heritage Thought Leader",
+      linkedin: "https://www.linkedin.com/in/susan-de-menil-8b083498/",
+      photo: "/team/susan.jpg",
+      slug: "susan-deminil",
+      bio: "Susan de Menil is currently the founding co-president of the Art, Antiquities, and Blockchain Consortium (AABC), a nonprofit 501(c)3 that uses blockchain-based infrastructure to guide the future of cultural heritage repatriation. Since 1991, Susan has worked as the director of marketing, administration, and interior design for Francois de Menil, Architect, P.C. From 1999-2012, she served as the president and executive director of the Byzantine Fresco Foundation, the nonprofit organization that oversaw the acquisition, conservation, exhibition, stewardship, and return of frescoes that had been taken from the Church at Lysi in Cyprus. During that time, de Menil conducted in-depth ethnographic interviews with the many stakeholders in a complex international negotiation over the frescoes. Susan is the director of the forthcoming documentary on this project, 38 Pieces.\n\nIn her research and curatorial work, de Menil co-curated Angels & Franciscans: Innovative Architecture from Los Angeles and San Francisco, an exhibition which was awarded Best Architecture show by the International Association of Art Critics. The catalogue (with Bill Lacey) was published by Rizzoli. She is also co-editor of the book Sanctuary: The Spirit In/Of Architecture based on a symposium at the Menil Collection organized in conjunction with the exhibition Sanctuaries: The Last Works of John Hejduk.",
+    },
   ] as TeamMember[],
   residentFellowsLabel: "Staff",
   residentFellows: [
@@ -2061,7 +2088,6 @@ export const team = {
       slug: "carolina-moron",
     },
   ] as TeamMember[],
-  researchersLabel: "The Cohort",
   researchersCount: "7 researchers",
   researchers: [
     {
@@ -2297,15 +2323,14 @@ export const team = {
       bio: "Alex Du is the Ethical Tech CoLab's Marketing & Community Lead, and joined the lab with the Spring 2025 cohort. She co-authored AI's Carbon Footprint, the cohort's report on the environmental cost of building and running large AI models, which weighs data-center energy use, cooling, and hardware against the efficiency practices and policy interventions that could reduce AI's ecological footprint.",
     },
   ] as TeamMember[],
-  collaboratorsLabel: "Other Members",
+  collaboratorsLabel: "Researchers & Collaborators",
   collaborators: [
     {
       initials: "AD",
       name: "Adeline Daab",
       role: "Collaborator",
       org: "NYU Gallatin",
-      // No public LinkedIn profile found (searched 2026-08-08); the NYU Gallatin
-      // "My Gallatin Story" feature below is the authoritative public profile.
+      linkedin: "https://www.linkedin.com/in/adeline-d-504208283/",
       website:
         "https://www.facebook.com/nyugallatin/posts/my-gallatin-story-adeline-daab-ba-28-what-is-your-concentrationmy-concentration-/1436765148221804/",
       photo: "/team/adeline.jpg",
@@ -2313,14 +2338,22 @@ export const team = {
       bio: "Adeline Daab is an undergraduate at NYU's Gallatin School of Individualized Study (BA '28). Her concentration explores the intersection of human and labor exploitation with environmental resource exploitation, and how both interact with and emerge from broader social and economic systems.\n\nShe works with Empowerment Collective, a survivor-led organization focused on ending modern slavery. She first encountered it on a gap year after high school, living and working in its fair-trade clothing shop in Kathmandu, Nepal, and joined the team after being drawn to its circular survivor-leadership framework and person-to-person, community-based model of aid. Gallatin's emphasis on collaborative learning has since moved her research and writing toward a more community-based practice, and her work has helped convene survivor leaders, business leaders, academics, and activists around modern slavery and its ties to the climate crisis, gender hierarchies, economic systems, and consumption culture.",
     },
     {
-      initials: "SD",
-      name: "Susan deMenil",
-      role: "Collaborator",
-      org: "AABC Co-Founder · Cultural Heritage Thought Leader",
-      linkedin: "https://www.linkedin.com/in/susan-de-menil-8b083498/",
-      photo: "/team/susan.jpg",
-      slug: "susan-deminil",
-      bio: "Susan de Menil is currently the founding co-president of the Art, Antiquities, and Blockchain Consortium (AABC), a nonprofit 501(c)3 that uses blockchain-based infrastructure to guide the future of cultural heritage repatriation. Since 1991, Susan has worked as the director of marketing, administration, and interior design for Francois de Menil, Architect, P.C. From 1999-2012, she served as the president and executive director of the Byzantine Fresco Foundation, the nonprofit organization that oversaw the acquisition, conservation, exhibition, stewardship, and return of frescoes that had been taken from the Church at Lysi in Cyprus. During that time, de Menil conducted in-depth ethnographic interviews with the many stakeholders in a complex international negotiation over the frescoes. Susan is the director of the forthcoming documentary on this project, 38 Pieces.\n\nIn her research and curatorial work, de Menil co-curated Angels & Franciscans: Innovative Architecture from Los Angeles and San Francisco, an exhibition which was awarded Best Architecture show by the International Association of Art Critics. The catalogue (with Bill Lacey) was published by Rizzoli. She is also co-editor of the book Sanctuary: The Spirit In/Of Architecture based on a symposium at the Menil Collection organized in conjunction with the exhibition Sanctuaries: The Last Works of John Hejduk.",
+      initials: "KS",
+      name: "Kaishuu Shinozaki-Conefrey",
+      role: "Software Engineer",
+      org: "PhD candidate, NYU Tandon School of Engineering",
+      linkedin: "https://www.linkedin.com/in/kaishuu-shinozaki-conefrey/",
+      photo: "/team/Kaishuu.jpeg",
+      slug: "kaishuu-shinozaki-conefrey",
+    },
+    {
+      initials: "DD",
+      name: "Dhruvi Desai",
+      role: "CRM Specialist",
+      org: "Ethical Tech CoLab",
+      linkedin: "https://www.linkedin.com/in/dhruvi-desai-55d/",
+      photo: "/team/Dhruvi.png",
+      slug: "dhruvi-desai",
     },
   ] as TeamMember[],
 };

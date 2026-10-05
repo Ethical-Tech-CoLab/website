@@ -8,6 +8,21 @@ export function excerpt(bio: string, max = 150): string {
   return cut.slice(0, cut.lastIndexOf(" ")).trimEnd() + "…";
 }
 
+/**
+ * The surname a list is sorted by: the last word of the name, which holds for
+ * every name on the roster, "Carolina de Almeida Pernambuco Moron" included.
+ */
+function lastName(member: TeamMember): string {
+  return member.name.trim().split(/\s+/).at(-1) ?? member.name;
+}
+
+/** Sort comparator: by surname, then by full name. */
+export function byLastName(a: TeamMember, b: TeamMember): number {
+  return (
+    lastName(a).localeCompare(lastName(b)) || a.name.localeCompare(b.name)
+  );
+}
+
 function getAllTeamMembers(): TeamMember[] {
   return [
     team.founder as TeamMember,
