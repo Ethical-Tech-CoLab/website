@@ -177,12 +177,12 @@ export const researchAreas: ResearchArea[] = [
         publication: "/publications/mariupol-severity-model",
       },
       {
-        name: "Mariupol 3D — Agentic Evacuation Twins",
+        name: "3D Evacuation Agentic Simulation",
         summary:
           "Browser 3-D twins of four cities — Mariupol under siege, Lower Manhattan in a storm surge, the Las Vegas Strip, hurricane-zone Miami — each carrying a synthetic population that has to get out. Every city ships its real OpenStreetMap road network and four or five evacuation routes traced over it, and every agent is classified on three axes: who they are, who they travel with (alone, family, ad-hoc group, or an institution that cannot self-evacuate), and how they behave (prompt, information-seeking, wait-and-see, reluctant to leave, or a returner who goes back). The question it answers is not how many people got out, but how long until most of them did, who is still inside when a route closes, and what happens when everyone picks the same road.",
         status: "Active",
-        repo: "https://github.com/Ethical-Tech-CoLab/mariupol-3d",
-        demo: "https://ethical-tech-colab.github.io/mariupol-3d/",
+        repo: "https://github.com/Ethical-Tech-CoLab/3d-evacuation-agentic-simulation",
+        demo: "https://ethical-tech-colab.github.io/3d-evacuation-agentic-simulation/",
       },
     ],
   },
@@ -1283,11 +1283,11 @@ export const products: Product[] = [
     publication: "/publications/mariupol-severity-model",
   },
   {
-    name: "Mariupol 3D — Agentic Evacuation Twins",
-    repoName: "mariupol-3d",
+    name: "3D Evacuation Agentic Simulation",
+    repoName: "3d-evacuation-agentic-simulation",
     term: "Summer 2026",
-    repo: "https://github.com/Ethical-Tech-CoLab/mariupol-3d",
-    demo: "https://ethical-tech-colab.github.io/mariupol-3d/",
+    repo: "https://github.com/Ethical-Tech-CoLab/3d-evacuation-agentic-simulation",
+    demo: "https://ethical-tech-colab.github.io/3d-evacuation-agentic-simulation/",
     blurb:
       "Four 3-D cities you can fly through, each with a synthetic population trying to leave: Mariupol under siege, Lower Manhattan in a storm surge, the Las Vegas Strip, hurricane-zone Miami. The geography is real \u2014 OpenStreetMap buildings, each city\u2019s road network, and four or five evacuation routes traced over it rather than drawn by hand. Agents are classified by who they are, who they travel with, and how they behave, then run a full lifecycle from unwarned to out. Institutional groups take nearly twice as long as people travelling alone; raise the hazard and the reluctant finally leave, which makes the median clearance time worse, not better.",
     language: "JavaScript",
