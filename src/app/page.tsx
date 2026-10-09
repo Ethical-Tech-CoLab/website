@@ -104,7 +104,7 @@ const statements: Statement[] = [
       // headroom) up to a cap, so it shrinks with the screen rather than
       // wrapping.
       headingClass:
-        "whitespace-nowrap text-[clamp(1.5rem,calc((100vw_-_3rem)/11),5rem)]!",
+        "whitespace-nowrap text-[clamp(1.5rem,calc((100vw_-_3rem)/11),4.25rem)]!",
       name: product.name,
       block: <DemoPoster product={product} />,
       cta: "See more live demos",
@@ -141,6 +141,10 @@ const statements: Statement[] = [
     // frames under the text are kept for event photos.
     lead: "Gather With the ",
     em: "CoLab",
+    // This card carries a line, a row of photos, and two buttons below its
+    // heading — more than any other card — so its heading runs smaller than
+    // the full hero size to keep the carousel from being driven tall by it.
+    headingClass: "text-[clamp(2.25rem,5vw,4rem)]!",
     line: "Workshops, talks, and demo days where our research meets practitioners, funders, and partners.",
     block: (
       <div className="mx-auto grid max-w-3xl grid-cols-3 gap-3">
@@ -220,7 +224,7 @@ export default function Home() {
         {/* Less padding above than below: the demo cards have to fit from the
             top of the page to the carousel controls in one screen, and nothing
             under the controls needs to. */}
-        <div className="relative mx-auto max-w-6xl px-6 pb-24 pt-10 text-center sm:pb-28 sm:pt-12">
+        <div className="relative mx-auto max-w-6xl px-6 pb-10 pt-5 text-center sm:pb-12 sm:pt-6">
           <Reveal>
             {/* Runs larger than the site's other eyebrows: this one names the
                 collaboration the whole page rests on, and the carousel below

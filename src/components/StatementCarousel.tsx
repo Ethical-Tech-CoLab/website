@@ -294,7 +294,7 @@ export function StatementCarousel({
               <div className="mt-auto">
                 {(statement.figure || statement.line) && (
                   <div
-                  className={`${statement.centerHeading ? "" : "pt-8"} text-center`}
+                  className={`${statement.centerHeading ? "" : "pt-6"} text-center`}
                 >
                     {typeof statement.figure === "string" ? (
                       <span className="mb-2 block text-sm font-semibold uppercase tracking-[0.12em] text-foreground sm:text-base">
@@ -313,12 +313,12 @@ export function StatementCarousel({
                   </div>
                 )}
 
-                {statement.block && <div className="pt-5">{statement.block}</div>}
+                {statement.block && <div className="pt-4">{statement.block}</div>}
 
                 {/* A single call to action rather than a fixed pair: each card
                     points wherever it points. */}
                 {statement.cta && statement.href && (
-                  <div className="pt-6 text-center">
+                  <div className="pt-4 text-center">
                     <Magnetic className="inline-block">
                       <Link
                         href={statement.href}
@@ -330,7 +330,7 @@ export function StatementCarousel({
                   </div>
                 )}
                 {statement.actions && (
-                  <div className="flex flex-wrap items-center justify-center gap-3 pt-6">
+                  <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
                     {statement.actions.map((action) => (
                       <a
                         key={action.label}
@@ -355,7 +355,7 @@ export function StatementCarousel({
         })}
       </div>
 
-      <div className="mt-4 flex items-center justify-center">
+      <div className="mt-3 flex items-center justify-center">
         {statements.map((statement, i) => (
           // The button is a 44px-tall target around a slim bar: the bar is what
           // is seen, the padding is what is clicked. The focus ring goes on the

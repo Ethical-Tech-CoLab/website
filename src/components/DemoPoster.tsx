@@ -43,12 +43,13 @@ export function DemoPoster({ product }: { product: Product }) {
         {/* Half the column wide and, from the frame's height, as tall as the
             frame leaves room for: the room taken above it (header, eyebrow,
             heading) and below it (the button and the controls) is about 25rem,
-            so the whole stack down to the controls fits one screen. */}
+            so the whole stack down to the controls fits one screen without
+            scrolling on an ordinary laptop viewport. */}
         <a
           href={product.demo}
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex h-[clamp(18rem,calc(100svh-25rem),34rem)] flex-col overflow-hidden rounded-xl border border-border bg-[var(--poster-ground)] shadow-[0_24px_70px_-24px_color-mix(in_oklab,var(--glow)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+          className="group flex h-[clamp(12rem,calc(100svh-25rem),26rem)] flex-col overflow-hidden rounded-xl border border-border bg-[var(--poster-ground)] shadow-[0_24px_70px_-24px_color-mix(in_oklab,var(--glow)_60%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
         >
           <div className="relative min-h-0 flex-1 overflow-hidden">
             <Image
