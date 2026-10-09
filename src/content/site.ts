@@ -1577,7 +1577,7 @@ export const cohorts: Cohort[] = [
     title: "Prototyping and partner pilots.",
     body: "Technical spikes (multi-agent harnesses, verifiable credentials, geospatial pipelines) tested against real partner needs.",
     items: [
-      "8 researchers",
+      "9 researchers",
       "Forced Labor Structural Risk Index",
       "AI Research Question Assistant",
     ],
@@ -1994,14 +1994,14 @@ export const team = {
     slug: "yorke-rhodes",
     bio: "Professor Yorke Rhodes is the Microsoft Director of Traceability, Cofounder of Blockchain at Microsoft, and Cofounder of the NYU Ethical Tech CoLab. A visionary technologist and strategic leader at the intersection of blockchain innovation, artificial intelligence, and ethical systems design. As Director of Traceability, he drives transformative initiatives that enhance traceability, transparency, and trust across global ecosystems. Yorke's work spans enterprise architecture, compliance frameworks, and humanitarian tech, with a focus on applying emerging technologies to real-world challenges, from forced labor mitigation to responsible AI deployment. He is also an educator and speaker, shaping the next generation of ethical technologists through hands-on learning and thought leadership.",
   } as TeamMember,
-  // Who is working with the CoLab now, by profile slug. /team splits the page
-  // into current and past members on this list: a current member listed in
-  // `advisors` shows under Current → Advisors, anyone else under Current →
-  // Collaborators. Advisors not listed stay under Past → Advisors; past
-  // collaborators and researchers are covered by the cohort columns under
-  // Past, so a collaborator not listed here is not shown. The cohort columns
-  // are a record of each group as it was, so a current member who came
-  // through a cohort is listed there too.
+  // Who is working with the CoLab now, by profile slug, for Current →
+  // Collaborators on /team. Advisors are their own section regardless of
+  // current status, so an advisor's slug does not belong in this list even
+  // while they are active — Brianna Gabaldon, for instance, is current but
+  // shows only under Advisors. Past collaborators and researchers are
+  // covered by the cohort columns under Past, so a collaborator not listed
+  // here is not shown; the cohort columns are a record of each group as it
+  // was, so a current member who came through a cohort is listed there too.
   currentMembers: [
     "india-clarke",
     "alex-du",
@@ -2010,7 +2010,6 @@ export const team = {
     "carolina-moron",
     "yago-rocha",
     "kirsten-co",
-    "brianna-gabaldon",
     "kaishuu-shinozaki-conefrey",
     "dhruvi-desai",
   ],
@@ -2047,16 +2046,6 @@ export const team = {
       photo: "/team/brianna.jpg",
       slug: "brianna-gabaldon",
       bio: "Brianna Gabaldon is a Product Manager at Microsoft and an alum of NYU's Center for Global Affairs. Her work sits at the intersection of one of the most scaled-up user experiences in the world and the human condition.",
-    },
-    {
-      initials: "NF",
-      name: "Nathaniel Fossella",
-      role: "Advisor",
-      org: "Financial Crime Investigations Analyst, Barclays · CoLab alum",
-      linkedin: "https://www.linkedin.com/in/nathaniel-fossella-2a8488249/",
-      photo: "/team/nate.jpg",
-      slug: "nathaniel-fossella",
-      bio: "Nathaniel Fossella is a Financial Crime Investigations Analyst at Barclays and a former Ethical Tech CoLab researcher.",
     },
     {
       initials: "SD",
@@ -2311,6 +2300,16 @@ export const team = {
       photo: "/team/kirsten.jpeg",
       slug: "kirsten-co",
       bio: "Kirsten Co (MS, MBA) is a Strategic Advisor to the Ethical Tech CoLab and an alumna of the NYU SPS Center for Global Affairs, where she completed the MS in Global Security, Conflict, and Cybercrime. She also holds an MBA, awarded with distinction by Sydney Business School, and works at Microsoft in New York.\n\nShe joined the lab with the Fall 2025 cohort and is a co-author of AI-Powered Research Questions, its study of AI assistance across the researcher's workflow. She co-hosted the Ethical Tech Summit at the Microsoft Garage with Yorke Rhodes III, convening practitioners from the Enterprise Ethereum Alliance, the NYU SPS Center for Global Affairs, and the CoLab around ethical AI, cybersecurity, and responsible enterprise technology.",
+    },
+    {
+      initials: "NF",
+      name: "Nathaniel Fossella",
+      role: "Applied AI Graduate Researcher",
+      term: "Fall 2025",
+      linkedin: "https://www.linkedin.com/in/nathaniel-fossella-2a8488249/",
+      photo: "/team/nate.jpg",
+      slug: "nathaniel-fossella",
+      bio: "Nathaniel Fossella joined the Ethical Tech CoLab with the Fall 2025 cohort, and is now a Financial Crime Investigations Analyst at Barclays.",
     },
     {
       initials: "AD",

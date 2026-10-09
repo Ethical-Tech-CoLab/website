@@ -16,21 +16,16 @@ export const metadata: Metadata = {
 };
 
 /**
- * `team.currentMembers` split into the page's current lists, and the
- * advisors who are not current into the past one. A current member found in
- * `advisors` is a current advisor; any other current member — a researcher
- * from a cohort, a collaborator — is a current collaborator. Past
- * collaborators and researchers are covered by the cohort columns, so a
- * collaborator who is not current is not listed. Each list is in surname
- * order.
+ * `team.currentMembers` minus whoever is an advisor, for the Current members
+ * section — a researcher from a cohort or a collaborator. Advisors get their
+ * own section regardless of current status, since that distinction is not
+ * usually publicly meaningful for an advisor the way it is for a researcher's
+ * cohort. Each list is in surname order.
  *
  * A slug that names nobody fails the build rather than quietly dropping a
  * person from the page.
  */
 function splitMembers() {
-  const currentSlugs = new Set<string>(team.currentMembers);
-  const isCurrent = (member: TeamMember) =>
-    member.slug !== undefined && currentSlugs.has(member.slug);
   const advisorSlugs = new Set(team.advisors.map((member) => member.slug));
 
   const currentPeople = team.currentMembers.map((slug) => {
@@ -44,19 +39,10 @@ function splitMembers() {
   });
 
   return {
-    current: {
-      advisors: currentPeople
-        .filter((member) => advisorSlugs.has(member.slug))
-        .sort(byLastName),
-      collaborators: currentPeople
-        .filter((member) => !advisorSlugs.has(member.slug))
-        .sort(byLastName),
-    },
-    past: {
-      advisors: team.advisors
-        .filter((member) => !isCurrent(member))
-        .sort(byLastName),
-    },
+    collaborators: currentPeople
+      .filter((member) => !advisorSlugs.has(member.slug))
+      .sort(byLastName),
+    advisors: [...team.advisors].sort(byLastName),
   };
 }
 
@@ -90,12 +76,18 @@ function Subsection({
  */
 function MemberGrid({ members }: { members: TeamMember[] }) {
   if (members.length === 0) return null;
+  // An odd member out in a two-column grid leaves an empty cell, which paints
+  // as a solid block of the grid's own gap colour rather than a hairline.
+  // Spanning the last card across both columns instead closes that gap.
+  const lastIsAlone = members.length % 2 === 1;
   return (
     <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
-      {members.map((member) => (
+      {members.map((member, i) => (
         <div
           key={member.name}
-          className="flex gap-4 bg-background p-6 transition-colors hover:bg-surface/60"
+          className={`flex gap-4 bg-background p-6 transition-colors hover:bg-surface/60 ${
+            lastIsAlone && i === members.length - 1 ? "sm:col-span-2" : ""
+          }`}
         >
           <Link
             href={`/team/${member.slug}`}
@@ -198,7 +190,7 @@ function MemberRows({ members }: { members: TeamMember[] }) {
 }
 
 export default function TeamPage() {
-  const { current, past } = splitMembers();
+  const { collaborators, advisors } = splitMembers();
 
   return (
     <>
@@ -233,9 +225,37 @@ export default function TeamPage() {
         </div>
       </section>
 
-      {/* Founder — at the top, straight under the hero, ahead of the current
-          and past members. */}
-      <section className="bg-surface/40">
+      {/* Current members — whoever is working with the CoLab now, listed in
+          `team.currentMembers`. */}
+      <section id="current" className="border-t border-border">
+        <div className="mx-auto max-w-6xl px-6 py-20">
+          <h2 className="fluid-h2 font-heading uppercase">Current members</h2>
+
+          <Subsection heading={team.collaboratorsLabel}>
+            <MemberRows members={collaborators} />
+          </Subsection>
+        </div>
+      </section>
+
+      {/* Advisors — on their own rather than split between Current and Past,
+          since whether an advisor is presently active is not the kind of
+          thing this page otherwise tracks about them. Sits right before
+          Founder, the page's other "set apart from the lists" section. */}
+      <section id="advisors" className="border-t border-border bg-surface/40">
+        <div className="mx-auto max-w-6xl px-6 py-20">
+          <h2 className="fluid-h2 font-heading uppercase">
+            {team.advisorsLabel}
+          </h2>
+          <div className="mt-10">
+            <MemberGrid members={advisors} />
+          </div>
+        </div>
+      </section>
+
+      {/* Founder — between Advisors and Past members, rather than at the top
+          ahead of everything: one person, set apart from every list he is
+          not a member of. */}
+      <section className="border-t border-border">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <h2 className="fluid-h2 font-heading uppercase">Founder</h2>
 
@@ -275,32 +295,14 @@ export default function TeamPage() {
         </div>
       </section>
 
-      {/* Current members — whoever is working with the CoLab now, listed in
-          `team.currentMembers`. */}
-      <section id="current" className="border-t border-border">
-        <div className="mx-auto max-w-6xl px-6 py-20">
-          <h2 className="fluid-h2 font-heading uppercase">Current members</h2>
-
-          <Subsection heading={team.collaboratorsLabel}>
-            <MemberRows members={current.collaborators} />
-          </Subsection>
-          <Subsection heading={team.advisorsLabel}>
-            <MemberRows members={current.advisors} />
-          </Subsection>
-        </div>
-      </section>
-
-      {/* Past members — the cohorts, as each group was, then the advisors
-          who are not current members. */}
+      {/* Past members — the cohorts, as each group was. Advisors are their
+          own section above, not split between here and Current. */}
       <section id="past" className="border-t border-border bg-surface/40">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <h2 className="fluid-h2 font-heading uppercase">Past members</h2>
 
           <Subsection heading="Cohorts" id="alumni">
             <AlumniSection />
-          </Subsection>
-          <Subsection heading={team.advisorsLabel}>
-            <MemberGrid members={past.advisors} />
           </Subsection>
         </div>
       </section>
